@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="com.bm_bootcampmanagement_jar_0.0.1-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>com.bm.bootcampmanagement.entities.TbMVillage</class>
+    <class>com.bm.bootcampmanagement.entities.TbTScore</class>
+    <class>com.bm.bootcampmanagement.entities.TbTAchievement</class>
+    <class>com.bm.bootcampmanagement.entities.TbMRoom</class>
+    <class>com.bm.bootcampmanagement.entities.TbTEmployeeAccess</class>
+    <class>com.bm.bootcampmanagement.entities.TbTWorkExperience</class>
+    <class>com.bm.bootcampmanagement.entities.TbMProvince</class>
+    <class>com.bm.bootcampmanagement.entities.TbMDegree</class>
+    <class>com.bm.bootcampmanagement.entities.TbMReligion</class>
+    <class>com.bm.bootcampmanagement.entities.TbMBatch</class>
+    <class>com.bm.bootcampmanagement.entities.TbMTopic</class>
+    <class>com.bm.bootcampmanagement.entities.TbMAspect</class>
+    <class>com.bm.bootcampmanagement.entities.TbMBatchClass</class>
+    <class>com.bm.bootcampmanagement.entities.TbTEmployeeSkill</class>
+    <class>com.bm.bootcampmanagement.entities.TbMCertificate</class>
+    <class>com.bm.bootcampmanagement.entities.TbTEmployeeRole</class>
+    <class>com.bm.bootcampmanagement.entities.TbTErrorBank</class>
+    <class>com.bm.bootcampmanagement.entities.TbMCategory</class>
+    <class>com.bm.bootcampmanagement.entities.TbTOrganization</class>
+    <class>com.bm.bootcampmanagement.entities.TbMAccessCard</class>
+    <class>com.bm.bootcampmanagement.entities.TbTIdCard</class>
+    <class>com.bm.bootcampmanagement.entities.TbMSubdistrict</class>
+    <class>com.bm.bootcampmanagement.entities.TbTEmployeeLanguage</class>
+    <class>com.bm.bootcampmanagement.entities.TbMLocker</class>
+    <class>com.bm.bootcampmanagement.entities.TbMUniversity</class>
+    <class>com.bm.bootcampmanagement.entities.TbMDistrict</class>
+    <class>com.bm.bootcampmanagement.entities.TbMEmployee</class>
+    <class>com.bm.bootcampmanagement.entities.TbTEmployeeCertification</class>
+    <class>com.bm.bootcampmanagement.entities.TbMParameter</class>
+    <class>com.bm.bootcampmanagement.entities.TbMCompany</class>
+    <class>com.bm.bootcampmanagement.entities.TbMMajor</class>
+    <class>com.bm.bootcampmanagement.entities.TbTPlacement</class>
+    <class>com.bm.bootcampmanagement.entities.TbTParticipant</class>
+    <class>com.bm.bootcampmanagement.entities.TbMLesson</class>
+    <class>com.bm.bootcampmanagement.entities.TbMLanguage</class>
+    <class>com.bm.bootcampmanagement.entities.TbMEducation</class>
+    <class>com.bm.bootcampmanagement.entities.TbMEvaluation</class>
+    <class>com.bm.bootcampmanagement.entities.TbMRole</class>
+    <class>com.bm.bootcampmanagement.entities.TbTEducationHistory</class>
+    <class>com.bm.bootcampmanagement.entities.TbTEmployeeLocker</class>
+    <class>com.bm.bootcampmanagement.entities.TbMClasses</class>
+    <class>com.bm.bootcampmanagement.entities.TbMSkill</class>
+    <class>com.bm.bootcampmanagement.entities.EmployeeSkill</class>
+    <class>com.bm.bootcampmanagement.entities.EmployeeLanguage</class>
+    <class>com.bm.bootcampmanagement.entities.Room</class>
+    <class>com.bm.bootcampmanagement.entities.Score</class>
+    <class>com.bm.bootcampmanagement.entities.Company</class>
+    <class>com.bm.bootcampmanagement.entities.Achievement</class>
+    <class>com.bm.bootcampmanagement.entities.EmployeeLocker</class>
+    <class>com.bm.bootcampmanagement.entities.WorkExperience</class>
+    <class>com.bm.bootcampmanagement.entities.Parameter</class>
+    <class>com.bm.bootcampmanagement.entities.Certificate</class>
+    <class>com.bm.bootcampmanagement.entities.Skill</class>
+    <class>com.bm.bootcampmanagement.entities.Placement</class>
+    <class>com.bm.bootcampmanagement.entities.University</class>
+    <class>com.bm.bootcampmanagement.entities.Batch</class>
+    <class>com.bm.bootcampmanagement.entities.Language</class>
+    <class>com.bm.bootcampmanagement.entities.AccessCard</class>
+    <class>com.bm.bootcampmanagement.entities.Village</class>
+    <class>com.bm.bootcampmanagement.entities.Subdistrict</class>
+    <class>com.bm.bootcampmanagement.entities.Classes</class>
+    <class>com.bm.bootcampmanagement.entities.Lesson</class>
+    <class>com.bm.bootcampmanagement.entities.Province</class>
+    <class>com.bm.bootcampmanagement.entities.District</class>
+    <class>com.bm.bootcampmanagement.entities.Employee</class>
+    <class>com.bm.bootcampmanagement.entities.Degree</class>
+    <class>com.bm.bootcampmanagement.entities.Locker</class>
+    <class>com.bm.bootcampmanagement.entities.ErrorBank</class>
+    <class>com.bm.bootcampmanagement.entities.EmployeeRole</class>
+    <class>com.bm.bootcampmanagement.entities.Evaluation</class>
+    <class>com.bm.bootcampmanagement.entities.Major</class>
+    <class>com.bm.bootcampmanagement.entities.Religion</class>
+    <class>com.bm.bootcampmanagement.entities.Education</class>
+    <class>com.bm.bootcampmanagement.entities.Role</class>
+    <class>com.bm.bootcampmanagement.entities.EmployeeAccess</class>
+    <class>com.bm.bootcampmanagement.entities.Aspect</class>
+    <class>com.bm.bootcampmanagement.entities.IdCard</class>
+    <class>com.bm.bootcampmanagement.entities.EmployeeCertification</class>
+    <class>com.bm.bootcampmanagement.entities.Participant</class>
+    <class>com.bm.bootcampmanagement.entities.Topic</class>
+    <class>com.bm.bootcampmanagement.entities.Organization</class>
+    <class>com.bm.bootcampmanagement.entities.Category</class>
+    <class>com.bm.bootcampmanagement.entities.EducationHistory</class>
+    <class>com.bm.bootcampmanagement.entities.BatchClass</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/bootcampmanagement2?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.password" value=""/>
+    </properties>
+  </persistence-unit>
+</persistence>
