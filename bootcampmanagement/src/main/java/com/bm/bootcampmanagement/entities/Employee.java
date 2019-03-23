@@ -40,17 +40,19 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e")
     , @NamedQuery(name = "Employee.findById", query = "SELECT e FROM Employee e WHERE e.id = :id")
     , @NamedQuery(name = "Employee.findByName", query = "SELECT e FROM Employee e WHERE e.name = :name")
-    , @NamedQuery(name = "Employee.findByBirthDate", query = "SELECT e FROM Employee e WHERE e.birthDate = :birthDate")
+    , @NamedQuery(name = "Employee.findByBirthdate", query = "SELECT e FROM Employee e WHERE e.birthdate = :birthdate")
     , @NamedQuery(name = "Employee.findByGender", query = "SELECT e FROM Employee e WHERE e.gender = :gender")
-    , @NamedQuery(name = "Employee.findByMarriedStatus", query = "SELECT e FROM Employee e WHERE e.marriedStatus = :marriedStatus")
+    , @NamedQuery(name = "Employee.findByMarriedstatus", query = "SELECT e FROM Employee e WHERE e.marriedstatus = :marriedstatus")
     , @NamedQuery(name = "Employee.findByAddress", query = "SELECT e FROM Employee e WHERE e.address = :address")
     , @NamedQuery(name = "Employee.findByEmail", query = "SELECT e FROM Employee e WHERE e.email = :email")
     , @NamedQuery(name = "Employee.findByPhone", query = "SELECT e FROM Employee e WHERE e.phone = :phone")
-    , @NamedQuery(name = "Employee.findByOnboardDate", query = "SELECT e FROM Employee e WHERE e.onboardDate = :onboardDate")
+    , @NamedQuery(name = "Employee.findByOnboarddate", query = "SELECT e FROM Employee e WHERE e.onboarddate = :onboarddate")
     , @NamedQuery(name = "Employee.findByPassword", query = "SELECT e FROM Employee e WHERE e.password = :password")
-    , @NamedQuery(name = "Employee.findBySecurityQestion", query = "SELECT e FROM Employee e WHERE e.securityQestion = :securityQestion")
-    , @NamedQuery(name = "Employee.findBySecurityAnswer", query = "SELECT e FROM Employee e WHERE e.securityAnswer = :securityAnswer")
-    , @NamedQuery(name = "Employee.findByIsdeleted", query = "SELECT e FROM Employee e WHERE e.isdeleted = :isdeleted")})
+    , @NamedQuery(name = "Employee.findBySecurityqestion", query = "SELECT e FROM Employee e WHERE e.securityqestion = :securityqestion")
+    , @NamedQuery(name = "Employee.findBySecurityanswer", query = "SELECT e FROM Employee e WHERE e.securityanswer = :securityanswer")
+    , @NamedQuery(name = "Employee.findByIsdeleted", query = "SELECT e FROM Employee e WHERE e.isdeleted = :isdeleted")
+    , @NamedQuery(name = "Employee.findByBirthplace", query = "SELECT e FROM Employee e WHERE e.birthplace = :birthplace")
+    , @NamedQuery(name = "Employee.findByHiringlocation", query = "SELECT e FROM Employee e WHERE e.hiringlocation = :hiringlocation")})
 public class Employee implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -67,17 +69,17 @@ public class Employee implements Serializable {
     private String name;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "birthDate")
+    @Column(name = "birthdate")
     @Temporal(TemporalType.DATE)
-    private Date birthDate;
+    private Date birthdate;
     @Basic(optional = false)
     @NotNull
     @Column(name = "gender")
     private short gender;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "marriedStatus")
-    private short marriedStatus;
+    @Column(name = "marriedstatus")
+    private short marriedstatus;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 300)
@@ -97,9 +99,9 @@ public class Employee implements Serializable {
     private String phone;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "onboardDate")
+    @Column(name = "onboarddate")
     @Temporal(TemporalType.DATE)
-    private Date onboardDate;
+    private Date onboarddate;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 60)
@@ -108,62 +110,62 @@ public class Employee implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 200)
-    @Column(name = "securityQestion")
-    private String securityQestion;
+    @Column(name = "securityqestion")
+    private String securityqestion;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 200)
-    @Column(name = "securityAnswer")
-    private String securityAnswer;
+    @Column(name = "securityanswer")
+    private String securityanswer;
     @Lob
     @Column(name = "photo")
     private byte[] photo;
     @Column(name = "isdeleted")
     private Short isdeleted;
+    @Size(max = 10)
+    @Column(name = "birthplace")
+    private String birthplace;
+    @Size(max = 10)
+    @Column(name = "hiringlocation")
+    private String hiringlocation;
     @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
-    private List<IdCard> idCardList;
-    @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
-    private List<EmployeeLanguage> employeeLanguageList;
-    @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
-    private List<EmployeeSkill> employeeSkillList;
+    private List<Errorbank> errorbankList;
     @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
     private List<Achievement> achievementList;
-    @OneToMany(mappedBy = "trainer", fetch = FetchType.LAZY)
-    private List<BatchClass> batchClassList;
     @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
     private List<Organization> organizationList;
     @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
     private List<EmployeeCertification> employeeCertificationList;
     @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
     private List<Placement> placementList;
-    @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
-    private List<EmployeeRole> employeeRoleList;
     @OneToMany(mappedBy = "participant", fetch = FetchType.LAZY)
     private List<Evaluation> evaluationList;
     @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
-    private List<EmployeeLocker> employeeLockerList;
+    private List<Educationhistory> educationhistoryList;
     @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
-    private List<ErrorBank> errorBankList;
+    private List<Employeerole> employeeroleList;
     @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
-    private List<EmployeeAccess> employeeAccessList;
+    private List<Employeeskill> employeeskillList;
     @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
-    private List<WorkExperience> workExperienceList;
+    private List<Workexperience> workexperienceList;
     @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
-    private List<EducationHistory> educationHistoryList;
+    private List<Employeelocker> employeelockerList;
+    @OneToMany(mappedBy = "trainer", fetch = FetchType.LAZY)
+    private List<Batchclass> batchclassList;
+    @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
+    private List<Employeeaccess> employeeaccessList;
+    @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
+    private List<Employeelanguage> employeelanguageList;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
     private Participant participant;
     @JoinColumn(name = "religion", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Religion religion;
-    @JoinColumn(name = "birthPlace", referencedColumnName = "id")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private District birthPlace;
     @JoinColumn(name = "village", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Village village;
-    @JoinColumn(name = "hiringLocation", referencedColumnName = "id")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private District hiringLocation;
+    @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
+    private List<Idcard> idcardList;
 
     public Employee() {
     }
@@ -172,41 +174,19 @@ public class Employee implements Serializable {
         this.id = id;
     }
 
-    public Employee(String id, String name, Date birthDate, short gender, short marriedStatus, String address, String email, String phone, Date onboardDate, String password, String securityQestion, String securityAnswer) {
+    public Employee(String id, String name, Date birthdate, short gender, short marriedstatus, String address, String email, String phone, Date onboarddate, String password, String securityqestion, String securityanswer) {
         this.id = id;
         this.name = name;
-        this.birthDate = birthDate;
+        this.birthdate = birthdate;
         this.gender = gender;
-        this.marriedStatus = marriedStatus;
+        this.marriedstatus = marriedstatus;
         this.address = address;
         this.email = email;
         this.phone = phone;
-        this.onboardDate = onboardDate;
+        this.onboarddate = onboarddate;
         this.password = password;
-        this.securityQestion = securityQestion;
-        this.securityAnswer = securityAnswer;
-    }
-
-    public Employee(String id, String name, Date birthDate, short gender, short marriedStatus, String address, String email, String phone, Date onboardDate, String password, String securityQestion, String securityAnswer, byte[] photo, Short isdeleted, Religion religion, District birthPlace, Village village, District hiringLocation) {
-        this.id = id;
-        this.name = name;
-        this.birthDate = birthDate;
-        this.gender = gender;
-        this.marriedStatus = marriedStatus;
-        this.address = address;
-        this.email = email;
-        this.phone = phone;
-        this.onboardDate = onboardDate;
-        this.password = password;
-        this.securityQestion = securityQestion;
-        this.securityAnswer = securityAnswer;
-        this.photo = photo;
-        this.isdeleted = isdeleted;
-        this.participant = null;
-        this.religion = religion;
-        this.birthPlace = birthPlace;
-        this.village = village;
-        this.hiringLocation = hiringLocation;
+        this.securityqestion = securityqestion;
+        this.securityanswer = securityanswer;
     }
 
     public String getId() {
@@ -225,12 +205,12 @@ public class Employee implements Serializable {
         this.name = name;
     }
 
-    public Date getBirthDate() {
-        return birthDate;
+    public Date getBirthdate() {
+        return birthdate;
     }
 
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
+    public void setBirthdate(Date birthdate) {
+        this.birthdate = birthdate;
     }
 
     public short getGender() {
@@ -241,12 +221,12 @@ public class Employee implements Serializable {
         this.gender = gender;
     }
 
-    public short getMarriedStatus() {
-        return marriedStatus;
+    public short getMarriedstatus() {
+        return marriedstatus;
     }
 
-    public void setMarriedStatus(short marriedStatus) {
-        this.marriedStatus = marriedStatus;
+    public void setMarriedstatus(short marriedstatus) {
+        this.marriedstatus = marriedstatus;
     }
 
     public String getAddress() {
@@ -273,12 +253,12 @@ public class Employee implements Serializable {
         this.phone = phone;
     }
 
-    public Date getOnboardDate() {
-        return onboardDate;
+    public Date getOnboarddate() {
+        return onboarddate;
     }
 
-    public void setOnboardDate(Date onboardDate) {
-        this.onboardDate = onboardDate;
+    public void setOnboarddate(Date onboarddate) {
+        this.onboarddate = onboarddate;
     }
 
     public String getPassword() {
@@ -289,20 +269,20 @@ public class Employee implements Serializable {
         this.password = password;
     }
 
-    public String getSecurityQestion() {
-        return securityQestion;
+    public String getSecurityqestion() {
+        return securityqestion;
     }
 
-    public void setSecurityQestion(String securityQestion) {
-        this.securityQestion = securityQestion;
+    public void setSecurityqestion(String securityqestion) {
+        this.securityqestion = securityqestion;
     }
 
-    public String getSecurityAnswer() {
-        return securityAnswer;
+    public String getSecurityanswer() {
+        return securityanswer;
     }
 
-    public void setSecurityAnswer(String securityAnswer) {
-        this.securityAnswer = securityAnswer;
+    public void setSecurityanswer(String securityanswer) {
+        this.securityanswer = securityanswer;
     }
 
     public byte[] getPhoto() {
@@ -321,31 +301,29 @@ public class Employee implements Serializable {
         this.isdeleted = isdeleted;
     }
 
-    @XmlTransient
-    public List<IdCard> getIdCardList() {
-        return idCardList;
+    public String getBirthplace() {
+        return birthplace;
     }
 
-    public void setIdCardList(List<IdCard> idCardList) {
-        this.idCardList = idCardList;
+    public void setBirthplace(String birthplace) {
+        this.birthplace = birthplace;
     }
 
-    @XmlTransient
-    public List<EmployeeLanguage> getEmployeeLanguageList() {
-        return employeeLanguageList;
+    public String getHiringlocation() {
+        return hiringlocation;
     }
 
-    public void setEmployeeLanguageList(List<EmployeeLanguage> employeeLanguageList) {
-        this.employeeLanguageList = employeeLanguageList;
+    public void setHiringlocation(String hiringlocation) {
+        this.hiringlocation = hiringlocation;
     }
 
     @XmlTransient
-    public List<EmployeeSkill> getEmployeeSkillList() {
-        return employeeSkillList;
+    public List<Errorbank> getErrorbankList() {
+        return errorbankList;
     }
 
-    public void setEmployeeSkillList(List<EmployeeSkill> employeeSkillList) {
-        this.employeeSkillList = employeeSkillList;
+    public void setErrorbankList(List<Errorbank> errorbankList) {
+        this.errorbankList = errorbankList;
     }
 
     @XmlTransient
@@ -355,15 +333,6 @@ public class Employee implements Serializable {
 
     public void setAchievementList(List<Achievement> achievementList) {
         this.achievementList = achievementList;
-    }
-
-    @XmlTransient
-    public List<BatchClass> getBatchClassList() {
-        return batchClassList;
-    }
-
-    public void setBatchClassList(List<BatchClass> batchClassList) {
-        this.batchClassList = batchClassList;
     }
 
     @XmlTransient
@@ -394,15 +363,6 @@ public class Employee implements Serializable {
     }
 
     @XmlTransient
-    public List<EmployeeRole> getEmployeeRoleList() {
-        return employeeRoleList;
-    }
-
-    public void setEmployeeRoleList(List<EmployeeRole> employeeRoleList) {
-        this.employeeRoleList = employeeRoleList;
-    }
-
-    @XmlTransient
     public List<Evaluation> getEvaluationList() {
         return evaluationList;
     }
@@ -412,48 +372,75 @@ public class Employee implements Serializable {
     }
 
     @XmlTransient
-    public List<EmployeeLocker> getEmployeeLockerList() {
-        return employeeLockerList;
+    public List<Educationhistory> getEducationhistoryList() {
+        return educationhistoryList;
     }
 
-    public void setEmployeeLockerList(List<EmployeeLocker> employeeLockerList) {
-        this.employeeLockerList = employeeLockerList;
-    }
-
-    @XmlTransient
-    public List<ErrorBank> getErrorBankList() {
-        return errorBankList;
-    }
-
-    public void setErrorBankList(List<ErrorBank> errorBankList) {
-        this.errorBankList = errorBankList;
+    public void setEducationhistoryList(List<Educationhistory> educationhistoryList) {
+        this.educationhistoryList = educationhistoryList;
     }
 
     @XmlTransient
-    public List<EmployeeAccess> getEmployeeAccessList() {
-        return employeeAccessList;
+    public List<Employeerole> getEmployeeroleList() {
+        return employeeroleList;
     }
 
-    public void setEmployeeAccessList(List<EmployeeAccess> employeeAccessList) {
-        this.employeeAccessList = employeeAccessList;
-    }
-
-    @XmlTransient
-    public List<WorkExperience> getWorkExperienceList() {
-        return workExperienceList;
-    }
-
-    public void setWorkExperienceList(List<WorkExperience> workExperienceList) {
-        this.workExperienceList = workExperienceList;
+    public void setEmployeeroleList(List<Employeerole> employeeroleList) {
+        this.employeeroleList = employeeroleList;
     }
 
     @XmlTransient
-    public List<EducationHistory> getEducationHistoryList() {
-        return educationHistoryList;
+    public List<Employeeskill> getEmployeeskillList() {
+        return employeeskillList;
     }
 
-    public void setEducationHistoryList(List<EducationHistory> educationHistoryList) {
-        this.educationHistoryList = educationHistoryList;
+    public void setEmployeeskillList(List<Employeeskill> employeeskillList) {
+        this.employeeskillList = employeeskillList;
+    }
+
+    @XmlTransient
+    public List<Workexperience> getWorkexperienceList() {
+        return workexperienceList;
+    }
+
+    public void setWorkexperienceList(List<Workexperience> workexperienceList) {
+        this.workexperienceList = workexperienceList;
+    }
+
+    @XmlTransient
+    public List<Employeelocker> getEmployeelockerList() {
+        return employeelockerList;
+    }
+
+    public void setEmployeelockerList(List<Employeelocker> employeelockerList) {
+        this.employeelockerList = employeelockerList;
+    }
+
+    @XmlTransient
+    public List<Batchclass> getBatchclassList() {
+        return batchclassList;
+    }
+
+    public void setBatchclassList(List<Batchclass> batchclassList) {
+        this.batchclassList = batchclassList;
+    }
+
+    @XmlTransient
+    public List<Employeeaccess> getEmployeeaccessList() {
+        return employeeaccessList;
+    }
+
+    public void setEmployeeaccessList(List<Employeeaccess> employeeaccessList) {
+        this.employeeaccessList = employeeaccessList;
+    }
+
+    @XmlTransient
+    public List<Employeelanguage> getEmployeelanguageList() {
+        return employeelanguageList;
+    }
+
+    public void setEmployeelanguageList(List<Employeelanguage> employeelanguageList) {
+        this.employeelanguageList = employeelanguageList;
     }
 
     public Participant getParticipant() {
@@ -472,14 +459,6 @@ public class Employee implements Serializable {
         this.religion = religion;
     }
 
-    public District getBirthPlace() {
-        return birthPlace;
-    }
-
-    public void setBirthPlace(District birthPlace) {
-        this.birthPlace = birthPlace;
-    }
-
     public Village getVillage() {
         return village;
     }
@@ -488,12 +467,13 @@ public class Employee implements Serializable {
         this.village = village;
     }
 
-    public District getHiringLocation() {
-        return hiringLocation;
+    @XmlTransient
+    public List<Idcard> getIdcardList() {
+        return idcardList;
     }
 
-    public void setHiringLocation(District hiringLocation) {
-        this.hiringLocation = hiringLocation;
+    public void setIdcardList(List<Idcard> idcardList) {
+        this.idcardList = idcardList;
     }
 
     @Override

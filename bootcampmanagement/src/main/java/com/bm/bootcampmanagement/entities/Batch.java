@@ -34,8 +34,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Batch.findAll", query = "SELECT b FROM Batch b")
     , @NamedQuery(name = "Batch.findById", query = "SELECT b FROM Batch b WHERE b.id = :id")
-    , @NamedQuery(name = "Batch.findByStartDate", query = "SELECT b FROM Batch b WHERE b.startDate = :startDate")
-    , @NamedQuery(name = "Batch.findByEndDate", query = "SELECT b FROM Batch b WHERE b.endDate = :endDate")})
+    , @NamedQuery(name = "Batch.findByStartdate", query = "SELECT b FROM Batch b WHERE b.startdate = :startdate")
+    , @NamedQuery(name = "Batch.findByEnddate", query = "SELECT b FROM Batch b WHERE b.enddate = :enddate")})
 public class Batch implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -47,16 +47,16 @@ public class Batch implements Serializable {
     private String id;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "startDate")
+    @Column(name = "startdate")
     @Temporal(TemporalType.DATE)
-    private Date startDate;
+    private Date startdate;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "endDate")
+    @Column(name = "enddate")
     @Temporal(TemporalType.DATE)
-    private Date endDate;
+    private Date enddate;
     @OneToMany(mappedBy = "batch", fetch = FetchType.LAZY)
-    private List<BatchClass> batchClassList;
+    private List<Batchclass> batchclassList;
 
     public Batch() {
     }
@@ -65,10 +65,10 @@ public class Batch implements Serializable {
         this.id = id;
     }
 
-    public Batch(String id, Date startDate, Date endDate) {
+    public Batch(String id, Date startdate, Date enddate) {
         this.id = id;
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.startdate = startdate;
+        this.enddate = enddate;
     }
 
     public String getId() {
@@ -79,29 +79,29 @@ public class Batch implements Serializable {
         this.id = id;
     }
 
-    public Date getStartDate() {
-        return startDate;
+    public Date getStartdate() {
+        return startdate;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+    public void setStartdate(Date startdate) {
+        this.startdate = startdate;
     }
 
-    public Date getEndDate() {
-        return endDate;
+    public Date getEnddate() {
+        return enddate;
     }
 
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
+    public void setEnddate(Date enddate) {
+        this.enddate = enddate;
     }
 
     @XmlTransient
-    public List<BatchClass> getBatchClassList() {
-        return batchClassList;
+    public List<Batchclass> getBatchclassList() {
+        return batchclassList;
     }
 
-    public void setBatchClassList(List<BatchClass> batchClassList) {
-        this.batchClassList = batchClassList;
+    public void setBatchclassList(List<Batchclass> batchclassList) {
+        this.batchclassList = batchclassList;
     }
 
     @Override

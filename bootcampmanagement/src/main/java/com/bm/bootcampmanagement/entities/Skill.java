@@ -48,11 +48,11 @@ public class Skill implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "name")
     private String name;
-    @OneToMany(mappedBy = "skill", fetch = FetchType.LAZY)
-    private List<EmployeeSkill> employeeSkillList;
     @JoinColumn(name = "category", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Category category;
+    @OneToMany(mappedBy = "skill", fetch = FetchType.LAZY)
+    private List<Employeeskill> employeeskillList;
 
     public Skill() {
     }
@@ -64,12 +64,6 @@ public class Skill implements Serializable {
     public Skill(String id, String name) {
         this.id = id;
         this.name = name;
-    }
-
-    public Skill(String id, String name, Category category) {
-        this.id = id;
-        this.name = name;
-        this.category = category;
     }
 
     public String getId() {
@@ -88,21 +82,21 @@ public class Skill implements Serializable {
         this.name = name;
     }
 
-    @XmlTransient
-    public List<EmployeeSkill> getEmployeeSkillList() {
-        return employeeSkillList;
-    }
-
-    public void setEmployeeSkillList(List<EmployeeSkill> employeeSkillList) {
-        this.employeeSkillList = employeeSkillList;
-    }
-
     public Category getCategory() {
         return category;
     }
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    @XmlTransient
+    public List<Employeeskill> getEmployeeskillList() {
+        return employeeskillList;
+    }
+
+    public void setEmployeeskillList(List<Employeeskill> employeeskillList) {
+        this.employeeskillList = employeeskillList;
     }
 
     @Override

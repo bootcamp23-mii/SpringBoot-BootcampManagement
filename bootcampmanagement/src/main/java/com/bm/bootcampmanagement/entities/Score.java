@@ -60,14 +60,6 @@ public class Score implements Serializable {
         this.id = id;
     }
 
-    public Score(String id, Double rating, Short isdeleted, Aspect aspect, Evaluation evaluation) {
-        this.id = id;
-        this.rating = rating;
-        this.isdeleted = isdeleted;
-        this.aspect = aspect;
-        this.evaluation = evaluation;
-    }
-
     public String getId() {
         return id;
     }

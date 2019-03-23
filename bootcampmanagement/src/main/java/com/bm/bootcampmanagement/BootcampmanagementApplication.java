@@ -8,6 +8,7 @@ public class BootcampmanagementApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(BootcampmanagementApplication.class, args);
+                System.out.println("UNLIMITED FULL BRUST!!!");
 	}
 
 }

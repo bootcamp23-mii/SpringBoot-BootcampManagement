@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Locker.findAll", query = "SELECT l FROM Locker l")
     , @NamedQuery(name = "Locker.findById", query = "SELECT l FROM Locker l WHERE l.id = :id")
-    , @NamedQuery(name = "Locker.findByLockerNumber", query = "SELECT l FROM Locker l WHERE l.lockerNumber = :lockerNumber")})
+    , @NamedQuery(name = "Locker.findByLockernumber", query = "SELECT l FROM Locker l WHERE l.lockernumber = :lockernumber")})
 public class Locker implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,10 +44,10 @@ public class Locker implements Serializable {
     private String id;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "lockerNumber")
-    private BigInteger lockerNumber;
+    @Column(name = "lockernumber")
+    private BigInteger lockernumber;
     @OneToMany(mappedBy = "locker", fetch = FetchType.LAZY)
-    private List<EmployeeLocker> employeeLockerList;
+    private List<Employeelocker> employeelockerList;
 
     public Locker() {
     }
@@ -56,9 +56,9 @@ public class Locker implements Serializable {
         this.id = id;
     }
 
-    public Locker(String id, BigInteger lockerNumber) {
+    public Locker(String id, BigInteger lockernumber) {
         this.id = id;
-        this.lockerNumber = lockerNumber;
+        this.lockernumber = lockernumber;
     }
 
     public String getId() {
@@ -69,21 +69,21 @@ public class Locker implements Serializable {
         this.id = id;
     }
 
-    public BigInteger getLockerNumber() {
-        return lockerNumber;
+    public BigInteger getLockernumber() {
+        return lockernumber;
     }
 
-    public void setLockerNumber(BigInteger lockerNumber) {
-        this.lockerNumber = lockerNumber;
+    public void setLockernumber(BigInteger lockernumber) {
+        this.lockernumber = lockernumber;
     }
 
     @XmlTransient
-    public List<EmployeeLocker> getEmployeeLockerList() {
-        return employeeLockerList;
+    public List<Employeelocker> getEmployeelockerList() {
+        return employeelockerList;
     }
 
-    public void setEmployeeLockerList(List<EmployeeLocker> employeeLockerList) {
-        this.employeeLockerList = employeeLockerList;
+    public void setEmployeelockerList(List<Employeelocker> employeelockerList) {
+        this.employeelockerList = employeelockerList;
     }
 
     @Override

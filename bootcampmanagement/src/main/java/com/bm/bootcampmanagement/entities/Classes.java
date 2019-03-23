@@ -41,9 +41,9 @@ public class Classes implements Serializable {
     @Column(name = "id")
     private String id;
     @OneToMany(mappedBy = "classes", fetch = FetchType.LAZY)
-    private List<BatchClass> batchClassList;
+    private List<Errorbank> errorbankList;
     @OneToMany(mappedBy = "classes", fetch = FetchType.LAZY)
-    private List<ErrorBank> errorBankList;
+    private List<Batchclass> batchclassList;
     @OneToMany(mappedBy = "classes", fetch = FetchType.LAZY)
     private List<Lesson> lessonList;
 
@@ -63,21 +63,21 @@ public class Classes implements Serializable {
     }
 
     @XmlTransient
-    public List<BatchClass> getBatchClassList() {
-        return batchClassList;
+    public List<Errorbank> getErrorbankList() {
+        return errorbankList;
     }
 
-    public void setBatchClassList(List<BatchClass> batchClassList) {
-        this.batchClassList = batchClassList;
+    public void setErrorbankList(List<Errorbank> errorbankList) {
+        this.errorbankList = errorbankList;
     }
 
     @XmlTransient
-    public List<ErrorBank> getErrorBankList() {
-        return errorBankList;
+    public List<Batchclass> getBatchclassList() {
+        return batchclassList;
     }
 
-    public void setErrorBankList(List<ErrorBank> errorBankList) {
-        this.errorBankList = errorBankList;
+    public void setBatchclassList(List<Batchclass> batchclassList) {
+        this.batchclassList = batchclassList;
     }
 
     @XmlTransient

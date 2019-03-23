@@ -70,14 +70,6 @@ public class Company implements Serializable {
         this.id = id;
     }
 
-    public Company(String id, String name, String address, String phone, Village village) {
-        this.id = id;
-        this.name = name;
-        this.address = address;
-        this.phone = phone;
-        this.village = village;
-    }
-
     public Company(String id, String name) {
         this.id = id;
         this.name = name;

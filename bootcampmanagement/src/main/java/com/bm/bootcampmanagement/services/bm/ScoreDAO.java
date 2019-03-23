@@ -27,12 +27,12 @@ public class ScoreDAO implements ScoreDAOInterface{
     }
 
     @Override
-    public Score saveRegions(Score score) {
+    public Score save(Score score) {
         return repository.save(score);
     }
 
     @Override
-    public void deleteRegionById(String id) {
+    public void deleteById(String id) {
         repository.deleteById(id);
     }
 }

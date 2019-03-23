@@ -47,7 +47,7 @@ public class Role implements Serializable {
     @Column(name = "name")
     private String name;
     @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
-    private List<EmployeeRole> employeeRoleList;
+    private List<Employeerole> employeeroleList;
 
     public Role() {
     }
@@ -78,12 +78,12 @@ public class Role implements Serializable {
     }
 
     @XmlTransient
-    public List<EmployeeRole> getEmployeeRoleList() {
-        return employeeRoleList;
+    public List<Employeerole> getEmployeeroleList() {
+        return employeeroleList;
     }
 
-    public void setEmployeeRoleList(List<EmployeeRole> employeeRoleList) {
-        this.employeeRoleList = employeeRoleList;
+    public void setEmployeeroleList(List<Employeerole> employeeroleList) {
+        this.employeeroleList = employeeroleList;
     }
 
     @Override

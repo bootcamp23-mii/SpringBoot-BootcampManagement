@@ -86,6 +86,17 @@
     <class>com.bm.bootcampmanagement.entities.Category</class>
     <class>com.bm.bootcampmanagement.entities.EducationHistory</class>
     <class>com.bm.bootcampmanagement.entities.BatchClass</class>
+    <class>com.bm.bootcampmanagement.entities.Accesscard</class>
+    <class>com.bm.bootcampmanagement.entities.Employeerole</class>
+    <class>com.bm.bootcampmanagement.entities.Workexperience</class>
+    <class>com.bm.bootcampmanagement.entities.Employeeskill</class>
+    <class>com.bm.bootcampmanagement.entities.Batchclass</class>
+    <class>com.bm.bootcampmanagement.entities.Errorbank</class>
+    <class>com.bm.bootcampmanagement.entities.Educationhistory</class>
+    <class>com.bm.bootcampmanagement.entities.Employeeaccess</class>
+    <class>com.bm.bootcampmanagement.entities.Employeelanguage</class>
+    <class>com.bm.bootcampmanagement.entities.Employeelocker</class>
+    <class>com.bm.bootcampmanagement.entities.Idcard</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/bootcampmanagement2?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

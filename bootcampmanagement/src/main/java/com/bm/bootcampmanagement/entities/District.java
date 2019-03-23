@@ -53,10 +53,6 @@ public class District implements Serializable {
     private Province province;
     @OneToMany(mappedBy = "district", fetch = FetchType.LAZY)
     private List<Subdistrict> subdistrictList;
-    @OneToMany(mappedBy = "birthPlace", fetch = FetchType.LAZY)
-    private List<Employee> employeeList;
-    @OneToMany(mappedBy = "hiringLocation", fetch = FetchType.LAZY)
-    private List<Employee> employeeList1;
 
     public District() {
     }
@@ -68,12 +64,6 @@ public class District implements Serializable {
     public District(String id, String name) {
         this.id = id;
         this.name = name;
-    }
-
-    public District(String id, String name, Province province) {
-        this.id = id;
-        this.name = name;
-        this.province = province;
     }
 
     public String getId() {
@@ -107,24 +97,6 @@ public class District implements Serializable {
 
     public void setSubdistrictList(List<Subdistrict> subdistrictList) {
         this.subdistrictList = subdistrictList;
-    }
-
-    @XmlTransient
-    public List<Employee> getEmployeeList() {
-        return employeeList;
-    }
-
-    public void setEmployeeList(List<Employee> employeeList) {
-        this.employeeList = employeeList;
-    }
-
-    @XmlTransient
-    public List<Employee> getEmployeeList1() {
-        return employeeList1;
-    }
-
-    public void setEmployeeList1(List<Employee> employeeList1) {
-        this.employeeList1 = employeeList1;
     }
 
     @Override

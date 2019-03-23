@@ -45,6 +45,8 @@ public class Education implements Serializable {
     private String id;
     @Column(name = "isdeleted")
     private Short isdeleted;
+    @OneToMany(mappedBy = "education", fetch = FetchType.LAZY)
+    private List<Educationhistory> educationhistoryList;
     @JoinColumn(name = "degree", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Degree degree;
@@ -54,22 +56,12 @@ public class Education implements Serializable {
     @JoinColumn(name = "university", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private University university;
-    @OneToMany(mappedBy = "education", fetch = FetchType.LAZY)
-    private List<EducationHistory> educationHistoryList;
 
     public Education() {
     }
 
     public Education(String id) {
         this.id = id;
-    }
-
-    public Education(String id, Short isdeleted, Degree degree, Major major, University university) {
-        this.id = id;
-        this.isdeleted = isdeleted;
-        this.degree = degree;
-        this.major = major;
-        this.university = university;
     }
 
     public String getId() {
@@ -86,6 +78,15 @@ public class Education implements Serializable {
 
     public void setIsdeleted(Short isdeleted) {
         this.isdeleted = isdeleted;
+    }
+
+    @XmlTransient
+    public List<Educationhistory> getEducationhistoryList() {
+        return educationhistoryList;
+    }
+
+    public void setEducationhistoryList(List<Educationhistory> educationhistoryList) {
+        this.educationhistoryList = educationhistoryList;
     }
 
     public Degree getDegree() {
@@ -110,15 +111,6 @@ public class Education implements Serializable {
 
     public void setUniversity(University university) {
         this.university = university;
-    }
-
-    @XmlTransient
-    public List<EducationHistory> getEducationHistoryList() {
-        return educationHistoryList;
-    }
-
-    public void setEducationHistoryList(List<EducationHistory> educationHistoryList) {
-        this.educationHistoryList = educationHistoryList;
     }
 
     @Override

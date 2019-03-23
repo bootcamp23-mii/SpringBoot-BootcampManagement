@@ -47,7 +47,7 @@ public class Language implements Serializable {
     @Column(name = "name")
     private String name;
     @OneToMany(mappedBy = "language", fetch = FetchType.LAZY)
-    private List<EmployeeLanguage> employeeLanguageList;
+    private List<Employeelanguage> employeelanguageList;
 
     public Language() {
     }
@@ -78,12 +78,12 @@ public class Language implements Serializable {
     }
 
     @XmlTransient
-    public List<EmployeeLanguage> getEmployeeLanguageList() {
-        return employeeLanguageList;
+    public List<Employeelanguage> getEmployeelanguageList() {
+        return employeelanguageList;
     }
 
-    public void setEmployeeLanguageList(List<EmployeeLanguage> employeeLanguageList) {
-        this.employeeLanguageList = employeeLanguageList;
+    public void setEmployeelanguageList(List<Employeelanguage> employeelanguageList) {
+        this.employeelanguageList = employeelanguageList;
     }
 
     @Override

@@ -12,7 +12,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
@@ -32,7 +31,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Participant.findAll", query = "SELECT p FROM Participant p")
     , @NamedQuery(name = "Participant.findById", query = "SELECT p FROM Participant p WHERE p.id = :id")
     , @NamedQuery(name = "Participant.findByGrade", query = "SELECT p FROM Participant p WHERE p.grade = :grade")
-    , @NamedQuery(name = "Participant.findByIsdeleted", query = "SELECT p FROM Participant p WHERE p.isdeleted = :isdeleted")})
+    , @NamedQuery(name = "Participant.findByIsdeleted", query = "SELECT p FROM Participant p WHERE p.isdeleted = :isdeleted")
+    , @NamedQuery(name = "Participant.findByBatchclass", query = "SELECT p FROM Participant p WHERE p.batchclass = :batchclass")})
 public class Participant implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -47,9 +47,9 @@ public class Participant implements Serializable {
     private String grade;
     @Column(name = "isdeleted")
     private Short isdeleted;
-    @JoinColumn(name = "batchClass", referencedColumnName = "id")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private BatchClass batchClass;
+    @Size(max = 10)
+    @Column(name = "batchclass")
+    private String batchclass;
     @JoinColumn(name = "id", referencedColumnName = "id", insertable = false, updatable = false)
     @OneToOne(optional = false, fetch = FetchType.LAZY)
     private Employee employee;
@@ -59,14 +59,6 @@ public class Participant implements Serializable {
 
     public Participant(String id) {
         this.id = id;
-    }
-
-    public Participant(String id, String grade, Short isdeleted, BatchClass batchClass, Employee employee) {
-        this.id = id;
-        this.grade = grade;
-        this.isdeleted = isdeleted;
-        this.batchClass = batchClass;
-        this.employee = employee;
     }
 
     public String getId() {
@@ -93,12 +85,12 @@ public class Participant implements Serializable {
         this.isdeleted = isdeleted;
     }
 
-    public BatchClass getBatchClass() {
-        return batchClass;
+    public String getBatchclass() {
+        return batchclass;
     }
 
-    public void setBatchClass(BatchClass batchClass) {
-        this.batchClass = batchClass;
+    public void setBatchclass(String batchclass) {
+        this.batchclass = batchclass;
     }
 
     public Employee getEmployee() {

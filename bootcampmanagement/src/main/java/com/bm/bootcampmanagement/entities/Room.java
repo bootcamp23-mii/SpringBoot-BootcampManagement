@@ -47,7 +47,7 @@ public class Room implements Serializable {
     @Column(name = "name")
     private String name;
     @OneToMany(mappedBy = "room", fetch = FetchType.LAZY)
-    private List<BatchClass> batchClassList;
+    private List<Batchclass> batchclassList;
 
     public Room() {
     }
@@ -78,12 +78,12 @@ public class Room implements Serializable {
     }
 
     @XmlTransient
-    public List<BatchClass> getBatchClassList() {
-        return batchClassList;
+    public List<Batchclass> getBatchclassList() {
+        return batchclassList;
     }
 
-    public void setBatchClassList(List<BatchClass> batchClassList) {
-        this.batchClassList = batchClassList;
+    public void setBatchclassList(List<Batchclass> batchclassList) {
+        this.batchclassList = batchclassList;
     }
 
     @Override

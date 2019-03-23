@@ -64,13 +64,6 @@ public class Achievement implements Serializable {
         this.name = name;
     }
 
-    public Achievement(String id, String name, Short isdeleted, Employee employee) {
-        this.id = id;
-        this.name = name;
-        this.isdeleted = isdeleted;
-        this.employee = employee;
-    }
-
     public String getId() {
         return id;
     }

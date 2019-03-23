@@ -14,6 +14,6 @@ import com.bm.bootcampmanagement.entities.Score;
 
 public interface ScoreDAOInterface {
     Iterable<Score> findAll();
-    Score saveRegions(Score regions);
-    void deleteRegionById(String id);
+    Score save(Score score);
+    void deleteById(String id);
 }
