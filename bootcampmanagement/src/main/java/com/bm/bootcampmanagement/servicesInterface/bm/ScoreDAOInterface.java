@@ -11,7 +11,6 @@ import com.bm.bootcampmanagement.entities.Score;
  *
  * @author FES
  */
-
 public interface ScoreDAOInterface {
     Iterable<Score> findAll();
     Score save(Score score);
