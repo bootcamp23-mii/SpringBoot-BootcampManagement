@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <meta name="description" content=""/>
+        <meta name="author" content=""/>
+        <link rel="icon" th:href="@{dist/img/favicons/favicon.ico}"/>
+
+        <title>Dashboard Template for Bootstrap</title>
+
+        <!-- Bootstrap core CSS -->
+        <link th:href="@{dist/css/bootstrap.min.css}" rel="stylesheet"/>
+        <!--<link href="dist/css/bootstrap.min.css" rel="stylesheet">-->
+
+        <!-- Custom styles for this template -->
+        <link th:href="@{dist/css/dashboard.css}" rel="stylesheet"/>
+    </head>
+
+    <body>
+        <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+            <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Bootcamp Management</a>
+            <a class="navbar-brand col-sm-3 col-md-2 mr-0" th:href="@{/upload}">Upload</a>
+        </nav>
+
+        <div class="container-fluid">
+            <div class="row justify-content-center align-items-center">
+                <main role="main">
+                    <h3>Upload Single File</h3>
+                    <form id="singleUploadForm" enctype="multipart/form-data" name="singleUploadForm" th:action="@{/uploadFile}" method="POST">
+                        <input id="singleFileUploadInput" type="file" name="file" class="file-input" required />
+                        <button type="submit" class="primary submit-btn">Submit</button>
+                    </form>
+            </div>
+        </div>
+    </body>
+</html>

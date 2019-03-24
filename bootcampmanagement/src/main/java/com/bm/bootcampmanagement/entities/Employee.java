@@ -188,6 +188,22 @@ public class Employee implements Serializable {
         this.securityqestion = securityqestion;
         this.securityanswer = securityanswer;
     }
+    
+    public Employee(String id, String name, Date birthdate, short gender, short marriedstatus, String address, String email, String phone, Date onboarddate, String password, String securityqestion, String securityanswer, byte[] photo) {
+        this.id = id;
+        this.name = name;
+        this.birthdate = birthdate;
+        this.gender = gender;
+        this.marriedstatus = marriedstatus;
+        this.address = address;
+        this.email = email;
+        this.phone = phone;
+        this.onboarddate = onboarddate;
+        this.password = password;
+        this.securityqestion = securityqestion;
+        this.securityanswer = securityanswer;
+        this.photo = photo;
+    }
 
     public String getId() {
         return id;
