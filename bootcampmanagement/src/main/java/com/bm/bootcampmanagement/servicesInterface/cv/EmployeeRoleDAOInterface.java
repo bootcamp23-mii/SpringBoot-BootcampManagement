@@ -5,10 +5,17 @@
  */
 package com.bm.bootcampmanagement.servicesInterface.cv;
 
+import com.bm.bootcampmanagement.entities.Employeerole;
+
 /**
  *
  * @author gerydanu
  */
 public interface EmployeeRoleDAOInterface {
+    
+    Iterable<Employeerole> findAll();
+    Employeerole findById(String id);
+    Employeerole save(Employeerole employeerole);
+    void delete(String id);
     
 }

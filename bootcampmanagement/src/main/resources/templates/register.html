@@ -2,24 +2,28 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="utf-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content=""/>
         <meta name="author" content=""/>
-        <link rel="icon" th:href="@{dist/img/favicons/favicon.ico}"/>
+        <link rel="icon" th:href="@{dist/img/favicons/favicon.ico}">
 
         <title>Dashboard Template for Bootstrap</title>
 
         <!-- Bootstrap core CSS -->
         <link th:href="@{dist/css/bootstrap.min.css}" rel="stylesheet"/>
-        <!--<link href="dist/css/bootstrap.min.css" rel="stylesheet">-->
 
         <!-- Custom styles for this template -->
-        <link th:href="@{dist/css/dashboard.css}" rel="stylesheet"/>
+        <link th:href="@{dist/css/dashboard.css}" rel="stylesheet">
     </head>
 
     <body>
         <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-            <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Bootcamp Management</a>
+            <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">MII Bootcamp Management</a>
+            <ul class="navbar-nav px-3">
+                <li class="nav-item text-nowrap">
+                    <a class="nav-link" href="index.html">Sign out</a>
+                </li>
+            </ul>
         </nav>
 
         <div class="container-fluid">
@@ -28,7 +32,7 @@
                     <div id="login-column" class="col-md-10">
                         <div id="login-box" class="col-md-12">
                             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom">
-                                <h1 class="h2">Login Bootcamp</h1>
+                                <h1 class="h2">Register</h1>
                             </div>
                             <!-- Content -->
                             <div class="form-group">
@@ -60,24 +64,6 @@
 
         <script>
             feather.replace();
-        </script>
-        <script>
-            $(function () {
-                $('.editModal').click(function ()
-                {
-                    var $row = $(this).closest("tr"), $tds = $row.find("td");
-                    $('#id').val($row.find('td:eq(0)').text());
-                    document.getElementById('rid').value = $row.find('td:eq(0)').text();
-                    document.getElementById('rname').value = $row.find('td:eq(1)').text();
-                });
-            });
-        </script>
-        <script  type="text/javascript">
-            function setEdit(id, name)
-            {
-                document.getElementById('rid').value = id;
-                document.getElementById('rname').value = name;
-            }
         </script>
     </body>
 </html>

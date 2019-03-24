@@ -5,10 +5,39 @@
  */
 package com.bm.bootcampmanagement.services.cv;
 
+import com.bm.bootcampmanagement.entities.Employeerole;
+import com.bm.bootcampmanagement.repository.cv.EmployeeRoleRepository;
+import com.bm.bootcampmanagement.servicesInterface.cv.EmployeeRoleDAOInterface;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 /**
  *
  * @author gerydanu
  */
-public class EmployeeRoleDAO {
+@Service
+public class EmployeeRoleDAO  implements EmployeeRoleDAOInterface {
     
+    @Autowired
+    EmployeeRoleRepository er;
+    
+    @Override
+    public Iterable<Employeerole> findAll() {
+        return er.findAll();
+    }
+
+    @Override
+    public Employeerole save(Employeerole employeerole) {
+        return er.save(employeerole);
+    }
+
+    @Override
+    public void delete(String id) {
+        er.deleteById(id);
+    }
+
+    @Override
+    public Employeerole findById(String id) {
+        return er.findById(id).get();
+    }
 }
