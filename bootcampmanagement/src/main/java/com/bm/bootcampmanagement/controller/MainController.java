@@ -5,10 +5,12 @@
  */
 package com.bm.bootcampmanagement.controller;
 
+import com.bm.bootcampmanagement.entities.Batchclass;
 import com.bm.bootcampmanagement.entities.Employee;
 import com.bm.bootcampmanagement.services.BCrypt;
 import com.bm.bootcampmanagement.services.MailService;
 import com.bm.bootcampmanagement.services.EmployeeDAO;
+import com.bm.bootcampmanagement.services.bm.BatchclassDAO;
 import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +27,10 @@ public class MainController {
 
     @Autowired
     EmployeeDAO daoEmp;
-
+    @Autowired
+    BatchclassDAO daoBC;
+//    @Autowired
+//    Employeerole
     @Autowired
     private static Logger log = LoggerFactory.getLogger(MainController.class);
 
@@ -45,9 +50,19 @@ public class MainController {
             if (BCrypt.checkpw(password, employee.getPassword())) {
                 request.getSession().setAttribute("login", id);
                 
+                Iterable<Batchclass> batchclass = daoBC.findAll();
+                for (Batchclass data : batchclass) {
+                    if (data.getTrainer().equals(id)) {
+                        request.getSession().setAttribute("isTrainer", true);
+                    }
+                }
+                for (int i = 0; i < 10; i++) {
+                    
+                }
+                return "redirect:/dashboard";
             }
         }
-        return "redirect:/dashboard";
+        return "redirect:/index/";
     }
 
     @GetMapping("/dashboard")

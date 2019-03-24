@@ -6,8 +6,8 @@
 package com.bm.bootcampmanagement.services.bm;
 
 import com.bm.bootcampmanagement.entities.*;
-import com.bm.bootcampmanagement.repository.bm.ScoreRepository;
-import com.bm.bootcampmanagement.servicesInterface.bm.ScoreDAOInterface;
+import com.bm.bootcampmanagement.repository.bm.*;
+import com.bm.bootcampmanagement.servicesInterface.bm.BatchclassDAOInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,23 +16,23 @@ import org.springframework.stereotype.Service;
  * @author FES
  */
 @Service
-public class ScoreDAO implements ScoreDAOInterface {
+public class BatchclassDAO implements BatchclassDAOInterface {
 
     @Autowired
-    ScoreRepository r;
+    BatchclassRepository r;
 
     @Override
-    public Iterable<Score> findAll() {
+    public Iterable<Batchclass> findAll() {
         return r.findAll();
     }
 
     @Override
-    public Score save(Score score) {
-        return r.save(score);
+    public Batchclass save(Batchclass entity) {
+        return r.save(entity);
     }
 
     @Override
-    public Score findById(String id) {
+    public Batchclass findById(String id) {
         return r.findById(id).get();
     }
 

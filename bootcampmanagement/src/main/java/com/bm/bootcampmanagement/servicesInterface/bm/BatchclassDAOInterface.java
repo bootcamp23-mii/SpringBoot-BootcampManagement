@@ -5,15 +5,15 @@
  */
 package com.bm.bootcampmanagement.servicesInterface.bm;
 
-import com.bm.bootcampmanagement.entities.Score;
+import com.bm.bootcampmanagement.entities.*;
 
 /**
  *
  * @author FES
  */
-public interface ScoreDAOInterface {
-    Iterable<Score> findAll();
-    Score findById(String id);
-    Score save(Score entity);
+public interface BatchclassDAOInterface {
+    Iterable<Batchclass> findAll();
+    Batchclass findById(String id);
+    Batchclass save(Batchclass entity);
     void delete(String id);
 }

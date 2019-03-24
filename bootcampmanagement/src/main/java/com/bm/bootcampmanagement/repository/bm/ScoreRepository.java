@@ -16,7 +16,7 @@ import org.springframework.stereotype.Repository;
  * @author FES
  */
 @Repository
-public interface ScoreRepository extends CrudRepository<Score,String>{
+public interface ScoreRepository extends CrudRepository<Score, String> {
 
     @Modifying
     @Query(value = "DELETE FROM Score where id = ?1", nativeQuery = true)
