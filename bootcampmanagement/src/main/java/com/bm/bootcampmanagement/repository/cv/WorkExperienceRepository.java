@@ -5,10 +5,21 @@
  */
 package com.bm.bootcampmanagement.repository.cv;
 
+import com.bm.bootcampmanagement.entities.Workexperience;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
 /**
  *
  * @author gerydanu
  */
-public interface WorkExperienceRepository {
+@Repository
+public interface WorkExperienceRepository extends CrudRepository<Workexperience, String>{
+    
+    @Modifying
+    @Query(value = "DELETE FROM Workexperience where id = ?1", nativeQuery = true)
+    public void deleteById(String id);
     
 }

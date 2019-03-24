@@ -5,10 +5,17 @@
  */
 package com.bm.bootcampmanagement.servicesInterface.cv;
 
+import com.bm.bootcampmanagement.entities.Workexperience;
+
 /**
  *
  * @author gerydanu
  */
 public interface WorkExperienceDAOInterface {
+    
+    Iterable<Workexperience> findAll();
+    Workexperience findById(String id);
+    Workexperience save(Workexperience workexperience);
+    void delete(String id);
     
 }
