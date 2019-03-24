@@ -6,13 +6,13 @@
 package com.bm.bootcampmanagement.servicesInterface.bm;
 
 import com.bm.bootcampmanagement.entities.EmployeeLocker;
-import org.springframework.stereotype.Service;
+
 
 /**
  *
  * @author Firsta
  */
-@Service
+
 public interface EmployeeLockerDAOInterface {
     Iterable<EmployeeLocker> findAll();
     EmployeeLocker saveEmployeeLocker(EmployeeLocker employeeLocker);

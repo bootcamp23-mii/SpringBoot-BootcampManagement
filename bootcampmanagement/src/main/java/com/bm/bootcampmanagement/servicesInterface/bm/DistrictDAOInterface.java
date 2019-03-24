@@ -6,13 +6,12 @@
 package com.bm.bootcampmanagement.servicesInterface.bm;
 
 import com.bm.bootcampmanagement.entities.District;
-import org.springframework.stereotype.Service;
+
 
 /**
  *
  * @author Firsta
  */
-@Service
 public interface DistrictDAOInterface {
     Iterable<District> findAll();
     District saveDistrict(District district);

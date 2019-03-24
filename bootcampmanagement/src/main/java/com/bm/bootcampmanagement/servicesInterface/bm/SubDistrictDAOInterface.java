@@ -6,13 +6,13 @@
 package com.bm.bootcampmanagement.servicesInterface.bm;
 
 import com.bm.bootcampmanagement.entities.Subdistrict;
-import org.springframework.stereotype.Service;
+
 
 /**
  *
  * @author Firsta
  */
-@Service
+
 public interface SubDistrictDAOInterface {
     Iterable<Subdistrict> findAll();
     Subdistrict saveSubdistrict(Subdistrict subdistrict);

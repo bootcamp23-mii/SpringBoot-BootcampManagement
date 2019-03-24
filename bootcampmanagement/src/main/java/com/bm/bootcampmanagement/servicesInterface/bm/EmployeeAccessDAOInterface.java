@@ -6,13 +6,13 @@
 package com.bm.bootcampmanagement.servicesInterface.bm;
 
 import com.bm.bootcampmanagement.entities.EmployeeAccess;
-import org.springframework.stereotype.Service;
+
 
 /**
  *
  * @author Firsta
  */
-@Service
+
 public interface EmployeeAccessDAOInterface {
     Iterable<EmployeeAccess> findAll();
     EmployeeAccess saveEmployeeAccess(EmployeeAccess access);

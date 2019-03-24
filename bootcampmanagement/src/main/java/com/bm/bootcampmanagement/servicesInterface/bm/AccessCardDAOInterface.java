@@ -6,14 +6,13 @@
 package com.bm.bootcampmanagement.servicesInterface.bm;
 
 import com.bm.bootcampmanagement.entities.AccessCard;
-import com.bm.bootcampmanagement.entities.Locker;
-import org.springframework.stereotype.Service;
+
 
 /**
  *
  * @author Firsta
  */
-@Service
+
 public interface AccessCardDAOInterface {
     Iterable<AccessCard> findAll();
     AccessCard saveAccessCard(AccessCard accessCard);

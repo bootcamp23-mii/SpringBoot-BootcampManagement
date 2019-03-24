@@ -6,13 +6,13 @@
 package com.bm.bootcampmanagement.servicesInterface.bm;
 
 import com.bm.bootcampmanagement.entities.Locker;
-import org.springframework.stereotype.Service;
+
 
 /**
  *
  * @author Firsta
  */
-@Service
+
 public interface LockerDAOInterface {
     Iterable<Locker> findAll();
     Locker saveLocker(Locker locker);

@@ -6,13 +6,13 @@
 package com.bm.bootcampmanagement.servicesInterface.bm;
 
 import com.bm.bootcampmanagement.entities.Province;
-import org.springframework.stereotype.Service;
+
 
 /**
  *
  * @author Firsta
  */
-@Service
+
 public interface ProvinceDAOInterface {
     Iterable<Province> findAll();
     Province saveProvince(Province province);
