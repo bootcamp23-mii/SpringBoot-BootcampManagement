@@ -5,7 +5,7 @@
  */
 package com.bm.bootcampmanagement.servicesInterface.el;
 
-import com.bm.bootcampmanagement.entities.EmployeeLocker;
+import com.bm.bootcampmanagement.entities.Employeelocker;
 
 
 /**
@@ -14,7 +14,7 @@ import com.bm.bootcampmanagement.entities.EmployeeLocker;
  */
 
 public interface EmployeeLockerDAOInterface {
-    Iterable<EmployeeLocker> findAll();
-    EmployeeLocker saveEmployeeLocker(EmployeeLocker employeeLocker);
+    Iterable<Employeelocker> findAll();
+    Employeelocker saveEmployeeLocker(Employeelocker employeelocker);
     void deleteEmployeeLockerById(String id);
 }

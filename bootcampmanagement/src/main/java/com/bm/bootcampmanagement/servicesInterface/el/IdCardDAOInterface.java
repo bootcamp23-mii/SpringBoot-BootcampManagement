@@ -5,14 +5,15 @@
  */
 package com.bm.bootcampmanagement.servicesInterface.el;
 
-import com.bm.bootcampmanagement.entities.IdCard;
+import com.bm.bootcampmanagement.entities.Idcard;
+
 
 /**
  *
  * @author Firsta
  */
 public interface IdCardDAOInterface {
-    Iterable<IdCard> findAll();
-    IdCard saveIdCard (IdCard idcard);
+    Iterable<Idcard> findAll();
+    Idcard saveIdCard (Idcard idcard);
     void deleteIdCardById(String id);
 }

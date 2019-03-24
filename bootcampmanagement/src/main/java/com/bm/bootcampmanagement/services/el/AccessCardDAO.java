@@ -5,7 +5,7 @@
  */
 package com.bm.bootcampmanagement.services.el;
 
-import com.bm.bootcampmanagement.entities.AccessCard;
+import com.bm.bootcampmanagement.entities.Accesscard;
 import com.bm.bootcampmanagement.entities.Locker;
 import com.bm.bootcampmanagement.repository.el.AccessCardRepository;
 import com.bm.bootcampmanagement.servicesInterface.el.AccessCardDAOInterface;
@@ -20,22 +20,21 @@ import org.springframework.stereotype.Service;
 public class AccessCardDAO implements AccessCardDAOInterface{
 
     @Autowired
-    AccessCardRepository accessCardRepository;
+    AccessCardRepository acr;
 
     @Override
-    public Iterable<AccessCard> findAll() {
-        return accessCardRepository.findAll();
+    public Iterable<Accesscard> findAll() {
+       return acr.findAll();
     }
 
     @Override
-    public AccessCard saveAccessCard(AccessCard accessCard) {
-        return accessCardRepository.save(accessCard);
+    public Accesscard saveAccessCard(Accesscard accesscard) {
+        return acr.save(accesscard);
     }
 
     @Override
     public void deleteAccessCardById(String id) {
-       accessCardRepository.deleteById(id);
+        acr.deleteById(id);
     }
-   
-    
+ 
 }

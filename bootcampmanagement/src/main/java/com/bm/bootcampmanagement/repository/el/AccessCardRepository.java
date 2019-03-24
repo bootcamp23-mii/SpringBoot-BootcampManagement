@@ -5,7 +5,8 @@
  */
 package com.bm.bootcampmanagement.repository.el;
 
-import com.bm.bootcampmanagement.entities.AccessCard;
+
+import com.bm.bootcampmanagement.entities.Accesscard;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -16,7 +17,7 @@ import org.springframework.stereotype.Repository;
  * @author Firsta
  */
 @Repository
-public interface AccessCardRepository extends CrudRepository<AccessCard, String>{
+public interface AccessCardRepository extends CrudRepository<Accesscard, String>{
     @Modifying
     @Query (value = "DELETE FROM tb_m_access_card where id = ?1", nativeQuery = true)
     public void deleteById(String id);

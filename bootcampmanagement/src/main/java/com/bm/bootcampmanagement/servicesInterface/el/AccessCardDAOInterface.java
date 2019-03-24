@@ -5,7 +5,7 @@
  */
 package com.bm.bootcampmanagement.servicesInterface.el;
 
-import com.bm.bootcampmanagement.entities.AccessCard;
+import com.bm.bootcampmanagement.entities.Accesscard;
 
 
 /**
@@ -14,7 +14,7 @@ import com.bm.bootcampmanagement.entities.AccessCard;
  */
 
 public interface AccessCardDAOInterface {
-    Iterable<AccessCard> findAll();
-    AccessCard saveAccessCard(AccessCard accessCard);
+    Iterable<Accesscard> findAll();
+    Accesscard saveAccessCard(Accesscard accesscard);
     void deleteAccessCardById(String id);
 }

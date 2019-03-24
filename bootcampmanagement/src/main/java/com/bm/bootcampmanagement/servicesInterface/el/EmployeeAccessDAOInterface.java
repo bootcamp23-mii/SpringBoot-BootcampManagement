@@ -5,7 +5,7 @@
  */
 package com.bm.bootcampmanagement.servicesInterface.el;
 
-import com.bm.bootcampmanagement.entities.EmployeeAccess;
+import com.bm.bootcampmanagement.entities.Employeeaccess;
 
 
 /**
@@ -14,7 +14,7 @@ import com.bm.bootcampmanagement.entities.EmployeeAccess;
  */
 
 public interface EmployeeAccessDAOInterface {
-    Iterable<EmployeeAccess> findAll();
-    EmployeeAccess saveEmployeeAccess(EmployeeAccess access);
+    Iterable<Employeeaccess> findAll();
+    Employeeaccess saveEmployeeAccess(Employeeaccess access);
     void deleteEmployeeAccessById(String id);
 }

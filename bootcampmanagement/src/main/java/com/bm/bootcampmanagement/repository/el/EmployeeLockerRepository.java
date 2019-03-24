@@ -5,7 +5,7 @@
  */
 package com.bm.bootcampmanagement.repository.el;
 
-import com.bm.bootcampmanagement.entities.EmployeeLocker;
+import com.bm.bootcampmanagement.entities.Employeelocker;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Repository;
  * @author Firsta
  */
 @Repository
-public interface EmployeeLockerRepository extends CrudRepository<EmployeeLocker, String>{
+public interface EmployeeLockerRepository extends CrudRepository<Employeelocker, String>{
     @Modifying
     @Query (value = "DELETE FROM tb_t_employee_locker where id = ?1", nativeQuery = true)
     public void deleteById(String id);

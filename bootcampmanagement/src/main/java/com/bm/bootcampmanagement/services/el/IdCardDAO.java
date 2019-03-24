@@ -4,8 +4,7 @@
  * and open the template in the editor.
  */
 package com.bm.bootcampmanagement.services.el;
-
-import com.bm.bootcampmanagement.entities.IdCard;
+import com.bm.bootcampmanagement.entities.Idcard;
 import com.bm.bootcampmanagement.repository.el.IdCardRepository;
 import com.bm.bootcampmanagement.servicesInterface.el.IdCardDAOInterface;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,21 +18,21 @@ import org.springframework.stereotype.Service;
 public class IdCardDAO implements IdCardDAOInterface{
     
     @Autowired
-    IdCardRepository idCardRepository;
+    IdCardRepository icr;
 
     @Override
-    public Iterable<IdCard> findAll() {
-        return idCardRepository.findAll();
+    public Iterable<Idcard> findAll() {
+        return icr.findAll();
     }
 
     @Override
-    public IdCard saveIdCard(IdCard idcard) {
-        return idCardRepository.save(idcard);
+    public Idcard saveIdCard(Idcard idcard) {
+        return icr.save(idcard);
     }
 
     @Override
     public void deleteIdCardById(String id) {
-        idCardRepository.deleteById(id);
+        icr.deleteById(id);
     }
     
 }

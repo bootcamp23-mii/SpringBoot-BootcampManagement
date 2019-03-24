@@ -5,7 +5,7 @@
  */
 package com.bm.bootcampmanagement.repository.el;
 
-import com.bm.bootcampmanagement.entities.IdCard;
+import com.bm.bootcampmanagement.entities.Idcard;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Repository;
  * @author Firsta
  */
 @Repository
-public interface IdCardRepository  extends CrudRepository<IdCard, String>{
+public interface IdCardRepository  extends CrudRepository<Idcard, String>{
     
     @Modifying
     @Query (value = "DELETE FROM tb_t_id_card where id = ?1", nativeQuery = true)

@@ -5,7 +5,7 @@
  */
 package com.bm.bootcampmanagement.services.el;
 
-import com.bm.bootcampmanagement.entities.EmployeeLocker;
+import com.bm.bootcampmanagement.entities.Employeelocker;
 import com.bm.bootcampmanagement.repository.el.EmployeeLockerRepository;
 import com.bm.bootcampmanagement.servicesInterface.el.EmployeeLockerDAOInterface;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,15 +20,15 @@ public class EmployeeLockerDAO implements EmployeeLockerDAOInterface{
     
     @Autowired
     EmployeeLockerRepository elr;
-    
+
     @Override
-    public Iterable<EmployeeLocker> findAll() {
+    public Iterable<Employeelocker> findAll() {
         return elr.findAll();
     }
 
     @Override
-    public EmployeeLocker saveEmployeeLocker(EmployeeLocker employeeLocker) {
-        return elr.save(employeeLocker);
+    public Employeelocker saveEmployeeLocker(Employeelocker employeelocker) {
+        return elr.save(employeelocker);
     }
 
     @Override

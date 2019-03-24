@@ -5,7 +5,7 @@
  */
 package com.bm.bootcampmanagement.services.el;
 
-import com.bm.bootcampmanagement.entities.EmployeeAccess;
+import com.bm.bootcampmanagement.entities.Employeeaccess;
 import com.bm.bootcampmanagement.repository.el.EmployeeAccessRepository;
 import com.bm.bootcampmanagement.servicesInterface.el.EmployeeAccessDAOInterface;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,21 +19,22 @@ import org.springframework.stereotype.Service;
 public class EmployeeAccessDAO implements EmployeeAccessDAOInterface{
     
     @Autowired
-    EmployeeAccessRepository accessRepository;
-    
+    EmployeeAccessRepository ear;
+
     @Override
-    public Iterable<EmployeeAccess> findAll() {
-        return accessRepository.findAll();
+    public Iterable<Employeeaccess> findAll() {
+       return ear.findAll();
     }
 
     @Override
-    public EmployeeAccess saveEmployeeAccess(EmployeeAccess access) {
-        return accessRepository.save(access);
+    public Employeeaccess saveEmployeeAccess(Employeeaccess access) {
+        return ear.save(access);
     }
 
     @Override
     public void deleteEmployeeAccessById(String id) {
-        accessRepository.deleteById(id);
+        ear.deleteById(id);
     }
+   
     
 }
