@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
 public class MainController {
 
     @Autowired
-    EmployeeDAO dao;
+    EmployeeDAO daoEmp;
 
     @Autowired
     private static Logger log = LoggerFactory.getLogger(MainController.class);
@@ -40,10 +40,11 @@ public class MainController {
     @PostMapping("/login")
 //    @ResponseBody
     public String checkLogin(@RequestParam("idEmp") String id, @RequestParam("passEmp") String password, HttpServletRequest request) {
-        if (dao.findById(id) != null) {
-            Employee employee = dao.findById(id);
+        if (daoEmp.findById(id) != null) {
+            Employee employee = daoEmp.findById(id);
             if (BCrypt.checkpw(password, employee.getPassword())) {
                 request.getSession().setAttribute("login", id);
+                
             }
         }
         return "redirect:/dashboard";
