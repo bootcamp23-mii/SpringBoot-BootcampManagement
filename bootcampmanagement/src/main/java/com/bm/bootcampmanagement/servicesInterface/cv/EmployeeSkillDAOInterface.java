@@ -5,10 +5,17 @@
  */
 package com.bm.bootcampmanagement.servicesInterface.cv;
 
+import com.bm.bootcampmanagement.entities.Employeeskill;
+
 /**
  *
  * @author gerydanu
  */
 public interface EmployeeSkillDAOInterface {
+
+    Iterable<Employeeskill> findAll();
+    Employeeskill findById(String id);
+    Employeeskill save(Employeeskill employeeskill);
+    void delete(String id);
     
 }
