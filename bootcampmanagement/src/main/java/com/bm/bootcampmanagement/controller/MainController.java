@@ -94,6 +94,15 @@ public class MainController {
         return "redirect:/index/";
     }
 
+    @PostMapping("/register")
+//    @ResponseBody
+    public String checkRegister(
+            @RequestParam("empId") String id, @RequestParam("empName") String name, @RequestParam("empBirthplace") String birthplace, @RequestParam("empBirthdate") String birthdate, @RequestParam("empGender") String gender, @RequestParam("empReligion") String religion, 
+            @RequestParam("empMarital") String maritalstatus, @RequestParam("empEmail") String email, @RequestParam("empPhone") String phone, @RequestParam("empAddress") String address, @RequestParam("empVillage") String village, @RequestParam("empOnboard") String onboarddate, @RequestParam("empHiring") String hiringlocation) {
+        
+        return "redirect:/dashboard";
+    }
+
     @GetMapping("/dashboard")
     public String dashboard() {
         return "/dashboard";

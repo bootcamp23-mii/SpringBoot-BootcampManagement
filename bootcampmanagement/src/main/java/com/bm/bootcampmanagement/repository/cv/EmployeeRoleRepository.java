@@ -18,6 +18,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface EmployeeRoleRepository extends CrudRepository<Employeerole, String>{
     @Modifying
-    @Query(value = "DELETE FROM EmployeeRole where id = ?1", nativeQuery = true)
+    @Query(value = "DELETE FROM tb_t_employeerole where id = ?1", nativeQuery = true)
     public void deleteById(String id);
 }

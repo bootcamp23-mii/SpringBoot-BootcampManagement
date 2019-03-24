@@ -19,7 +19,7 @@ import org.springframework.stereotype.Repository;
 public interface WorkExperienceRepository extends CrudRepository<Workexperience, String>{
     
     @Modifying
-    @Query(value = "DELETE FROM Workexperience where id = ?1", nativeQuery = true)
+    @Query(value = "DELETE FROM tb_t_workexperience where id = ?1", nativeQuery = true)
     public void deleteById(String id);
     
 }

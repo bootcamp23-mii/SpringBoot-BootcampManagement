@@ -35,9 +35,72 @@
                                 <h1 class="h2">Register</h1>
                             </div>
                             <!-- Content -->
-                            
-                            <!--end of show regions table-->
+                            <!--Registration form-->
+                            <form name="form-register" th:action="@{/register}" method="POST">
+                                <div class="form-group">
+                                    <input type="hidden" class="form-control" name="empId" value="<%= (session.getAttribute("certId") != null) ? session.getAttribute("certId") : ""%>"/>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Name</label>
+                                            <input type="text" class="form-control" id="empName" name="empName" value=""/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Birth Place</label>
+                                            <input type="text" class="form-control" id="empBirthplace" name="empBirthplace" value=""/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Birth Date</label>
+                                            <input type="text" class="form-control" id="empBirthdate" name="empBirthdate" value=""/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Gender</label>
+                                            <input type="text" class="form-control" id="empGender" name="empGender" value=""/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Religion</label>
+                                            <input type="text" class="form-control" id="empReligion" name="empReligion" value=""/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Marital Status</label>
+                                            <input type="text" class="form-control" id="empMarital" name="empMarital" value=""/>
+                                        </div>
+                                        
+                                    <div class="col-md-6">
+                                        <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Email</label>
+                                            <input type="text" class="form-control" id="empEmail" name="empEmail" value=""/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Phone</label>
+                                            <input type="text" class="form-control" id="empPhone" name="empPhone" value=""/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Address</label>
+                                            <input type="text" class="form-control" id="empAddress" name="empAddress" value=""/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Village</label>
+                                            <input type="text" class="form-control" id="empVillage" name="empVillage" value=""/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>On Board Date</label>
+                                            <input type="text" class="form-control" id="empOnboard" name="empOnboard" value=""/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Hiring Location</label>
+                                            <input type="text" class="form-control" id="empHiring" name="empHiring" value=""/>
+                                        </div>
+                                            
+                                        <button type="submit" class="btn btn-default" value="submit">Save</button>
+                                        
+                                    </div>
+                                </div>
+                            </form>
 
+                            <!--ENDOF Registration form-->
                             <!-- /.End Content -->
                         </div>
                     </div>
