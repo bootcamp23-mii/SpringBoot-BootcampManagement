@@ -5,10 +5,17 @@
  */
 package com.bm.bootcampmanagement.servicesInterface.cv;
 
+import com.bm.bootcampmanagement.entities.Employeelanguage;
+
 /**
  *
  * @author gerydanu
  */
 public interface EmployeeLanguageDAOInterface {
+    
+    Iterable<Employeelanguage> findAll();
+    Employeelanguage findById(String id);
+    Employeelanguage save(Employeelanguage employeelanguage);
+    void delete(String id);
     
 }
