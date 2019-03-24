@@ -7,11 +7,15 @@ package com.bm.bootcampmanagement.controller;
 
 import com.bm.bootcampmanagement.entities.Batchclass;
 import com.bm.bootcampmanagement.entities.Employee;
+import com.bm.bootcampmanagement.entities.Employeerole;
+import com.bm.bootcampmanagement.entities.Participant;
 import com.bm.bootcampmanagement.services.BCrypt;
 import com.bm.bootcampmanagement.services.MailService;
 import com.bm.bootcampmanagement.services.EmployeeDAO;
 import com.bm.bootcampmanagement.services.bm.BatchclassDAO;
-import javax.servlet.http.HttpServletRequest;
+import com.bm.bootcampmanagement.services.bm.ParticipantDAO;
+import com.bm.bootcampmanagement.services.cv.EmployeeRoleDAO;
+import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +33,10 @@ public class MainController {
     EmployeeDAO daoEmp;
     @Autowired
     BatchclassDAO daoBC;
-//    @Autowired
-//    Employeerole
+    @Autowired
+    EmployeeRoleDAO daoEmpR;
+    @Autowired
+    ParticipantDAO daoP;
     @Autowired
     private static Logger log = LoggerFactory.getLogger(MainController.class);
 
@@ -44,21 +50,31 @@ public class MainController {
 
     @PostMapping("/login")
 //    @ResponseBody
-    public String checkLogin(@RequestParam("idEmp") String id, @RequestParam("passEmp") String password, HttpServletRequest request) {
+    public String checkLogin(@RequestParam("idEmp") String id, @RequestParam("passEmp") String password, HttpSession session) {
         if (daoEmp.findById(id) != null) {
             Employee employee = daoEmp.findById(id);
             if (BCrypt.checkpw(password, employee.getPassword())) {
-                request.getSession().setAttribute("login", id);
+                session.setAttribute("login", id);
                 
-                Iterable<Batchclass> batchclass = daoBC.findAll();
-                for (Batchclass data : batchclass) {
+                Iterable<Batchclass> batchclasses = daoBC.findAll();
+                for (Batchclass data : batchclasses) {
                     if (data.getTrainer().equals(id)) {
-                        request.getSession().setAttribute("isTrainer", true);
+                        session.setAttribute("isTrainer", id);
                     }
                 }
-                for (int i = 0; i < 10; i++) {
-                    
+                Iterable<Employeerole> employeeroles = daoEmpR.findAll();
+                for (Employeerole data : employeeroles) {
+                    if (data.getEmployee().getId().equalsIgnoreCase(id)&&data.getRole().getId().equalsIgnoreCase("CVR0")) {
+                        session.setAttribute("isAdmin", id);
+                    }
                 }
+                Iterable<Participant> participants = daoP.findAll();
+                for (Participant data : participants) {
+                    if (data.getId().equalsIgnoreCase(id)) {
+                        session.setAttribute("isParticipant", id);
+                    }
+                }
+                
                 return "redirect:/dashboard";
             }
         }

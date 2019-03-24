@@ -21,7 +21,73 @@ and open the template in the editor.
         <!-- Custom styles for this template -->
         <link th:href="@{dist/css/dashboard.css}" rel="stylesheet"/>
     </head>
-    <body>
-        <div>TODO write content</div>
+    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+            <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Bootcamp Management</a>
+            <ul class="navbar-nav px-3">
+                <li class="nav-item text-nowrap">
+                    <a class="nav-link" href="#">Sign out</a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="container-fluid">
+            <div class="row">
+                <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                    <div class="sidebar-sticky">
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#">
+                                    <span data-feather="home"></span>
+                                    Dashboard <span class="sr-only">(current)</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+
+                <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h1 class="h2">Dashboard</h1>
+                    </div>
+
+                    <!-- Content -->
+                    
+                    <!-- /.End Content -->
+                </main>
+            </div>
+        </div>
+
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <!--    <script>window.jQuery || document.write('<script th:src="@{dist/js/jquery-slim.min.js}"><\/script>')</script>-->
+        <script th:src="@{dist/js/popper.min.js}"></script>
+        <script th:src="@{dist/js/bootstrap.min.js}"></script>
+
+        <!-- Icons -->
+        <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+
+        <script>
+                                feather.replace();
+        </script>
+        <script>
+            $(function () {
+                $('.editModal').click(function ()
+                {
+                    var $row = $(this).closest("tr"),$tds = $row.find("td");
+                    $('#id').val($row.find('td:eq(0)').text());
+                    document.getElementById('rid').value = $row.find('td:eq(0)').text();
+                    document.getElementById('rname').value = $row.find('td:eq(1)').text();
+                });
+            });
+        </script>
+        <script  type="text/javascript">
+            function setEdit(id, name)
+            {
+                document.getElementById('rid').value = id;
+                document.getElementById('rname').value = name;
+            }
+        </script>
     </body>
 </html>
