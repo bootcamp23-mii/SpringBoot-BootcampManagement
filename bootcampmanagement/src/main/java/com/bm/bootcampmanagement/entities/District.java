@@ -53,6 +53,10 @@ public class District implements Serializable {
     private Province province;
     @OneToMany(mappedBy = "district", fetch = FetchType.LAZY)
     private List<Subdistrict> subdistrictList;
+    @OneToMany(mappedBy = "birthplace", fetch = FetchType.LAZY)
+    private List<Employee> employeeList;
+    @OneToMany(mappedBy = "hiringlocation", fetch = FetchType.LAZY)
+    private List<Employee> employeeList1;
 
     public District() {
     }

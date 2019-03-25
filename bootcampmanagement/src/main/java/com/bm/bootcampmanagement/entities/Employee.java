@@ -50,9 +50,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Employee.findByPassword", query = "SELECT e FROM Employee e WHERE e.password = :password")
     , @NamedQuery(name = "Employee.findBySecurityqestion", query = "SELECT e FROM Employee e WHERE e.securityqestion = :securityqestion")
     , @NamedQuery(name = "Employee.findBySecurityanswer", query = "SELECT e FROM Employee e WHERE e.securityanswer = :securityanswer")
-    , @NamedQuery(name = "Employee.findByIsdeleted", query = "SELECT e FROM Employee e WHERE e.isdeleted = :isdeleted")
-    , @NamedQuery(name = "Employee.findByBirthplace", query = "SELECT e FROM Employee e WHERE e.birthplace = :birthplace")
-    , @NamedQuery(name = "Employee.findByHiringlocation", query = "SELECT e FROM Employee e WHERE e.hiringlocation = :hiringlocation")})
+    , @NamedQuery(name = "Employee.findByIsdeleted", query = "SELECT e FROM Employee e WHERE e.isdeleted = :isdeleted")})
 public class Employee implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -122,12 +120,6 @@ public class Employee implements Serializable {
     private byte[] photo;
     @Column(name = "isdeleted")
     private Short isdeleted;
-    @Size(max = 10)
-    @Column(name = "birthplace")
-    private String birthplace;
-    @Size(max = 10)
-    @Column(name = "hiringlocation")
-    private String hiringlocation;
     @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
     private List<Errorbank> errorbankList;
     @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
@@ -161,9 +153,15 @@ public class Employee implements Serializable {
     @JoinColumn(name = "religion", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Religion religion;
+    @JoinColumn(name = "birthplace", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private District birthplace;
     @JoinColumn(name = "village", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Village village;
+    @JoinColumn(name = "hiringlocation", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private District hiringlocation;
     @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
     private List<Idcard> idcardList;
 
@@ -203,6 +201,28 @@ public class Employee implements Serializable {
         this.securityqestion = securityqestion;
         this.securityanswer = securityanswer;
         this.photo = photo;
+    }
+
+    public Employee(String id, String name, Date birthdate, short gender, short marriedstatus, String address, String email, String phone, Date onboarddate, String password, String securityqestion, String securityanswer, byte[] photo, Short isdeleted, District birthplace, District hiringlocation, Religion religion, Village village) {
+        this.id = id;
+        this.name = name;
+        this.birthdate = birthdate;
+        this.gender = gender;
+        this.marriedstatus = marriedstatus;
+        this.address = address;
+        this.email = email;
+        this.phone = phone;
+        this.onboarddate = onboarddate;
+        this.password = password;
+        this.securityqestion = securityqestion;
+        this.securityanswer = securityanswer;
+        this.photo = photo;
+        this.isdeleted = isdeleted;
+        this.birthplace = birthplace;
+        this.hiringlocation = hiringlocation;
+        this.participant = null;
+        this.religion = religion;
+        this.village = village;
     }
 
     public String getId() {
@@ -317,19 +337,19 @@ public class Employee implements Serializable {
         this.isdeleted = isdeleted;
     }
 
-    public String getBirthplace() {
+    public District getBirthplace() {
         return birthplace;
     }
 
-    public void setBirthplace(String birthplace) {
+    public void setBirthplace(District birthplace) {
         this.birthplace = birthplace;
     }
 
-    public String getHiringlocation() {
+    public District getHiringlocation() {
         return hiringlocation;
     }
 
-    public void setHiringlocation(String hiringlocation) {
+    public void setHiringlocation(District hiringlocation) {
         this.hiringlocation = hiringlocation;
     }
 

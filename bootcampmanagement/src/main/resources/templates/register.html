@@ -37,42 +37,42 @@
                             <!-- Content -->
                             <!--Registration form-->
                             <form name="form-register" th:action="@{/insertRegister}" method="POST">
-                                <div class="form-group">
-                                    <input type="hidden" class="form-control" name="empId" value=""/>
-                                </div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Name</label>
-                                            <input type="text" class="form-control" id="empName" name="empName" value=""/>
+                                            <input type="text" class="form-control" id="name" name="name" value=""/>
                                         </div>
                                         <div class="form-group">
                                             <label>Birth Place</label>
-                                            <input type="text" class="form-control" id="empBirthplace" name="empBirthplace" value=""/>
+                                            <select name="birthplace" id="birthplace" class="form-control">
+                                                <div th:each="data :${dataDistrict}">
+                                                    <option th:value="${data.id}" th:text="${data.name}"></option>
+                                                </div>
+                                            </select>
                                         </div>
                                         <div class="form-group">
                                             <label>Birth Date</label>
-                                            <input type="date" class="form-control" id="empBirthdate" name="empBirthdate" value=""/>
+                                            <input type="date" class="form-control" id="birthdate" name="birthdate" value=""/>
                                         </div>
                                         <div class="form-group">
                                             <label>Gender</label>
-                                            <select class="form-control" name="empGender">
+                                            <select class="form-control" name="gender" id="gender">
                                                 <option value="0">Female</option>
                                                 <option value="1">Male</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <label>Religion</label>
-                                            <select name="empReligion" id="empReligion" class="form-control">
+                                            <select name="religion" id="religion"  class="form-control">
                                                 <div th:each="data :${dataReligion}">
                                                     <option th:value="${data.id}" th:text="${data.name}"></option>
                                                 </div>
                                             </select>
-                                            <input type="text" class="form-control" id="empReligion" name="empReligion" value=""/>
                                         </div>
                                         <div class="form-group">
                                             <label>Marital Status</label>
-                                            <select class="form-control" name="empMarital">
+                                            <select class="form-control" name="marriedstatus" id="marriedstatus">
                                                 <option value="0">Single</option>
                                                 <option value="1">Married</option>
                                             </select>
@@ -81,27 +81,35 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Email</label>
-                                            <input type="text" class="form-control" id="empEmail" name="empEmail" value=""/>
+                                            <input type="text" class="form-control" id="email" name="email" value=""/>
                                         </div>
                                         <div class="form-group">
                                             <label>Phone</label>
-                                            <input type="text" class="form-control" id="empPhone" name="empPhone" value=""/>
+                                            <input type="text" class="form-control" id="phone" name="phone" value=""/>
                                         </div>
                                         <div class="form-group">
                                             <label>Address</label>
-                                            <input type="text" class="form-control" id="empAddress" name="empAddress" value=""/>
+                                            <input type="text" class="form-control" id="address" name="address" value=""/>
                                         </div>
                                         <div class="form-group">
                                             <label>Village</label>
-                                            <input type="text" class="form-control" id="empVillage" name="empVillage" value=""/>
+                                            <select name="village" id="village" class="form-control">
+                                                <div th:each="data :${dataVillage}">
+                                                    <option th:value="${data.id}" th:text="${data.name}"></option>
+                                                </div>
+                                            </select>
                                         </div>
                                         <div class="form-group">
                                             <label>On Board Date</label>
-                                            <input type="date" class="form-control" id="empOnboard" name="empOnboard" value=""/>
+                                            <input type="date" class="form-control" id="onboarddate" name="onboarddate" value=""/>
                                         </div>
                                         <div class="form-group">
                                             <label>Hiring Location</label>
-                                            <input type="text" class="form-control" id="empHiring" name="empHiring" value=""/>
+                                            <select name="hiringlocation" id="hiringlocation" class="form-control">
+                                                <div th:each="data :${dataDistrict}">
+                                                    <option th:value="${data.id}" th:text="${data.name}"></option>
+                                                </div>
+                                            </select>
                                         </div>
                                         <button type="submit" class="btn btn-default" value="submit">Save</button>
                                     </div>

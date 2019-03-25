@@ -6,9 +6,12 @@
 package com.bm.bootcampmanagement.controller;
 
 import com.bm.bootcampmanagement.entities.Batchclass;
+import com.bm.bootcampmanagement.entities.District;
 import com.bm.bootcampmanagement.entities.Employee;
 import com.bm.bootcampmanagement.entities.Employeerole;
 import com.bm.bootcampmanagement.entities.Participant;
+import com.bm.bootcampmanagement.entities.Religion;
+import com.bm.bootcampmanagement.entities.Village;
 import com.bm.bootcampmanagement.services.BCrypt;
 import com.bm.bootcampmanagement.services.DBFileStorageService;
 import com.bm.bootcampmanagement.services.MailService;
@@ -18,8 +21,12 @@ import com.bm.bootcampmanagement.services.bm.BatchclassDAO;
 import com.bm.bootcampmanagement.services.bm.ParticipantDAO;
 import com.bm.bootcampmanagement.services.cv.EmployeeRoleDAO;
 import com.bm.bootcampmanagement.services.cv.ReligionDAO;
+import com.bm.bootcampmanagement.services.el.DistrictDAO;
 import com.bm.bootcampmanagement.services.el.VillageDAO;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -55,9 +62,12 @@ public class MainController {
     @Autowired
     ReligionDAO daoR;
     @Autowired
-    VillageDAO daoV;
+    VillageDAO daoLV;
+    @Autowired
+    DistrictDAO daoLD;
     @Autowired
     private static Logger log = LoggerFactory.getLogger(MainController.class);
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
     @Autowired
     private MailService mailService;
@@ -105,11 +115,9 @@ public class MainController {
 
     @PostMapping("/register")
 //    @ResponseBody
-    public String checkRegister(
-            @RequestParam("empId") String id, @RequestParam("empName") String name, @RequestParam("empBirthplace") String birthplace, @RequestParam("empBirthdate") String birthdate, @RequestParam("empGender") String gender, @RequestParam("empReligion") String religion, 
-            @RequestParam("empMarital") String maritalstatus, @RequestParam("empEmail") String email, @RequestParam("empPhone") String phone, @RequestParam("empAddress") String address, @RequestParam("empVillage") String village, @RequestParam("empOnboard") String onboarddate, @RequestParam("empHiring") String hiringlocation) {
+    public String register(Model model) {
         
-        return "redirect:/dashboard";
+        return "redirect:/register";
     }
 
     @GetMapping("/dashboard")
@@ -120,8 +128,33 @@ public class MainController {
     @GetMapping("/registration")
     public String registration(Model model) {
         model.addAttribute("dataReligion", daoR.findAll());
-        model.addAttribute("dataVillage", daoV.findAll());
+        model.addAttribute("dataVillage", daoLV.findAll());
+        model.addAttribute("dataDistrict", daoLD.findAll());
         return "/register";
+    }
+    
+    @PostMapping("/insertRegister")
+    public String saveEmployee(
+            @RequestParam("name")String name,@RequestParam("birthplace")String birthplace
+            ,@RequestParam("birthdate")String birthdate,@RequestParam("email")String email
+            ,@RequestParam("gender")String gender,@RequestParam("religion")String religion
+            ,@RequestParam("phone")String phone,@RequestParam("village")String village
+            ,@RequestParam("marriedstatus")String marriedstatus,@RequestParam("address")String address
+            ,@RequestParam("onboarddate")String onboarddate,@RequestParam("hiringlocation")String hiringlocation
+    ){
+        try {
+            Employee emp = new Employee("c", name, dateFormat.parse(birthdate),
+                    new Short(gender), new Short(marriedstatus), address, email,
+                    phone, dateFormat.parse(onboarddate),
+                    BCrypt.hashpw(phone, BCrypt.gensalt()), "Phone Number",
+                    phone, null, new Short("0"), new District(birthplace),
+                    new District(hiringlocation), new Religion(religion),
+                    new Village(village));
+            daoEmp.save(emp);
+        } catch (ParseException ex) {
+            java.util.logging.Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "redirect:/registration";
     }
     
     @GetMapping("/upload")

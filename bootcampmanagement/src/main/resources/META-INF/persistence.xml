@@ -97,6 +97,7 @@
     <class>com.bm.bootcampmanagement.entities.Employeelanguage</class>
     <class>com.bm.bootcampmanagement.entities.Employeelocker</class>
     <class>com.bm.bootcampmanagement.entities.Idcard</class>
+    <class>com.bm.bootcampmanagement.entities.Employeecertification</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/bootcampmanagement2?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
