@@ -18,6 +18,8 @@ import com.bm.bootcampmanagement.services.bm.BatchclassDAO;
 import com.bm.bootcampmanagement.services.bm.ParticipantDAO;
 import com.bm.bootcampmanagement.services.cv.EmployeeRoleDAO;
 import java.io.IOException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,28 +65,28 @@ public class MainController {
 
     @PostMapping("/login")
 //    @ResponseBody
-    public String checkLogin(@RequestParam("idEmp") String id, @RequestParam("passEmp") String password, HttpSession session) {
+    public String checkLogin(@RequestParam("idEmp") String id, @RequestParam("passEmp") String password, HttpSession session,HttpServletRequest request,HttpServletResponse response) {
         if (daoEmp.findById(id) != null) {
             Employee employee = daoEmp.findById(id);
             if (BCrypt.checkpw(password, employee.getPassword())) {
-                session.setAttribute("login", id);
-                
+                request.getSession().setAttribute("login", employee);
                 Iterable<Batchclass> batchclasses = daoBC.findAll();
                 for (Batchclass data : batchclasses) {
                     if (data.getTrainer().equals(id)) {
-                        session.setAttribute("isTrainer", id);
+                        System.out.println("masuk");
+                        request.getSession().setAttribute("isTrainer", id);
                     }
                 }
                 Iterable<Employeerole> employeeroles = daoEmpR.findAll();
                 for (Employeerole data : employeeroles) {
                     if (data.getEmployee().getId().equalsIgnoreCase(id)&&data.getRole().getId().equalsIgnoreCase("CVR0")) {
-                        session.setAttribute("isAdmin", id);
+                        request.getSession().setAttribute("isAdmin", id);
                     }
                 }
                 Iterable<Participant> participants = daoP.findAll();
                 for (Participant data : participants) {
                     if (data.getId().equalsIgnoreCase(id)) {
-                        session.setAttribute("isParticipant", id);
+                        request.getSession().setAttribute("isParticipant", id);
                     }
                 }
                 
@@ -158,4 +160,14 @@ public class MainController {
     }
 
 
+    
+    
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request){
+        request.getSession().removeAttribute("login");
+        request.getSession().removeAttribute("isAdmin");
+        request.getSession().removeAttribute("isTrainer");
+        request.getSession().removeAttribute("isParticipant");
+        return "redirect:/";
+    }
 }
