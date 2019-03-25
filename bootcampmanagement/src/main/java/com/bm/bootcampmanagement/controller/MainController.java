@@ -18,6 +18,7 @@ import com.bm.bootcampmanagement.services.bm.BatchclassDAO;
 import com.bm.bootcampmanagement.services.bm.ParticipantDAO;
 import com.bm.bootcampmanagement.services.cv.EmployeeRoleDAO;
 import com.bm.bootcampmanagement.services.cv.ReligionDAO;
+import com.bm.bootcampmanagement.services.el.VillageDAO;
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -53,8 +54,8 @@ public class MainController {
     ParticipantDAO daoP;
     @Autowired
     ReligionDAO daoR;
-//    @Autowired
-//    VillageDAO daoR;
+    @Autowired
+    VillageDAO daoV;
     @Autowired
     private static Logger log = LoggerFactory.getLogger(MainController.class);
 
@@ -119,6 +120,7 @@ public class MainController {
     @GetMapping("/registration")
     public String registration(Model model) {
         model.addAttribute("dataReligion", daoR.findAll());
+        model.addAttribute("dataVillage", daoV.findAll());
         return "/register";
     }
     

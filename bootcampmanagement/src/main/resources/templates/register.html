@@ -63,8 +63,8 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Religion</label>
-                                            <select>
-                                                <div class="form-control" th:each="data :${dataReligion}">
+                                            <select name="empReligion" id="empReligion" class="form-control">
+                                                <div th:each="data :${dataReligion}">
                                                     <option th:value="${data.id}" th:text="${data.name}"></option>
                                                 </div>
                                             </select>
