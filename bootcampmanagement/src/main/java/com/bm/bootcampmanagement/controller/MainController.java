@@ -19,8 +19,11 @@ import com.bm.bootcampmanagement.services.EmployeeDAO;
 import com.bm.bootcampmanagement.services.UploadFileResponse;
 import com.bm.bootcampmanagement.services.bm.BatchclassDAO;
 import com.bm.bootcampmanagement.services.bm.ParticipantDAO;
+import com.bm.bootcampmanagement.services.cv.EmployeeLanguageDAO;
 import com.bm.bootcampmanagement.services.cv.EmployeeRoleDAO;
+import com.bm.bootcampmanagement.services.cv.EmployeeSkillDAO;
 import com.bm.bootcampmanagement.services.cv.ReligionDAO;
+import com.bm.bootcampmanagement.services.cv.WorkExperienceDAO;
 import com.bm.bootcampmanagement.services.el.DistrictDAO;
 import com.bm.bootcampmanagement.services.el.VillageDAO;
 import java.io.IOException;
@@ -40,8 +43,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 /**
@@ -57,6 +62,12 @@ public class MainController {
     BatchclassDAO daoBC;
     @Autowired
     EmployeeRoleDAO daoEmpR;
+    @Autowired
+    EmployeeLanguageDAO daoEmpL;
+    @Autowired
+    EmployeeSkillDAO daoEmpS;
+    @Autowired
+    WorkExperienceDAO daoW;
     @Autowired
     ParticipantDAO daoP;
     @Autowired
@@ -229,4 +240,66 @@ public class MainController {
         request.getSession().removeAttribute("isParticipant");
         return "redirect:/";
     }
+    
+    //    Employee Role
+    @GetMapping("/employeerole")
+    public String employeerole(Model m) {
+        m.addAttribute("emproleData", daoEmpR.findAll());
+//        m.addAttribute("emprolesave", new Employeerole());
+//        m.addAttribute("emproleedit", new Employeerole());
+//        m.addAttribute("emproledelete", new Employeerole());
+        return "employeerole";
+    }
+    
+    @RequestMapping(value="/emprolesave", method = RequestMethod.POST) //@PostMapping("/regionsave")
+    public String save(@ModelAttribute("emprolesave") Employeerole employeerole) {
+        daoEmpR.save(employeerole);
+        return "redirect:/employeerole";
+    }
+    
+    @RequestMapping(value="/emproleedit", method = RequestMethod.POST) //@PostMapping("/regionsave")
+    public String edit(@ModelAttribute("emproleedit") Employeerole employeerole) {
+        daoEmpR.save(employeerole);
+        return "redirect:/employeerole";
+    }
+    
+    @RequestMapping(value="/emproledelete", method = RequestMethod.POST) //@PostMapping("/regiondelete")
+    public String delete(@ModelAttribute("emproleedit") Employeerole employeerole) {
+        daoEmpR.delete(employeerole.getId());
+        return "redirect:/employeerole";
+    }
+    
+    @RequestMapping(value="/emproledelete/{id}", method = RequestMethod.GET) //@PostMapping("/regiondelete")
+    public ModelAndView delete(@PathVariable String id, ModelMap model) {
+        daoEmpR.delete(id);
+        return new ModelAndView("redirect:/employeerole");
+    }
+//    ENDOF Employee Role
+    
+//    Employee Language
+    @GetMapping("/employeelanguage")
+    public String employeelanguage(Model m) {
+        m.addAttribute("emplangData", daoEmpL.findAll());
+        
+        return "employeelanguage";
+    }
+//    ENDOF Employee Language
+    
+//    Employee Skill
+    @GetMapping("/employeeskill")
+    public String employeeskill(Model m) {
+        m.addAttribute("empskillData", daoEmpS.findAll());
+        
+        return "employeeskill";
+    }
+//    ENDOF Employee Skill
+    
+//    Work Experience
+    @GetMapping("/workexperience")
+    public String workexperience(Model m) {
+        m.addAttribute("workexpData", daoW.findAll());
+        
+        return "workexperience";
+    }
+//    ENDOF Work Experience
 }
