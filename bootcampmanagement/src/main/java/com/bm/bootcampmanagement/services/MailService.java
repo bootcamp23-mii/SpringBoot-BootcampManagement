@@ -37,18 +37,21 @@ public class MailService {
         this.javaMailSender = javaMailSender;
     }
 
-    public void sendMail() throws MessagingException, MalformedTemplateNameException, IOException, TemplateException{
+    public void sendMail(String destination,String Subject,String title,String user,String content,String link) throws MessagingException, MalformedTemplateNameException, IOException, TemplateException{
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
         Map<String,Object> model = new HashMap<>();
-        model.put("user", "test UserUserUserUserUserUserUserUserUserUserUserUserUserUserUserUserUser");
+        model.put("user", user);
+        model.put("title", title);
+        model.put("message", content);
+        model.put("link", link);
         configuration.setClassForTemplateLoading(this.getClass(), "/");
-        Template t = configuration.getTemplate("/templates/try-mail.html");
+        Template t = configuration.getTemplate("/templates/mail.html");
         String text = FreeMarkerTemplateUtils.processTemplateIntoString(t, model);
-        helper.setTo("fes.game1@outlook.com");
+        helper.setTo(destination);
         helper.setText(text,true);
         helper.setFrom("lgg121770@gmail.com");
-        helper.setSubject("Subject");
+        helper.setSubject(Subject);
         javaMailSender.send(message);
     }
 

@@ -127,7 +127,7 @@ public class Employee implements Serializable {
     @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
     private List<Organization> organizationList;
     @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
-    private List<EmployeeCertification> employeeCertificationList;
+    private List<Employeecertification> employeecertificationList;
     @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
     private List<Placement> placementList;
     @OneToMany(mappedBy = "participant", fetch = FetchType.LAZY)
@@ -381,12 +381,12 @@ public class Employee implements Serializable {
     }
 
     @XmlTransient
-    public List<EmployeeCertification> getEmployeeCertificationList() {
-        return employeeCertificationList;
+    public List<Employeecertification> getEmployeecertificationList() {
+        return employeecertificationList;
     }
 
-    public void setEmployeeCertificationList(List<EmployeeCertification> employeeCertificationList) {
-        this.employeeCertificationList = employeeCertificationList;
+    public void setEmployeecertificationList(List<Employeecertification> employeeCertificationList) {
+        this.employeecertificationList = employeeCertificationList;
     }
 
     @XmlTransient

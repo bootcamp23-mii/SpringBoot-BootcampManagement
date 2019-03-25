@@ -124,6 +124,16 @@ public class MainController {
     public String dashboard() {
         return "/dashboard";
     }
+    
+    @GetMapping("/activation")
+    public String activation(@RequestParam("id")String id,@RequestParam("ca")String password) {
+        Employee emp = daoEmp.findById(id);
+        if (password.equalsIgnoreCase(emp.getPassword())) {
+            emp.setIsdeleted(new Short("0"));
+            daoEmp.save(emp);
+        }
+        return "/dashboard";
+    }
    
     @GetMapping("/registration")
     public String registration(Model model) {
@@ -143,16 +153,21 @@ public class MainController {
             ,@RequestParam("onboarddate")String onboarddate,@RequestParam("hiringlocation")String hiringlocation
     ){
         try {
-            Employee emp = new Employee("c", name, dateFormat.parse(birthdate),
+            Employee emp = new Employee("-", name, dateFormat.parse(birthdate),
                     new Short(gender), new Short(marriedstatus), address, email,
                     phone, dateFormat.parse(onboarddate),
                     BCrypt.hashpw(phone, BCrypt.gensalt()), "Phone Number",
-                    phone, null, new Short("0"), new District(birthplace),
+                    phone, null, new Short("1"), new District(birthplace),
                     new District(hiringlocation), new Religion(religion),
                     new Village(village));
             daoEmp.save(emp);
-        } catch (ParseException ex) {
-            java.util.logging.Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            for (Employee data : daoEmp.findAll()) {
+                if (data.getEmail().equalsIgnoreCase(email)) {
+                    mailService.sendMail(email, "New Account for "+data.getName(), "Congratulation...", data.getName(), "Your account has been created. Please activation your account by click this link.","http://localhost:8083/activation?id="+data.getId()+"&ca="+data.getPassword());
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
         return "redirect:/registration";
     }

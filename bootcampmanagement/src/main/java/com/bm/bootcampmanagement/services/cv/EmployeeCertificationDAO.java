@@ -6,30 +6,30 @@
 package com.bm.bootcampmanagement.services.cv;
 
 import com.bm.bootcampmanagement.services.*;
-import com.bm.bootcampmanagement.entities.EmployeeCertification;
+import com.bm.bootcampmanagement.entities.Employeecertification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.bm.bootcampmanagement.repository.cv.EmployeeCertificationRepository;
-import com.bm.bootcampmanagement.servicesInterface.cv.EmployeeCertificationDAOInterface;
+import com.bm.bootcampmanagement.repository.cv.EmployeecertificationRepository;
+import com.bm.bootcampmanagement.servicesInterface.cv.EmployeecertificationDAOInterface;
 
 /**
  *
  * @author FES
  */
 @Service
-public class EmployeeCertificationDAO implements EmployeeCertificationDAOInterface{
+public class EmployeeCertificationDAO implements EmployeecertificationDAOInterface{
          
     @Autowired
-    EmployeeCertificationRepository ar;
+    EmployeecertificationRepository ar;
 
     @Override
-    public Iterable<EmployeeCertification> findAll() {
+    public Iterable<Employeecertification> findAll() {
         return ar.findAll();
     }
 
     @Override
-    public EmployeeCertification save(EmployeeCertification employeeCertification) {
-        return ar.save(employeeCertification);
+    public Employeecertification save(Employeecertification employeecertification) {
+        return ar.save(employeecertification);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class EmployeeCertificationDAO implements EmployeeCertificationDAOInterfa
     }
 
     @Override
-    public EmployeeCertification findById(String id) {
+    public Employeecertification findById(String id) {
         return ar.findById(id).get();
     }
 

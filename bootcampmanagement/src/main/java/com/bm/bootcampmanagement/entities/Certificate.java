@@ -47,7 +47,7 @@ public class Certificate implements Serializable {
     @Column(name = "name")
     private String name;
     @OneToMany(mappedBy = "certificate", fetch = FetchType.LAZY)
-    private List<EmployeeCertification> employeeCertificationList;
+    private List<Employeecertification> employeecertificationList;
 
     public Certificate() {
     }
@@ -78,12 +78,12 @@ public class Certificate implements Serializable {
     }
 
     @XmlTransient
-    public List<EmployeeCertification> getEmployeeCertificationList() {
-        return employeeCertificationList;
+    public List<Employeecertification> getEmployeeCertificationList() {
+        return employeecertificationList;
     }
 
-    public void setEmployeeCertificationList(List<EmployeeCertification> employeeCertificationList) {
-        this.employeeCertificationList = employeeCertificationList;
+    public void setEmployeeCertificationList(List<Employeecertification> employeeCertificationList) {
+        this.employeecertificationList = employeeCertificationList;
     }
 
     @Override

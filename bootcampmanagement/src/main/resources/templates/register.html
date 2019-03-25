@@ -27,17 +27,35 @@
         </nav>
 
         <div class="container-fluid">
-            <div class="row justify-content-center align-items-center">
-                <main role="main">
-                    <div id="login-column" class="md-10">
-                        <div id="login-box" class="md-12">
-                            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom">
-                                <h1 class="h2">Register</h1>
-                            </div>
-                            <!-- Content -->
-                            <!--Registration form-->
-                            <form name="form-register" th:action="@{/insertRegister}" method="POST">
-                                <div class="row">
+            <div class="row">
+                <div class="justify-content-center align-items-center">
+                    <div class="sidebar-sticky">
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link active" th:href="@{/dashboard}">
+                                    <span data-feather="home"></span>
+                                    Home <span class="sr-only">(current)</span>
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#">
+                                    <span data-feather="home"></span>
+                                    Home <span class="sr-only">(current)</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <main role="main">
+                        <div id="login-column" class="md-10">
+                            <div id="login-box" class="md-12">
+                                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom">
+                                    <h1 class="h2">Register</h1>
+                                </div>
+                                <!-- Content -->
+                                <!--Registration form-->
+                                <form name="form-register" th:action="@{/insertRegister}" method="POST">
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Name</label>
@@ -113,13 +131,13 @@
                                         </div>
                                         <button type="submit" class="btn btn-default" value="submit">Save</button>
                                     </div>
-                                </div>
-                            </form>
-                            <!--ENDOF Registration form-->
-                            <!-- /.End Content -->
+                                </form>
+                                <!--ENDOF Registration form-->
+                                <!-- /.End Content -->
+                            </div>
                         </div>
-                    </div>
-                </main>
+                    </main>
+                </div>
             </div>
         </div>
 
