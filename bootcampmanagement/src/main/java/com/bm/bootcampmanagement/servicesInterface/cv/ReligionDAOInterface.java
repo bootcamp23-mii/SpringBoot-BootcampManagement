@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.bm.bootcampmanagement.servicesInterface.bm;
+package com.bm.bootcampmanagement.servicesInterface.cv;
 
 import com.bm.bootcampmanagement.entities.*;
 
@@ -11,9 +11,9 @@ import com.bm.bootcampmanagement.entities.*;
  *
  * @author FES
  */
-public interface BatchclassDAOInterface {
-    Iterable<Batchclass> findAll();
-    Batchclass findById(String id);
-    Batchclass save(Batchclass entity);
+public interface ReligionDAOInterface {
+    Iterable<Religion> findAll();
+    Religion findById(String id);
+    Religion save(Religion entity);
     void delete(String id);
 }

@@ -17,6 +17,7 @@ import com.bm.bootcampmanagement.services.UploadFileResponse;
 import com.bm.bootcampmanagement.services.bm.BatchclassDAO;
 import com.bm.bootcampmanagement.services.bm.ParticipantDAO;
 import com.bm.bootcampmanagement.services.cv.EmployeeRoleDAO;
+import com.bm.bootcampmanagement.services.cv.ReligionDAO;
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,6 +31,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -49,6 +51,10 @@ public class MainController {
     EmployeeRoleDAO daoEmpR;
     @Autowired
     ParticipantDAO daoP;
+    @Autowired
+    ReligionDAO daoR;
+//    @Autowired
+//    VillageDAO daoR;
     @Autowired
     private static Logger log = LoggerFactory.getLogger(MainController.class);
 
@@ -109,6 +115,12 @@ public class MainController {
     public String dashboard() {
         return "/dashboard";
     }
+   
+    @GetMapping("/registration")
+    public String registration(Model model) {
+        model.addAttribute("dataReligion", daoR.findAll());
+        return "/register";
+    }
     
     @GetMapping("/upload")
     public String upload() {
@@ -158,9 +170,6 @@ public class MainController {
                 .contentType(MediaType.IMAGE_JPEG)
                 .body(employee.getPhoto());
     }
-
-
-    
     
     @GetMapping("/logout")
     public String logout(HttpServletRequest request){

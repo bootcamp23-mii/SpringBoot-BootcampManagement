@@ -3,11 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.bm.bootcampmanagement.services.bm;
+package com.bm.bootcampmanagement.services.cv;
 
+import com.bm.bootcampmanagement.services.bm.*;
 import com.bm.bootcampmanagement.entities.*;
 import com.bm.bootcampmanagement.repository.bm.*;
+import com.bm.bootcampmanagement.repository.el.ReligionRepository;
 import com.bm.bootcampmanagement.servicesInterface.bm.BatchclassDAOInterface;
+import com.bm.bootcampmanagement.servicesInterface.cv.ReligionDAOInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,23 +19,23 @@ import org.springframework.stereotype.Service;
  * @author FES
  */
 @Service
-public class BatchclassDAO implements BatchclassDAOInterface {
+public class ReligionDAO implements ReligionDAOInterface {
 
     @Autowired
-    BatchclassRepository r;
+    ReligionRepository r;
 
     @Override
-    public Iterable<Batchclass> findAll() {
+    public Iterable<Religion> findAll() {
         return r.findAll();
     }
 
     @Override
-    public Batchclass save(Batchclass entity) {
+    public Religion save(Religion entity) {
         return r.save(entity);
     }
 
     @Override
-    public Batchclass findById(String id) {
+    public Religion findById(String id) {
         return r.findById(id).get();
     }
 

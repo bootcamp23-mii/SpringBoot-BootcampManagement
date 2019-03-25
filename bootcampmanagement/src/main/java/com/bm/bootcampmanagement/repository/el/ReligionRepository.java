@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.bm.bootcampmanagement.repository.bm;
+package com.bm.bootcampmanagement.repository.el;
 
-import com.bm.bootcampmanagement.entities.Batchclass;
+import com.bm.bootcampmanagement.entities.Religion;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -16,9 +16,9 @@ import org.springframework.stereotype.Repository;
  * @author FES
  */
 @Repository
-public interface BatchclassRepository extends CrudRepository<Batchclass, String> {
+public interface ReligionRepository extends CrudRepository<Religion, String> {
 
     @Modifying
-    @Query(value = "DELETE FROM Batchclass where id = ?1", nativeQuery = true)
+    @Query(value = "DELETE FROM Religion where id = ?1", nativeQuery = true)
     public void deleteById(String id);
 }
