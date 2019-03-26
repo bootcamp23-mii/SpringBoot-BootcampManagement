@@ -67,6 +67,15 @@ public class Batchclass implements Serializable {
         this.id = id;
     }
 
+    public Batchclass(String id, Short isdeleted, Batch batch, Room room, Classes classes, Employee trainer) {
+        this.id = id;
+        this.isdeleted = isdeleted;
+        this.batch = batch;
+        this.room = room;
+        this.classes = classes;
+        this.trainer = trainer;
+    }
+
     public String getId() {
         return id;
     }
