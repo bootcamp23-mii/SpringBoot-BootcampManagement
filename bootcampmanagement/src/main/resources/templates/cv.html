@@ -62,13 +62,14 @@
                                 <button data-target="#mdlAdd" data-toggle="modal" class="btn btn-default">Add Data</button>
                             </div>
                         </div>
-                        <table id="example" class="table table-bordered table-hover" style="width: 100%">
+                        <table id="example" class="table table-hover" style="width: 100%">
                             <thead>
                                 <tr>
                                     <th>Id</th>
                                     <th>Name</th>
                                     <th>Action</th>
                                 </tr>
+                                
                             </thead>
                             <tbody id="tblData">
                                 <tr th:each="as,iter : ${achievementData}">
@@ -78,13 +79,17 @@
                                         <!--<a th:href="@{/regiondelete/{id}(id=${as.id})}" data-target="#mdlAdd" data-toggle="modal">Delete</a>-->
                                         <!--<a th:href="@{/regiondelete/{id}(id=${as.id})}">Delete</a>-->
                                         <!--<a th:href="@{/delete/{id}(id=${as.id})}">Edit</a>-->
-                                        <button data-target="#mdlEdit" data-toggle="modal" th:data-getname="${as.name}" th:data-getid="${as.id}" class="btn btn-warning">Edit</button>
+                                        <button data-target="#mdlEditAch" data-toggle="modal" th:data-getsid="${as.id}" 
+                                                th:data-getsname="${as.name}"
+                                                th:data-getsemployee="${as.employee.id}"
+                                                class="btn btn-warning">Edit</button>
                                         <a th:href="@{/achievementdelete(achid=${as.id})}"><button value="" class="btn btn-danger">Delete</button></a></td>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </row>
+                    <hr>
 
                     <!--row table organization-->
                     <row>
@@ -94,7 +99,7 @@
                                 <button data-target="#mdledu" data-toggle="modal" class="btn btn-default">Add Data</button>
                             </div>
                         </div>
-                        <table id="example" class="table table-bordered table-hover" style="width: 100%">
+                        <table id="example" class="table table-hover" style="width: 100%">
                             <thead>
                                 <tr>
                                     <th>Id</th>
@@ -112,7 +117,10 @@
                                         <!--<a th:href="@{/regiondelete/{id}(id=${as.id})}" data-target="#mdlAdd" data-toggle="modal">Delete</a>-->
                                         <!--<a th:href="@{/regiondelete/{id}(id=${as.id})}">Delete</a>-->
                                         <!--<a th:href="@{/delete/{id}(id=${as.id})}">Edit</a>-->
-                                        <button data-target="#mdlEdit" data-toggle="modal" th:data-getname="${es.id}" th:data-getid="${es.id}" class="btn btn-warning">Edit</button>
+                                        <button data-target="#mdlEditEdu" data-toggle="modal" th:data-getid="${es.id}" 
+                                                th:data-getgpa="${es.gpa}"
+                                                th:data-getuniv="${es.education.id}"
+                                                class="btn btn-warning">Edit</button>
                                         <a th:href="@{/educationdelete(eduid=${es.id})}"><button value="" class="btn btn-danger">Delete</button></a></td>
                                     </td>
                                 </tr>
@@ -127,7 +135,7 @@
                                 <button data-target="#mdlAddorg" data-toggle="modal" class="btn btn-default">Add Data</button>
                             </div>
                         </div>
-                        <table id="example" class="table table-bordered table-hover" style="width: 100%">
+                        <table id="example" class="table table-hover" style="width: 100%">
                             <thead>
                                 <tr>
                                     <th>Id</th>
@@ -162,7 +170,7 @@
                                 <button data-target="#mdlcert" data-toggle="modal" class="btn btn-default">Add Data</button>
                             </div>
                         </div>
-                        <table id="example" class="table table-bordered table-hover" style="width: 100%">
+                        <table id="example" class="table table-hover" style="width: 100%">
                             <thead>
                                 <tr>
                                     <th>Id</th>
@@ -318,7 +326,70 @@
                         </div>
                     </div>
                     <!--end modal--> 
+                    <!--ini modal untuk edit-->
+                    <!--Modal Edit Data-->
+                    <div class="modal fade" id="mdlEditEdu" tabindex="-1" role="dialog" aria-labelledby="modal-add" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modal-add">Edit Education History</h5>
+                                    <button class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form th:action="@{/educationedit}" method="post">
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <input id="ide" name="ide" type="hidden" class="form-control"/>
+                                            <label for="gpae">GPA</label>
+                                            <input id="gpae" name="gpae" type="number" step="0.01" min="0" max="4" class="form-control"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="educatione">Education</label>
+                                            <select name="educatione" id="educatione" class="form-control">
+                                                <div th:each="data :${dataedu}">
+                                                    <option th:value="${data.id}" th:text="${data.university.name}"></option>
+                                                </div>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-default" value="Submit">Save</button>
+                                    </div>                          
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                     <!-- /.End Content -->
+                    <!--modal add data achievement-->
+                    <div class="modal fade" id="mdlEditAch" tabindex="-1" role="dialog" aria-labelledby="modal-add" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modal-add">Add Achievement</h5>
+                                    <button class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form th:action="@{/achievementedit}" method="post">
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="name">Nama</label>
+                                            <input id="sid" name="sid" class="form-control" value="99" type="hidden"/>
+                                            <input id="sname" name="sname" class="form-control" type="text"/>
+                                            <input id="semployee" name="semployee" class="form-control" value="14201" type="hidden"/>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-default" value="Submit">Save</button>
+                                    </div>                          
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end modal add achievement-->
                 </main>
             </div>
         </div>
@@ -335,6 +406,34 @@
         <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
         <script>
             feather.replace()
+        </script>
+        <script>
+            $('#mdlEditEdu').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                var ide = button.data('getid');
+                var gpae = button.data('getgpa');
+                var educatione = button.data('getuniv');
+
+                var modal = $(this);
+                modal.find('#ide').val(ide);
+                modal.find('#gpae').val(gpae);
+                modal.find('#educatione').val(educatione);
+
+            });
+        </script>
+        <script>
+            $('#mdlEditAch').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                var sid = button.data('getsid');
+                var sname = button.data('getsname');
+                var semployee = button.data('getsemployee');
+
+                var modal = $(this);
+                modal.find('#sid').val(sid);
+                modal.find('#sname').val(sname);
+                modal.find('#semployee').val(semployee);
+
+            });
         </script>
     </body>
 </html>

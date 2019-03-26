@@ -371,7 +371,13 @@ public class MainController {
 
     @RequestMapping(value = "/achievementsave", method = RequestMethod.POST)  //@PostMapping("/regionsave")
     public String savee(@RequestParam("sid") String id, @RequestParam("sname") String name) {
-        adao.save(new Achievement(id, name));
+        adao.save(new Achievement(id, name, new Employee("14201")));
+        return "redirect:/cv";
+    }
+    
+    @RequestMapping(value = "/achievementedit", method = RequestMethod.POST)  //@PostMapping("/regionsave")
+    public String editach(@RequestParam("sid") String id, @RequestParam("sname") String name, @RequestParam("semployee") String semployee) {
+        adao.save(new Achievement(id, name, new Employee(semployee)));
         return "redirect:/cv";
     }
 
@@ -385,6 +391,12 @@ public class MainController {
     @RequestMapping(value = "/educationsave", method = RequestMethod.POST)  //@PostMapping("/regionsave")
     public String saveedu(@RequestParam("gpa") String gpa, @RequestParam("education") String education) {
         edao.save(new Educationhistory("id", gpa, new Education(education), new Employee("14201")));
+        return "redirect:/cv";
+    }
+    
+    @RequestMapping(value = "/educationedit", method = RequestMethod.POST)  //@PostMapping("/regionsave")
+    public String saveedu(@RequestParam("ide") String ide, @RequestParam("gpae") String gpae, @RequestParam("educatione") String educatione) {
+        edao.save(new Educationhistory(ide, gpae, new Education(educatione), new Employee("14201")));
         return "redirect:/cv";
     }
 
