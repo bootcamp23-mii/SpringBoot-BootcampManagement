@@ -225,6 +225,29 @@ public class Employee implements Serializable {
         this.village = village;
     }
 
+    public Employee(String id, String name, Date birthdate, short gender, short marriedstatus, String address, String email, String phone, Date onboarddate, String password, String securityqestion, String securityanswer, byte[] photo, Short isdeleted, Religion religion, District birthplace, Village village, District hiringlocation) {
+        this.id = id;
+        this.name = name;
+        this.birthdate = birthdate;
+        this.gender = gender;
+        this.marriedstatus = marriedstatus;
+        this.address = address;
+        this.email = email;
+        this.phone = phone;
+        this.onboarddate = onboarddate;
+        this.password = password;
+        this.securityqestion = securityqestion;
+        this.securityanswer = securityanswer;
+        this.photo = photo;
+        this.isdeleted = isdeleted;
+        this.religion = religion;
+        this.birthplace = birthplace;
+        this.village = village;
+        this.hiringlocation = hiringlocation;
+    }
+    
+     
+
     public String getId() {
         return id;
     }

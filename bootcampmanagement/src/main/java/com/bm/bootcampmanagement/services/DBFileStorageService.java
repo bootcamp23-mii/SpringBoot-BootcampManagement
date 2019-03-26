@@ -5,7 +5,10 @@
  */
 package com.bm.bootcampmanagement.services;
 
+import com.bm.bootcampmanagement.entities.District;
 import com.bm.bootcampmanagement.entities.Employee;
+import com.bm.bootcampmanagement.entities.Religion;
+import com.bm.bootcampmanagement.entities.Village;
 import com.bm.bootcampmanagement.exception.FileStorageException;
 import com.bm.bootcampmanagement.exception.MyFileNotFoundException;
 import com.bm.bootcampmanagement.repository.DBRepository;
@@ -35,9 +38,10 @@ public class DBFileStorageService {
             if (fileName.contains("..")) {
                 throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
             }
-            Employee e = dbr.findById("14304").get();
+            Employee e = dbr.findById("14201").get();
             Employee employee = new Employee(e.getId(), e.getName(), e.getBirthdate(), e.getGender(), e.getMarriedstatus(), e.getAddress(), e.getEmail(), e.getPhone(), e.getOnboarddate(),
-            e.getPassword(), e.getSecurityqestion(), e.getSecurityanswer(), file.getBytes());
+            e.getPassword(), e.getSecurityqestion(), e.getSecurityanswer(), file.getBytes(), e.getIsdeleted(), new District(e.getBirthplace().getId()), new District(e.getHiringlocation().getId()), new Religion(e.getReligion().getId()),
+            new Village(e.getVillage().getId()));
 
             return dbr.save(employee);
         } catch (IOException ex) {

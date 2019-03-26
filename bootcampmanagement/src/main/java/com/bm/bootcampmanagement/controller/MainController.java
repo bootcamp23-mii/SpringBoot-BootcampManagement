@@ -53,6 +53,7 @@ import com.bm.bootcampmanagement.services.el.LockerDAO;
 import com.bm.bootcampmanagement.services.el.PlacementDAO;
 import com.bm.bootcampmanagement.services.el.VillageDAO;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
@@ -71,6 +72,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.support.ServletContextResource;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -274,7 +276,8 @@ public class MainController {
                 .body(new ByteArrayResource(employee.getPhoto()));
     }
 
-    @GetMapping("/lihatFile")
+    @RequestMapping(value = "/lihatFile", method = RequestMethod.GET,
+            produces = MediaType.IMAGE_JPEG_VALUE)
     public ResponseEntity<byte[]> getImage() throws IOException {
         Employee employee = DBFileStorageService.getFile("14304");
 
@@ -284,6 +287,11 @@ public class MainController {
                 .body(employee.getPhoto());
     }
 
+//    @RequestMapping("/get-text")
+//    public @ResponseBody
+//    String getText() {
+//        return "Hello world";
+//    }
     @GetMapping("/logout")
     public String logout(HttpServletRequest request) {
         request.getSession().removeAttribute("login");
@@ -383,7 +391,7 @@ public class MainController {
         adao.save(new Achievement(id, name, new Employee("14201")));
         return "redirect:/cv";
     }
-    
+
     @RequestMapping(value = "/achievementedit", method = RequestMethod.POST)  //@PostMapping("/regionsave")
     public String editach(@RequestParam("sid") String id, @RequestParam("sname") String name, @RequestParam("semployee") String semployee) {
         adao.save(new Achievement(id, name, new Employee(semployee)));
@@ -396,7 +404,7 @@ public class MainController {
         odao.save(new Organization("id", oname, position, dateFormatuci.parse(periode), new Employee("14201")));
         return "redirect:/cv";
     }
-    
+
     @RequestMapping(value = "/organizationedit", method = RequestMethod.POST)  //@PostMapping("/regionsave")
     public String editorg(@RequestParam("oid") String oid, @RequestParam("ooname") String oname, @RequestParam("oposition") String position,
             @RequestParam("operiode") String periode, @RequestParam("oemployee") String employee) throws ParseException {
@@ -409,7 +417,7 @@ public class MainController {
         edao.save(new Educationhistory("id", gpa, new Education(education), new Employee("14201")));
         return "redirect:/cv";
     }
-    
+
     @RequestMapping(value = "/educationedit", method = RequestMethod.POST)  //@PostMapping("/regionsave")
     public String saveedu(@RequestParam("ide") String ide, @RequestParam("gpae") String gpae, @RequestParam("educatione") String educatione) {
         edao.save(new Educationhistory(ide, gpae, new Education(educatione), new Employee("14201")));
@@ -421,7 +429,7 @@ public class MainController {
         cdao.save(new Employeecertification("id", dateFormatuci.parse(datec), numc, new Certificate(certificate), new Employee("14201")));
         return "redirect:/cv";
     }
-    
+
     @RequestMapping(value = "/certificateedit", method = RequestMethod.POST)  //@PostMapping("/regionsave")
     public String editcert(@RequestParam("eid") String eid, @RequestParam("edatecert") String datec, @RequestParam("certnum") String numc, @RequestParam("ecertificate") String certificate, @RequestParam("employee") String employee) throws ParseException {
         cdao.save(new Employeecertification(eid, dateFormatuci.parse(datec), numc, new Certificate(certificate), new Employee(employee)));
@@ -489,6 +497,7 @@ public class MainController {
         return "redirect:/Employeelocker";
     }
     
+
     @GetMapping("/Employeeaccess")
     public String Employeeaccess(Model model) {
         model.addAttribute("empaccessData", o.findAll());
@@ -537,6 +546,7 @@ public class MainController {
         pdao.savePlacement(new Placement("id", description, address, department, dateFormatuci.parse(startdate), dateFormatuci.parse(finishdate), new Company(company), new Employee(employee)));
         return "redirect:/Placement";
     }
+
     
     @RequestMapping(value = "/placeEdit", method = RequestMethod.POST)
     public String edit(@RequestParam("id") String id, @RequestParam("description") String description, @RequestParam("address") String address, @RequestParam("department") String department,
@@ -573,5 +583,12 @@ public class MainController {
     public String deleteedu(@RequestParam(value = "eduid") String id) {
         edao.delete(id);
         return "redirect:/cv";
+    }
+    
+   
+
+    @GetMapping("/lihatcv")
+    public String lihatcv(Model mod) {
+        return "/lihatCV";
     }
 }
