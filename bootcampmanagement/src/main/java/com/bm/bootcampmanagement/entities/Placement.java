@@ -87,6 +87,17 @@ public class Placement implements Serializable {
         this.description = description;
     }
 
+    public Placement(String id, String description, String address, String department, Date startdate, Date finishdate, Company company, Employee employee) {
+        this.id = id;
+        this.description = description;
+        this.address = address;
+        this.department = department;
+        this.startdate = startdate;
+        this.finishdate = finishdate;
+        this.company = company;
+        this.employee = employee;
+    }
+    
     public String getId() {
         return id;
     }

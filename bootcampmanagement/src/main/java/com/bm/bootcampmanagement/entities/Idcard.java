@@ -72,6 +72,14 @@ public class Idcard implements Serializable {
         this.receivedate = receivedate;
     }
 
+    public Idcard(String id, Date receivedate, Date returndate, String note, Employee employee) {
+        this.id = id;
+        this.receivedate = receivedate;
+        this.returndate = returndate;
+        this.note = note;
+        this.employee = employee;
+    }
+   
     public String getId() {
         return id;
     }

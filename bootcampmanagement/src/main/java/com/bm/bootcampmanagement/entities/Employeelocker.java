@@ -76,6 +76,15 @@ public class Employeelocker implements Serializable {
         this.receivedate = receivedate;
     }
 
+    public Employeelocker(String id, Date receivedate, Date returndate, String notes, Locker locker, Employee employee) {
+        this.id = id;
+        this.receivedate = receivedate;
+        this.returndate = returndate;
+        this.notes = notes;
+        this.locker = locker;
+        this.employee = employee;
+    }
+
     public String getId() {
         return id;
     }

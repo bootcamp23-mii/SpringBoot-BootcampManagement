@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <meta name="description" content=""/>
+        <meta name="author" content=""/>
+        <!--Local css dan js semua pake th, @, dan {} dan / untuk single -->
+        <link rel="icon" th:href="@{dist/img/favicons/favicon.ico}"/>
+
+        <title>Dashboard Template for Bootstrap</title>
+
+        <!-- Bootstrap core CSS -->
+        <link th:href="@{dist/css/bootstrap.min.css}" rel="stylesheet"/>
+
+        <!-- Custom styles for this template -->
+        <link th:href="@{dist/css/dashboard.css}" rel="stylesheet"/>
+    </head>
+
+    <body>
+        <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+            <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">bootcamp Management</a>
+            <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+            <ul class="navbar-nav px-3">
+                <li class="nav-item text-nowrap">
+                    <a class="nav-link" href="#">Sign out</a>
+                </li>
+            </ul>
+        </nav>
+        <div class="container-fluid">
+            <div class="row">
+                <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                    <div class="sidebar-sticky">
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#">
+                                    <span data-feather="home"></span>
+                                    Dashboard <span class="sr-only">(current)</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="Idcard.html">
+                                    <span data-feather="home"></span>
+                                    Id Card <span class="sr-only">(current)</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+
+                <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+                    <row>
+                    <h3>Id Card</h3>
+                    <div class="row" style="padding: 10px 0 10px 0">
+                        <div class="col-sm-6">
+                            <button data-target="#mdlAdd" data-toggle="modal" class="btn btn-warning">Add Data</button>
+                        </div>
+                    </div>
+                    <table id="example" class="table table-bordered table-striped" style="width: 100%">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Receive Date</th>
+                                <th>Return Date</th>
+                                <th>Note</th>
+                                <th>Employee</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tblData">
+                            <tr th:each="idc,ih : ${idcardData}">
+                                <td th:text="${ih.count}"></td>
+                                <td th:text="${idc.receivedate}"></td>
+                                <td th:text="${idc.returndate}"></td>
+                                <td th:text="${idc.note}"></td>
+                                <td th:text="${idc.employee.name}"></td>
+                                <td>
+                                    <button data-target="#mdlEdit" data-toggle="modal" th:data-getid="${idc.id}" 
+                                            th:data-getreceivedate="${idc.receivedate}"
+                                            th:data-getreturndate="${idc.returndate}" 
+                                            th:data-getnote="${idc.note}" 
+                                            th:data-getemployee="${idc.employee.name}" class="btn btn-warning">Edit</button>
+                                    <button data-target="#mdlDelete" data-toggle="modal" h:data-getid="${idc.id}" 
+                                            th:data-getreceivedate="${idc.receivedate}"
+                                            th:data-getreturndate="${idc.returndate}" 
+                                            th:data-getnote="${idc.note}" 
+                                            th:data-getemployee="${idc.employee.name}" class="btn btn-danger">Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    </row>
+                    
+                    
+                    <!--modal add data-->
+                    <div class="modal fade" id="mdlAdd" tabindex="-1" role="dialog" aria-labelledby="modal-add" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modal-add">Add Id Card</h5>
+                                    <button class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form th:action="@{/idcardSave}" method="post">
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="receive">Receive Date</label>
+                                            <input id="receivedate" name="receivedate" class="form-control" type="date"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="returndate">Return Date</label>
+                                            <input id="returndate" name="returndate" class="form-control" type="date"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="note">Note</label>
+                                            <input id="note" name="note" class="form-control" type="text"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="employee">Employee</label>
+                                            <input id="employee" name="employee" class="form-control" type="text"/>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-default" value="Submit">Save</button>
+                                    </div>                          
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- /.End Content -->
+                </main>
+            </div>
+        </div>
+
+        <!-- Bootstrap core JavaScript
+                ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <!--<script>window.jQuery || document.write('<script src="dist/js/jquery-slim.min.js"><\/script>')</script>-->
+        <script th:src="@{dist/js/popper.min.js}"></script>
+        <script th:src="@{dist/js/bootstrap.min.js}"></script>
+
+        <!-- Icons -->
+        <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+        <script>
+            feather.replace()
+        </script>
+    </body>
+</html>
