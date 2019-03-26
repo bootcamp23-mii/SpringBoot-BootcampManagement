@@ -151,7 +151,7 @@ public class MainController {
         if (daoEmp.findById(id) != null) {
             Employee employee = daoEmp.findById(id);
             if (BCrypt.checkpw(password, employee.getPassword())) {
-                request.getSession().setAttribute("login", employee);
+                request.getSession().setAttribute("login", id);
                 Iterable<Batchclass> batchclasses = daoBC.findAll();
                 for (Batchclass data : batchclasses) {
                     if (data.getTrainer().equals(id)) {

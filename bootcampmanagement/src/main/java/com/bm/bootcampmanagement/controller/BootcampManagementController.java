@@ -8,9 +8,15 @@ package com.bm.bootcampmanagement.controller;
 import com.bm.bootcampmanagement.entities.*;
 import com.bm.bootcampmanagement.services.*;
 import com.bm.bootcampmanagement.services.bm.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.*;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -46,6 +52,7 @@ public class BootcampManagementController {
     ScoreDAO daoS;
     @Autowired
     ErrorbankDAO daoEB;
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
     //participant
     @GetMapping("/bm/participant")
@@ -96,18 +103,57 @@ public class BootcampManagementController {
 
     //evaluation
     @GetMapping("/bm/evaluation")
-    public String evaluation(Model model) {
-//        Iterable<Employee> empList=daoEmp.findAll();
-        model.addAttribute("dataParticipant", daoP.findAll());
-        model.addAttribute("dataEvaluation", daoE.findAll());
+    public String evaluation(Model model, HttpServletRequest request) {
+        String trainer = request.getSession().getAttribute("login").toString();
+        List<Participant> participantList = (List<Participant>) daoP.findAll();
+        List<Evaluation> evaluationList = (List<Evaluation>) daoE.findAll();
+        List<Participant> dataParticipant = new ArrayList<>();
+        List<Evaluation> dataEvaluation = new ArrayList<>();
+        for (int i = 0; i < participantList.size(); i++) {
+            if (participantList.get(i).getIsdeleted().intValue() == 0 && participantList.get(i).getBatchclass().getTrainer().getId().equalsIgnoreCase(trainer)) {
+                dataParticipant.add(participantList.get(i));
+            }
+        }
+        for (int i = 0; i < evaluationList.size(); i++) {
+            if (evaluationList.get(i).getIsdeleted().intValue() == 0 && evaluationList.get(i).getParticipant().getParticipant().getBatchclass().getTrainer().getId().equalsIgnoreCase(trainer)) {
+                dataEvaluation.add(evaluationList.get(i));
+            }
+        }
+
+        model.addAttribute("dataParticipant", dataParticipant);
+        model.addAttribute("dataEvaluation", dataEvaluation);
         model.addAttribute("dataTopic", daoT.findAll());
         model.addAttribute("dataLesson", daoL.findAll());
         return "/bm/evaluation";
     }
 
-    @GetMapping("/bm/addEvaluation")
-    public String addEvaluation() {
-        return "/bm/evaluation";
+    @PostMapping("/bm/saveEvaluation")
+    public String saveEvaluation(@RequestParam("idEvaluation") String id, @RequestParam("idEmployee") String idEmployee, @RequestParam("evaluationDate") String evaluationDate, @RequestParam("idlesson") String idLesson, @RequestParam("idTopic") String idTopic, @RequestParam("isDaily") String isDaily) {
+        try {
+            String tempId = "-";
+        if (!id.equalsIgnoreCase("")) {
+            tempId = id;
+        }
+            daoE.save(new Evaluation(tempId, new Short(isDaily), dateFormat.parse(evaluationDate), "", new Short("0"), new Lesson(idLesson), new Topic(idTopic), new Employee(idEmployee)));
+        } catch (Exception ex) {
+            Logger.getLogger(BootcampManagementController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "redirect:/bm/evaluation";
+    }
+
+    @GetMapping("/bm/deleteEvaluation/{id}")
+    public String deleteEvaluation(@PathVariable("id") String id) {
+        try {
+            List<Evaluation> list = (List<Evaluation>) daoE.findAll();
+            for (Evaluation data : list) {
+                if (data.getId().equalsIgnoreCase(id)) {
+                    daoE.save(new Evaluation(data.getId(), new Short(data.getIsdaily().toString()), data.getEvaluationdate(), data.getNote(), new Short("1"), new Lesson(data.getLesson().getId()), new Topic(data.getTopic().getId()), new Employee(data.getParticipant().getId())));
+                }
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(BootcampManagementController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "redirect:/bm/evaluation";
     }
 
     //score
@@ -155,10 +201,10 @@ public class BootcampManagementController {
     }
 
     @PostMapping("/bm/saveBatchclass")
-    public String saveBatchclass(@RequestParam("idBatchclass")String id, @RequestParam("idTrainer")String idTrainer, @RequestParam("idBatch")String idBatch, @RequestParam("idClasses")String idClasses, @RequestParam("idRoom")String idRoom) {
-        String tempId="-";
+    public String saveBatchclass(@RequestParam("idBatchclass") String id, @RequestParam("idTrainer") String idTrainer, @RequestParam("idBatch") String idBatch, @RequestParam("idClasses") String idClasses, @RequestParam("idRoom") String idRoom) {
+        String tempId = "-";
         if (!id.equalsIgnoreCase("")) {
-            tempId=id;
+            tempId = id;
         }
         daoBC.save(new Batchclass(tempId, new Short("0"), new Batch(idBatch), new Room(idRoom), new Classes(idClasses), new Employee(idTrainer)));
         return "redirect:/bm/batchclass";

@@ -69,14 +69,15 @@ and open the template in the editor.
                                                 th:data-idtopic="${data.topic.id}" th:data-isdaily="${data.isdaily}" 
                                                 th:data-note="${data.note}"
                                                 >Edit</button>
-                                        <a class="btn btn-danger" href="../ParticipantServlet?action=delete&id=<%= dataP.getId()%>">Hapus</a>
+                                        <a class="btn btn-primary" th:href="@{/bm/deleteEvaluation/{id}(id=${data.id})}">Score</a>
+                                        <a class="btn btn-danger" th:href="@{/bm/deleteEvaluation/{id}(id=${data.id})}">Delete</a>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                         <!--end of show table-->
                         <!--show save form modal-->
-                        <form action="../ParticipantServlet" method="POST">
+                        <form action="/bm/saveEvaluation" method="POST">
                             <div class="modal fade" id="modalForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">

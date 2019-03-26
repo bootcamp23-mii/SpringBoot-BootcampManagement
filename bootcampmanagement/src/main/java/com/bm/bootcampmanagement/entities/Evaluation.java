@@ -86,6 +86,17 @@ public class Evaluation implements Serializable {
         this.evaluationdate = evaluationdate;
     }
 
+    public Evaluation(String id, Short isdaily, Date evaluationdate, String note, Short isdeleted, Lesson lesson, Topic topic, Employee participant) {
+        this.id = id;
+        this.isdaily = isdaily;
+        this.evaluationdate = evaluationdate;
+        this.note = note;
+        this.isdeleted = isdeleted;
+        this.lesson = lesson;
+        this.topic = topic;
+        this.participant = participant;
+    }
+
     public String getId() {
         return id;
     }
@@ -183,5 +194,5 @@ public class Evaluation implements Serializable {
     public String toString() {
         return "com.bm.bootcampmanagement.entities.Evaluation[ id=" + id + " ]";
     }
-    
+
 }
