@@ -53,6 +53,7 @@ public class BootcampManagementController {
     @Autowired
     ErrorbankDAO daoEB;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+    private SimpleDateFormat dateFormatOut = new SimpleDateFormat("yyyy-MM-dd");
 
     //participant
     @GetMapping("/bm/participant")
@@ -162,7 +163,7 @@ public class BootcampManagementController {
         List<Score> scoreList = (List<Score>) daoS.findAll();
         List<Score> dataScore = new ArrayList<>();
         for (int i = 0; i < scoreList.size(); i++) {
-            if (scoreList.get(i).getEvaluation().getId().equalsIgnoreCase(request.getSession().getAttribute("idScore").toString())&&scoreList.get(i).getIsdeleted().intValue()==0) {
+            if (scoreList.get(i).getEvaluation().getId().equalsIgnoreCase(request.getSession().getAttribute("idScore").toString()) && scoreList.get(i).getIsdeleted().intValue() == 0) {
                 dataScore.add(scoreList.get(i));
             }
         }
@@ -186,13 +187,13 @@ public class BootcampManagementController {
         List<Score> scoreList = (List<Score>) daoS.findAll();
         List<Score> dataScore = new ArrayList<>();
         for (int i = 0; i < scoreList.size(); i++) {
-            if (scoreList.get(i).getEvaluation().getId().equalsIgnoreCase(request.getSession().getAttribute("idScore").toString())&&scoreList.get(i).getIsdeleted().intValue()==0) {
-                dataScore.add(scoreList.get(i));        
+            if (scoreList.get(i).getEvaluation().getId().equalsIgnoreCase(request.getSession().getAttribute("idScore").toString()) && scoreList.get(i).getIsdeleted().intValue() == 0) {
+                dataScore.add(scoreList.get(i));
             }
         }
         for (Score data : dataScore) {
-            if (data.getAspect().getId().equalsIgnoreCase(aspect)&&data.getEvaluation().getId().equalsIgnoreCase(request.getSession().getAttribute("idScore").toString())) {
-                tempId=data.getId();
+            if (data.getAspect().getId().equalsIgnoreCase(aspect) && data.getEvaluation().getId().equalsIgnoreCase(request.getSession().getAttribute("idScore").toString())) {
+                tempId = data.getId();
             }
         }
         daoS.save(new Score(tempId, new Double(rating), new Short("0"), new Aspect(aspect), new Evaluation(request.getSession().getAttribute("idScore").toString())));
@@ -265,14 +266,49 @@ public class BootcampManagementController {
     //errorbank
     @GetMapping("/bm/errorbank")
     public String errorbank(Model model) {
-//        Iterable<Employee> empList=daoEmp.findAll();
+        List<Errorbank> errorList = (List<Errorbank>) daoEB.findAll();
+        List<Errorbank> dataErrorbank = new ArrayList<>();
+        for (Errorbank data : errorList) {
+            if (data.getIsdeleted().intValue() == 0) {
+                dataErrorbank.add(data);
+            }
+        }
+        model.addAttribute("dataErrorbank", dataErrorbank);
         model.addAttribute("dataClasses", daoC.findAll());
-        model.addAttribute("dataErrorbank", daoEB.findAll());
         return "/bm/errorbank";
     }
 
-    @GetMapping("/bm/addErrorbank")
-    public String addErrorbank() {
-        return "/bm/errorbank";
+    @PostMapping("/bm/saveErrorbank")
+    public String saveErrorbank(@RequestParam("errorbankId") String id, @RequestParam("errorbankSubmiter") String employeeId, @RequestParam("errorbankClassesId") String classesId, @RequestParam("errorbankSubmitdate") String SubmitDate, @RequestParam("errorbankDescription") String description, @RequestParam("errorbankSolution") String solution, HttpServletRequest request) {
+        try {
+            String tempId = "-", tempEmp = request.getSession().getAttribute("login").toString();
+            if (!id.equalsIgnoreCase("")) {
+                tempId = id;
+                if (!tempEmp.equalsIgnoreCase(employeeId)) {
+                    return "redirect:/bm/errorbank";
+                }
+            }
+            if (!employeeId.equalsIgnoreCase("")) {
+                tempEmp = employeeId;
+            }
+            daoEB.save(new Errorbank(tempId, dateFormatOut.parse(SubmitDate), description, solution, new Short("0"), new Classes(classesId), new Employee(tempEmp)));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return "redirect:/bm/errorbank";
+    }
+
+    @GetMapping("/bm/deleteErrorbank/{id}")
+    public String saveErrorbank(@PathVariable("id") String id, HttpServletRequest request) {
+        List<Errorbank> list = (List<Errorbank>) daoEB.findAll();
+        for (Errorbank data : list) {
+            if (data.getId().equalsIgnoreCase(id)) {
+                if (!data.getEmployee().getId().equalsIgnoreCase(request.getSession().getAttribute("login").toString())) {
+                    return "redirect:/bm/errorbank";
+                }
+                daoEB.save(new Errorbank(data.getId(), data.getSubmitdate(), data.getDescription(), data.getSolution(), new Short("1"), new Classes(data.getClasses().getId()), new Employee(data.getEmployee().getId())));
+            }
+        }
+        return "redirect:/bm/errorbank";
     }
 }

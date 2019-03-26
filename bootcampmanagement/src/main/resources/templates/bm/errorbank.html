@@ -66,14 +66,14 @@ and open the template in the editor.
                                                 th:data-getsolution="${data.solution}" th:data-getclasses="${data.classes.id}" 
                                                 th:data-getsubmitdate="${data.submitdate}" th:data-getemployee="${data.employee.id}" 
                                                 >Edit</button>
-                                        <a class="btn btn-danger" href="../ParticipantServlet?action=delete&id=<%= dataP.getId()%>">Hapus</a>
+                                        <a class="btn btn-danger" th:href="@{/bm/deleteErrorbank/{id}(id=${data.id})}">Delete</a>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                         <!--end of show table-->
                         <!--show save form modal-->
-                        <form action="../ParticipantServlet" method="POST">
+                        <form action="/bm/saveErrorbank" method="POST">
                             <div class="modal fade" id="modalForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">

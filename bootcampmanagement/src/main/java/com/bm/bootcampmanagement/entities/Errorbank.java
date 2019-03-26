@@ -79,6 +79,16 @@ public class Errorbank implements Serializable {
         this.submitdate = submitdate;
     }
 
+    public Errorbank(String id, Date submitdate, String description, String solution, Short isdeleted, Classes classes, Employee employee) {
+        this.id = id;
+        this.submitdate = submitdate;
+        this.description = description;
+        this.solution = solution;
+        this.isdeleted = isdeleted;
+        this.classes = classes;
+        this.employee = employee;
+    }
+
     public String getId() {
         return id;
     }
