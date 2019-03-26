@@ -12,8 +12,10 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -31,8 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Participant.findAll", query = "SELECT p FROM Participant p")
     , @NamedQuery(name = "Participant.findById", query = "SELECT p FROM Participant p WHERE p.id = :id")
     , @NamedQuery(name = "Participant.findByGrade", query = "SELECT p FROM Participant p WHERE p.grade = :grade")
-    , @NamedQuery(name = "Participant.findByIsdeleted", query = "SELECT p FROM Participant p WHERE p.isdeleted = :isdeleted")
-    , @NamedQuery(name = "Participant.findByBatchclass", query = "SELECT p FROM Participant p WHERE p.batchclass = :batchclass")})
+    , @NamedQuery(name = "Participant.findByIsdeleted", query = "SELECT p FROM Participant p WHERE p.isdeleted = :isdeleted")})
 public class Participant implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -47,9 +48,9 @@ public class Participant implements Serializable {
     private String grade;
     @Column(name = "isdeleted")
     private Short isdeleted;
-    @Size(max = 10)
-    @Column(name = "batchclass")
-    private String batchclass;
+    @JoinColumn(name = "batchclass", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Batchclass batchclass;
     @JoinColumn(name = "id", referencedColumnName = "id", insertable = false, updatable = false)
     @OneToOne(optional = false, fetch = FetchType.LAZY)
     private Employee employee;
@@ -59,6 +60,14 @@ public class Participant implements Serializable {
 
     public Participant(String id) {
         this.id = id;
+    }
+
+    public Participant(String id, String grade, Short isdeleted, Batchclass batchclass, Employee employee) {
+        this.id = id;
+        this.grade = grade;
+        this.isdeleted = isdeleted;
+        this.batchclass = batchclass;
+        this.employee = employee;
     }
 
     public String getId() {
@@ -85,11 +94,11 @@ public class Participant implements Serializable {
         this.isdeleted = isdeleted;
     }
 
-    public String getBatchclass() {
+    public Batchclass getBatchclass() {
         return batchclass;
     }
 
-    public void setBatchclass(String batchclass) {
+    public void setBatchclass(Batchclass batchclass) {
         this.batchclass = batchclass;
     }
 

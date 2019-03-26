@@ -35,7 +35,7 @@ and open the template in the editor.
             <div class="container-fluid">
                 <div class="row">
                     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-                        <h1>Participant</h1>
+                        <h1>Evaluation</h1>
                         <!--show table-->
                         <p>
                             <a class="btn btn-success" data-target="#modalForm" data-toggle="modal">
@@ -45,34 +45,38 @@ and open the template in the editor.
                         <table class="table table-striped" id="participantTable" cellspacing='30' align ='center' border="1">
                             <thead class="active">
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Trainer</th>
-                                    <th>Batch</th>
-                                    <th>Class</th>
-                                    <th>Room</th>
+                                    <th>Participant</th>
+                                    <th>Date</th>
+                                    <th>Lesson</th>
+                                    <th>Topic</th>
+                                    <th>Daily Score</th>
+                                    <th>Note</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr th:each="data :${dataParticipant}">
-                                    <td th:text="${data.employee.name}"></td>
-                                    <td th:text="${data.batchclass.trainer.name}"></td>
-                                    <td th:text="${data.batchclass.batch.id}"></td>
-                                    <td th:text="${data.batchclass.classes.id}"></td>
-                                    <td th:text="${data.batchclass.room.name}"></td>
+                                <tr th:each="data :${dataEvaluation}">
+                                    <td th:text="${data.participant.id+'-'+data.participant.name}"></td>
+                                    <td th:text="${data.evaluationdate}"></td>
+                                    <td th:text="${data.lesson.name}"></td>
+                                    <td th:text="${data.topic.name}"></td>
+                                    <td th:text="${data.isdaily}"></td>
+                                    <td th:text="${data.note}"></td>
                                     <td>
-                                        <button class="btn btn-primary editModal" data-toggle="modal" data-target="#modalForm" 
-                                                th:data-getid="${data.batchclass.id}" th:data-getidemp="${data.employee.id}"
-                                                >Edit
-                                        </button>
-                                        <a class="btn btn-danger" th:href="@{/bm/deleteParticipant/{id}(id=${data.id})}">Hapus</a>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalForm" 
+                                                th:data-id="${data.id}" th:data-idparticipant="${data.participant.id}" 
+                                                th:data-evaluationdate="${data.evaluationdate}" th:data-idlession="${data.lesson.id}" 
+                                                th:data-idtopic="${data.topic.id}" th:data-isdaily="${data.isdaily}" 
+                                                th:data-note="${data.note}"
+                                                >Edit</button>
+                                        <a class="btn btn-danger" href="../ParticipantServlet?action=delete&id=<%= dataP.getId()%>">Hapus</a>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                         <!--end of show table-->
                         <!--show save form modal-->
-                        <form action="/bm/saveParticipant" method="POST">
+                        <form action="../ParticipantServlet" method="POST">
                             <div class="modal fade" id="modalForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
@@ -84,18 +88,34 @@ and open the template in the editor.
                                             </button>
                                         </div>
                                         <div class="modal-body">
+                                            <input type="hidden" id="idEvaluation" name="idEvaluation" value=""/>
                                             <label data-error="wrong" data-success="true">Employee</label>
-                                            <select name="employeeId" id="employeeId" class="form-control">
-                                                <div th:each="data :${dataEmployee}">
+                                            <select name="idEmployee" id="idEmployee" class="form-control">
+                                                <div th:each="data :${dataParticipant}">
+                                                    <option th:value="${data.id}" th:text="${data.employee.name}"></option>
+                                                </div>
+                                            </select>
+                                            <label data-error="wrong" data-success="true">Evaluation Date</label>
+                                            <input type="date" class="form-control" id="evaluationDate" name="evaluationDate">
+                                            <label data-error="wrong" data-success="true">Lesson</label>
+                                            <select name="idlesson" id="idlesson" class="form-control">
+                                                <div th:each="data :${dataLesson}">
+                                                    <option th:value="${data.id}" th:text="${data.classes.id+' - '+data.name}"></option>
+                                                </div>
+                                            </select>
+                                            <label data-error="wrong" data-success="true">Topic</label>
+                                            <select name="idTopic" id="idTopic" class="form-control">
+                                                <div th:each="data :${dataTopic}">
                                                     <option th:value="${data.id}" th:text="${data.name}"></option>
                                                 </div>
                                             </select>
-                                            <label data-error="wrong" data-success="true">Batch Class</label>
-                                            <select name="batchclassId" id="batchclassId" class="form-control">
-                                                <div th:each="data :${dataBatchclass}">
-                                                    <option th:value="${data.id}" th:text="${data.batch.id+' '+data.classes.id}"></option>
-                                                </div>
+                                            <label data-error="wrong" data-success="true">Is Daily</label>
+                                            <select name="isDaily" id="isDaily" class="form-control">
+                                                <option value="0">no</option>
+                                                <option value="1">yes</option>
                                             </select>
+                                            <label data-error="wrong" data-success="true">Note</label>
+                                            <textarea class="form-control" id="note" name="note"></textarea>
                                         </div>
                                         <div class="modal-footer">
                                             <input type="submit" class="btn btn-success" value="Save" name="save"/>
@@ -109,6 +129,7 @@ and open the template in the editor.
                 </div>
             </div>
         </div>
+
         <!-- Bootstrap core JavaScript
         ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
@@ -126,11 +147,21 @@ and open the template in the editor.
         <script>
             $('#modalForm').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget);
-                var id = button.data('getid');
-                var idemp = button.data('getidemp');
+                var idEvaluation = button.data('id');
+                var idEmployee = button.data('idparticipant');
+                var evaluationDate = button.data('evaluationdate');
+                var idlesson = button.data('idlession');
+                var idTopic = button.data('idtopic');
+                var isDaily = button.data('isdaily');
+                var note = button.data('note');
                 var modal = $(this);
-                modal.find('#batchclassId').val(id);
-                modal.find('#employeeId').val(idemp);
+                modal.find('#idEvaluation').val(idEvaluation);
+                modal.find('#idEmployee').val(idEmployee);
+                modal.find('#evaluationDate').val(evaluationDate);
+                modal.find('#idlesson').val(idlesson);
+                modal.find('#idTopic').val(idTopic);
+                modal.find('#isDaily').val(isDaily);
+                modal.find('#note').val(note);
             });
         </script>
         <script  type="text/javascript">

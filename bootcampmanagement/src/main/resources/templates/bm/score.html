@@ -35,7 +35,7 @@ and open the template in the editor.
             <div class="container-fluid">
                 <div class="row">
                     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-                        <h1>Participant</h1>
+                        <h1>Score</h1>
                         <!--show table-->
                         <p>
                             <a class="btn btn-success" data-target="#modalForm" data-toggle="modal">
@@ -45,34 +45,27 @@ and open the template in the editor.
                         <table class="table table-striped" id="participantTable" cellspacing='30' align ='center' border="1">
                             <thead class="active">
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Trainer</th>
-                                    <th>Batch</th>
-                                    <th>Class</th>
-                                    <th>Room</th>
+                                    <th>Aspect</th>
+                                    <th>Rating</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr th:each="data :${dataParticipant}">
-                                    <td th:text="${data.employee.name}"></td>
-                                    <td th:text="${data.batchclass.trainer.name}"></td>
-                                    <td th:text="${data.batchclass.batch.id}"></td>
-                                    <td th:text="${data.batchclass.classes.id}"></td>
-                                    <td th:text="${data.batchclass.room.name}"></td>
+                                <tr th:each="data :${dataScore}">
+                                    <td th:text="${data.aspect.name}"></td>
+                                    <td th:text="${data.rating}"></td>
                                     <td>
-                                        <button class="btn btn-primary editModal" data-toggle="modal" data-target="#modalForm" 
-                                                th:data-getid="${data.batchclass.id}" th:data-getidemp="${data.employee.id}"
-                                                >Edit
-                                        </button>
-                                        <a class="btn btn-danger" th:href="@{/bm/deleteParticipant/{id}(id=${data.id})}">Hapus</a>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalForm" 
+                                                th:data-getid="data.id" th:data-getaspect="data.aspect.id" th:data-getrating="data.rating"
+                                                >Edit</button>
+                                        <a class="btn btn-danger" href="../ParticipantServlet?action=delete&id=<%= dataP.getId()%>">Hapus</a>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                         <!--end of show table-->
                         <!--show save form modal-->
-                        <form action="/bm/saveParticipant" method="POST">
+                        <form action="../ParticipantServlet" method="POST">
                             <div class="modal fade" id="modalForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
@@ -84,18 +77,16 @@ and open the template in the editor.
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <label data-error="wrong" data-success="true">Employee</label>
-                                            <select name="employeeId" id="employeeId" class="form-control">
-                                                <div th:each="data :${dataEmployee}">
+                                            <input type="hidden" id="scoreId" name="scoreId" value=""/>
+                                            <label data-error="wrong" data-success="true">Aspect</label>
+                                            <select name="aspectId" id="aspectId" class="form-control">
+                                                <div th:each="data :${dataAspect}">
                                                     <option th:value="${data.id}" th:text="${data.name}"></option>
                                                 </div>
                                             </select>
-                                            <label data-error="wrong" data-success="true">Batch Class</label>
-                                            <select name="batchclassId" id="batchclassId" class="form-control">
-                                                <div th:each="data :${dataBatchclass}">
-                                                    <option th:value="${data.id}" th:text="${data.batch.id+' '+data.classes.id}"></option>
-                                                </div>
-                                            </select>
+                                            <label data-error="wrong" data-success="true">Rating</label>
+                                            <input type="range" min="0" max="100" value="0" class="form-control" id="aspectRating" name="aspectRating">
+                                            <p>Value: <span id="resultSlider"></span></p>
                                         </div>
                                         <div class="modal-footer">
                                             <input type="submit" class="btn btn-success" value="Save" name="save"/>
@@ -109,6 +100,7 @@ and open the template in the editor.
                 </div>
             </div>
         </div>
+
         <!-- Bootstrap core JavaScript
         ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
@@ -126,11 +118,13 @@ and open the template in the editor.
         <script>
             $('#modalForm').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget);
-                var id = button.data('getid');
-                var idemp = button.data('getidemp');
+                var scoreId = button.data('getid');
+                var aspectId = button.data('getaspect');
+                var aspectRating = button.data('getrating');
                 var modal = $(this);
-                modal.find('#batchclassId').val(id);
-                modal.find('#employeeId').val(idemp);
+                modal.find('#scoreId').val(scoreId);
+                modal.find('#aspectId').val(aspectId);
+                modal.find('#aspectRating').val(aspectRating);
             });
         </script>
         <script  type="text/javascript">
@@ -139,6 +133,13 @@ and open the template in the editor.
                 document.getElementById('rid').value = id;
                 document.getElementById('rname').value = name;
             }
+            var slider = document.getElementById("inRating");
+            var output = document.getElementById("resultSlider");
+            output.innerHTML = slider.value;
+
+            slider.oninput = function () {
+                output.innerHTML = this.value;
+            };
         </script>
     </body>
 </html>
