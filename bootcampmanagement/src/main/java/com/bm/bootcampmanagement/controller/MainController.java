@@ -78,7 +78,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
  */
 @Controller
 public class MainController {
-    
+
     @Autowired
     IdCardDAO cardDAO;
     @Autowired
@@ -202,11 +202,11 @@ public class MainController {
     @PostMapping("/insertRegister")
     public String saveEmployee(
             @RequestParam("name") String name, @RequestParam("birthplace") String birthplace,
-             @RequestParam("birthdate") String birthdate, @RequestParam("email") String email,
-             @RequestParam("gender") String gender, @RequestParam("religion") String religion,
-             @RequestParam("phone") String phone, @RequestParam("village") String village,
-             @RequestParam("marriedstatus") String marriedstatus, @RequestParam("address") String address,
-             @RequestParam("onboarddate") String onboarddate, @RequestParam("hiringlocation") String hiringlocation
+            @RequestParam("birthdate") String birthdate, @RequestParam("email") String email,
+            @RequestParam("gender") String gender, @RequestParam("religion") String religion,
+            @RequestParam("phone") String phone, @RequestParam("village") String village,
+            @RequestParam("marriedstatus") String marriedstatus, @RequestParam("address") String address,
+            @RequestParam("onboarddate") String onboarddate, @RequestParam("hiringlocation") String hiringlocation
     ) {
         try {
             Employee emp = new Employee("-", name, dateFormat.parse(birthdate),
@@ -374,7 +374,26 @@ public class MainController {
         adao.save(new Achievement(id, name));
         return "redirect:/cv";
     }
-    
+
+    @RequestMapping(value = "/organizationsave", method = RequestMethod.POST)  //@PostMapping("/regionsave")
+    public String saveorg(@RequestParam("oname") String oname, @RequestParam("position") String position,
+            @RequestParam("periode") String periode) throws ParseException {
+        odao.save(new Organization("id", oname, position, dateFormatuci.parse(periode), new Employee("14201")));
+        return "redirect:/cv";
+    }
+
+    @RequestMapping(value = "/educationsave", method = RequestMethod.POST)  //@PostMapping("/regionsave")
+    public String saveedu(@RequestParam("gpa") String gpa, @RequestParam("education") String education) {
+        edao.save(new Educationhistory("id", gpa, new Education(education), new Employee("14201")));
+        return "redirect:/cv";
+    }
+
+    @RequestMapping(value = "/certificatesave", method = RequestMethod.POST)  //@PostMapping("/regionsave")
+    public String savecert(@RequestParam("datecert") String datec, @RequestParam("certnumber") String numc, @RequestParam("certificate") String certificate) throws ParseException {
+        cdao.save(new Employeecertification("id", dateFormatuci.parse(datec), numc, new Certificate(certificate), new Employee("14201")));
+        return "redirect:/cv";
+    }
+
     @GetMapping("/Idcard")
     public String Idcard(Model model) {
         model.addAttribute("idcardData", cardDAO.findAll());
@@ -392,7 +411,7 @@ public class MainController {
     }
 
     @RequestMapping(value = "/idcardDelete", method = RequestMethod.GET)
-    public String delete(@RequestParam("id")String id ){
+    public String delete(@RequestParam("id") String id) {
         cardDAO.deleteIdCardById(id);
         return "redirect:/";
     }
