@@ -16,9 +16,9 @@ import org.springframework.stereotype.Repository;
  * @author FES
  */
 @Repository
-public interface BatchclassRepository extends CrudRepository<Batchclass, String> {
+public interface LessonRepository extends CrudRepository<Lesson, String> {
 
     @Modifying
-    @Query(value = "DELETE FROM Batchclass where id = ?1", nativeQuery = true)
+    @Query(value = "DELETE FROM Lesson where id = ?1", nativeQuery = true)
     public void deleteById(String id);
 }
