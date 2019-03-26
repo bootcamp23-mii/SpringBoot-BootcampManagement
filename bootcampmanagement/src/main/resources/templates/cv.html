@@ -62,23 +62,20 @@
                                 <button data-target="#mdlAdd" data-toggle="modal" class="btn btn-default">Add Data</button>
                             </div>
                         </div>
-                        <table id="example" class="table table-hover" style="width: 100%">
+                        <table id="example" class="table table-bordered table-striped" style="width: 100%">
                             <thead>
                                 <tr>
                                     <th>Id</th>
                                     <th>Name</th>
                                     <th>Action</th>
                                 </tr>
-                                
+
                             </thead>
                             <tbody id="tblData">
                                 <tr th:each="as,iter : ${achievementData}">
                                     <td th:text="${iter.count}"></td>
                                     <td th:text="${as.name}"></td>
                                     <td>
-                                        <!--<a th:href="@{/regiondelete/{id}(id=${as.id})}" data-target="#mdlAdd" data-toggle="modal">Delete</a>-->
-                                        <!--<a th:href="@{/regiondelete/{id}(id=${as.id})}">Delete</a>-->
-                                        <!--<a th:href="@{/delete/{id}(id=${as.id})}">Edit</a>-->
                                         <button data-target="#mdlEditAch" data-toggle="modal" th:data-getsid="${as.id}" 
                                                 th:data-getsname="${as.name}"
                                                 th:data-getsemployee="${as.employee.id}"
@@ -89,8 +86,6 @@
                             </tbody>
                         </table>
                     </row>
-                    <hr>
-
                     <!--row table organization-->
                     <row>
                         <h4>Education</h4>
@@ -99,7 +94,7 @@
                                 <button data-target="#mdledu" data-toggle="modal" class="btn btn-default">Add Data</button>
                             </div>
                         </div>
-                        <table id="example" class="table table-hover" style="width: 100%">
+                        <table id="example" class="table table-bordered table-striped" style="width: 100%">
                             <thead>
                                 <tr>
                                     <th>Id</th>
@@ -127,7 +122,6 @@
                             </tbody>
                         </table>
                     </row>
-
                     <row>
                         <h4>Organization</h4>
                         <div class="row" style="padding: 10px 0 10px 0">
@@ -135,7 +129,7 @@
                                 <button data-target="#mdlAddorg" data-toggle="modal" class="btn btn-default">Add Data</button>
                             </div>
                         </div>
-                        <table id="example" class="table table-hover" style="width: 100%">
+                        <table id="example" class="table table-bordered table-striped" style="width: 100%">
                             <thead>
                                 <tr>
                                     <th>Id</th>
@@ -152,10 +146,12 @@
                                     <td th:text="${os.position}"></td>
                                     <td th:text="${os.period}"></td>
                                     <td>
-                                        <!--<a th:href="@{/regiondelete/{id}(id=${as.id})}" data-target="#mdlAdd" data-toggle="modal">Delete</a>-->
-                                        <!--<a th:href="@{/regiondelete/{id}(id=${as.id})}">Delete</a>-->
-                                        <!--<a th:href="@{/delete/{id}(id=${as.id})}">Edit</a>-->
-                                        <button data-target="#mdlEdit" data-toggle="modal" th:data-getname="${os.name}" th:data-getid="${os.id}" class="btn btn-warning">Edit</button>
+                                        <button data-target="#mdlEditOrg" data-toggle="modal" th:data-getoid="${os.id}" 
+                                                th:data-getoname="${os.name}"
+                                                th:data-getoposition="${os.position}"
+                                                th:data-getoperiode="${os.period}"
+                                                th:data-getoemployee="${os.employee.id}"
+                                                class="btn btn-warning">Edit</button>
                                         <a th:href="@{/organizationdelete(orgid=${os.id})}"><button value="" class="btn btn-danger">Delete</button></a></td>
                                     </td>
                                 </tr>
@@ -170,7 +166,7 @@
                                 <button data-target="#mdlcert" data-toggle="modal" class="btn btn-default">Add Data</button>
                             </div>
                         </div>
-                        <table id="example" class="table table-hover" style="width: 100%">
+                        <table id="example" class="table table-bordered table-striped" style="width: 100%">
                             <thead>
                                 <tr>
                                     <th>Id</th>
@@ -187,10 +183,12 @@
                                     <td th:text="${cs.certificateNumber}"></td>
                                     <td th:text="${cs.certificate.name}"></td>
                                     <td>
-                                        <!--<a th:href="@{/regiondelete/{id}(id=${as.id})}" data-target="#mdlAdd" data-toggle="modal">Delete</a>-->
-                                        <!--<a th:href="@{/regiondelete/{id}(id=${as.id})}">Delete</a>-->
-                                        <!--<a th:href="@{/delete/{id}(id=${as.id})}">Edit</a>-->
-                                        <button data-target="#mdlEdit" data-toggle="modal" th:data-getname="${cs.id}" th:data-getid="${cs.id}" class="btn btn-warning">Edit</button>
+                                        <button data-target="#mdlEditcert" data-toggle="modal" th:data-geteid="${cs.id}" 
+                                                th:data-getedatecert="${cs.certificateDate}"
+                                                th:data-getcertnum="${cs.certificateNumber}"
+                                                th:data-getecertificate="${cs.certificate.id}"
+                                                th:data-getemployee="${cs.employee.id}"
+                                                class="btn btn-warning">Edit</button>
                                         <a th:href="@{/certificatedelete(certid=${cs.id})}"><button value="" class="btn btn-danger">Delete</button></a></td>
                                     </td>
                                 </tr>
@@ -241,8 +239,12 @@
                                         <div class="form-group">
                                             <label for="name">Nama</label>
                                             <input id="oname" name="oname" class="form-control" type="text"/>
+                                        </div>
+                                        <div class="form-group">
                                             <label for="position">Position</label>
                                             <input id="position" name="position" class="form-control" type="text"/>
+                                        </div>
+                                        <div class="form-group">
                                             <label for="periode">Periode</label>
                                             <input id="periode" name="periode" class="form-control" type="date"/>
                                         </div>
@@ -390,6 +392,82 @@
                         </div>
                     </div>
                     <!--end modal add achievement-->
+                    <!--modal add data Organization-->
+                    <div class="modal fade" id="mdlEditOrg" tabindex="-1" role="dialog" aria-labelledby="modal-add" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modal-add">Add Organization</h5>
+                                    <button class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form th:action="@{/organizationedit}" method="post">
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <input id="oid" name="oid" class="form-control" type="hidden"/>
+                                            <label for="ooname">Nama</label>
+                                            <input id="ooname" name="ooname" class="form-control" type="text"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="oposition">Position</label>
+                                            <input id="oposition" name="oposition" class="form-control" type="text"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="operiode">Periode</label>
+                                            <input id="operiode" name="operiode" class="form-control" type="date"/>
+                                            <input id="oemployee" name="oemployee" class="form-control" type="hidden"/>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-default" value="Submit">Save</button>
+                                    </div>                          
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end modal organization-->
+                    <!--modal add data Certification-->
+                    <div class="modal fade" id="mdlEditcert" tabindex="-1" role="dialog" aria-labelledby="modal-add" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modal-add">Add Certicate</h5>
+                                    <button class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form th:action="@{/certificateedit}" method="post">
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <input id="eid" name="eid" class="form-control" type="hidden"/>
+                                            <input id="employee" name="employee" class="form-control" type="hidden"/>
+                                            <label for="edatecert">Certificate Date</label>
+                                            <input id="edatecert" name="edatecert" class="form-control" type="date"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="certnum">Certificate Number</label>
+                                            <input id="certnum" name="certnum" type="text" class="form-control"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="ecertificate">Certificate</label>
+                                            <select name="ecertificate" id="certificate" class="form-control">
+                                                <div th:each="datac :${datacert}">
+                                                    <option th:value="${datac.id}" th:text="${datac.name}"></option>
+                                                </div>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-default" value="Submit">Save</button>
+                                    </div>                          
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end modal--> 
                 </main>
             </div>
         </div>
@@ -433,6 +511,40 @@
                 modal.find('#sname').val(sname);
                 modal.find('#semployee').val(semployee);
 
+            });
+        </script>
+        <script>
+            $('#mdlEditOrg').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                var oid = button.data('getoid');
+                var ooname = button.data('getoname');
+                var oposition = button.data('getoposition');
+                var operiode = button.data('getoperiode');
+                var oemployee = button.data('getoemployee');
+
+                var modal = $(this);
+                modal.find('#oid').val(oid);
+                modal.find('#ooname').val(ooname);
+                modal.find('#oposition').val(oposition);
+                modal.find('#operiode').val(operiode);
+                modal.find('#oemployee').val(oemployee);
+            });
+        </script>
+        <script>
+            $('#mdlEditcert').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                var eid = button.data('geteid');
+                var edatecert = button.data('getedatecert');
+                var certnum = button.data('getcertnum');
+                var ecertificate = button.data('getecertificate');
+                var employee = button.data('getemployee');
+
+                var modal = $(this);
+                modal.find('#eid').val(eid);
+                modal.find('#edatecert').val(edatecert);
+                modal.find('#certnum').val(certnum);
+                modal.find('#ecertificate').val(ecertificate);
+                modal.find('#employee').val(employee);
             });
         </script>
     </body>

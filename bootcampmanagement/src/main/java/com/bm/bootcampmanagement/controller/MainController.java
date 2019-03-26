@@ -387,6 +387,13 @@ public class MainController {
         odao.save(new Organization("id", oname, position, dateFormatuci.parse(periode), new Employee("14201")));
         return "redirect:/cv";
     }
+    
+    @RequestMapping(value = "/organizationedit", method = RequestMethod.POST)  //@PostMapping("/regionsave")
+    public String editorg(@RequestParam("oid") String oid, @RequestParam("ooname") String oname, @RequestParam("oposition") String position,
+            @RequestParam("operiode") String periode, @RequestParam("oemployee") String employee) throws ParseException {
+        odao.save(new Organization(oid, oname, position, dateFormatuci.parse(periode), new Employee(employee)));
+        return "redirect:/cv";
+    }
 
     @RequestMapping(value = "/educationsave", method = RequestMethod.POST)  //@PostMapping("/regionsave")
     public String saveedu(@RequestParam("gpa") String gpa, @RequestParam("education") String education) {
@@ -403,6 +410,12 @@ public class MainController {
     @RequestMapping(value = "/certificatesave", method = RequestMethod.POST)  //@PostMapping("/regionsave")
     public String savecert(@RequestParam("datecert") String datec, @RequestParam("certnumber") String numc, @RequestParam("certificate") String certificate) throws ParseException {
         cdao.save(new Employeecertification("id", dateFormatuci.parse(datec), numc, new Certificate(certificate), new Employee("14201")));
+        return "redirect:/cv";
+    }
+    
+    @RequestMapping(value = "/certificateedit", method = RequestMethod.POST)  //@PostMapping("/regionsave")
+    public String editcert(@RequestParam("eid") String eid, @RequestParam("edatecert") String datec, @RequestParam("certnum") String numc, @RequestParam("ecertificate") String certificate, @RequestParam("employee") String employee) throws ParseException {
+        cdao.save(new Employeecertification(eid, dateFormatuci.parse(datec), numc, new Certificate(certificate), new Employee(employee)));
         return "redirect:/cv";
     }
 
