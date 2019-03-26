@@ -69,7 +69,7 @@ and open the template in the editor.
                                                 th:data-idtopic="${data.topic.id}" th:data-isdaily="${data.isdaily}" 
                                                 th:data-note="${data.note}"
                                                 >Edit</button>
-                                        <a class="btn btn-primary" th:href="@{/bm/deleteEvaluation/{id}(id=${data.id})}">Score</a>
+                                        <a class="btn btn-primary" th:href="@{/bm/getscore/{id}(id=${data.id})}">Score</a>
                                         <a class="btn btn-danger" th:href="@{/bm/deleteEvaluation/{id}(id=${data.id})}">Delete</a>
                                     </td>
                                 </tr>

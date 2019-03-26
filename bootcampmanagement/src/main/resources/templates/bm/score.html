@@ -56,16 +56,16 @@ and open the template in the editor.
                                     <td th:text="${data.rating}"></td>
                                     <td>
                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalForm" 
-                                                th:data-getid="data.id" th:data-getaspect="data.aspect.id" th:data-getrating="data.rating"
+                                                th:data-getid="${data.id}" th:data-getaspect="${data.aspect.id}" th:data-getrating="${data.rating}"
                                                 >Edit</button>
-                                        <a class="btn btn-danger" href="../ParticipantServlet?action=delete&id=<%= dataP.getId()%>">Hapus</a>
+                                        <a class="btn btn-danger" th:href="@{/bm/deleteScore/{id}(id=${data.id})}">Delete</a>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                         <!--end of show table-->
                         <!--show save form modal-->
-                        <form action="../ParticipantServlet" method="POST">
+                        <form action="/bm/saveScore" method="POST">
                             <div class="modal fade" id="modalForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
@@ -133,7 +133,7 @@ and open the template in the editor.
                 document.getElementById('rid').value = id;
                 document.getElementById('rname').value = name;
             }
-            var slider = document.getElementById("inRating");
+            var slider = document.getElementById("aspectRating");
             var output = document.getElementById("resultSlider");
             output.innerHTML = slider.value;
 

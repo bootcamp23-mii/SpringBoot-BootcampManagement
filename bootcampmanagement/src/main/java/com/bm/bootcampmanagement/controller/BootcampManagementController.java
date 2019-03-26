@@ -131,9 +131,9 @@ public class BootcampManagementController {
     public String saveEvaluation(@RequestParam("idEvaluation") String id, @RequestParam("idEmployee") String idEmployee, @RequestParam("evaluationDate") String evaluationDate, @RequestParam("idlesson") String idLesson, @RequestParam("idTopic") String idTopic, @RequestParam("isDaily") String isDaily) {
         try {
             String tempId = "-";
-        if (!id.equalsIgnoreCase("")) {
-            tempId = id;
-        }
+            if (!id.equalsIgnoreCase("")) {
+                tempId = id;
+            }
             daoE.save(new Evaluation(tempId, new Short(isDaily), dateFormat.parse(evaluationDate), "", new Short("0"), new Lesson(idLesson), new Topic(idTopic), new Employee(idEmployee)));
         } catch (Exception ex) {
             Logger.getLogger(BootcampManagementController.class.getName()).log(Level.SEVERE, null, ex);
@@ -158,15 +158,56 @@ public class BootcampManagementController {
 
     //score
     @GetMapping("/bm/score")
-    public String score(Model model) {
-//        Iterable<Employee> empList=daoEmp.findAll();
-        model.addAttribute("dataScore", daoS.findAll());
+    public String score(Model model, HttpServletRequest request) {
+        List<Score> scoreList = (List<Score>) daoS.findAll();
+        List<Score> dataScore = new ArrayList<>();
+        for (int i = 0; i < scoreList.size(); i++) {
+            if (scoreList.get(i).getEvaluation().getId().equalsIgnoreCase(request.getSession().getAttribute("idScore").toString())&&scoreList.get(i).getIsdeleted().intValue()==0) {
+                dataScore.add(scoreList.get(i));
+            }
+        }
+        model.addAttribute("dataScore", dataScore);
+        model.addAttribute("dataAspect", daoA.findAll());
         return "/bm/score";
     }
 
-    @GetMapping("/bm/addScore")
-    public String addScore() {
-        return "/bm/score";
+    @GetMapping("/bm/getscore/{id}")
+    public String getscore(@PathVariable("id") String id, HttpServletRequest request) {
+        request.getSession().setAttribute("idScore", id);
+        return "redirect:/bm/score";
+    }
+
+    @PostMapping("/bm/saveScore")
+    public String saveScore(@RequestParam("scoreId") String id, @RequestParam("aspectId") String aspect, @RequestParam("aspectRating") String rating, HttpServletRequest request) {
+        String tempId = "-";
+        if (!id.equalsIgnoreCase("")) {
+            tempId = id;
+        }
+        List<Score> scoreList = (List<Score>) daoS.findAll();
+        List<Score> dataScore = new ArrayList<>();
+        for (int i = 0; i < scoreList.size(); i++) {
+            if (scoreList.get(i).getEvaluation().getId().equalsIgnoreCase(request.getSession().getAttribute("idScore").toString())&&scoreList.get(i).getIsdeleted().intValue()==0) {
+                dataScore.add(scoreList.get(i));        
+            }
+        }
+        for (Score data : dataScore) {
+            if (data.getAspect().getId().equalsIgnoreCase(aspect)&&data.getEvaluation().getId().equalsIgnoreCase(request.getSession().getAttribute("idScore").toString())) {
+                tempId=data.getId();
+            }
+        }
+        daoS.save(new Score(tempId, new Double(rating), new Short("0"), new Aspect(aspect), new Evaluation(request.getSession().getAttribute("idScore").toString())));
+        return "redirect:/bm/score";
+    }
+
+    @GetMapping("/bm/deleteScore/{id}")
+    public String saveScore(@PathVariable("id") String id) {
+        List<Score> list = (List<Score>) daoS.findAll();
+        for (Score data : list) {
+            if (data.getId().equalsIgnoreCase(id)) {
+                daoS.save(new Score(data.getId(), data.getRating(), new Short("1"), new Aspect(data.getAspect().getId()), new Evaluation(data.getEvaluation().getId())));
+            }
+        }
+        return "redirect:/bm/score";
     }
 
     //batchclass
