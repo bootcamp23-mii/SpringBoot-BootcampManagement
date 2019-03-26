@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <meta name="description" content=""/>
+        <meta name="author" content=""/>
+        <!--Local css dan js semua pake th, @, dan {} dan / untuk single -->
+        <link rel="icon" th:href="@{dist/img/favicons/favicon.ico}"/>
+
+        <title>Dashboard Template for Bootstrap</title>
+
+        <!-- Bootstrap core CSS -->
+        <link th:href="@{dist/css/bootstrap.min.css}" rel="stylesheet"/>
+
+        <!-- Custom styles for this template -->
+        <link th:href="@{dist/css/dashboard.css}" rel="stylesheet"/>
+    </head>
+
+    <body>
+        <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+            <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Company name</a>
+            <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+            <ul class="navbar-nav px-3">
+                <li class="nav-item text-nowrap">
+                    <a class="nav-link" href="#">Sign out</a>
+                </li>
+            </ul>
+        </nav>
+        <div class="container-fluid">
+            <div class="row">
+                <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                    <div class="sidebar-sticky">
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#">
+                                    <span data-feather="home"></span>
+                                    Dashboard <span class="sr-only">(current)</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#">
+                                    <span data-feather="home"></span>
+                                    Edit CV <span class="sr-only">(current)</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#">
+                                    <span data-feather="home"></span>
+                                    Lihat CV <span class="sr-only">(current)</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+
+                <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+                    <row>
+                        <h3>Achievement</h3>
+                        <div class="row" style="padding: 10px 0 10px 0">
+                            <div class="col-sm-6">
+                                <button data-target="#mdlAdd" data-toggle="modal" class="btn btn-default">Add Data</button>
+                            </div>
+                        </div>
+                        <table id="example" class="table table-hover" style="width: 100%">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Name</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tblData">
+                                <tr th:each="as,iter : ${achievementData}">
+                                    <td th:text="${iter.count}"></td>
+                                    <td th:text="${as.name}"></td>
+                                    <td>
+                                        <!--<a th:href="@{/regiondelete/{id}(id=${as.id})}" data-target="#mdlAdd" data-toggle="modal">Delete</a>-->
+                                        <!--<a th:href="@{/regiondelete/{id}(id=${as.id})}">Delete</a>-->
+                                        <!--<a th:href="@{/delete/{id}(id=${as.id})}">Edit</a>-->
+                                        <button data-target="#mdlEdit" data-toggle="modal" th:data-getname="${as.name}" th:data-getid="${as.id}" class="btn btn-warning">Edit</button>
+                                        <button data-target="#mdlDelete" data-toggle="modal" th:data-getname="${as.name}" th:data-getid="${as.id}" class="btn btn-danger">Delete</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </row>
+
+                    <!--row table organization-->
+                    <row>
+                        <h4>Education</h4>
+                        <div class="row" style="padding: 10px 0 10px 0">
+                            <div class="col-sm-6">
+                                <button data-target="#mdlAddorg" data-toggle="modal" class="btn btn-default">Add Data</button>
+                            </div>
+                        </div>
+                        <table id="example" class="table table-hover" style="width: 100%">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>GPA</th>
+                                    <th>University</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tblData">
+                                <tr th:each="es,itera : ${educationData}">
+                                    <td th:text="${itera.count}"></td>
+                                    <td th:text="${es.gpa}"></td>
+                                    <td th:text="${es.education.university.name}"></td>
+                                    <td>
+                                        <!--<a th:href="@{/regiondelete/{id}(id=${as.id})}" data-target="#mdlAdd" data-toggle="modal">Delete</a>-->
+                                        <!--<a th:href="@{/regiondelete/{id}(id=${as.id})}">Delete</a>-->
+                                        <!--<a th:href="@{/delete/{id}(id=${as.id})}">Edit</a>-->
+                                        <button data-target="#mdlEdit" data-toggle="modal" th:data-getname="${es.id}" th:data-getid="${es.id}" class="btn btn-warning">Edit</button>
+                                        <button data-target="#mdlDelete" data-toggle="modal" th:data-getname="${es.id}" th:data-getid="${es.id}" class="btn btn-danger">Delete</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </row>
+
+                    <row>
+                        <h4>Organization</h4>
+                        <div class="row" style="padding: 10px 0 10px 0">
+                            <div class="col-sm-6">
+                                <button data-target="#mdlAddorg" data-toggle="modal" class="btn btn-default">Add Data</button>
+                            </div>
+                        </div>
+                        <table id="example" class="table table-hover" style="width: 100%">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Name</th>
+                                    <th>Position</th>
+                                    <th>Tanggal</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tblData">
+                                <tr th:each="os : ${organizationData}">
+                                    <td th:text="${os.id}"></td>
+                                    <td th:text="${os.name}"></td>
+                                    <td th:text="${os.position}"></td>
+                                    <td th:text="${os.period}"></td>
+                                    <td>
+                                        <!--<a th:href="@{/regiondelete/{id}(id=${as.id})}" data-target="#mdlAdd" data-toggle="modal">Delete</a>-->
+                                        <!--<a th:href="@{/regiondelete/{id}(id=${as.id})}">Delete</a>-->
+                                        <!--<a th:href="@{/delete/{id}(id=${as.id})}">Edit</a>-->
+                                        <button data-target="#mdlEdit" data-toggle="modal" th:data-getname="${os.name}" th:data-getid="${os.id}" class="btn btn-warning">Edit</button>
+                                        <button data-target="#mdlDelete" data-toggle="modal" th:data-getname="${os.name}" th:data-getid="${os.id}" class="btn btn-danger">Delete</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </row>
+                    
+                    <row>
+                        <h4>Certificate</h4>
+                        <div class="row" style="padding: 10px 0 10px 0">
+                            <div class="col-sm-6">
+                                <button data-target="#mdlAddorg" data-toggle="modal" class="btn btn-default">Add Data</button>
+                            </div>
+                        </div>
+                        <table id="example" class="table table-hover" style="width: 100%">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+<!--                                    <th>Date</th>
+                                    <th>Number</th>-->
+                                    <th>Certificate</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tblData">
+                                <tr th:each="cs,ite : ${certificateData}">
+                                    <td th:text="${ite.count}"></td>
+                                    <!--<td th:text="${cs.id}"></td>-->
+                                    <!--<td th:text="${cs.certificatenumber}"></td>-->
+                                    <td th:text="${cs.certificate.name}"></td>
+                                    <td>
+                                        <!--<a th:href="@{/regiondelete/{id}(id=${as.id})}" data-target="#mdlAdd" data-toggle="modal">Delete</a>-->
+                                        <!--<a th:href="@{/regiondelete/{id}(id=${as.id})}">Delete</a>-->
+                                        <!--<a th:href="@{/delete/{id}(id=${as.id})}">Edit</a>-->
+                                        <button data-target="#mdlEdit" data-toggle="modal" th:data-getname="${cs.id}" th:data-getid="${cs.id}" class="btn btn-warning">Edit</button>
+                                        <button data-target="#mdlDelete" data-toggle="modal" th:data-getname="${cs.id}" th:data-getid="${cs.id}" class="btn btn-danger">Delete</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </row>
+
+                    <!--modal add data-->
+                    <div class="modal fade" id="mdlAdd" tabindex="-1" role="dialog" aria-labelledby="modal-add" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modal-add">Add Achievement</h5>
+                                    <button class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form th:action="@{/achievementsave}" method="post">
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="name">Nama</label>
+                                            <input id="sid" name="sid" class="form-control" value="99" type="hidden"/>
+                                            <input id="sname" name="sname" class="form-control" type="text"/>
+                                            <input id="semployee" class="form-control" value="14201" type="hidden"/>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-default" value="Submit">Save</button>
+                                    </div>                          
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end modal-->
+                    <!--modal add data-->
+                    <div class="modal fade" id="mdlAddorg" tabindex="-1" role="dialog" aria-labelledby="modal-add" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modal-add">Add Organization</h5>
+                                    <button class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form th:action="@{/achievementsave}" method="post">
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="name">Nama</label>
+                                            <input id="sid" name="sid" class="form-control" value="99" type="hidden"/>
+                                            <input id="sname" name="sname" class="form-control" type="text"/>
+                                            <input id="semployee" class="form-control" value="14201" type="hidden"/>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-default" value="Submit">Save</button>
+                                    </div>                          
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- /.End Content -->
+                </main>
+            </div>
+        </div>
+
+        <!-- Bootstrap core JavaScript
+                ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <!--<script>window.jQuery || document.write('<script src="dist/js/jquery-slim.min.js"><\/script>')</script>-->
+        <script th:src="@{dist/js/popper.min.js}"></script>
+        <script th:src="@{dist/js/bootstrap.min.js}"></script>
+
+        <!-- Icons -->
+        <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+        <script>
+            feather.replace()
+        </script>
+    </body>
+</html>
