@@ -8,8 +8,10 @@ package com.bm.bootcampmanagement.controller;
 import com.bm.bootcampmanagement.entities.Accesscard;
 import com.bm.bootcampmanagement.entities.Achievement;
 import com.bm.bootcampmanagement.entities.Batchclass;
+import com.bm.bootcampmanagement.entities.Certificate;
 import com.bm.bootcampmanagement.entities.Company;
 import com.bm.bootcampmanagement.entities.District;
+import com.bm.bootcampmanagement.entities.Education;
 import com.bm.bootcampmanagement.entities.Educationhistory;
 import com.bm.bootcampmanagement.entities.Employee;
 import com.bm.bootcampmanagement.entities.Employeeaccess;
@@ -31,6 +33,8 @@ import com.bm.bootcampmanagement.services.UploadFileResponse;
 import com.bm.bootcampmanagement.services.bm.BatchclassDAO;
 import com.bm.bootcampmanagement.services.bm.ParticipantDAO;
 import com.bm.bootcampmanagement.services.cv.AchievementDAO;
+import com.bm.bootcampmanagement.services.cv.CertificateDAO;
+import com.bm.bootcampmanagement.services.cv.EducationDAO;
 import com.bm.bootcampmanagement.services.cv.EducationHistoryDAO;
 import com.bm.bootcampmanagement.services.cv.EmployeeCertificationDAO;
 import com.bm.bootcampmanagement.services.cv.EmployeeLanguageDAO;
@@ -109,12 +113,17 @@ public class MainController {
     OrganizationDAO odao;
     @Autowired
     EducationHistoryDAO edao;
+    @Autowired
+    EducationDAO eddao;
+    @Autowired
+    CertificateDAO cedao;
 
     @Autowired
     EmployeeCertificationDAO cdao;
     @Autowired
     private static Logger log = LoggerFactory.getLogger(MainController.class);
     private SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+    private SimpleDateFormat dateFormatuci = new SimpleDateFormat("yyyy-MM-dd");
 
     @Autowired
     private MailService mailService;
@@ -355,6 +364,8 @@ public class MainController {
         m.addAttribute("certificatesave", new Employeecertification());
         m.addAttribute("certificateedit", new Employeecertification());
         m.addAttribute("certificatedelete", new Employeecertification());
+        m.addAttribute("dataedu", eddao.findAll());
+        m.addAttribute("datacert", cedao.findAll());
         return "/cv";
     }
 

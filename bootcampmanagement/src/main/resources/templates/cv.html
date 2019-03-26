@@ -91,7 +91,7 @@
                         <h4>Education</h4>
                         <div class="row" style="padding: 10px 0 10px 0">
                             <div class="col-sm-6">
-                                <button data-target="#mdlAddorg" data-toggle="modal" class="btn btn-default">Add Data</button>
+                                <button data-target="#mdledu" data-toggle="modal" class="btn btn-default">Add Data</button>
                             </div>
                         </div>
                         <table id="example" class="table table-hover" style="width: 100%">
@@ -138,8 +138,8 @@
                                 </tr>
                             </thead>
                             <tbody id="tblData">
-                                <tr th:each="os : ${organizationData}">
-                                    <td th:text="${os.id}"></td>
+                                <tr th:each="os,tr : ${organizationData}">
+                                    <td th:text="${tr.count}"></td>
                                     <td th:text="${os.name}"></td>
                                     <td th:text="${os.position}"></td>
                                     <td th:text="${os.period}"></td>
@@ -159,15 +159,15 @@
                         <h4>Certificate</h4>
                         <div class="row" style="padding: 10px 0 10px 0">
                             <div class="col-sm-6">
-                                <button data-target="#mdlAddorg" data-toggle="modal" class="btn btn-default">Add Data</button>
+                                <button data-target="#mdlcert" data-toggle="modal" class="btn btn-default">Add Data</button>
                             </div>
                         </div>
                         <table id="example" class="table table-hover" style="width: 100%">
                             <thead>
                                 <tr>
                                     <th>Id</th>
-<!--                                    <th>Date</th>
-                                    <th>Number</th>-->
+                                    <th>Date</th>
+                                    <th>Number</th>
                                     <th>Certificate</th>
                                     <th>Action</th>
                                 </tr>
@@ -175,8 +175,8 @@
                             <tbody id="tblData">
                                 <tr th:each="cs,ite : ${certificateData}">
                                     <td th:text="${ite.count}"></td>
-                                    <!--<td th:text="${cs.id}"></td>-->
-                                    <!--<td th:text="${cs.certificatenumber}"></td>-->
+                                    <td th:text="${cs.certificateDate}"></td>
+                                    <td th:text="${cs.certificateNumber}"></td>
                                     <td th:text="${cs.certificate.name}"></td>
                                     <td>
                                         <!--<a th:href="@{/regiondelete/{id}(id=${as.id})}" data-target="#mdlAdd" data-toggle="modal">Delete</a>-->
@@ -190,7 +190,7 @@
                         </table>
                     </row>
 
-                    <!--modal add data-->
+                    <!--modal add data achievement-->
                     <div class="modal fade" id="mdlAdd" tabindex="-1" role="dialog" aria-labelledby="modal-add" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
@@ -217,8 +217,8 @@
                             </div>
                         </div>
                     </div>
-                    <!--end modal-->
-                    <!--modal add data-->
+                    <!--end modal add achievement-->
+                    <!--modal add data Organization-->
                     <div class="modal fade" id="mdlAddorg" tabindex="-1" role="dialog" aria-labelledby="modal-add" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
@@ -228,13 +228,15 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <form th:action="@{/achievementsave}" method="post">
+                                <form th:action="@{/organizationsave}" method="post">
                                     <div class="modal-body">
                                         <div class="form-group">
                                             <label for="name">Nama</label>
-                                            <input id="sid" name="sid" class="form-control" value="99" type="hidden"/>
-                                            <input id="sname" name="sname" class="form-control" type="text"/>
-                                            <input id="semployee" class="form-control" value="14201" type="hidden"/>
+                                            <input id="oname" name="oname" class="form-control" type="text"/>
+                                            <label for="position">Position</label>
+                                            <input id="position" name="position" class="form-control" type="text"/>
+                                            <label for="periode">Periode</label>
+                                            <input id="periode" name="periode" class="form-control" type="date"/>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -245,7 +247,77 @@
                             </div>
                         </div>
                     </div>
-
+                    <!--end modal organization-->
+                    <!--modal add data achievement-->
+                    <div class="modal fade" id="mdledu" tabindex="-1" role="dialog" aria-labelledby="modal-add" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modal-add">Add Education</h5>
+                                    <button class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form th:action="@{/educationsave}" method="post">
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="gpa">GPA</label>
+                                            <input id="gpa" name="gpa" type="number" step="0.01" min="0" max="4" class="form-control"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="education">Education</label>
+                                            <select name="education" id="education" class="form-control">
+                                                <div th:each="data :${dataedu}">
+                                                    <option th:value="${data.id}" th:text="${data.university.name}"></option>
+                                                </div>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-default" value="Submit">Save</button>
+                                    </div>                          
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end modal--> 
+                    <!--modal add data Certification-->
+                    <div class="modal fade" id="mdlcert" tabindex="-1" role="dialog" aria-labelledby="modal-add" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modal-add">Add Certicate</h5>
+                                    <button class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form th:action="@{/certificatesave}" method="post">
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                             <label for="datecert">Certificate Date</label>
+                                            <input id="datecert" name="datecert" class="form-control" type="date"/>
+                                            <label for="certnumber">Certificate Number</label>
+                                            <input id="certnumber" name="certnumber" type="text" class="form-control"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="certificate">Certificate</label>
+                                            <select name="certificate" id="certificate" class="form-control">
+                                                <div th:each="datac :${datacert}">
+                                                    <option th:value="${datac.id}" th:text="${datac.name}"></option>
+                                                </div>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-default" value="Submit">Save</button>
+                                    </div>                          
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end modal--> 
                     <!-- /.End Content -->
                 </main>
             </div>

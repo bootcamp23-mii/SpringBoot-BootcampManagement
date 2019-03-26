@@ -67,6 +67,15 @@ public class Educationhistory implements Serializable {
         this.gpa = gpa;
     }
 
+    public Educationhistory(String id, String gpa, Education education, Employee employee) {
+        this.id = id;
+        this.gpa = gpa;
+        this.education = education;
+        this.employee = employee;
+    }
+    
+    
+
     public String getId() {
         return id;
     }

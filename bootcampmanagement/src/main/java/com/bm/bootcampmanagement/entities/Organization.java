@@ -75,6 +75,16 @@ public class Organization implements Serializable {
         this.name = name;
     }
 
+    public Organization(String id, String name, String position, Date period, Employee employee) {
+        this.id = id;
+        this.name = name;
+        this.position = position;
+        this.period = period;
+        this.employee = employee;
+    }
+    
+    
+
     public String getId() {
         return id;
     }
