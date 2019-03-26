@@ -463,4 +463,28 @@ public class MainController {
         pdao.savePlacement(new Placement("id", description, address, department, dateFormat.parse(startdate), dateFormat.parse(finishdate), new Company(company), new Employee(employee)));
         return "redirect:/Placement";
     }
+    
+    @RequestMapping(value= "/achievementdelete", method = RequestMethod.GET)    
+    public String deleteach(@RequestParam(value="achid") String id){    
+        adao.delete(id);    
+        return "redirect:/cv";    
+    }   
+    
+    @RequestMapping(value= "/organizationdelete", method = RequestMethod.GET)    
+    public String deleteorg(@RequestParam(value="orgid") String id){    
+        odao.delete(id);    
+        return "redirect:/cv";    
+    } 
+    
+    @RequestMapping(value= "/certificatedelete", method = RequestMethod.GET)    
+    public String deletecert(@RequestParam(value="certid") String id){    
+        cdao.delete(id);    
+        return "redirect:/cv";    
+    } 
+    
+    @RequestMapping(value= "/educationdelete", method = RequestMethod.GET)    
+    public String deleteedu(@RequestParam(value="eduid") String id){    
+        edao.delete(id);    
+        return "redirect:/cv";    
+    } 
 }

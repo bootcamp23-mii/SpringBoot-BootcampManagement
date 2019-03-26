@@ -19,6 +19,6 @@ import org.springframework.stereotype.Repository;
 public interface EmployeecertificationRepository extends CrudRepository<Employeecertification,String>{
 
     @Modifying
-    @Query(value = "DELETE FROM Employeecertification where id = ?1", nativeQuery = true)
+    @Query(value = "DELETE FROM tb_t_employeecertification where id = ?1", nativeQuery = true)
     public void deleteById(String id);
 }

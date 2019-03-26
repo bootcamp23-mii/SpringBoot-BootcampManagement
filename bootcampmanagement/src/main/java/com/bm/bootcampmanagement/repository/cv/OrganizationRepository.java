@@ -20,6 +20,6 @@ import org.springframework.stereotype.Repository;
 public interface OrganizationRepository extends CrudRepository<Organization,String>{
 
     @Modifying
-    @Query(value = "DELETE FROM Organization where id = ?1", nativeQuery = true)
+    @Query(value = "DELETE FROM tb_t_organization where id = ?1", nativeQuery = true)
     public void deleteById(String id);
 }

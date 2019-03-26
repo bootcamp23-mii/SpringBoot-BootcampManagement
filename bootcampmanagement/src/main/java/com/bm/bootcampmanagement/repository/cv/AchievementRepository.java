@@ -20,6 +20,6 @@ import org.springframework.stereotype.Repository;
 public interface AchievementRepository extends CrudRepository<Achievement,String>{
 
     @Modifying
-    @Query(value = "DELETE FROM Achievement where id = ?1", nativeQuery = true)
+    @Query(value = "DELETE FROM tb_t_achievement where id = ?1", nativeQuery = true)
     public void deleteById(String id);
 }

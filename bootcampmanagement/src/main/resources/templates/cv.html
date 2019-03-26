@@ -62,7 +62,7 @@
                                 <button data-target="#mdlAdd" data-toggle="modal" class="btn btn-default">Add Data</button>
                             </div>
                         </div>
-                        <table id="example" class="table table-hover" style="width: 100%">
+                        <table id="example" class="table table-bordered table-hover" style="width: 100%">
                             <thead>
                                 <tr>
                                     <th>Id</th>
@@ -79,7 +79,7 @@
                                         <!--<a th:href="@{/regiondelete/{id}(id=${as.id})}">Delete</a>-->
                                         <!--<a th:href="@{/delete/{id}(id=${as.id})}">Edit</a>-->
                                         <button data-target="#mdlEdit" data-toggle="modal" th:data-getname="${as.name}" th:data-getid="${as.id}" class="btn btn-warning">Edit</button>
-                                        <button data-target="#mdlDelete" data-toggle="modal" th:data-getname="${as.name}" th:data-getid="${as.id}" class="btn btn-danger">Delete</button>
+                                        <a th:href="@{/achievementdelete(achid=${as.id})}"><button value="" class="btn btn-danger">Delete</button></a></td>
                                     </td>
                                 </tr>
                             </tbody>
@@ -94,7 +94,7 @@
                                 <button data-target="#mdledu" data-toggle="modal" class="btn btn-default">Add Data</button>
                             </div>
                         </div>
-                        <table id="example" class="table table-hover" style="width: 100%">
+                        <table id="example" class="table table-bordered table-hover" style="width: 100%">
                             <thead>
                                 <tr>
                                     <th>Id</th>
@@ -113,7 +113,7 @@
                                         <!--<a th:href="@{/regiondelete/{id}(id=${as.id})}">Delete</a>-->
                                         <!--<a th:href="@{/delete/{id}(id=${as.id})}">Edit</a>-->
                                         <button data-target="#mdlEdit" data-toggle="modal" th:data-getname="${es.id}" th:data-getid="${es.id}" class="btn btn-warning">Edit</button>
-                                        <button data-target="#mdlDelete" data-toggle="modal" th:data-getname="${es.id}" th:data-getid="${es.id}" class="btn btn-danger">Delete</button>
+                                        <a th:href="@{/educationdelete(eduid=${es.id})}"><button value="" class="btn btn-danger">Delete</button></a></td>
                                     </td>
                                 </tr>
                             </tbody>
@@ -127,7 +127,7 @@
                                 <button data-target="#mdlAddorg" data-toggle="modal" class="btn btn-default">Add Data</button>
                             </div>
                         </div>
-                        <table id="example" class="table table-hover" style="width: 100%">
+                        <table id="example" class="table table-bordered table-hover" style="width: 100%">
                             <thead>
                                 <tr>
                                     <th>Id</th>
@@ -148,13 +148,13 @@
                                         <!--<a th:href="@{/regiondelete/{id}(id=${as.id})}">Delete</a>-->
                                         <!--<a th:href="@{/delete/{id}(id=${as.id})}">Edit</a>-->
                                         <button data-target="#mdlEdit" data-toggle="modal" th:data-getname="${os.name}" th:data-getid="${os.id}" class="btn btn-warning">Edit</button>
-                                        <button data-target="#mdlDelete" data-toggle="modal" th:data-getname="${os.name}" th:data-getid="${os.id}" class="btn btn-danger">Delete</button>
+                                        <a th:href="@{/organizationdelete(orgid=${os.id})}"><button value="" class="btn btn-danger">Delete</button></a></td>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </row>
-                    
+
                     <row>
                         <h4>Certificate</h4>
                         <div class="row" style="padding: 10px 0 10px 0">
@@ -162,7 +162,7 @@
                                 <button data-target="#mdlcert" data-toggle="modal" class="btn btn-default">Add Data</button>
                             </div>
                         </div>
-                        <table id="example" class="table table-hover" style="width: 100%">
+                        <table id="example" class="table table-bordered table-hover" style="width: 100%">
                             <thead>
                                 <tr>
                                     <th>Id</th>
@@ -183,7 +183,7 @@
                                         <!--<a th:href="@{/regiondelete/{id}(id=${as.id})}">Delete</a>-->
                                         <!--<a th:href="@{/delete/{id}(id=${as.id})}">Edit</a>-->
                                         <button data-target="#mdlEdit" data-toggle="modal" th:data-getname="${cs.id}" th:data-getid="${cs.id}" class="btn btn-warning">Edit</button>
-                                        <button data-target="#mdlDelete" data-toggle="modal" th:data-getname="${cs.id}" th:data-getid="${cs.id}" class="btn btn-danger">Delete</button>
+                                        <a th:href="@{/certificatedelete(certid=${cs.id})}"><button value="" class="btn btn-danger">Delete</button></a></td>
                                     </td>
                                 </tr>
                             </tbody>
@@ -295,7 +295,7 @@
                                 <form th:action="@{/certificatesave}" method="post">
                                     <div class="modal-body">
                                         <div class="form-group">
-                                             <label for="datecert">Certificate Date</label>
+                                            <label for="datecert">Certificate Date</label>
                                             <input id="datecert" name="datecert" class="form-control" type="date"/>
                                             <label for="certnumber">Certificate Number</label>
                                             <input id="certnumber" name="certnumber" type="text" class="form-control"/>
