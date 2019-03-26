@@ -428,9 +428,17 @@ public class MainController {
     @RequestMapping(value = "/emplockerSave", method = RequestMethod.POST)
     public String save(String id, @RequestParam("receivedate") String receivedate, @RequestParam("returndate") String returndate,
             @RequestParam("notes") String notes, @RequestParam("locker") String locker, @RequestParam("employee") String employee) throws ParseException {
-        eldao.saveEmployeeLocker(new Employeelocker("id", dateFormat.parse(receivedate), dateFormat.parse(returndate), notes, new Locker(locker), new Employee(employee)));
+        eldao.saveEmployeeLocker(new Employeelocker("id", dateFormatuci.parse(receivedate), dateFormatuci.parse(returndate), notes, new Locker(locker), new Employee(employee)));
         return "redirect:/Employeelocker";
     }
+    
+    @RequestMapping(value = "/emplockerEdit", method = RequestMethod.POST)
+    public String edit(@RequestParam("id") String id, @RequestParam("receivedate") String receivedate, @RequestParam("returndate") String returndate,
+            @RequestParam("notes") String notes, @RequestParam("locker") String locker, @RequestParam("employee") String employee) throws ParseException {
+        eldao.saveEmployeeLocker(new Employeelocker(id, dateFormatuci.parse(receivedate), dateFormatuci.parse(returndate), notes, new Locker(locker), new Employee(employee)));
+        return "redirect:/Employeelocker";
+}
+
 
     @GetMapping("/Employeeaccess")
     public String Employeeaccess(Model model) {
@@ -444,7 +452,7 @@ public class MainController {
     @RequestMapping(value = "/empaccessSave", method = RequestMethod.POST)
     public String savee(String id, @RequestParam("receivedate") String receivedate, @RequestParam("returndate") String returndate,
             @RequestParam("notes") String notes, @RequestParam("accesscard") String accesscard, @RequestParam("employee") String employee) throws ParseException {
-        o.saveEmployeeAccess(new Employeeaccess("id", dateFormat.parse(receivedate), dateFormat.parse(returndate), notes, new Accesscard(accesscard).toString(), new Employee(employee)));
+        o.saveEmployeeAccess(new Employeeaccess("id", dateFormatuci.parse(receivedate), dateFormatuci.parse(returndate), notes, new Accesscard(accesscard).toString(), new Employee(employee)));
         return "redirect:/Employeeaccess";
     }
 
@@ -460,7 +468,7 @@ public class MainController {
     @RequestMapping(value = "/placeSave", method = RequestMethod.POST)
     public String save(String id, @RequestParam("description") String description, @RequestParam("address") String address, @RequestParam("department") String department,
             @RequestParam("startdate") String startdate, @RequestParam("finishdate") String finishdate, @RequestParam("company") String company, @RequestParam("employee") String employee) throws ParseException {
-        pdao.savePlacement(new Placement("id", description, address, department, dateFormat.parse(startdate), dateFormat.parse(finishdate), new Company(company), new Employee(employee)));
+        pdao.savePlacement(new Placement("id", description, address, department, dateFormatuci.parse(startdate), dateFormatuci.parse(finishdate), new Company(company), new Employee(employee)));
         return "redirect:/Placement";
     }
     

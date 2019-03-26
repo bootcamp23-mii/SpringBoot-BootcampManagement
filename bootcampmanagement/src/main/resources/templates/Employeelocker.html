@@ -50,51 +50,51 @@
 
                 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
                     <row>
-                    <h3>Employee Locker</h3>
-                    <div class="row" style="padding: 10px 0 10px 0">
-                        <div class="col-sm-6">
-                            <button data-target="#mdlAdd" data-toggle="modal" class="btn btn-warning">Add Data</button>
+                        <h3>Employee Locker</h3>
+                        <div class="row" style="padding: 10px 0 10px 0">
+                            <div class="col-sm-6">
+                                <button data-target="#mdlAdd" data-toggle="modal" class="btn btn-warning">Add Data</button>
+                            </div>
                         </div>
-                    </div>
-                    <table id="example" class="table table-bordered table-striped" style="width: 100%">
-                        <thead>
-                            <tr>
-                                <th>Id</th>
-                                <th>Receive Date</th>
-                                <th>Return Date</th>
-                                <th>Note</th>
-                                <th>Locker</th>
-                                <th>Employee</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tblData">
-                            <tr th:each="eld,ih : ${emplockerData}">
-                                <td th:text="${ih.count}"></td>
-                                <td th:text="${eld.receivedate}"></td>
-                                <td th:text="${eld.returndate}"></td>
-                                <td th:text="${eld.notes}"></td>
-                                <td th:text="${eld.locker.lockernumber}"</td>
-                                <td th:text="${eld.employee.name}"></td>
-                                <td>
-                                    <button data-target="#mdlEdit" data-toggle="modal" th:data-getid="${eld.id}" 
-                                            th:data-getreceivedate="${eld.receivedate}"
-                                            th:data-getreturndate="${eld.returndate}" 
-                                            th:data-getnote="${eld.notes}" 
-                                            th:data-getlocker="${eld.locker.lockernumber}" 
-                                            th:data-getemployee="${eld.employee.name}" class="btn btn-warning">Edit</button>
-                                    <button data-target="#mdlDelete" data-toggle="modal" th:data-getid="${eld.id}" 
-                                            th:data-getreceivedate="${eld.receivedate}"
-                                            th:data-getreturndate="${eld.returndate}" 
-                                            th:data-getnote="${eld.notes}" 
-                                            th:data-getlocker="${eld.locker.lockernumber}" 
-                                            th:data-getemployee="${eld.employee.name}" class="btn btn-danger">Delete</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                        <table id="example" class="table table-bordered table-striped" style="width: 100%">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Receive Date</th>
+                                    <th>Return Date</th>
+                                    <th>Note</th>
+                                    <th>Locker</th>
+                                    <th>Employee</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tblData">
+                                <tr th:each="eld,ih : ${emplockerData}">
+                                    <td th:text="${ih.count}"></td>
+                                    <td th:text="${eld.receivedate}"></td>
+                                    <td th:text="${eld.returndate}"></td>
+                                    <td th:text="${eld.notes}"></td>
+                                    <td th:text="${eld.locker.lockernumber}"</td>
+                                    <td th:text="${eld.employee.name}"></td>
+                                    <td>
+                                        <button data-target="#mdlEdit" data-toggle="modal" th:data-getid="${eld.id}" 
+                                                th:data-getreceivedate="${eld.receivedate}"
+                                                th:data-getreturndate="${eld.returndate}" 
+                                                th:data-getnote="${eld.notes}" 
+                                                th:data-getlocker="${eld.locker.id}" 
+                                                th:data-getemployee="${eld.employee.id}" class="btn btn-warning">Edit</button>
+                                        <button data-target="#mdlDelete" data-toggle="modal" th:data-getid="${eld.id}" 
+                                                th:data-getreceivedate="${eld.receivedate}"
+                                                th:data-getreturndate="${eld.returndate}" 
+                                                th:data-getnote="${eld.notes}" 
+                                                th:data-getlocker="${eld.locker.id}" 
+                                                th:data-getemployee="${eld.employee.name}" class="btn btn-danger">Delete</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </row>
-                    
-                    
+
+
                     <!--modal add data-->
                     <div class="modal fade" id="mdlAdd" tabindex="-1" role="dialog" aria-labelledby="modal-add" aria-hidden="true">
                         <div class="modal-dialog" role="document">
@@ -137,6 +137,50 @@
                         </div>
                     </div>
 
+                    <!--Modal Edit Data-->
+                    <div class="modal fade" id="mdlEdit" tabindex="-1" role="dialog" aria-labelledby="modal-add" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modal-add">Add Employee Locker</h5>
+                                    <button class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form th:action="@{/emplockerEdit}" method="post">
+                                    <div class="modal-body">
+                                        <input id="id" name="id" class="form-control" type="hidden"/>
+                                        <div class="form-group">
+                                            <label for="receive">Receive Date</label>
+                                            <input id="receivedate" name="receivedate" class="form-control" type="date"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="returndate">Return Date</label>
+                                            <input id="returndate" name="returndate" class="form-control" type="date"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="notes">Note</label>
+                                            <input id="notes" name="notes" class="form-control" type="text"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="locker">Locker</label>
+                                            <input id="locker" name="locker" class="form-control" type="text"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="employee">Employee</label>
+                                            <input id="employee" name="employee" class="form-control" type="text"/>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-default" value="Submit">Save</button>
+                                    </div>                          
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!--End Modal Edit Data-->
+                    
                     <!-- /.End Content -->
                 </main>
             </div>
@@ -154,6 +198,26 @@
         <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
         <script>
             feather.replace()
+        </script>
+        <script>
+            $('#mdlEdit').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                var id = button.data('getid');
+                var receivedate = button.data('getreceivedate');
+                var returndate = button.data('getreturndate');
+                var notes = button.data('getnote');
+                var locker = button.data('getlocker');
+                var employee = button.data('getemployee');
+
+                var modal = $(this);
+                modal.find('#id').val(id);
+                modal.find('#receivedate').val(receivedate);
+                modal.find('#returndate').val(returndate);
+                modal.find('#notes').val(notes);
+                modal.find('#locker').val(locker);
+                modal.find('#employee').val(employee);
+
+            });
         </script>
     </body>
 </html>
