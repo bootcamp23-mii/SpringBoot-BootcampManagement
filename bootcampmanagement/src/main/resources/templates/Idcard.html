@@ -8,18 +8,24 @@
         <!--Local css dan js semua pake th, @, dan {} dan / untuk single -->
         <link rel="icon" th:href="@{dist/img/favicons/favicon.ico}"/>
 
-        <title>Dashboard Template for Bootstrap</title>
+        <title>MII Bootcamp Management</title>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 
         <!-- Bootstrap core CSS -->
         <link th:href="@{dist/css/bootstrap.min.css}" rel="stylesheet"/>
 
         <!-- Custom styles for this template -->
         <link th:href="@{dist/css/dashboard.css}" rel="stylesheet"/>
+
+        <!--Datatable-->
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jqc-1.12.4/dt-1.10.18/datatables.min.css"/>
+        <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jqc-1.12.4/dt-1.10.18/datatables.min.js"></script>
+
     </head>
 
     <body>
         <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-            <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">bootcamp Management</a>
+            <a class="navbar-brand col-sm-3 col-md-2 mr-0" th:href="@{/dashboard}">bootcamp Management</a>
             <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
             <ul class="navbar-nav px-3">
                 <li class="nav-item text-nowrap">
@@ -33,27 +39,27 @@
                     <div class="sidebar-sticky">
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <a class="nav-link active" th:href="@{/Idcard}">
-                                    <span data-feather="home"></span>
+                                <a class="nav-link active" th:href="@{#}">
+                                    <span data-feather="user"></span>
                                     Id Card <span class="sr-only">(current)</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" th:href="@{/Employeeaccess}">
-                                    <span data-feather="home"></span>
-                                    Employee Access Card <span class="sr-only">(current)</span>
+                                <a class="nav-link" th:href="@{/Employeeaccess}">
+                                    <span data-feather="smartphone"></span>
+                                    Employee Access Card <span class="sr-only"></span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" th:href="@{/Employeelocker}">
-                                    <span data-feather="home"></span>
-                                    Employee Locker <span class="sr-only">(current)</span>
+                                <a class="nav-link" th:href="@{/Employeelocker}">
+                                    <span data-feather="key"></span>
+                                    Employee Locker <span class="sr-only"></span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" th:href="@{/Placement}">
-                                    <span data-feather="home"></span>
-                                   Placement <span class="sr-only">(current)</span>
+                                <a class="nav-link" th:href="@{/Placement}">
+                                    <span data-feather="map-pin"></span>
+                                    Placement <span class="sr-only"></span>
                                 </a>
                             </li>
                         </ul>
@@ -62,48 +68,50 @@
 
                 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
                     <row>
-                    <h3>Id Card</h3>
-                    <div class="row" style="padding: 10px 0 10px 0">
-                        <div class="col-sm-6">
-                            <button data-target="#mdlAdd" data-toggle="modal" class="btn btn-default">Add Data</button>
+                        <h3>Id Card</h3>
+                        <div class="row" style="padding: 10px 0 10px 0">
+                            <div class="col-sm-6">
+                                <button data-target="#mdlAdd" data-toggle="modal" class="btn btn-default">Add Data</button>
+                            </div>
                         </div>
-                    </div>
-                    <table id="example" class="table table-bordered table-striped" style="width: 100%">
-                        <thead>
-                            <tr>
-                                <th>Id</th>
-                                <th>Receive Date</th>
-                                <th>Return Date</th>
-                                <th>Note</th>
-                                <th>Employee</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tblData">
-                            <tr th:each="idc,ih : ${idcardData}">
-                                <td th:text="${ih.count}"></td>
-                                <td th:text="${idc.receivedate}"></td>
-                                <td th:text="${idc.returndate}"></td>
-                                <td th:text="${idc.note}"></td>
-                                <td th:text="${idc.employee.name}"></td>
-                                <td>
-                                    <button data-target="#mdlEdit" data-toggle="modal" th:data-getid="${idc.id}" 
-                                            th:data-getreceivedate="${idc.receivedate}"
-                                            th:data-getreturndate="${idc.returndate}" 
-                                            th:data-getnote="${idc.note}" 
-                                            th:data-getemployee="${idc.employee.id}" class="btn btn-warning">Edit</button>
-                                    <a th:href="@{/idcardDelete(cardid=${idc.id})}"><button value="" class="btn btn-danger">Delete</button></a>
-<!--                                    <button data-target="#mdlDelete" data-toggle="modal" h:data-getid="${idc.id}" 
-                                            th:data-getreceivedate="${idc.receivedate}"
-                                            th:data-getreturndate="${idc.returndate}" 
-                                            th:data-getnote="${idc.note}" 
-                                            th:data-getemployee="${idc.employee.id}" class="btn btn-danger">Delete</button>-->
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                        <table id="table_idcard" class="table table-bordered table-striped" style="width: 100%">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Receive Date</th>
+                                    <th>Return Date</th>
+                                    <th>Note</th>
+                                    <th>Employee</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tblData">
+                                <tr th:each="idc,ih : ${idcardData}">
+                                    <td th:text="${ih.count}"></td>
+                                    <td th:text="${idc.receivedate}"></td>
+                                    <td th:text="${idc.returndate}"></td>
+                                    <td th:text="${idc.note}"></td>
+                                    <td th:text="${idc.employee.name}"></td>
+                                    <td>
+                                        <button data-target="#mdlEdit" data-toggle="modal" th:data-getid="${idc.id}" 
+                                                th:data-getreceivedate="${idc.receivedate}"
+                                                th:data-getreturndate="${idc.returndate}" 
+                                                th:data-getnote="${idc.note}" 
+                                                th:data-getemployee="${idc.employee.id}" class="btn btn-warning">Edit</button>
+                                        <a th:href="@{/idcardDelete(cardid=${idc.id})}"><button value="" class="btn btn-danger">Delete</button></a>
+                                        <!--                                    <button data-target="#mdlDelete" data-toggle="modal" h:data-getid="${idc.id}" 
+                                                                                    th:data-getreceivedate="${idc.receivedate}"
+                                                                                    th:data-getreturndate="${idc.returndate}" 
+                                                                                    th:data-getnote="${idc.note}" 
+                                                                                    th:data-getemployee="${idc.employee.id}" class="btn btn-danger">Delete</button>-->
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
                     </row>
-                    
-                    
+
+
                     <!--modal add data-->
                     <div class="modal fade" id="mdlAdd" tabindex="-1" role="dialog" aria-labelledby="modal-add" aria-hidden="true">
                         <div class="modal-dialog" role="document">
@@ -196,7 +204,7 @@
         <!-- Bootstrap core JavaScript
                 ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
         <!--<script>window.jQuery || document.write('<script src="dist/js/jquery-slim.min.js"><\/script>')</script>-->
         <script th:src="@{dist/js/popper.min.js}"></script>
         <script th:src="@{dist/js/bootstrap.min.js}"></script>
@@ -205,6 +213,11 @@
         <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
         <script>
             feather.replace()
+        </script>
+        <script>
+            $(document).ready(function () {
+                $('#table_idcard').DataTable();
+            });
         </script>
         <script>
             $('#mdlEdit').on('show.bs.modal', function (event) {

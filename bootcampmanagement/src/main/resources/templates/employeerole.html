@@ -19,7 +19,7 @@
 
     <body>
         <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-            <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">MII Bootcamp Management</a>
+            <a class="navbar-brand col-sm-3 col-md-2 mr-0" th:href="@{/dashboard}">MII Bootcamp Management</a>
             <ul class="navbar-nav px-3">
                 <li class="nav-item text-nowrap">
                     <a class="nav-link" href="index.html">Sign out</a>
@@ -33,27 +33,33 @@
                     <div class="sidebar-sticky">
                         <ul class="nav flex-column">
                             <li class="nav-item">
+                                <a class="nav-link" th:href="@{/cv}">
+                                    <span data-feather="file-text"></span>
+                                    CV <span class="sr-only"></span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" th:href="@{/bm/bm}">
+                                    <span data-feather="user"></span>
+                                    Trainer <span class="sr-only"></span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" th:href="@{/Idcard}">
+                                    <span data-feather="key"></span>
+                                    Equipment <span class="sr-only"></span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link active" th:href="@{#}">
-                                    <span data-feather="tag"></span>
-                                    Role <span class="sr-only">(current)</span>
+                                    <span data-feather="users"></span>
+                                    Employee Role <span class="sr-only">(current)</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" th:href="@{/employeelanguage}">
-                                    <span data-feather="mic"></span>
-                                    Language <span class="sr-only"></span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" th:href="@{/employeeskill}">
-                                    <span data-feather="code"></span>
-                                    Skill <span class="sr-only"></span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" th:href="@{/workexperience}">
-                                    <span data-feather="linkedin"></span>
-                                    Work Experience <span class="sr-only"></span>
+                                <a class="nav-link" th:href="@{/registration}">
+                                    <span data-feather="user-plus"></span>
+                                    Registration <span class="sr-only"></span>
                                 </a>
                             </li>
                         </ul>
@@ -106,127 +112,127 @@
                     <!--ENDOF Show table data-->
 
                     <!--Modal add data-->
-<!--                    <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="modal-add" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="modal-add">Add Role</h5>
-                                    <button class="close" data-dismiss="modal" aria-label="close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <form th:action="@{/emprolesave}" method="post" >
-                                    <div class="modal-body">
-                                        <div class="form-group">
-                                            <label for="name">Name</label>
-                                            <input id="s-name" th:field="*{emprolesave.name}" class="form-control" type="text"/>
-                                            <select name="s-name" id="s-name" class="form-control">
-                                                <div th:each="data :${empDataR}">
-                                                    <option th:value="${data.id}" th:text="${data.name}"></option>
+                    <!--                    <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="modal-add" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="modal-add">Add Role</h5>
+                                                        <button class="close" data-dismiss="modal" aria-label="close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <form th:action="@{/emprolesave}" method="post" >
+                                                        <div class="modal-body">
+                                                            <div class="form-group">
+                                                                <label for="name">Name</label>
+                                                                <input id="s-name" th:field="*{emprolesave.name}" class="form-control" type="text"/>
+                                                                <select name="s-name" id="s-name" class="form-control">
+                                                                    <div th:each="data :${empDataR}">
+                                                                        <option th:value="${data.id}" th:text="${data.name}"></option>
+                                                                    </div>
+                                                                </select>
+                                                                <label for="name">Role</label>
+                                                                <input id="s-role" th:field="*{emprolesave.role}" class="form-control" type="text"/>
+                                                                <select name="s-role" id="s-role" class="form-control">
+                                                                    <div th:each="data :${roleData}">
+                                                                        <option th:value="${data.id}" th:text="${data.name}"></option>
+                                                                    </div>
+                                                                </select>
+                                                                <label for="name">Start Date</label>
+                                                                <input id="s-startdate" th:field="*{emprolesave.startdate}" class="form-control" type="text"/>
+                                                                <input type="date" class="form-control" id="s-startdate" name="s-startdate" value=""/>
+                                                                <label for="name">End Date</label>
+                                                                <input id="s-enddate" th:field="*{emprolesave.enddate}" class="form-control" type="text"/>
+                                                                <input type="date" class="form-control" id="s-enddate" name="s-enddate" value=""/>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                            <button type="submit" value="Submit" class="btn btn-default">Save</button>
+                                                        </div>
+                                                    </form>
                                                 </div>
-                                            </select>
-                                            <label for="name">Role</label>
-                                            <input id="s-role" th:field="*{emprolesave.role}" class="form-control" type="text"/>
-                                            <select name="s-role" id="s-role" class="form-control">
-                                                <div th:each="data :${roleData}">
-                                                    <option th:value="${data.id}" th:text="${data.name}"></option>
-                                                </div>
-                                            </select>
-                                            <label for="name">Start Date</label>
-                                            <input id="s-startdate" th:field="*{emprolesave.startdate}" class="form-control" type="text"/>
-                                            <input type="date" class="form-control" id="s-startdate" name="s-startdate" value=""/>
-                                            <label for="name">End Date</label>
-                                            <input id="s-enddate" th:field="*{emprolesave.enddate}" class="form-control" type="text"/>
-                                            <input type="date" class="form-control" id="s-enddate" name="s-enddate" value=""/>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                        <button type="submit" value="Submit" class="btn btn-default">Save</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>-->
+                                            </div>
+                                        </div>-->
                     <!--ENDOF Modal add data-->
 
                     <!--Modal edit data-->
-<!--                    <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="modal-add" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="modal-add">Edit Role</h5>
-                                    <button class="close" data-dismiss="modal" aria-label="close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <form th:action="@{/emproleedit}" method="post" >
-                                    <div class="modal-body">
-                                        <div class="form-group">
-                                            <input hidden="" id="e-id" th:field="*{emproleedit.id}" class="form-control" type="text"/>
-                                            
-                                            <label for="name">Name</label>
-                                            <input id="s-name" th:field="*{emprolesave.name}" class="form-control" type="text"/>
-                                            <select name="e-name" id="e-name" th:field="*{emprolesave.employee.name}" class="form-control">
-                                                <div th:each="data :${empData}">
-                                                    <option th:value="${data.id}" th:text="${data.name}"></option>
+                    <!--                    <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="modal-add" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="modal-add">Edit Role</h5>
+                                                        <button class="close" data-dismiss="modal" aria-label="close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <form th:action="@{/emproleedit}" method="post" >
+                                                        <div class="modal-body">
+                                                            <div class="form-group">
+                                                                <input hidden="" id="e-id" th:field="*{emproleedit.id}" class="form-control" type="text"/>
+                                                                
+                                                                <label for="name">Name</label>
+                                                                <input id="s-name" th:field="*{emprolesave.name}" class="form-control" type="text"/>
+                                                                <select name="e-name" id="e-name" th:field="*{emprolesave.employee.name}" class="form-control">
+                                                                    <div th:each="data :${empData}">
+                                                                        <option th:value="${data.id}" th:text="${data.name}"></option>
+                                                                    </div>
+                                                                </select>
+                                                                <label for="name">Role</label>
+                                                                <input id="s-role" th:field="*{emprolesave.role}" class="form-control" type="text"/>
+                                                                <select name="e-role" id="e-role" th:field="*{emprolesave.role}" class="form-control">
+                                                                    <div th:each="data :${roleData}">
+                                                                        <option th:value="${data.id}" th:text="${data.name}"></option>
+                                                                    </div>
+                                                                </select>
+                                                                <label for="name">Start Date</label>
+                                                                <input id="s-startdate" th:field="*{emprolesave.startdate}" class="form-control" type="text"/>
+                                                                <input type="date" class="form-control" id="e-startdate" name="e-startdate" th:field="*{emprolesave.startdate}" value=""/>
+                                                                <label for="name">End Date</label>
+                                                                <input id="s-enddate" th:field="*{emprolesave.enddate}" class="form-control" type="text"/>
+                                                                <input type="date" class="form-control" id="e-enddate" name="e-enddate" th:field="*{emprolesave.enddate}" value=""/>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-default" value="Submit">Update</button>
+                                                        </div>
+                                                    </form>
                                                 </div>
-                                            </select>
-                                            <label for="name">Role</label>
-                                            <input id="s-role" th:field="*{emprolesave.role}" class="form-control" type="text"/>
-                                            <select name="e-role" id="e-role" th:field="*{emprolesave.role}" class="form-control">
-                                                <div th:each="data :${roleData}">
-                                                    <option th:value="${data.id}" th:text="${data.name}"></option>
-                                                </div>
-                                            </select>
-                                            <label for="name">Start Date</label>
-                                            <input id="s-startdate" th:field="*{emprolesave.startdate}" class="form-control" type="text"/>
-                                            <input type="date" class="form-control" id="e-startdate" name="e-startdate" th:field="*{emprolesave.startdate}" value=""/>
-                                            <label for="name">End Date</label>
-                                            <input id="s-enddate" th:field="*{emprolesave.enddate}" class="form-control" type="text"/>
-                                            <input type="date" class="form-control" id="e-enddate" name="e-enddate" th:field="*{emprolesave.enddate}" value=""/>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-default" value="Submit">Update</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>-->
+                                            </div>
+                                        </div>-->
                     <!--ENDOF Modal edit data-->
 
                     <!--Modal delete data-->
-<!--                    <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modal-add" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="modal-add">Confirm Delete</h5>
-                                    <button class="close" data-dismiss="modal" aria-label="close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <form th:action="@{/emproledelete}" method="post" >
-                                    <div class="modal-body">
-                                        <div class="form-group">
-                                            <label for="name">Are you sure!?</label>
-                                            
-                                        <input hidden="" id="d-id" th:field="*{emproledelete.id}" class="form-control" type="text"/>
-                                            <input hidden="" id="d-name" th:field="*{emproledelete.name}" class="form-control" type="text"/>
-                                            <input hidden="" id="d-role" th:field="*{emproledelete.role}" class="form-control" type="text"/>
-                                            <input hidden="" id="d-startdate" th:field="*{emproledelete.startdate}" class="form-control" type="text"/>
-                                            <input hidden="" id="d-enddate" th:field="*{emproledelete.enddate}" class="form-control" type="text"/>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                        <button type="submit" class="btn btn-danger" value="Submit">DELETE</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>-->
+                    <!--                    <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modal-add" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="modal-add">Confirm Delete</h5>
+                                                        <button class="close" data-dismiss="modal" aria-label="close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <form th:action="@{/emproledelete}" method="post" >
+                                                        <div class="modal-body">
+                                                            <div class="form-group">
+                                                                <label for="name">Are you sure!?</label>
+                                                                
+                                                            <input hidden="" id="d-id" th:field="*{emproledelete.id}" class="form-control" type="text"/>
+                                                                <input hidden="" id="d-name" th:field="*{emproledelete.name}" class="form-control" type="text"/>
+                                                                <input hidden="" id="d-role" th:field="*{emproledelete.role}" class="form-control" type="text"/>
+                                                                <input hidden="" id="d-startdate" th:field="*{emproledelete.startdate}" class="form-control" type="text"/>
+                                                                <input hidden="" id="d-enddate" th:field="*{emproledelete.enddate}" class="form-control" type="text"/>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                                            <button type="submit" class="btn btn-danger" value="Submit">DELETE</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>-->
                     <!--ENDOF Modal delete data-->
 
                     <!-- /.End Content -->

@@ -8,7 +8,7 @@
         <!--Local css dan js semua pake th, @, dan {} dan / untuk single -->
         <link rel="icon" th:href="@{dist/img/favicons/favicon.ico}"/>
 
-        <title>Dashboard Template for Bootstrap</title>
+        <title>MII Bootcamp Management</title>
 
         <!-- Bootstrap core CSS -->
         <link th:href="@{dist/css/bootstrap.min.css}" rel="stylesheet"/>
@@ -19,7 +19,7 @@
 
     <body>
         <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-            <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Company name</a>
+            <a class="navbar-brand col-sm-3 col-md-2 mr-0" th:href="@{/dashboard}">Company name</a>
             <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
             <ul class="navbar-nav px-3">
                 <li class="nav-item text-nowrap">
@@ -40,14 +40,14 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" th:href="@{/cv}">
-                                    <span data-feather="home"></span>
+                                    <span data-feather="edit"></span>
                                     Edit CV <span class="sr-only"></span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" th:href="#">
-                                    <span data-feather="home"></span>
-                                    Lihat CV <span class="sr-only">(current)</span>
+                                <a class="nav-link active" th:href="@{#}">
+                                    <span data-feather="file-text"></span>
+                                    View CV <span class="sr-only">(current)</span>
                                 </a>
                             </li>
                         </ul>
@@ -203,7 +203,7 @@
                                 </tr>
                             </thead>
                             <tbody id="tblData">
-                                <tr th:each="el, it : ${emplangData}">
+                                <tr th:each="el,it : ${languageData}">
                                     <td th:text="${it.count}"></td>
                                     <td th:text="${el.language.name}"></td>
                                     <td th:text="${el.score}"></td>
@@ -231,10 +231,10 @@
                                 </tr>
                             </thead>
                             <tbody id="tblData">
-                                <tr th:each="es,itrs : ${skillData}">
+                                <tr th:each="esk,itrs : ${skillData}">
                                     <td th:text="${itrs.count}"></td>
-                                    <td th:text="${es.skill.name}"></td>
-                                    <td th:text="${es.score}"></td>
+                                    <td th:text="${esk.skill.name}"></td>
+                                    <td th:text="${esk.score}"></td>
 
                                 </tr>
                             </tbody>

@@ -12,7 +12,10 @@ and open the template in the editor.
         <meta name="author" content=""/>
         <link rel="icon" th:href="@{../dist/img/favicons/favicon.ico}"/>
 
-        <title>Dashboard Template for Bootstrap</title>
+        <title>MII Bootcamp Management</title>
+        
+        <!--JQuery-->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 
         <!-- Bootstrap core CSS -->
         <link th:href="@{../dist/css/bootstrap.min.css}" rel="stylesheet"/>
@@ -20,10 +23,14 @@ and open the template in the editor.
 
         <!-- Custom styles for this template -->
         <link th:href="@{../dist/css/dashboard.css}" rel="stylesheet"/>
+        
+        <!--Datatable-->
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jqc-1.12.4/dt-1.10.18/datatables.min.css"/>
+        <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jqc-1.12.4/dt-1.10.18/datatables.min.js"></script>
     </head>
     <body>
         <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-            <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Bootcamp Management</a>
+            <a class="navbar-brand col-sm-3 col-md-2 mr-0" th:href="@{/dashboard}">Bootcamp Management</a>
             <ul class="navbar-nav px-3">
                 <li class="nav-item text-nowrap">
                     <a class="nav-link" th:href="@{/logout}">Sign out</a>
@@ -39,37 +46,37 @@ and open the template in the editor.
                             <ul class="nav flex-column">
                                 <li class="nav-item">
                                     <a class="nav-link" th:href="@{/dashboard}">
-                                        <span data-feather="linkedin"></span>
+                                        <span data-feather="home"></span>
                                         Dashboard <span class="sr-only"></span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" th:href="@{/bm/batchclass}">
-                                        <span data-feather="tag"></span>
+                                        <span data-feather="grid"></span>
                                         Batch Class <span class="sr-only"></span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" th:href="@{/bm/errorbank}">
-                                        <span data-feather="mic"></span>
+                                        <span data-feather="clipboard"></span>
                                         ErrorBank <span class="sr-only"></span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" th:href="@{/bm/evaluation}">
-                                        <span data-feather="code"></span>
+                                        <span data-feather="check-square"></span>
                                         Evaluation <span class="sr-only"></span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link active" th:href="@{#}">
-                                        <span data-feather="linkedin"></span>
+                                        <span data-feather="users"></span>
                                         Participant <span class="sr-only">(current)</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" th:href="@{/bm/report}">
-                                        <span data-feather="linkedin"></span>
+                                        <span data-feather="file-text"></span>
                                         Report <span class="sr-only"></span>
                                     </a>
                                 </li>
@@ -154,7 +161,7 @@ and open the template in the editor.
         <!-- Bootstrap core JavaScript
         ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
         <!--    <script>window.jQuery || document.write('<script th:src="@{dist/js/jquery-slim.min.js}"><\/script>')</script>-->
         <script th:src="@{../dist/js/popper.min.js}"></script>
         <script th:src="@{../dist/js/bootstrap.min.js}"></script>
@@ -181,6 +188,12 @@ and open the template in the editor.
                 document.getElementById('rid').value = id;
                 document.getElementById('rname').value = name;
             }
+        </script>
+        
+        <script>
+            $(document).ready(function () {
+                $('#participantTable').DataTable();
+            });
         </script>
     </body>
 </html>

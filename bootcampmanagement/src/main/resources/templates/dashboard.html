@@ -12,7 +12,7 @@ and open the template in the editor.
         <meta name="author" content=""/>
         <link rel="icon" th:href="@{dist/img/favicons/favicon.ico}"/>
 
-        <title>Dashboard Template for Bootstrap</title>
+        <title>MII Bootcamp Management</title>
 
         <!-- Bootstrap core CSS -->
         <link th:href="@{dist/css/bootstrap.min.css}" rel="stylesheet"/>
@@ -22,7 +22,7 @@ and open the template in the editor.
         <link th:href="@{dist/css/dashboard.css}" rel="stylesheet"/>
     </head>
     <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Bootcamp Management</a>
+        <a class="navbar-brand col-sm-3 col-md-2 mr-0" th:href="@{/dashboard}">Bootcamp Management</a>
         <ul class="navbar-nav px-3">
             <li class="nav-item text-nowrap">
                 <a class="nav-link" th:href="@{/logout}">Sign out</a>
@@ -37,51 +37,35 @@ and open the template in the editor.
                     <ul class="nav flex-column">
                         <li class="nav-item">
                             <a class="nav-link" th:href="@{/cv}">
-                                <span data-feather="home"></span>
+                                <span data-feather="file-text"></span>
                                 CV <span class="sr-only"></span>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/bm/bm}">
+                                <span data-feather="user"></span>
+                                Trainer <span class="sr-only"></span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/Idcard}">
+                                <span data-feather="key"></span>
+                                Equipment <span class="sr-only"></span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/employeerole}">
+                                <span data-feather="users"></span>
+                                Employee Role <span class="sr-only"></span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/registration}">
+                                <span data-feather="user-plus"></span>
+                                Registration <span class="sr-only"></span>
+                            </a>
+                        </li>
                     </ul>
-                    <div>
-                        <div>
-                            <ul class="nav flex-column">
-                                <li class="nav-item">
-                                    <a class="nav-link" th:href="@{/bm/bm}">
-                                        <span data-feather="home"></span>
-                                        Trainer <span class="sr-only"></span>
-                                    </a>
-                                </li>
-                            </ul>
-                            <ul class="nav flex-column">
-                                <li class="nav-item">
-                                    <a class="nav-link" th:href="@{/Idcard}">
-                                       <span data-feather="home"></span>
-                                        Equipment <span class="sr-only"></span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div>
-                        <div>
-                            <ul class="nav flex-column">
-                                <li class="nav-item">
-                                    <a class="nav-link" th:href="@{/employeerole}">
-                                       <span data-feather="home"></span>
-                                        Employee Role <span class="sr-only"></span>
-                                    </a>
-                                </li>
-                            </ul>
-                            <ul class="nav flex-column">
-                                <li class="nav-item">
-                                    <a class="nav-link" th:href="@{/registration}">
-                                       <span data-feather="home"></span>
-                                        Registration <span class="sr-only"></span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
                 </div>
             </nav>
 
