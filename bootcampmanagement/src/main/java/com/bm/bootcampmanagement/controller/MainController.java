@@ -272,7 +272,7 @@ public class MainController {
 
         new UploadFileResponse(employee.getName(), fileDownloadUri,
                 file.getContentType(), file.getSize());
-        return "redirect:/";
+        return "redirect:/cv";
     }
 
 //    @PostMapping("/uploadMultipleFiles")
