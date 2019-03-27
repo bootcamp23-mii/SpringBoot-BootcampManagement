@@ -33,15 +33,27 @@
                     <div class="sidebar-sticky">
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <a class="nav-link active" href="#">
+                                <a class="nav-link active" th:href="@{/Idcard}">
                                     <span data-feather="home"></span>
-                                    Dashboard <span class="sr-only">(current)</span>
+                                    Id Card <span class="sr-only">(current)</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="Idcard.html">
+                                <a class="nav-link active" th:href="@{/Employeeaccess}">
                                     <span data-feather="home"></span>
-                                    Placement<span class="sr-only">(current)</span>
+                                    Employee Access Card <span class="sr-only">(current)</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" th:href="@{/Employeelocker}">
+                                    <span data-feather="home"></span>
+                                    Employee Locker <span class="sr-only">(current)</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" th:href="@{/Placement}">
+                                    <span data-feather="home"></span>
+                                   Placement <span class="sr-only">(current)</span>
                                 </a>
                             </li>
                         </ul>
