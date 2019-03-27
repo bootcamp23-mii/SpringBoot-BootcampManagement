@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <meta name="description" content=""/>
+        <meta name="author" content=""/>
+        <link rel="icon" th:href="@{../dist/img/favicons/favicon.ico}"/>
+
+        <title>Dashboard Template for Bootstrap</title>
+
+        <!-- Bootstrap core CSS -->
+        <link th:href="@{../dist/css/bootstrap.min.css}" rel="stylesheet"/>
+        <!--<link href="dist/css/bootstrap.min.css" rel="stylesheet">-->
+
+        <!-- Custom styles for this template -->
+        <link th:href="@{../dist/css/dashboard.css}" rel="stylesheet"/>
+    </head>
+    <body>
+        <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+            <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Bootcamp Management</a>
+            <ul class="navbar-nav px-3">
+                <li class="nav-item text-nowrap">
+                    <a class="nav-link" th:href="@{/logout}">Sign out</a>
+                </li>
+            </ul>
+        </nav>
+        <div class="main">
+            <!-- MAIN CONTENT -->
+            <div class="container-fluid">
+                <div class="row">
+                    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+                        <h1>Generate Report</h1>
+                        <!--show save form modal-->
+                        <form action="/bm/generatereport" method="POST">
+                            <label data-error="wrong" data-success="true">Employee</label>
+                            <select name="participantId" id="participantId" class="form-control">
+                                <div th:each="data :${dataParticipant}">
+                                    <option th:value="${data.id}" th:text="${data.employee.name}"></option>
+                                </div>
+                            </select>
+                            <div class="modal-footer">
+                                <input type="submit" class="btn btn-success" value="Save" name="save"/>
+                            </div>
+
+                        </form>
+                        <!--end of show save form modal-->
+                    </main>
+                </div>
+            </div>
+        </div>
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <!--    <script>window.jQuery || document.write('<script th:src="@{dist/js/jquery-slim.min.js}"><\/script>')</script>-->
+        <script th:src="@{../dist/js/popper.min.js}"></script>
+        <script th:src="@{../dist/js/bootstrap.min.js}"></script>
+
+        <!-- Icons -->
+        <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+
+        <script>
+            feather.replace();
+        </script>
+        <script>
+            $('#modalForm').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                var id = button.data('getid');
+                var idemp = button.data('getidemp');
+                var modal = $(this);
+                modal.find('#batchclassId').val(id);
+                modal.find('#employeeId').val(idemp);
+            });
+        </script>
+        <script  type="text/javascript">
+            function setEdit(id, name)
+            {
+                document.getElementById('rid').value = id;
+                document.getElementById('rname').value = name;
+            }
+        </script>
+    </body>
+</html>

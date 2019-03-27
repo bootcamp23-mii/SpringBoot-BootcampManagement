@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @Controller
 public class BootcampManagementController {
-
+    
     @Autowired
     EmployeeDAO daoEmp;
     @Autowired
@@ -84,13 +84,13 @@ public class BootcampManagementController {
         model.addAttribute("dataBatchclass", daoBC.findAll());
         return "/bm/participant";
     }
-
+    
     @PostMapping("/bm/saveParticipant")
     public String saveParticipant(@RequestParam("employeeId") String empId, @RequestParam("batchclassId") String batchclassId) {
         daoP.save(new Participant(empId, "", new Short("0"), new Batchclass(batchclassId), new Employee(empId)));
         return "redirect:/bm/participant";
     }
-
+    
     @GetMapping("/bm/deleteParticipant/{id}")
     public String deleteParticipant(@PathVariable("id") String id) {
         List<Participant> list = (List<Participant>) daoP.findAll();
@@ -120,14 +120,14 @@ public class BootcampManagementController {
                 dataEvaluation.add(evaluationList.get(i));
             }
         }
-
+        
         model.addAttribute("dataParticipant", dataParticipant);
         model.addAttribute("dataEvaluation", dataEvaluation);
         model.addAttribute("dataTopic", daoT.findAll());
         model.addAttribute("dataLesson", daoL.findAll());
         return "/bm/evaluation";
     }
-
+    
     @PostMapping("/bm/saveEvaluation")
     public String saveEvaluation(@RequestParam("idEvaluation") String id, @RequestParam("idEmployee") String idEmployee, @RequestParam("evaluationDate") String evaluationDate, @RequestParam("idlesson") String idLesson, @RequestParam("idTopic") String idTopic, @RequestParam("isDaily") String isDaily) {
         try {
@@ -141,7 +141,7 @@ public class BootcampManagementController {
         }
         return "redirect:/bm/evaluation";
     }
-
+    
     @GetMapping("/bm/deleteEvaluation/{id}")
     public String deleteEvaluation(@PathVariable("id") String id) {
         try {
@@ -171,13 +171,13 @@ public class BootcampManagementController {
         model.addAttribute("dataAspect", daoA.findAll());
         return "/bm/score";
     }
-
+    
     @GetMapping("/bm/getscore/{id}")
     public String getscore(@PathVariable("id") String id, HttpServletRequest request) {
         request.getSession().setAttribute("idScore", id);
         return "redirect:/bm/score";
     }
-
+    
     @PostMapping("/bm/saveScore")
     public String saveScore(@RequestParam("scoreId") String id, @RequestParam("aspectId") String aspect, @RequestParam("aspectRating") String rating, HttpServletRequest request) {
         String tempId = "-";
@@ -199,7 +199,7 @@ public class BootcampManagementController {
         daoS.save(new Score(tempId, new Double(rating), new Short("0"), new Aspect(aspect), new Evaluation(request.getSession().getAttribute("idScore").toString())));
         return "redirect:/bm/score";
     }
-
+    
     @GetMapping("/bm/deleteScore/{id}")
     public String saveScore(@PathVariable("id") String id) {
         List<Score> list = (List<Score>) daoS.findAll();
@@ -241,7 +241,7 @@ public class BootcampManagementController {
         model.addAttribute("dataClasses", daoC.findAll());
         return "/bm/batchclass";
     }
-
+    
     @PostMapping("/bm/saveBatchclass")
     public String saveBatchclass(@RequestParam("idBatchclass") String id, @RequestParam("idTrainer") String idTrainer, @RequestParam("idBatch") String idBatch, @RequestParam("idClasses") String idClasses, @RequestParam("idRoom") String idRoom) {
         String tempId = "-";
@@ -251,7 +251,7 @@ public class BootcampManagementController {
         daoBC.save(new Batchclass(tempId, new Short("0"), new Batch(idBatch), new Room(idRoom), new Classes(idClasses), new Employee(idTrainer)));
         return "redirect:/bm/batchclass";
     }
-
+    
     @GetMapping("/bm/deleteBatchclass/{id}")
     public String deleteBatchclass(@PathVariable("id") String id) {
         List<Batchclass> list = (List<Batchclass>) daoBC.findAll();
@@ -277,7 +277,7 @@ public class BootcampManagementController {
         model.addAttribute("dataClasses", daoC.findAll());
         return "/bm/errorbank";
     }
-
+    
     @PostMapping("/bm/saveErrorbank")
     public String saveErrorbank(@RequestParam("errorbankId") String id, @RequestParam("errorbankSubmiter") String employeeId, @RequestParam("errorbankClassesId") String classesId, @RequestParam("errorbankSubmitdate") String SubmitDate, @RequestParam("errorbankDescription") String description, @RequestParam("errorbankSolution") String solution, HttpServletRequest request) {
         try {
@@ -297,7 +297,7 @@ public class BootcampManagementController {
         }
         return "redirect:/bm/errorbank";
     }
-
+    
     @GetMapping("/bm/deleteErrorbank/{id}")
     public String saveErrorbank(@PathVariable("id") String id, HttpServletRequest request) {
         List<Errorbank> list = (List<Errorbank>) daoEB.findAll();
@@ -311,4 +311,67 @@ public class BootcampManagementController {
         }
         return "redirect:/bm/errorbank";
     }
+
+    //report
+    @GetMapping("/bm/report")
+    public String report(Model model, HttpServletRequest request) {
+        List<Participant> participantList = (List<Participant>) daoP.findAll();
+        List<Participant> dataParticipant = new ArrayList<>();
+        for (Participant data : participantList) {
+            if (data.getBatchclass().getTrainer().getId().equalsIgnoreCase(request.getSession().getAttribute("login").toString())) {
+                dataParticipant.add(data);
+            }
+        }
+        model.addAttribute("dataParticipant", dataParticipant);
+        return "/bm/report";
+    }
+    
+    @PostMapping("/bm/generatereport")
+    public String generateReport(HttpServletRequest request, @RequestParam("participantId") String id) {
+        List<Evaluation> evaluationList = (List<Evaluation>) daoE.findAll();
+        double isDailyScore = 0, isWeeklyScore = 0;
+        int count = 0;
+        for (Evaluation evaluation : evaluationList) {
+            if (evaluation.getIsdaily().intValue() == 1 && evaluation.getParticipant().getId().equalsIgnoreCase(id)) {
+                for (Score score : evaluation.getScoreList()) {
+                    isDailyScore += score.getRating();
+                    count++;
+                }
+            }
+        }
+        isDailyScore = (isDailyScore / count) * 0.3;
+        count = 0;
+        for (Evaluation evaluation : evaluationList) {
+            if (evaluation.getIsdaily().intValue() == 0 && evaluation.getParticipant().getId().equalsIgnoreCase(id)) {
+                for (Score score : evaluation.getScoreList()) {
+                    isWeeklyScore += score.getRating();
+                    count++;
+                }
+            }
+        }
+        isDailyScore = (isDailyScore / count) * 0.7;
+        GenerateGrade(id,isDailyScore+isWeeklyScore);
+        request.getSession().setAttribute("isdailyscore", isDailyScore);
+        request.getSession().setAttribute("isweeklyscore", isWeeklyScore);
+        request.getSession().setAttribute("participantid", id);
+        return "redirect:/bm/reportpage";
+    }
+    
+    public String GenerateGrade(String id, double finalScore) {
+        String grade="";
+        if (finalScore>=75)grade = "A";else grade = "B";
+        Participant data = daoP.findById(id);
+        daoP.save(new Participant(data.getId(), grade, new Short("0"), new Batchclass(data.getBatchclass().getId()), new Employee(data.getId())));
+        return grade;
+    }
+    
+    @GetMapping("/bm/reportpage")
+    public String reportpage(Model model, HttpServletRequest request) {
+        Participant participant = daoP.findById(request.getSession().getAttribute("participantid").toString());
+        model.addAttribute("participant",participant);
+        model.addAttribute("isdailyscore",request.getSession().getAttribute("isdailyscore"));
+        model.addAttribute("isweeklyscore",request.getSession().getAttribute("isweeklyscore"));
+        return "/bm/reportpage";
+    }
+    
 }
