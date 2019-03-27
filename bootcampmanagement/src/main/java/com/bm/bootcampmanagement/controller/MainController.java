@@ -629,9 +629,9 @@ public class MainController {
         mod.addAttribute("achievementData", daoEmp.findById("14201").getAchievementList());
         mod.addAttribute("organizationData", daoEmp.findById("14201").getOrganizationList());
         mod.addAttribute("certificateData", daoEmp.findById("14201").getEmployeecertificationList());
-        mod.addAttribute("languageData", daoL.findById("14201").getEmployeelanguageList());
-        mod.addAttribute("skillData", daoS.findById("14201").getEmployeeskillList());
-//        mod.addAttribute("workexperienceData", daoW.findById("14201").getWorkexperienceList());
+        mod.addAttribute("languageData", daoEmp.findById("14201").getEmployeelanguageList());
+        mod.addAttribute("skillData", daoEmp.findById("14201").getEmployeeskillList());
+        mod.addAttribute("workexperienceData", daoEmp.findById("14201").getWorkexperienceList());
         return "/lihatCV";
     }
 }
