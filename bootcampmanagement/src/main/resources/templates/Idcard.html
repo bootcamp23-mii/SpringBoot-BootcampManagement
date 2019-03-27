@@ -39,7 +39,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="Idcard.html">
+                                <a class="nav-link active" href="#">
                                     <span data-feather="home"></span>
                                     Id Card <span class="sr-only">(current)</span>
                                 </a>
@@ -78,12 +78,13 @@
                                             th:data-getreceivedate="${idc.receivedate}"
                                             th:data-getreturndate="${idc.returndate}" 
                                             th:data-getnote="${idc.note}" 
-                                            th:data-getemployee="${idc.employee.name}" class="btn btn-warning">Edit</button>
-                                    <button data-target="#mdlDelete" data-toggle="modal" h:data-getid="${idc.id}" 
+                                            th:data-getemployee="${idc.employee.id}" class="btn btn-warning">Edit</button>
+                                    <a th:href="@{/idcardDelete(cardid=${idc.id})}"><button value="" class="btn btn-danger">Delete</button></a>
+<!--                                    <button data-target="#mdlDelete" data-toggle="modal" h:data-getid="${idc.id}" 
                                             th:data-getreceivedate="${idc.receivedate}"
                                             th:data-getreturndate="${idc.returndate}" 
                                             th:data-getnote="${idc.note}" 
-                                            th:data-getemployee="${idc.employee.name}" class="btn btn-danger">Delete</button>
+                                            th:data-getemployee="${idc.employee.id}" class="btn btn-danger">Delete</button>-->
                                 </td>
                             </tr>
                         </tbody>
@@ -117,7 +118,11 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="employee">Employee</label>
-                                            <input id="employee" name="employee" class="form-control" type="text"/>
+                                            <select name="employee" id="employee" class="form-control">
+                                                <div th:each="epl :${empl}">
+                                                    <option th:value="${epl.id}" th:text="${epl.name}"></option>
+                                                </div>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -128,7 +133,49 @@
                             </div>
                         </div>
                     </div>
-
+                    <!--Modal Edit Data-->
+                    <div class="modal fade" id="mdlEdit" tabindex="-1" role="dialog" aria-labelledby="modal-add" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modal-add">Add Id Card</h5>
+                                    <button class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form th:action="@{/idcardEdit}" method="post">
+                                    <div class="modal-body">
+                                        <input id="id" name="id" class="form-control" type="hidden"/>
+                                        <div class="form-group">
+                                            <label for="receive">Receive Date</label>
+                                            <input id="receivedate" name="receivedate" class="form-control" type="date"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="returndate">Return Date</label>
+                                            <input id="returndate" name="returndate" class="form-control" type="date"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="note">Note</label>
+                                            <input id="note" name="note" class="form-control" type="text"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="employee">Employee</label>
+                                            <select name="employee" id="employee" class="form-control">
+                                                <div th:each="epl :${empl}">
+                                                    <option th:value="${epl.id}" th:text="${epl.name}"></option>
+                                                </div>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-default" value="Submit">Save</button>
+                                    </div>                          
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!--End Modal Edit Data-->
                     <!-- /.End Content -->
                 </main>
             </div>
@@ -146,6 +193,24 @@
         <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
         <script>
             feather.replace()
+        </script>
+        <script>
+            $('#mdlEdit').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                var id = button.data('getid');
+                var receivedate = button.data('getreceivedate');
+                var returndate = button.data('getreturndate');
+                var note = button.data('getnote');
+                var employee = button.data('getemployee');
+
+                var modal = $(this);
+                modal.find('#id').val(id);
+                modal.find('#receivedate').val(receivedate);
+                modal.find('#returndate').val(returndate);
+                modal.find('#note').val(note);
+                modal.find('#employee').val(employee);
+
+            });
         </script>
     </body>
 </html>

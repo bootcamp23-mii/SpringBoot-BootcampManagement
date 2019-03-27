@@ -18,6 +18,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AccessCardRepository extends CrudRepository<Accesscard, String>{
     @Modifying
-    @Query (value = "DELETE FROM tb_m_access_card where id = ?1", nativeQuery = true)
+    @Query (value = "DELETE FROM tb_m_accesscard where id = ?1", nativeQuery = true)
     public void deleteById(String id);
 }

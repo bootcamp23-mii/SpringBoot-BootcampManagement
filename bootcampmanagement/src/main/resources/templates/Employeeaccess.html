@@ -81,13 +81,14 @@
                                             th:data-getreturndate="${ead.returndate}" 
                                             th:data-getnote="${ead.notes}" 
                                             th:data-getaccess="${ead.accesscard}" 
-                                            th:data-getemployee="${ead.employee.name}" class="btn btn-warning">Edit</button>
-                                    <button data-target="#mdlDelete" data-toggle="modal" th:data-getid="${ead.id}" 
+                                            th:data-getemployee="${ead.employee.id}" class="btn btn-warning">Edit</button>
+                                    <a th:href="@{/empaccessDelete(epcid=${ead.id})}"><button value="" class="btn btn-danger">Delete</button></a>
+<!--                                    <button data-target="#mdlDelete" data-toggle="modal" th:data-getid="${ead.id}" 
                                             th:data-getreceivedate="${ead.receivedate}"
                                             th:data-getreturndate="${ead.returndate}" 
                                             th:data-getnote="${ead.notes}" 
                                             th:data-getaccess="${ead.accesscard}" 
-                                            th:data-getemployee="${ead.employee.name}" class="btn btn-danger">Delete</button>
+                                            th:data-getemployee="${ead.employee.name}" class="btn btn-danger">Delete</button>-->
                                 </td>
                             </tr>
                         </tbody>
@@ -121,11 +122,19 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="accesscard">Access Card</label>
-                                            <input id="accesscard" name="accesscard" class="form-control" type="text"/>
+                                            <select name="accesscard" id="employee" class="form-control">
+                                                <div th:each="ec :${epc}">
+                                                    <option th:value="${ec.id}" ></option>
+                                                </div>
+                                            </select>
                                         </div>
                                         <div class="form-group">
                                             <label for="employee">Employee</label>
-                                            <input id="employee" name="employee" class="form-control" type="text"/>
+                                            <select name="employee" id="employee" class="form-control">
+                                                <div th:each="epl :${empl}">
+                                                    <option th:value="${epl.id}" th:text="${epl.name}"></option>
+                                                </div>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -136,7 +145,57 @@
                             </div>
                         </div>
                     </div>
-
+                    <!--Modal Edit Data-->
+                    <div class="modal fade" id="mdlEdit" tabindex="-1" role="dialog" aria-labelledby="modal-add" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modal-add">Add Employee Access</h5>
+                                    <button class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form th:action="@{/empaccessEdit}" method="post">
+                                    <div class="modal-body">
+                                        <input id="id" name="id" class="form-control" type="hidden"/>
+                                        <div class="form-group">
+                                            <label for="receive">Receive Date</label>
+                                            <input id="receivedate" name="receivedate" class="form-control" type="date"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="returndate">Return Date</label>
+                                            <input id="returndate" name="returndate" class="form-control" type="date"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="notes">Note</label>
+                                            <input id="notes" name="notes" class="form-control" type="text"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="accesscard">Access Card</label>
+                                            <select name="accesscard" id="accesscard" class="form-control">
+                                                <div th:each="ec :${epc}">
+                                                    <option th:value="${ec.id}" "></option>
+                                                </div>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="employee">Employee</label>
+                                            <select name="employee" id="employee" class="form-control">
+                                                <div th:each="epl :${empl}">
+                                                    <option th:value="${epl.id}" th:text="${epl.name}"></option>
+                                                </div>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-default" value="Submit">Save</button>
+                                    </div>                          
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!--End Modal Edit Data-->
                     <!-- /.End Content -->
                 </main>
             </div>
@@ -154,6 +213,26 @@
         <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
         <script>
             feather.replace()
+        </script>
+        <script>
+            $('#mdlEdit').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                var id = button.data('getid');
+                var receivedate = button.data('getreceivedate');
+                var returndate = button.data('getreturndate');
+                var note = button.data('getnote');
+                var accesscard = button.data('getaccess');
+                var employee = button.data('getemployee');
+
+                var modal = $(this);
+                modal.find('#id').val(id);
+                modal.find('#receivedate').val(receivedate);
+                modal.find('#returndate').val(returndate);
+                modal.find('#note').val(note);
+                modal.find('#accesscard').val(accesscard);
+                modal.find('#employee').val(employee);
+
+            });
         </script>
     </body>
 </html>

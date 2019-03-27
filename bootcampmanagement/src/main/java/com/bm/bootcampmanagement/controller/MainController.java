@@ -25,6 +25,8 @@ import com.bm.bootcampmanagement.entities.Participant;
 import com.bm.bootcampmanagement.entities.Placement;
 import com.bm.bootcampmanagement.entities.Religion;
 import com.bm.bootcampmanagement.entities.Village;
+import com.bm.bootcampmanagement.repository.el.CompanyRepository;
+import com.bm.bootcampmanagement.repository.el.EmployeeAccessRepository;
 import com.bm.bootcampmanagement.services.BCrypt;
 import com.bm.bootcampmanagement.services.DBFileStorageService;
 import com.bm.bootcampmanagement.services.MailService;
@@ -47,6 +49,7 @@ import com.bm.bootcampmanagement.services.el.DistrictDAO;
 import com.bm.bootcampmanagement.services.el.EmployeeAccessDAO;
 import com.bm.bootcampmanagement.services.el.EmployeeLockerDAO;
 import com.bm.bootcampmanagement.services.el.IdCardDAO;
+import com.bm.bootcampmanagement.services.el.LockerDAO;
 import com.bm.bootcampmanagement.services.el.PlacementDAO;
 import com.bm.bootcampmanagement.services.el.VillageDAO;
 import java.io.IOException;
@@ -78,7 +81,13 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
  */
 @Controller
 public class MainController {
-
+    
+    @Autowired
+    EmployeeAccessRepository ear;
+    @Autowired
+    CompanyRepository cr;
+    @Autowired
+    LockerDAO ldao;
     @Autowired
     IdCardDAO cardDAO;
     @Autowired
@@ -422,6 +431,7 @@ public class MainController {
     @GetMapping("/Idcard")
     public String Idcard(Model model) {
         model.addAttribute("idcardData", cardDAO.findAll());
+        model.addAttribute("empl", daoEmp.findAll());
         model.addAttribute("idcardSave", new Idcard());
         model.addAttribute("idcardEdit", new Idcard());
         model.addAttribute("idcardDelete", new Idcard());
@@ -435,15 +445,24 @@ public class MainController {
         return "redirect:/Idcard";
     }
 
+    @RequestMapping(value = "/idcardEdit", method = RequestMethod.POST)
+    public String edit(@RequestParam("id") String id, @RequestParam("receivedate") String receivedate, @RequestParam("returndate") String returndate,
+            @RequestParam("note") String note, @RequestParam("employee") String employee) throws ParseException {
+        cardDAO.saveIdCard(new Idcard(id, dateFormat.parse(receivedate), dateFormat.parse(returndate), note, new Employee(employee)));
+        return "redirect:/Idcard";
+    }
+    
     @RequestMapping(value = "/idcardDelete", method = RequestMethod.GET)
-    public String delete(@RequestParam("id") String id) {
+    public String deletecard(@RequestParam(value = "cardid") String id) {
         cardDAO.deleteIdCardById(id);
-        return "redirect:/";
+        return "redirect:/Idcard";
     }
 
     @GetMapping("/Employeelocker")
     public String Employeelocker(Model model) {
         model.addAttribute("emplockerData", eldao.findAll());
+        model.addAttribute("datalock", ldao.findAll());
+        model.addAttribute("empl", daoEmp.findAll());
         model.addAttribute("emplockerSave", new Employeelocker());
         model.addAttribute("emplockerEdit", new Employeelocker());
         model.addAttribute("emplockerDelete", new Employeelocker());
@@ -456,18 +475,25 @@ public class MainController {
         eldao.saveEmployeeLocker(new Employeelocker("id", dateFormatuci.parse(receivedate), dateFormatuci.parse(returndate), notes, new Locker(locker), new Employee(employee)));
         return "redirect:/Employeelocker";
     }
-    
+
     @RequestMapping(value = "/emplockerEdit", method = RequestMethod.POST)
     public String edit(@RequestParam("id") String id, @RequestParam("receivedate") String receivedate, @RequestParam("returndate") String returndate,
             @RequestParam("notes") String notes, @RequestParam("locker") String locker, @RequestParam("employee") String employee) throws ParseException {
         eldao.saveEmployeeLocker(new Employeelocker(id, dateFormatuci.parse(receivedate), dateFormatuci.parse(returndate), notes, new Locker(locker), new Employee(employee)));
         return "redirect:/Employeelocker";
-}
-
-
+    }
+    
+    @RequestMapping(value = "/emplockerDelete", method = RequestMethod.GET)
+    public String delete(@RequestParam(value = "empid") String id) {
+        eldao.deleteEmployeeLockerById(id);
+        return "redirect:/Employeelocker";
+    }
+    
     @GetMapping("/Employeeaccess")
     public String Employeeaccess(Model model) {
         model.addAttribute("empaccessData", o.findAll());
+        model.addAttribute("empl", daoEmp.findAll());
+        model.addAttribute("epc", o.findAll());
         model.addAttribute("empaccessSave", new Employeeaccess());
         model.addAttribute("empaccessEdit", new Employeeaccess());
         model.addAttribute("empaccessDelete", new Employeeaccess());
@@ -480,10 +506,25 @@ public class MainController {
         o.saveEmployeeAccess(new Employeeaccess("id", dateFormatuci.parse(receivedate), dateFormatuci.parse(returndate), notes, new Accesscard(accesscard).toString(), new Employee(employee)));
         return "redirect:/Employeeaccess";
     }
-
+    
+    @RequestMapping(value = "/empaccessEdit", method = RequestMethod.POST)
+    public String editt(@RequestParam("id")String id, @RequestParam("receivedate") String receivedate, @RequestParam("returndate") String returndate,
+            @RequestParam("notes") String notes, @RequestParam("accesscard") String accesscard, @RequestParam("employee") String employee) throws ParseException {
+        o.saveEmployeeAccess(new Employeeaccess(id, dateFormatuci.parse(receivedate), dateFormatuci.parse(returndate), notes, new Accesscard(accesscard).toString(), new Employee(employee)));
+        return "redirect:/Employeeaccess";
+    }
+    
+    @RequestMapping(value = "/empaccessDelete", method = RequestMethod.GET)
+    public String deletee(@RequestParam(value = "epcid") String id) {
+        o.deleteEmployeeAccessById(id);
+        return "redirect:/Employeeaccess";
+    }
+    
     @GetMapping("/Placement")
     public String Placement(Model model) {
         model.addAttribute("placeData", pdao.findAll());
+        model.addAttribute("empl", daoEmp.findAll());
+        model.addAttribute("comp", cr.findAll());
         model.addAttribute("placeSave", new Placement());
         model.addAttribute("placeEdit", new Placement());
         model.addAttribute("placeDelete", new Placement());
@@ -497,27 +538,40 @@ public class MainController {
         return "redirect:/Placement";
     }
     
-    @RequestMapping(value= "/achievementdelete", method = RequestMethod.GET)    
-    public String deleteach(@RequestParam(value="achid") String id){    
-        adao.delete(id);    
-        return "redirect:/cv";    
-    }   
+    @RequestMapping(value = "/placeEdit", method = RequestMethod.POST)
+    public String edit(@RequestParam("id") String id, @RequestParam("description") String description, @RequestParam("address") String address, @RequestParam("department") String department,
+            @RequestParam("startdate") String startdate, @RequestParam("finishdate") String finishdate, @RequestParam("company") String company, @RequestParam("employee") String employee) throws ParseException {
+        pdao.savePlacement(new Placement(id, description, address, department, dateFormatuci.parse(startdate), dateFormatuci.parse(finishdate), new Company(company), new Employee(employee)));
+        return "redirect:/Placement";
+    }
     
-    @RequestMapping(value= "/organizationdelete", method = RequestMethod.GET)    
-    public String deleteorg(@RequestParam(value="orgid") String id){    
-        odao.delete(id);    
-        return "redirect:/cv";    
-    } 
+    @RequestMapping(value = "/placeDelete", method = RequestMethod.GET)
+    public String deletepla(@RequestParam(value = "pladid") String id) {
+        pdao.deletePlacementById(id);
+        return "redirect:/Placement";
+    }
     
-    @RequestMapping(value= "/certificatedelete", method = RequestMethod.GET)    
-    public String deletecert(@RequestParam(value="certid") String id){    
-        cdao.delete(id);    
-        return "redirect:/cv";    
-    } 
-    
-    @RequestMapping(value= "/educationdelete", method = RequestMethod.GET)    
-    public String deleteedu(@RequestParam(value="eduid") String id){    
-        edao.delete(id);    
-        return "redirect:/cv";    
-    } 
+    @RequestMapping(value = "/achievementdelete", method = RequestMethod.GET)
+    public String deleteach(@RequestParam(value = "achid") String id) {
+        adao.delete(id);
+        return "redirect:/cv";
+    }
+
+    @RequestMapping(value = "/organizationdelete", method = RequestMethod.GET)
+    public String deleteorg(@RequestParam(value = "orgid") String id) {
+        odao.delete(id);
+        return "redirect:/cv";
+    }
+
+    @RequestMapping(value = "/certificatedelete", method = RequestMethod.GET)
+    public String deletecert(@RequestParam(value = "certid") String id) {
+        cdao.delete(id);
+        return "redirect:/cv";
+    }
+
+    @RequestMapping(value = "/educationdelete", method = RequestMethod.GET)
+    public String deleteedu(@RequestParam(value = "eduid") String id) {
+        edao.delete(id);
+        return "redirect:/cv";
+    }
 }

@@ -86,16 +86,17 @@
                                                 th:data-getdep="${pd.department}"
                                                 th:data-getstartdate="${pd.startdate}"
                                                 th:data-getfinishdate="${pd.finishdate}"
-                                                th:data-getcompany="${pd.company.name}" 
-                                                th:data-getemployee="${pd.employee.name}" class="btn btn-warning">Edit</button>
-                                        <button data-target="#mdlDelete" data-toggle="modal" th:data-getid="${pd.id}" 
+                                                th:data-getcompany="${pd.company.id}" 
+                                                th:data-getemployee="${pd.employee.id}" class="btn btn-warning">Edit</button>
+                                        <a th:href="@{/placeDelete(pladid=${pd.id})}"><button value="" class="btn btn-danger">Delete</button></a>
+<!--                                        <button data-target="#mdlDelete" data-toggle="modal" th:data-getid="${pd.id}" 
                                                 th:data-getdes="${pd.description}"
                                                 th:data-getadd="${pd.address}" 
                                                 th:data-getdep="${pd.department}"
                                                 th:data-getstartdate="${pd.startdate}"
                                                 th:data-getfinishdate="${pd.finishdate}"
-                                                th:data-getcompany="${pd.company.name}" 
-                                                th:data-getemployee="${pd.employee.name}" class="btn btn-danger">Delete</button>
+                                                th:data-getcompany="${pd.company.id}" 
+                                                th:data-getemployee="${pd.employee.id}" class="btn btn-danger">Delete</button>-->
                                     </td>
                                 </tr>
                             </tbody>
@@ -137,11 +138,19 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="company">Company</label>
-                                            <input id="company" name="company" class="form-control" type="text"/>
+                                            <select name="company" id="company" class="form-control">
+                                                <div th:each="cp :${comp}">
+                                                    <option th:value="${cp.id}" th:text="${cp.name}"></option>
+                                                </div>
+                                            </select>
                                         </div>
                                         <div class="form-group">
                                             <label for="employee">Employee</label>
-                                            <input id="employee" name="employee" class="form-control" type="text"/>
+                                            <select name="employee" id="employee" class="form-control">
+                                                <div th:each="epl :${empl}">
+                                                    <option th:value="${epl.id}" th:text="${epl.name}"></option>
+                                                </div>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -152,7 +161,65 @@
                             </div>
                         </div>
                     </div>
-
+                    <!--Modal Edit Data-->
+                    <div class="modal fade" id="mdlEdit" tabindex="-1" role="dialog" aria-labelledby="modal-add" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modal-add">Add Employee Locker</h5>
+                                    <button class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form th:action="@{/placeEdit}" method="post">
+                                    <div class="modal-body">
+                                        <input id="id" name="id" class="form-control" type="hidden"/>
+                                        <div class="form-group">
+                                            <label for="description">Description</label>
+                                            <input id="description" name="description" class="form-control" type="text"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="address">Address</label>
+                                            <input id="address" name="address" class="form-control" type="text"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="department">Department</label>
+                                            <input id="department" name="department" class="form-control" type="text"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="startdate">Start Date</label>
+                                            <input id="startdate" name="startdate" class="form-control" type="date"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="finishdate">Finish Date</label>
+                                            <input id="finishdate" name="finishdate" class="form-control" type="date"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="company">Company</label>
+                                            <select name="company" id="company" class="form-control">
+                                                <div th:each="cp :${comp}">
+                                                    <option th:value="${cp.id}" th:text="${cp.name}"></option>
+                                                </div>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="employee">Employee</label>
+                                            <select name="employee" id="employee" class="form-control">
+                                                <div th:each="epl :${empl}">
+                                                    <option th:value="${epl.id}" th:text="${epl.name}"></option>
+                                                </div>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-default" value="Submit">Save</button>
+                                    </div>                          
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!--End Modal Edit Data-->
                     <!-- /.End Content -->
                 </main>
             </div>
@@ -170,6 +237,30 @@
         <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
         <script>
             feather.replace()
+        </script>
+        <script>
+            $('#mdlEdit').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                var id = button.data('getid');
+                var description = button.data('getdes');
+                var address = button.data('getadd');
+                var department = button.data('getdep');
+                var startdate = button.data('getstartdate');
+                var finishdate = button.data('getfinishdate');
+                var company = button.data('getcompany');
+                var employee = button.data('getemployee');
+
+                var modal = $(this);
+                modal.find('#id').val(id);
+                modal.find('#description').val(description);
+                modal.find('#address').val(address);
+                modal.find('#department').val(department);
+                modal.find('#startdate').val(startdate);
+                modal.find('#finishdate').val(finishdate);
+                modal.find('#company').val(company);
+                modal.find('#employee').val(employee);
+
+            });
         </script>
     </body>
 </html>

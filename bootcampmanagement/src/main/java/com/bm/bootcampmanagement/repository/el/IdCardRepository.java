@@ -19,6 +19,6 @@ import org.springframework.stereotype.Repository;
 public interface IdCardRepository  extends CrudRepository<Idcard, String>{
     
     @Modifying
-    @Query (value = "DELETE FROM tb_t_id_card where id = ?1", nativeQuery = true)
+    @Query (value = "DELETE FROM tb_t_idcard where id = ?1", nativeQuery = true)
     public void deleteById(String id);
 }

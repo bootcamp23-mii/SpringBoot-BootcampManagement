@@ -18,6 +18,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SubDistrictRepository extends CrudRepository<Subdistrict, String>{
     @Modifying
-    @Query (value = "DELETE FROM  tb_m_subdistrict where id = ?1", nativeQuery = true)
+    @Query (value = "DELETE FROM tb_m_subdistrict where id = ?1", nativeQuery = true)
     public void deleteById(String id);
 }

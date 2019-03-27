@@ -82,12 +82,13 @@
                                                 th:data-getnote="${eld.notes}" 
                                                 th:data-getlocker="${eld.locker.id}" 
                                                 th:data-getemployee="${eld.employee.id}" class="btn btn-warning">Edit</button>
-                                        <button data-target="#mdlDelete" data-toggle="modal" th:data-getid="${eld.id}" 
+                                        <a th:href="@{/emplockerDelete(empid=${eld.id})}"><button value="" class="btn btn-danger">Delete</button></a>
+<!--                                        <button data-target="#mdlDelete" data-toggle="modal" th:data-getid="${eld.id}" 
                                                 th:data-getreceivedate="${eld.receivedate}"
                                                 th:data-getreturndate="${eld.returndate}" 
                                                 th:data-getnote="${eld.notes}" 
                                                 th:data-getlocker="${eld.locker.id}" 
-                                                th:data-getemployee="${eld.employee.name}" class="btn btn-danger">Delete</button>
+                                                th:data-getemployee="${eld.employee.name}" class="btn btn-danger">Delete</button>-->
                                     </td>
                                 </tr>
                             </tbody>
@@ -121,11 +122,19 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="locker">Locker</label>
-                                            <input id="locker" name="locker" class="form-control" type="text"/>
+                                            <select name="locker" id="locker" class="form-control">
+                                                <div th:each="dl :${datalock}">
+                                                    <option th:value="${dl.id}" th:text="${dl.lockernumber}"></option>
+                                                </div>
+                                            </select>
                                         </div>
                                         <div class="form-group">
                                             <label for="employee">Employee</label>
-                                            <input id="employee" name="employee" class="form-control" type="text"/>
+                                            <select name="employee" id="employee" class="form-control">
+                                                <div th:each="epl :${empl}">
+                                                    <option th:value="${epl.id}" th:text="${epl.name}"></option>
+                                                </div>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -164,11 +173,19 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="locker">Locker</label>
-                                            <input id="locker" name="locker" class="form-control" type="text"/>
+                                            <select name="locker" id="locker" class="form-control">
+                                                <div th:each="dl :${datalock}">
+                                                    <option th:value="${dl.id}" th:text="${dl.lockernumber}"></option>
+                                                </div>
+                                            </select>
                                         </div>
                                         <div class="form-group">
                                             <label for="employee">Employee</label>
-                                            <input id="employee" name="employee" class="form-control" type="text"/>
+                                            <select name="employee" id="employee" class="form-control">
+                                                <div th:each="epl :${empl}">
+                                                    <option th:value="${epl.id}" th:text="${epl.name}"></option>
+                                                </div>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
