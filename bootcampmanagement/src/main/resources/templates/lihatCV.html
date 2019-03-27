@@ -33,15 +33,15 @@
                     <div class="sidebar-sticky">
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <a class="nav-link active" href="#">
+                                <a class="nav-link" th:href="@{/dashboard}">
                                     <span data-feather="home"></span>
-                                    Dashboard <span class="sr-only">(current)</span>
+                                    Dashboard <span class="sr-only"></span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" th:href="@{/cv}">
+                                <a class="nav-link" th:href="@{/cv}">
                                     <span data-feather="home"></span>
-                                    Edit CV <span class="sr-only">(current)</span>
+                                    Edit CV <span class="sr-only"></span>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -216,6 +216,57 @@
                         <!--ENDOF Show table data-->
                     </div>
 
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <h5>Skill</h5>
+                        <table id="example" class="table table-hover" style="width: 100%">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Date</th>
+                                    <th>Number</th>
+                                    <th>Certificate</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tblData">
+                                <tr th:each="es,itrs : ${skillData}">
+                                    <td th:text="${itrs.count}"></td>
+                                    <td th:text="${es.skill.name}"></td>
+                                    <td th:text="${es.score}"></td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <h5>Work Experience</h5>
+                        <table id="example" class="table table-hover" style="width: 100%">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Date</th>
+                                    <th>Number</th>
+                                    <th>Certificate</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tblData">
+                                <tr th:each="we,itrw : ${workexperienceData}">
+                                    <td th:text="${itrw.count}"></td>
+                                    <td th:text="${we.name}"></td>
+                                    <td th:text="${we.position}"></td>
+                                    <td th:text="${we.description}"></td>
+                                    <td th:text="${we.startdate}"></td>
+                                    <td th:text="${we.enddate}"></td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
                 </main>
             </div>

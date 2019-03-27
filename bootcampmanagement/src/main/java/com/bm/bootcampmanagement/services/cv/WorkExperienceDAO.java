@@ -8,6 +8,8 @@ package com.bm.bootcampmanagement.services.cv;
 import com.bm.bootcampmanagement.entities.Workexperience;
 import com.bm.bootcampmanagement.repository.cv.WorkExperienceRepository;
 import com.bm.bootcampmanagement.servicesInterface.cv.WorkExperienceDAOInterface;
+import java.util.List;
+import javax.xml.bind.annotation.XmlTransient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,18 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class WorkExperienceDAO implements WorkExperienceDAOInterface {
+
+    public WorkExperienceRepository getWr() {
+        return wr;
+    }
+
+    public void setWr(WorkExperienceRepository wr) {
+        this.wr = wr;
+    }
+
+    public WorkExperienceDAO(WorkExperienceRepository wr) {
+        this.wr = wr;
+    }
     
     @Autowired
     WorkExperienceRepository wr;
