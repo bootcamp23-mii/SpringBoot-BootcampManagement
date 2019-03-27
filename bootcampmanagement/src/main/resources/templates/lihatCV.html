@@ -19,7 +19,7 @@
 
     <body>
         <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-            <a class="navbar-brand col-sm-3 col-md-2 mr-0" th:href="@{/dashboard}">Company name</a>
+            <a class="navbar-brand col-sm-3 col-md-2 mr-0" th:href="@{/dashboard}">Bootcamp Management</a>
             <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
             <ul class="navbar-nav px-3">
                 <li class="nav-item text-nowrap">
@@ -32,12 +32,12 @@
                 <nav class="col-md-2 d-none d-md-block bg-light sidebar">
                     <div class="sidebar-sticky">
                         <ul class="nav flex-column">
-                            <li class="nav-item">
+<!--                            <li class="nav-item">
                                 <a class="nav-link" th:href="@{/dashboard}">
                                     <span data-feather="home"></span>
-                                    Dashboard <span class="sr-only"></span>
+                                    Home <span class="sr-only"></span>
                                 </a>
-                            </li>
+                            </li>-->
                             <li class="nav-item">
                                 <a class="nav-link" th:href="@{/cv}">
                                     <span data-feather="edit"></span>
@@ -94,7 +94,7 @@
                                         </thead>
                                         <tbody id="tblData">
                                             <tr><td><div class="image">
-                                                        <img class="image" th:src="@{/lihatFile}" alt="Siapa" width="100px" height="130px"/>
+                                                        <img class="image" th:src="@{/lihatFile}" alt="[ photo ]" width="100px" height="130px"/>
                                                     </div></td></tr>
 
                                         </tbody>
@@ -109,7 +109,7 @@
                             <table id="example" class="table table-hover" style="width: 100%">
                                 <thead>
                                     <tr>
-                                        <th>Id</th>
+                                        <th>No.</th>
                                         <th>Name</th>
                                     </tr>
 
@@ -129,16 +129,16 @@
                             <table id="example" class="table tablehover" style="width: 100%">
                                 <thead>
                                     <tr>
-                                        <th>Id</th>
-                                        <th>GPA</th>
+                                        <th>No.</th>
                                         <th>University</th>
+                                        <th>GPA</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tblData">
                                     <tr th:each="es,itera : ${education}">
                                         <td th:text="${itera.count}"></td>
-                                        <td th:text="${es.gpa}"></td>
                                         <td th:text="${es.education.university.name}"></td>
+                                        <td th:text="${es.gpa}"></td>
 
                                     </tr>
                                 </tbody>
@@ -151,10 +151,10 @@
                         <table id="example" class="table table-hover" style="width: 100%">
                             <thead>
                                 <tr>
-                                    <th>Id</th>
+                                    <th>No.</th>
                                     <th>Name</th>
                                     <th>Position</th>
-                                    <th>Tanggal</th>
+                                    <th>Period</th>
                                 </tr>
                             </thead>
                             <tbody id="tblData">
@@ -174,10 +174,10 @@
                         <table id="example" class="table table-hover" style="width: 100%">
                             <thead>
                                 <tr>
-                                    <th>Id</th>
+                                    <th>No.</th>
                                     <th>Date</th>
-                                    <th>Number</th>
-                                    <th>Certificate</th>
+                                    <th>Certificate Number</th>
+                                    <th>Certificate Name</th>
                                 </tr>
                             </thead>
                             <tbody id="tblData">
@@ -197,7 +197,7 @@
                         <table id="emplangTable" class="table table-hover" style="width: 100%">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
+                                    <th>No.</th>
                                     <th>Language</th>
                                     <th>Score</th>
                                 </tr>
@@ -224,10 +224,9 @@
                         <table id="example" class="table table-hover" style="width: 100%">
                             <thead>
                                 <tr>
-                                    <th>Id</th>
-                                    <th>Date</th>
-                                    <th>Number</th>
-                                    <th>Certificate</th>
+                                    <th>No.</th>
+                                    <th>Skill</th>
+                                    <th>Score</th>
                                 </tr>
                             </thead>
                             <tbody id="tblData">
@@ -246,10 +245,12 @@
                         <table id="example" class="table table-hover" style="width: 100%">
                             <thead>
                                 <tr>
-                                    <th>Id</th>
-                                    <th>Date</th>
-                                    <th>Number</th>
-                                    <th>Certificate</th>
+                                    <th>No.</th>
+                                    <th>Company</th>
+                                    <th>Position</th>
+                                    <th>Description</th>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
                                 </tr>
                             </thead>
                             <tbody id="tblData">
