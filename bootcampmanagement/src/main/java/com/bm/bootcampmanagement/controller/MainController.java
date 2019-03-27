@@ -286,7 +286,7 @@ public class MainController {
     @RequestMapping(value = "/lihatFile", method = RequestMethod.GET,
             produces = MediaType.IMAGE_JPEG_VALUE)
     public ResponseEntity<byte[]> getImage() throws IOException {
-        Employee employee = DBFileStorageService.getFile("14304");
+        Employee employee = DBFileStorageService.getFile("14201");
 
         return ResponseEntity
                 .ok()
@@ -606,6 +606,11 @@ public class MainController {
 
     @GetMapping("/lihatcv")
     public String lihatcv(Model mod) {
+        mod.addAttribute("employee", daoEmp.findById("14201"));
+        mod.addAttribute("education", daoEmp.findById("14201").getEducationhistoryList());
+        mod.addAttribute("achievementData", daoEmp.findById("14201").getAchievementList());
+        mod.addAttribute("organizationData", daoEmp.findById("14201").getOrganizationList());
+        mod.addAttribute("certificateData", daoEmp.findById("14201").getEmployeecertificationList());
         return "/lihatCV";
     }
 }

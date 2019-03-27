@@ -39,13 +39,13 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="#">
+                                <a class="nav-link active" th:href="@{/cv}">
                                     <span data-feather="home"></span>
                                     Edit CV <span class="sr-only">(current)</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="#">
+                                <a class="nav-link active" th:href="@{/lihatcv}">
                                     <span data-feather="home"></span>
                                     Lihat CV <span class="sr-only">(current)</span>
                                 </a>
@@ -60,12 +60,53 @@
                         <row>
 
                             <!--<h5 th:text="${/get-text}"></h5>-->
-                            <h5>Achievement</h5>
-                            <div class="image">
-                                <img class="image" th:src="@{/lihatFile}" alt="Pandu Galang" width="100px" height="130px"/>
-
+                            <div class="row">
+                                <h3>Curriculum Vitae</h3>
                             </div>
-                            <table id="example" class="table table-bordered table-striped" style="width: 100%">
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <table id="example" class="table table-borderless" style="width: 100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Data</th>
+                                            </tr>
+
+                                        </thead>
+                                        <tbody id="tblData">
+                                            <tr><td th:text="${employee.name}"></td></tr>
+                                            <tr><td th:text="${employee.email}"></td></tr>
+                                            <tr><td th:text="${employee.phone}"></td></tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="col-md-3">
+                                </div>
+                                <div class="col-md-2">
+                                    <table id="example" class="table table-borderless" style="width: 100%">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                            </tr>
+
+                                        </thead>
+                                        <tbody id="tblData">
+                                            <tr><td><div class="image">
+                                                        <img class="image" th:src="@{/lihatFile}" alt="Siapa" width="100px" height="130px"/>
+                                                    </div></td></tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <h5>Achievement</h5>
+                            <table id="example" class="table table-hover" style="width: 100%">
                                 <thead>
                                     <tr>
                                         <th>Id</th>
@@ -80,13 +121,12 @@
                                     </tr>
                                 </tbody>
                             </table>
-                        </row>
-                    </div>
-                    <!--row table organization-->
-                    <div class="row">
-                        <row>
-                            <h4>Education</h4>
-                            <table id="example" class="table table-bordered table-striped" style="width: 100%">
+                        </div>
+                        <!--row table organization-->
+                        <hr>
+                        <div class="col-md-7">
+                            <h5>Education</h5>
+                            <table id="example" class="table tablehover" style="width: 100%">
                                 <thead>
                                     <tr>
                                         <th>Id</th>
@@ -95,7 +135,7 @@
                                     </tr>
                                 </thead>
                                 <tbody id="tblData">
-                                    <tr th:each="es,itera : ${educationData}">
+                                    <tr th:each="es,itera : ${education}">
                                         <td th:text="${itera.count}"></td>
                                         <td th:text="${es.gpa}"></td>
                                         <td th:text="${es.education.university.name}"></td>
@@ -103,56 +143,53 @@
                                     </tr>
                                 </tbody>
                             </table>
-                        </row>
+                        </div>
                     </div>
+                    <hr>
                     <div class="row">
-                        <row>
-                            <h4>Organization</h4>
-                            <table id="example" class="table table-bordered table-striped" style="width: 100%">
-                                <thead>
-                                    <tr>
-                                        <th>Id</th>
-                                        <th>Name</th>
-                                        <th>Position</th>
-                                        <th>Tanggal</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tblData">
-                                    <tr th:each="os,tr : ${organizationData}">
-                                        <td th:text="${tr.count}"></td>
-                                        <td th:text="${os.name}"></td>
-                                        <td th:text="${os.position}"></td>
-                                        <td th:text="${os.period}"></td>
+                        <h5>Organization</h5>
+                        <table id="example" class="table table-hover" style="width: 100%">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Name</th>
+                                    <th>Position</th>
+                                    <th>Tanggal</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tblData">
+                                <tr th:each="os,tr : ${organizationData}">
+                                    <td th:text="${tr.count}"></td>
+                                    <td th:text="${os.name}"></td>
+                                    <td th:text="${os.position}"></td>
+                                    <td th:text="${os.period}"></td>
 
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </row>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
+                    <hr>
                     <div class="row">
-                        <row>
-                            <h4>Certificate</h4>
-                            <table id="example" class="table table-bordered table-striped" style="width: 100%">
-                                <thead>
-                                    <tr>
-                                        <th>Id</th>
-                                        <th>Date</th>
-                                        <th>Number</th>
-                                        <th>Certificate</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tblData">
-                                    <tr th:each="cs,ite : ${certificateData}">
-                                        <td th:text="${ite.count}"></td>
-                                        <td th:text="${cs.certificateDate}"></td>
-                                        <td th:text="${cs.certificateNumber}"></td>
-                                        <td th:text="${cs.certificate.name}"></td>
+                        <h5>Certificate</h5>
+                        <table id="example" class="table table-hover" style="width: 100%">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Date</th>
+                                    <th>Number</th>
+                                    <th>Certificate</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tblData">
+                                <tr th:each="cs,ite : ${certificateData}">
+                                    <td th:text="${ite.count}"></td>
+                                    <td th:text="${cs.certificateDate}"></td>
+                                    <td th:text="${cs.certificateNumber}"></td>
+                                    <td th:text="${cs.certificate.name}"></td>
 
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </row>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
 
 
