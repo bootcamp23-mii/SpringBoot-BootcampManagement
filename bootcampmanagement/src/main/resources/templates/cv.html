@@ -33,27 +33,27 @@
                     <div class="sidebar-sticky">
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <a class="nav-link active" th:href="@{/cv}">
+                                <a class="nav-link" th:href="@{/dashboard}">
                                     <span data-feather="home"></span>
-                                    Dashboard <span class="sr-only">(current)</span>
+                                    Dashboard <span class="sr-only"></span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" th:href="@{/cv}">
-                                    <span data-feather="home"></span>
+                                <a class="nav-link active" href="#">
+                                    <span data-feather="edit"></span>
                                     Edit CV <span class="sr-only">(current)</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" th:href="@{/lihatcv}">
-                                    <span data-feather="home"></span>
-                                    Lihat CV <span class="sr-only">(current)</span>
+                                <a class="nav-link" th:href="@{/lihatCV}">
+                                    <span data-feather="file-text"></span>
+                                    Lihat CV <span class="sr-only"></span>
                                 </a>
                             </li>
                         </ul>
                     </div>
                 </nav>
-                
+
                 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
                     <row>
                         <h3>Achievement</h3>
@@ -190,6 +190,119 @@
                                                 th:data-getemployee="${cs.employee.id}"
                                                 class="btn btn-warning">Edit</button>
                                         <a th:href="@{/certificatedelete(certid=${cs.id})}"><button value="" class="btn btn-danger">Delete</button></a></td>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </row>
+                    <row>
+                        <h4>Language</h4>
+                        <div class="row" style="padding: 10px 0 10px 0;">
+                            <div class="col-sm-6">
+                                <button data-target="#modalAddlang" data-toggle="modal" class="btn btn-warning">Add Data</button>
+                            </div>
+                        </div>
+                        <table id="emplangTable" class="table table-bordered table-striped" style="width: 100%">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Employee</th>
+                                    <th>Language</th>
+                                    <th>Score</th>
+                                    <th>Active / Passive</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tblData">
+                                <tr th:each="el : ${emplangData}">
+                                    <td th:text="${el.id}"></td>
+                                    <td th:text="${el.employee.name}"></td>
+                                    <td th:text="${el.language.name}"></td>
+                                    <td th:text="${el.score}"></td>
+                                    <td th:text="${el.isactive}"></td>
+                                    <td>
+                                        <button data-target="#modalEditlang" data-toggle="modal" th:data-getid="${el.id}"
+                                                class="btn btn-outline-info" >
+                                            Edit </button>
+                                        <button data-target="#modalDeletelang" data-toggle="modal" th:data-getid="${el.id}"
+                                                class="btn btn-outline-danger" >
+                                            Delete</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </row>
+                    <row>
+                        <h4>Skill</h4>
+                        <div class="row" style="padding: 10px 0 10px 0;">
+                            <div class="col-sm-6">
+                                <button data-target="#modalAddskill" data-toggle="modal" class="btn btn-warning">Add Data</button>
+                            </div>
+                        </div>
+                        <table id="empskillTable" class="table table-bordered table-striped" style="width: 100%">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <!--<th>Employee</th>-->
+                                    <th>Skill</th>
+                                    <th>Score</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tblData">
+                                <tr th:each="es : ${empskillData}">
+                                    <td th:text="${es.id}"></td>
+                                    <!--<td th:text="${es.employee.name}"></td>-->
+                                    <td th:text="${es.skill.name}"></td>
+                                    <td th:text="${es.score}"></td>
+                                    <td>
+                                        <button data-target="#modalEditskill" data-toggle="modal" th:data-getid="${es.id}"
+                                                class="btn btn-outline-info" >
+                                            Edit </button>
+                                        <button data-target="#modalDeleteskill" data-toggle="modal" th:data-getid="${es.id}"
+                                                class="btn btn-outline-danger" >
+                                            Delete</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </row>
+                    <row>
+                        <h4>Work Experience</h4>
+                        <div class="row" style="padding: 10px 0 10px 0;">
+                            <div class="col-sm-6">
+                                <button data-target="#modalAddwork" data-toggle="modal" class="btn btn-warning">Add Data</button>
+                            </div>
+                        </div>
+                        <table id="workexpTable" class="table table-bordered table-striped" style="width: 100%">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <!--<th>Employee</th>-->
+                                    <th>Company</th>
+                                    <th>Position</th>
+                                    <th>Description</th>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tblData">
+                                <tr th:each="we : ${workexpData}">
+                                    <td th:text="${we.id}"></td>
+                                    <!--                                <td th:text="${we.employee.name}"></td>-->
+                                    <td th:text="${we.name}"></td>
+                                    <td th:text="${we.position}"></td>
+                                    <td th:text="${we.description}"></td>
+                                    <td th:text="${we.startdate}"></td>
+                                    <td th:text="${we.enddate}"></td>
+                                    <td>
+                                        <button data-target="#modalEditwork" data-toggle="modal" th:data-getid="${we.id}"
+                                                class="btn btn-outline-info" >
+                                            Edit </button>
+                                        <button data-target="#modalDeletework" data-toggle="modal" th:data-getid="${we.id}"
+                                                class="btn btn-outline-danger" >
+                                            Delete</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -467,7 +580,7 @@
                             </div>
                         </div>
                     </div>
-                    <!--end modal--> 
+                    <!--end modal-->
                 </main>
             </div>
         </div>
@@ -545,6 +658,33 @@
                 modal.find('#certnum').val(certnum);
                 modal.find('#ecertificate').val(ecertificate);
                 modal.find('#employee').val(employee);
+            });
+        </script>
+        <script>
+            $('#modalEditlang').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                var langid = button.data('getlangid');
+
+                var modal = $(this);
+                modal.find('#langid').val(langid);
+            });
+        </script>
+        <script>
+            $('#modalEditskill').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                var skillid = button.data('getskillid');
+
+                var modal = $(this);
+                modal.find('#skillid').val(skillid);
+            });
+        </script>
+        <script>
+            $('#modalEditwork').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                var workid = button.data('getworkid');
+
+                var modal = $(this);
+                modal.find('#workid').val(workid);
             });
         </script>
     </body>

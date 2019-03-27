@@ -398,6 +398,11 @@ public class MainController {
         m.addAttribute("certificatedelete", new Employeecertification());
         m.addAttribute("dataedu", eddao.findAll());
         m.addAttribute("datacert", cedao.findAll());
+        m.addAttribute("emplangData", daoEmpL.findAll());
+        m.addAttribute("empskillData", daoEmpS.findAll());
+        m.addAttribute("skillData", daoS.findAll());
+        m.addAttribute("empskillsave", new Employeeskill());
+        m.addAttribute("workexpData", daoW.findAll());
         return "/cv";
     }
 
