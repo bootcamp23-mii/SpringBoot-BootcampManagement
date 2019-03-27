@@ -56,43 +56,26 @@ and open the template in the editor.
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" th:href="@{/bm/evaluation}">
+                                    <a class="nav-link" th:href="@{/evaluation}">
                                         <span data-feather="code"></span>
                                         Evaluation <span class="sr-only"></span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" th:href="@{/bm/participant}">
+                                    <a class="nav-link" th:href="@{/participant}">
                                         <span data-feather="linkedin"></span>
                                         Participant <span class="sr-only"></span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link active" th:href="@{#}">
+                                    <a class="nav-link" th:href="@{/report}">
                                         <span data-feather="linkedin"></span>
-                                        Report <span class="sr-only">(current)</span>
+                                        Report <span class="sr-only"></span>
                                     </a>
                                 </li>
                             </ul>
                         </div>
                     </nav>
-                    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-                        <h1>Generate Report</h1>
-                        <!--show save form modal-->
-                        <form action="/bm/generatereport" method="POST">
-                            <label data-error="wrong" data-success="true">Employee</label>
-                            <select name="participantId" id="participantId" class="form-control">
-                                <div th:each="data :${dataParticipant}">
-                                    <option th:value="${data.id}" th:text="${data.employee.name}"></option>
-                                </div>
-                            </select>
-                            <div class="modal-footer">
-                                <input type="submit" class="btn btn-success" value="Save" name="save"/>
-                            </div>
-
-                        </form>
-                        <!--end of show save form modal-->
-                    </main>
                 </div>
             </div>
         </div>
@@ -110,22 +93,13 @@ and open the template in the editor.
         <script>
             feather.replace();
         </script>
-        <script>
-            $('#modalForm').on('show.bs.modal', function (event) {
-                var button = $(event.relatedTarget);
-                var id = button.data('getid');
-                var idemp = button.data('getidemp');
-                var modal = $(this);
-                modal.find('#batchclassId').val(id);
-                modal.find('#employeeId').val(idemp);
-            });
-        </script>
-        <script  type="text/javascript">
-            function setEdit(id, name)
-            {
-                document.getElementById('rid').value = id;
-                document.getElementById('rname').value = name;
-            }
-        </script>
-    </body>
+    </script>
+    <script  type="text/javascript">
+        function setEdit(id, name)
+        {
+            document.getElementById('rid').value = id;
+            document.getElementById('rname').value = name;
+        }
+    </script>
+</body>
 </html>

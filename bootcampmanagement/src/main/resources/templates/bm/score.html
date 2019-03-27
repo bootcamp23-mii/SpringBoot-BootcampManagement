@@ -34,6 +34,48 @@ and open the template in the editor.
             <!-- MAIN CONTENT -->
             <div class="container-fluid">
                 <div class="row">
+                    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                        <div class="sidebar-sticky">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link" th:href="@{/dashboard}">
+                                        <span data-feather="linkedin"></span>
+                                        Dashboard <span class="sr-only"></span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" th:href="@{/bm/batchclass}">
+                                        <span data-feather="tag"></span>
+                                        Batch Class <span class="sr-only"></span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" th:href="@{/bm/errorbank}">
+                                        <span data-feather="mic"></span>
+                                        ErrorBank <span class="sr-only"></span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" th:href="@{/bm/evaluation}">
+                                        <span data-feather="code"></span>
+                                        Evaluation <span class="sr-only"></span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" th:href="@{/bm/participant}">
+                                        <span data-feather="linkedin"></span>
+                                        Participant <span class="sr-only"></span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" th:href="@{/bm/report}">
+                                        <span data-feather="linkedin"></span>
+                                        Report <span class="sr-only"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
                     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
                         <h1>Score</h1>
                         <!--show table-->

@@ -55,6 +55,11 @@ public class BootcampManagementController {
     private SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
     private SimpleDateFormat dateFormatOut = new SimpleDateFormat("yyyy-MM-dd");
 
+    @GetMapping("/bm/bm")
+    public String bm(){
+        return "/bm/bm";
+    }
+    
     //participant
     @GetMapping("/bm/participant")
     public String participant(Model model) {

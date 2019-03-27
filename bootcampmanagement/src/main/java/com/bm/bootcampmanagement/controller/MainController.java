@@ -154,6 +154,16 @@ public class MainController {
         return "index";
     }
 
+    @GetMapping("/*")
+    public String error(){
+        return "redirect:/error";
+    }
+    
+    @GetMapping("/error")
+    public String errorpage(){
+        return "/error";
+    }
+    
     @PostMapping("/login")
 //    @ResponseBody
     public String checkLogin(@RequestParam("idEmp") String id, @RequestParam("passEmp") String password, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
@@ -229,7 +239,7 @@ public class MainController {
         try {
             Employee emp = new Employee("-", name, dateFormat.parse(birthdate),
                     new Short(gender), new Short(marriedstatus), address, email,
-                    phone, dateFormat.parse(onboarddate),
+                    phone, dateFormatuci.parse(onboarddate),
                     BCrypt.hashpw(phone, BCrypt.gensalt()), "Phone Number",
                     phone, null, new Short("1"), new District(birthplace),
                     new District(hiringlocation), new Religion(religion),

@@ -36,34 +36,21 @@ and open the template in the editor.
                 <div class="sidebar-sticky">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link active" th:href="@{/dashboard}">
+                            <a class="nav-link" th:href="@{/cv}">
                                 <span data-feather="home"></span>
-                                Home <span class="sr-only">(current)</span>
+                                CV <span class="sr-only"></span>
                             </a>
                         </li>
                     </ul>
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">
+                            <a class="nav-link" href="/bm/bm">
                                 <span data-feather="home"></span>
-                                Home <span class="sr-only">(current)</span>
+                                Trainer <span class="sr-only"></span>
                             </a>
                         </li>
                     </ul>
-                    <table>
-                        <tr th:each="data :${#servletContext.getAttributeNames()}">
-                        <div th:if="${data.value=='isTrainer'}">
-                            <ul class="nav flex-column">
-                                <li class="nav-item">
-                                    <a class="nav-link active" href="#">
-                                        <span data-feather="trainer"></span>
-                                        Trainer <span class="sr-only">(current)</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-
-                    </table>
+                    
                 </div>
             </nav>
 
