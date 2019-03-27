@@ -33,9 +33,27 @@
                     <div class="sidebar-sticky">
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <a class="nav-link active" href="#">
+                                <a class="nav-link active" th:href="@{#}">
                                     <span data-feather="tag"></span>
                                     Role <span class="sr-only">(current)</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" th:href="@{/employeelanguage}">
+                                    <span data-feather="mic"></span>
+                                    Language <span class="sr-only"></span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" th:href="@{/employeeskill}">
+                                    <span data-feather="code"></span>
+                                    Skill <span class="sr-only"></span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" th:href="@{/workexperience}">
+                                    <span data-feather="linkedin"></span>
+                                    Work Experience <span class="sr-only"></span>
                                 </a>
                             </li>
                         </ul>
@@ -57,7 +75,7 @@
                     </div>
 
                     <!--Show table data-->
-                    <table id="example" class="table table-bordered table-striped" style="width: 100%">
+                    <table id="emproleTable" class="table table-bordered table-striped" style="width: 100%">
                         <thead>
                             <tr>
                                 <th>Id</th>
@@ -76,13 +94,10 @@
                                 <td th:text="${er.startdate}"></td>
                                 <td th:text="${er.enddate}"></td>
                                 <td>
-                                    <button data-target="#modalEdit" data-toggle="modal" th:data-getid="${er.id}" 
-
-                                            class="btn btn-outline-info" >
+                                    <button data-target="#modalEdit" data-toggle="modal" th:data-getid="${er.id}" th:data-getname="${er.employee.id}" th:data-getrole="${er.role.name}" 
+                                            th:data-getstartdate="${er.startdate}" th:data-getenddate="${er.enddate}"class="btn btn-outline-info" >
                                         Edit </button>
-                                    <button data-target="#modalDelete" data-toggle="modal" th:data-getid="${er.id}" 
-
-                                            class="btn btn-outline-danger" >
+                                    <button data-target="#modalDelete" data-toggle="modal" th:data-getid="${er.id}" class="btn btn-outline-danger" >
                                         Delete</button>
                                 </td>
                             </tr>
@@ -105,12 +120,24 @@
                                         <div class="form-group">
                                             <label for="name">Name</label>
                                             <input id="s-name" th:field="*{emprolesave.name}" class="form-control" type="text"/>
+                                            <select name="s-name" id="s-name" class="form-control">
+                                                <div th:each="data :${empDataR}">
+                                                    <option th:value="${data.id}" th:text="${data.name}"></option>
+                                                </div>
+                                            </select>
                                             <label for="name">Role</label>
                                             <input id="s-role" th:field="*{emprolesave.role}" class="form-control" type="text"/>
+                                            <select name="s-role" id="s-role" class="form-control">
+                                                <div th:each="data :${roleData}">
+                                                    <option th:value="${data.id}" th:text="${data.name}"></option>
+                                                </div>
+                                            </select>
                                             <label for="name">Start Date</label>
                                             <input id="s-startdate" th:field="*{emprolesave.startdate}" class="form-control" type="text"/>
+                                            <input type="date" class="form-control" id="s-startdate" name="s-startdate" value=""/>
                                             <label for="name">End Date</label>
                                             <input id="s-enddate" th:field="*{emprolesave.enddate}" class="form-control" type="text"/>
+                                            <input type="date" class="form-control" id="s-enddate" name="s-enddate" value=""/>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -120,11 +147,11 @@
                                 </form>
                             </div>
                         </div>
-                    </div>
-                    ENDOF Modal add data
+                    </div>-->
+                    <!--ENDOF Modal add data-->
 
-                    Modal edit data
-                    <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="modal-add" aria-hidden="true">
+                    <!--Modal edit data-->
+<!--                    <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="modal-add" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -139,13 +166,25 @@
                                             <input hidden="" id="e-id" th:field="*{emproleedit.id}" class="form-control" type="text"/>
                                             
                                             <label for="name">Name</label>
-                                            <input id="e-name" th:field="*{emproleedit.name}" class="form-control" type="text"/>
+                                            <input id="s-name" th:field="*{emprolesave.name}" class="form-control" type="text"/>
+                                            <select name="e-name" id="e-name" th:field="*{emprolesave.employee.name}" class="form-control">
+                                                <div th:each="data :${empData}">
+                                                    <option th:value="${data.id}" th:text="${data.name}"></option>
+                                                </div>
+                                            </select>
                                             <label for="name">Role</label>
-                                            <input id="e-role" th:field="*{emproleedit.role}" class="form-control" type="text"/>
+                                            <input id="s-role" th:field="*{emprolesave.role}" class="form-control" type="text"/>
+                                            <select name="e-role" id="e-role" th:field="*{emprolesave.role}" class="form-control">
+                                                <div th:each="data :${roleData}">
+                                                    <option th:value="${data.id}" th:text="${data.name}"></option>
+                                                </div>
+                                            </select>
                                             <label for="name">Start Date</label>
-                                            <input id="e-startdate" th:field="*{emproleedit.startdate}" class="form-control" type="text"/>
+                                            <input id="s-startdate" th:field="*{emprolesave.startdate}" class="form-control" type="text"/>
+                                            <input type="date" class="form-control" id="e-startdate" name="e-startdate" th:field="*{emprolesave.startdate}" value=""/>
                                             <label for="name">End Date</label>
-                                            <input id="e-enddate" th:field="*{emproleedit.enddate}" class="form-control" type="text"/>
+                                            <input id="s-enddate" th:field="*{emprolesave.enddate}" class="form-control" type="text"/>
+                                            <input type="date" class="form-control" id="e-enddate" name="e-enddate" th:field="*{emprolesave.enddate}" value=""/>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -155,11 +194,11 @@
                                 </form>
                             </div>
                         </div>
-                    </div>
-                    ENDOF Modal edit data
+                    </div>-->
+                    <!--ENDOF Modal edit data-->
 
-                    Modal delete data
-                    <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modal-add" aria-hidden="true">
+                    <!--Modal delete data-->
+<!--                    <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modal-add" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -173,7 +212,7 @@
                                         <div class="form-group">
                                             <label for="name">Are you sure!?</label>
                                             
-                                            <input hidden="" id="d-id" th:field="*{emproledelete.id}" class="form-control" type="text"/>
+                                        <input hidden="" id="d-id" th:field="*{emproledelete.id}" class="form-control" type="text"/>
                                             <input hidden="" id="d-name" th:field="*{emproledelete.name}" class="form-control" type="text"/>
                                             <input hidden="" id="d-role" th:field="*{emproledelete.role}" class="form-control" type="text"/>
                                             <input hidden="" id="d-startdate" th:field="*{emproledelete.startdate}" class="form-control" type="text"/>

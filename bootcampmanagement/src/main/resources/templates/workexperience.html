@@ -33,7 +33,25 @@
                     <div class="sidebar-sticky">
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <a class="nav-link active" href="#">
+                                <a class="nav-link" th:href="@{/employeerole}">
+                                    <span data-feather="tag"></span>
+                                    Role <span class="sr-only"></span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" th:href="@{/employeelanguage}">
+                                    <span data-feather="mic"></span>
+                                    Language <span class="sr-only"></span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" th:href="@{/employeeskill}">
+                                    <span data-feather="code"></span>
+                                    Skill <span class="sr-only"></span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" th:href="@{#}">
                                     <span data-feather="linkedin"></span>
                                     Work Experience <span class="sr-only">(current)</span>
                                 </a>
@@ -57,7 +75,7 @@
                     </div>
 
                     <!--Show table data-->
-                    <table id="example" class="table table-bordered table-striped" style="width: 100%">
+                    <table id="workexpTable" class="table table-bordered table-striped" style="width: 100%">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -73,7 +91,7 @@
                         <tbody id="tblData">
                             <tr th:each="we : ${workexpData}">
                                 <td th:text="${we.id}"></td>
-                                <td th:text="${we.employee.name}"></td>
+<!--                                <td th:text="${we.employee.name}"></td>-->
                                 <td th:text="${we.name}"></td>
                                 <td th:text="${we.position}"></td>
                                 <td th:text="${we.description}"></td>
@@ -102,17 +120,19 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <form th:action="@{/emprolesave}" method="post" >
+                                <form th:action="@{/workexpsave}" method="post" >
                                     <div class="modal-body">
                                         <div class="form-group">
-                                            <label for="name">Name</label>
-                                            <input id="s-name" th:field="*{emprolesave.name}" class="form-control" type="text"/>
-                                            <label for="name">Role</label>
-                                            <input id="s-role" th:field="*{emprolesave.role}" class="form-control" type="text"/>
+                                            <label for="name">Company</label>
+                                            <input id="s-name" th:field="*{workexpsave.name}" class="form-control" type="text"/>
+                                            <label for="name">Position</label>
+                                            <input id="s-position" th:field="*{workexpsave.position}" class="form-control" type="text"/>
+                                            <label for="name">Description</label>
+                                            <input id="s-description" th:field="*{workexpsave.description}" class="form-control" type="text"/>
                                             <label for="name">Start Date</label>
-                                            <input id="s-startdate" th:field="*{emprolesave.startdate}" class="form-control" type="text"/>
+                                            <input id="s-startdate" name="s-startdate" type="date" th:field="*{workexpsave.startdate}" class="form-control" value=""/>
                                             <label for="name">End Date</label>
-                                            <input id="s-enddate" th:field="*{emprolesave.enddate}" class="form-control" type="text"/>
+                                            <input id="s-enddate" name="s-enddate" type="date" th:field="*{workexpsave.enddate}" class="form-control" value=""/>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -122,11 +142,11 @@
                                 </form>
                             </div>
                         </div>
-                    </div>
-                    ENDOF Modal add data
+                    </div>-->
+                    <!--ENDOF Modal add data-->
 
-                    Modal edit data
-                    <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="modal-add" aria-hidden="true">
+                    <!--Modal edit data-->
+<!--                    <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="modal-add" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -157,11 +177,11 @@
                                 </form>
                             </div>
                         </div>
-                    </div>
-                    ENDOF Modal edit data
+                    </div>-->
+                    <!--ENDOF Modal edit data-->
 
-                    Modal delete data
-                    <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modal-add" aria-hidden="true">
+                    <!--Modal delete data-->
+<!--                    <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modal-add" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">

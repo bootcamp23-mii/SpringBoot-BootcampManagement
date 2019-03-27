@@ -18,6 +18,7 @@ import com.bm.bootcampmanagement.entities.Employeeaccess;
 import com.bm.bootcampmanagement.entities.Employeecertification;
 import com.bm.bootcampmanagement.entities.Employeelocker;
 import com.bm.bootcampmanagement.entities.Employeerole;
+import com.bm.bootcampmanagement.entities.Employeeskill;
 import com.bm.bootcampmanagement.entities.Idcard;
 import com.bm.bootcampmanagement.entities.Locker;
 import com.bm.bootcampmanagement.entities.Organization;
@@ -44,6 +45,7 @@ import com.bm.bootcampmanagement.services.cv.EmployeeRoleDAO;
 import com.bm.bootcampmanagement.services.cv.EmployeeSkillDAO;
 import com.bm.bootcampmanagement.services.cv.OrganizationDAO;
 import com.bm.bootcampmanagement.services.cv.ReligionDAO;
+import com.bm.bootcampmanagement.services.cv.SkillDAO;
 import com.bm.bootcampmanagement.services.cv.WorkExperienceDAO;
 import com.bm.bootcampmanagement.services.el.DistrictDAO;
 import com.bm.bootcampmanagement.services.el.EmployeeAccessDAO;
@@ -106,6 +108,8 @@ public class MainController {
     EmployeeRoleDAO daoEmpR;
     @Autowired
     EmployeeLanguageDAO daoEmpL;
+    @Autowired
+    SkillDAO daoS;
     @Autowired
     EmployeeSkillDAO daoEmpS;
     @Autowired
@@ -349,8 +353,16 @@ public class MainController {
     @GetMapping("/employeeskill")
     public String employeeskill(Model m) {
         m.addAttribute("empskillData", daoEmpS.findAll());
+        m.addAttribute("skillData", daoS.findAll());
+        m.addAttribute("empskillsave", new Employeeskill());
 
         return "employeeskill";
+    }
+    
+    @RequestMapping(value = "/empskillsave", method = RequestMethod.POST) //@PostMapping("/regionsave")
+    public String save(@ModelAttribute("empskillsave") Employeeskill employeeskill) {
+        daoEmpS.save(employeeskill);
+        return "redirect:/employeeskill";
     }
 //    ENDOF Employee Skill
 
