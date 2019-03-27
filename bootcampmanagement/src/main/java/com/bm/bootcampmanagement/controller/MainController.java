@@ -47,6 +47,7 @@ import com.bm.bootcampmanagement.services.cv.OrganizationDAO;
 import com.bm.bootcampmanagement.services.cv.ReligionDAO;
 import com.bm.bootcampmanagement.services.cv.SkillDAO;
 import com.bm.bootcampmanagement.services.cv.WorkExperienceDAO;
+import com.bm.bootcampmanagement.services.el.AccessCardDAO;
 import com.bm.bootcampmanagement.services.el.DistrictDAO;
 import com.bm.bootcampmanagement.services.el.EmployeeAccessDAO;
 import com.bm.bootcampmanagement.services.el.EmployeeLockerDAO;
@@ -90,6 +91,8 @@ public class MainController {
     EmployeeAccessRepository ear;
     @Autowired
     CompanyRepository cr;
+    @Autowired
+    AccessCardDAO acdao;
     @Autowired
     LockerDAO ldao;
     @Autowired
@@ -515,23 +518,25 @@ public class MainController {
         model.addAttribute("empaccessData", o.findAll());
         model.addAttribute("empl", daoEmp.findAll());
         model.addAttribute("epc", o.findAll());
+        model.addAttribute("access", acdao.findAll());
         model.addAttribute("empaccessSave", new Employeeaccess());
         model.addAttribute("empaccessEdit", new Employeeaccess());
         model.addAttribute("empaccessDelete", new Employeeaccess());
         return "/Employeeaccess";
     }
-
+    
     @RequestMapping(value = "/empaccessSave", method = RequestMethod.POST)
-    public String savee(String id, @RequestParam("receivedate") String receivedate, @RequestParam("returndate") String returndate,
+    public String savee (String id, @RequestParam("receivedate") String receivedate, @RequestParam("returndate") String returndate,
             @RequestParam("notes") String notes, @RequestParam("accesscard") String accesscard, @RequestParam("employee") String employee) throws ParseException {
-        o.saveEmployeeAccess(new Employeeaccess("id", dateFormatuci.parse(receivedate), dateFormatuci.parse(returndate), notes, new Accesscard(accesscard).toString(), new Employee(employee)));
+        o.saveEmployeeAccess(new Employeeaccess("id", dateFormatuci.parse(receivedate), dateFormatuci.parse(returndate), notes, new Accesscard(accesscard).getAccessnumber(), new Employee(employee)));
         return "redirect:/Employeeaccess";
     }
+    
     
     @RequestMapping(value = "/empaccessEdit", method = RequestMethod.POST)
     public String editt(@RequestParam("id")String id, @RequestParam("receivedate") String receivedate, @RequestParam("returndate") String returndate,
             @RequestParam("notes") String notes, @RequestParam("accesscard") String accesscard, @RequestParam("employee") String employee) throws ParseException {
-        o.saveEmployeeAccess(new Employeeaccess(id, dateFormatuci.parse(receivedate), dateFormatuci.parse(returndate), notes, new Accesscard(accesscard).toString(), new Employee(employee)));
+        o.saveEmployeeAccess(new Employeeaccess(id, dateFormatuci.parse(receivedate), dateFormatuci.parse(returndate), notes, new Accesscard(accesscard).getAccessnumber(), new Employee(employee)));
         return "redirect:/Employeeaccess";
     }
     
