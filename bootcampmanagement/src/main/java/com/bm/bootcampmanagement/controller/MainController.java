@@ -620,12 +620,14 @@ public class MainController {
    
 
     @GetMapping("/lihatcv")
-    public String lihatcv(Model mod) {
-        mod.addAttribute("employee", daoEmp.findById("14201"));
-        mod.addAttribute("education", daoEmp.findById("14201").getEducationhistoryList());
-        mod.addAttribute("achievementData", daoEmp.findById("14201").getAchievementList());
-        mod.addAttribute("organizationData", daoEmp.findById("14201").getOrganizationList());
-        mod.addAttribute("certificateData", daoEmp.findById("14201").getEmployeecertificationList());
+    public String lihatcv(Model mod, HttpServletRequest request) {
+        String id = request.getSession().getAttribute("login").toString();
+        mod.addAttribute("employee", daoEmp.findById(id));
+        mod.addAttribute("education", daoEmp.findById(id).getEducationhistoryList());
+        mod.addAttribute("achievementData", daoEmp.findById(id).getAchievementList());
+        mod.addAttribute("organizationData", daoEmp.findById(id).getOrganizationList());
+        mod.addAttribute("certificateData", daoEmp.findById(id).getEmployeecertificationList());
+        mod.addAttribute("emplangData", daoEmp.findById(id).getEmployeelanguageList());
         return "/lihatCV";
     }
 }

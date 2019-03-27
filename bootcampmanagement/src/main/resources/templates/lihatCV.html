@@ -191,6 +191,30 @@
                             </tbody>
                         </table>
                     </div>
+                    <hr>
+                    <div class="row">
+                        <h5>Language</h5>
+                        <table id="emplangTable" class="table table-hover" style="width: 100%">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Employee</th>
+                                    <th>Language</th>
+                                    <th>Score</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tblData">
+                                <tr th:each="el, it : ${emplangData}">
+                                    <td th:text="${it.count}"></td>
+                                    <td th:text="${el.employee.name}"></td>
+                                    <td th:text="${el.language.name}"></td>
+                                    <td th:text="${el.score}"></td>
+                                    
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!--ENDOF Show table data-->
+                    </div>
 
 
                 </main>
