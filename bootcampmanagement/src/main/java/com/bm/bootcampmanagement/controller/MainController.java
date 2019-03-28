@@ -111,16 +111,6 @@ public class MainController {
     @Autowired
     EmployeeRoleDAO daoEmpR;
     @Autowired
-    LanguageDAO daoL;
-    @Autowired
-    EmployeeLanguageDAO daoEmpL;
-    @Autowired
-    SkillDAO daoS;
-    @Autowired
-    EmployeeSkillDAO daoEmpS;
-    @Autowired
-    WorkExperienceDAO daoW;
-    @Autowired
     ParticipantDAO daoP;
     @Autowired
     ReligionDAO daoR;
@@ -128,23 +118,34 @@ public class MainController {
     VillageDAO daoLV;
     @Autowired
     DistrictDAO daoLD;
-    @Autowired
-    AchievementDAO adao;
-    @Autowired
-    OrganizationDAO odao;
-    @Autowired
-    EducationHistoryDAO edao;
-    @Autowired
-    EducationDAO eddao;
-    @Autowired
-    CertificateDAO cedao;
-
-    @Autowired
-    EmployeeCertificationDAO cdao;
+    
+//    @Autowired
+//    AchievementDAO adao;
+//    @Autowired
+//    OrganizationDAO odao;
+//    @Autowired
+//    EducationHistoryDAO edao;
+//    @Autowired
+//    EducationDAO eddao;
+//    @Autowired
+//    CertificateDAO cedao;
+//    @Autowired
+//    EmployeeCertificationDAO cdao;
+//    @Autowired
+//    LanguageDAO daoL;
+//    @Autowired
+//    EmployeeLanguageDAO daoEmpL;
+//    @Autowired
+//    SkillDAO daoS;
+//    @Autowired
+//    EmployeeSkillDAO daoEmpS;
+//    @Autowired
+//    WorkExperienceDAO daoW;
+    
     @Autowired
     private static Logger log = LoggerFactory.getLogger(MainController.class);
     private SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-    private SimpleDateFormat dateFormatuci = new SimpleDateFormat("yyyy-MM-dd");
+//    private SimpleDateFormat dateFormatuci = new SimpleDateFormat("yyyy-MM-dd");
 
     @Autowired
     private MailService mailService;
@@ -242,7 +243,7 @@ public class MainController {
         try {
             Employee emp = new Employee("-", name, dateFormat.parse(birthdate),
                     new Short(gender), new Short(marriedstatus), address, email,
-                    phone, dateFormatuci.parse(onboarddate),
+                    phone, dateFormat.parse(onboarddate),
                     BCrypt.hashpw(phone, BCrypt.gensalt()), "Phone Number",
                     phone, null, new Short("1"), new District(birthplace),
                     new District(hiringlocation), new Religion(religion),
@@ -356,118 +357,85 @@ public class MainController {
     }
 //    ENDOF Employee Role
 
-//    Employee Language
-    @GetMapping("/employeelanguage")
-    public String employeelanguage(Model m) {
-        m.addAttribute("emplangData", daoEmpL.findAll());
 
-        return "employeelanguage";
-    }
-//    ENDOF Employee Language
 
-//    Employee Skill
-    @GetMapping("/employeeskill")
-    public String employeeskill(Model m) {
-        m.addAttribute("empskillData", daoEmpS.findAll());
-        m.addAttribute("skillData", daoS.findAll());
-        m.addAttribute("empskillsave", new Employeeskill());
+//    @GetMapping("/cv")
+//    public String cv(Model m) {
+//        m.addAttribute("achievementData", adao.findAll());
+//        m.addAttribute("achievementsave", new Achievement());
+//        m.addAttribute("achievementedit", new Achievement());
+//        m.addAttribute("achievementdelete", new Achievement());
+//        m.addAttribute("organizationData", odao.findAll());
+//        m.addAttribute("organizationsave", new Organization());
+//        m.addAttribute("organizationedit", new Organization());
+//        m.addAttribute("organizationdelete", new Organization());
+//        m.addAttribute("educationData", edao.findAll());
+//        m.addAttribute("educationsave", new Educationhistory());
+//        m.addAttribute("educationedit", new Educationhistory());
+//        m.addAttribute("educationdelete", new Educationhistory());
+//        m.addAttribute("certificateData", cdao.findAll());
+//        m.addAttribute("certificatesave", new Employeecertification());
+//        m.addAttribute("certificateedit", new Employeecertification());
+//        m.addAttribute("certificatedelete", new Employeecertification());
+//        m.addAttribute("dataedu", eddao.findAll());
+//        m.addAttribute("datacert", cedao.findAll());
+//        m.addAttribute("emplangData", daoEmpL.findAll());
+//        m.addAttribute("empskillData", daoEmpS.findAll());
+//        m.addAttribute("skillData", daoS.findAll());
+//        m.addAttribute("empskillsave", new Employeeskill());
+//        m.addAttribute("workexpData", daoW.findAll());
+//        return "/cv";
+//    }
 
-        return "employeeskill";
-    }
-    
-    @RequestMapping(value = "/empskillsave", method = RequestMethod.POST) //@PostMapping("/regionsave")
-    public String save(@ModelAttribute("empskillsave") Employeeskill employeeskill) {
-        daoEmpS.save(employeeskill);
-        return "redirect:/employeeskill";
-    }
-//    ENDOF Employee Skill
-
-//    Work Experience
-    @GetMapping("/workexperience")
-    public String workexperience(Model m) {
-        m.addAttribute("workexpData", daoW.findAll());
-
-        return "workexperience";
-    }
-//    ENDOF Work Experience
-
-    @GetMapping("/cv")
-    public String cv(Model m) {
-        m.addAttribute("achievementData", adao.findAll());
-        m.addAttribute("achievementsave", new Achievement());
-        m.addAttribute("achievementedit", new Achievement());
-        m.addAttribute("achievementdelete", new Achievement());
-        m.addAttribute("organizationData", odao.findAll());
-        m.addAttribute("organizationsave", new Organization());
-        m.addAttribute("organizationedit", new Organization());
-        m.addAttribute("organizationdelete", new Organization());
-        m.addAttribute("educationData", edao.findAll());
-        m.addAttribute("educationsave", new Educationhistory());
-        m.addAttribute("educationedit", new Educationhistory());
-        m.addAttribute("educationdelete", new Educationhistory());
-        m.addAttribute("certificateData", cdao.findAll());
-        m.addAttribute("certificatesave", new Employeecertification());
-        m.addAttribute("certificateedit", new Employeecertification());
-        m.addAttribute("certificatedelete", new Employeecertification());
-        m.addAttribute("dataedu", eddao.findAll());
-        m.addAttribute("datacert", cedao.findAll());
-        m.addAttribute("emplangData", daoEmpL.findAll());
-        m.addAttribute("empskillData", daoEmpS.findAll());
-        m.addAttribute("skillData", daoS.findAll());
-        m.addAttribute("empskillsave", new Employeeskill());
-        m.addAttribute("workexpData", daoW.findAll());
-        return "/cv";
-    }
-
-    @RequestMapping(value = "/achievementsave", method = RequestMethod.POST)  //@PostMapping("/regionsave")
-    public String savee(@RequestParam("sid") String id, @RequestParam("sname") String name) {
-        adao.save(new Achievement(id, name, new Employee("14201")));
-        return "redirect:/cv";
-    }
-
-    @RequestMapping(value = "/achievementedit", method = RequestMethod.POST)  //@PostMapping("/regionsave")
-    public String editach(@RequestParam("sid") String id, @RequestParam("sname") String name, @RequestParam("semployee") String semployee) {
-        adao.save(new Achievement(id, name, new Employee(semployee)));
-        return "redirect:/cv";
-    }
-
-    @RequestMapping(value = "/organizationsave", method = RequestMethod.POST)  //@PostMapping("/regionsave")
-    public String saveorg(@RequestParam("oname") String oname, @RequestParam("position") String position,
-            @RequestParam("periode") String periode) throws ParseException {
-        odao.save(new Organization("id", oname, position, dateFormatuci.parse(periode), new Employee("14201")));
-        return "redirect:/cv";
-    }
-
-    @RequestMapping(value = "/organizationedit", method = RequestMethod.POST)  //@PostMapping("/regionsave")
-    public String editorg(@RequestParam("oid") String oid, @RequestParam("ooname") String oname, @RequestParam("oposition") String position,
-            @RequestParam("operiode") String periode, @RequestParam("oemployee") String employee) throws ParseException {
-        odao.save(new Organization(oid, oname, position, dateFormatuci.parse(periode), new Employee(employee)));
-        return "redirect:/cv";
-    }
-
-    @RequestMapping(value = "/educationsave", method = RequestMethod.POST)  //@PostMapping("/regionsave")
-    public String saveedu(@RequestParam("gpa") String gpa, @RequestParam("education") String education) {
-        edao.save(new Educationhistory("id", gpa, new Education(education), new Employee("14201")));
-        return "redirect:/cv";
-    }
-
-    @RequestMapping(value = "/educationedit", method = RequestMethod.POST)  //@PostMapping("/regionsave")
-    public String saveedu(@RequestParam("ide") String ide, @RequestParam("gpae") String gpae, @RequestParam("educatione") String educatione) {
-        edao.save(new Educationhistory(ide, gpae, new Education(educatione), new Employee("14201")));
-        return "redirect:/cv";
-    }
-
-    @RequestMapping(value = "/certificatesave", method = RequestMethod.POST)  //@PostMapping("/regionsave")
-    public String savecert(@RequestParam("datecert") String datec, @RequestParam("certnumber") String numc, @RequestParam("certificate") String certificate) throws ParseException {
-        cdao.save(new Employeecertification("id", dateFormatuci.parse(datec), numc, new Certificate(certificate), new Employee("14201")));
-        return "redirect:/cv";
-    }
-
-    @RequestMapping(value = "/certificateedit", method = RequestMethod.POST)  //@PostMapping("/regionsave")
-    public String editcert(@RequestParam("eid") String eid, @RequestParam("edatecert") String datec, @RequestParam("certnum") String numc, @RequestParam("ecertificate") String certificate, @RequestParam("employee") String employee) throws ParseException {
-        cdao.save(new Employeecertification(eid, dateFormatuci.parse(datec), numc, new Certificate(certificate), new Employee(employee)));
-        return "redirect:/cv";
-    }
+//    @RequestMapping(value = "/achievementsave", method = RequestMethod.POST)  //@PostMapping("/regionsave")
+//    public String savee(@RequestParam("sid") String id, @RequestParam("sname") String name) {
+//        adao.save(new Achievement(id, name, new Employee("14201")));
+//        return "redirect:/cv";
+//    }
+//
+//    @RequestMapping(value = "/achievementedit", method = RequestMethod.POST)  //@PostMapping("/regionsave")
+//    public String editach(@RequestParam("sid") String id, @RequestParam("sname") String name, @RequestParam("semployee") String semployee) {
+//        adao.save(new Achievement(id, name, new Employee(semployee)));
+//        return "redirect:/cv";
+//    }
+//
+//    @RequestMapping(value = "/organizationsave", method = RequestMethod.POST)  //@PostMapping("/regionsave")
+//    public String saveorg(@RequestParam("oname") String oname, @RequestParam("position") String position,
+//            @RequestParam("periode") String periode) throws ParseException {
+//        odao.save(new Organization("id", oname, position, dateFormat.parse(periode), new Employee("14201")));
+//        return "redirect:/cv";
+//    }
+//
+//    @RequestMapping(value = "/organizationedit", method = RequestMethod.POST)  //@PostMapping("/regionsave")
+//    public String editorg(@RequestParam("oid") String oid, @RequestParam("ooname") String oname, @RequestParam("oposition") String position,
+//            @RequestParam("operiode") String periode, @RequestParam("oemployee") String employee) throws ParseException {
+//        odao.save(new Organization(oid, oname, position, dateFormat.parse(periode), new Employee(employee)));
+//        return "redirect:/cv";
+//    }
+//
+//    @RequestMapping(value = "/educationsave", method = RequestMethod.POST)  //@PostMapping("/regionsave")
+//    public String saveedu(@RequestParam("gpa") String gpa, @RequestParam("education") String education) {
+//        edao.save(new Educationhistory("id", gpa, new Education(education), new Employee("14201")));
+//        return "redirect:/cv";
+//    }
+//
+//    @RequestMapping(value = "/educationedit", method = RequestMethod.POST)  //@PostMapping("/regionsave")
+//    public String saveedu(@RequestParam("ide") String ide, @RequestParam("gpae") String gpae, @RequestParam("educatione") String educatione) {
+//        edao.save(new Educationhistory(ide, gpae, new Education(educatione), new Employee("14201")));
+//        return "redirect:/cv";
+//    }
+//
+//    @RequestMapping(value = "/certificatesave", method = RequestMethod.POST)  //@PostMapping("/regionsave")
+//    public String savecert(@RequestParam("datecert") String datec, @RequestParam("certnumber") String numc, @RequestParam("certificate") String certificate) throws ParseException {
+//        cdao.save(new Employeecertification("id", dateFormat.parse(datec), numc, new Certificate(certificate), new Employee("14201")));
+//        return "redirect:/cv";
+//    }
+//
+//    @RequestMapping(value = "/certificateedit", method = RequestMethod.POST)  //@PostMapping("/regionsave")
+//    public String editcert(@RequestParam("eid") String eid, @RequestParam("edatecert") String datec, @RequestParam("certnum") String numc, @RequestParam("ecertificate") String certificate, @RequestParam("employee") String employee) throws ParseException {
+//        cdao.save(new Employeecertification(eid, dateFormat.parse(datec), numc, new Certificate(certificate), new Employee(employee)));
+//        return "redirect:/cv";
+//    }
 
     @GetMapping("/Idcard")
     public String Idcard(Model model) {
@@ -513,14 +481,14 @@ public class MainController {
     @RequestMapping(value = "/emplockerSave", method = RequestMethod.POST)
     public String save(String id, @RequestParam("receivedate") String receivedate, @RequestParam("returndate") String returndate,
             @RequestParam("notes") String notes, @RequestParam("locker") String locker, @RequestParam("employee") String employee) throws ParseException {
-        eldao.saveEmployeeLocker(new Employeelocker("id", dateFormatuci.parse(receivedate), dateFormatuci.parse(returndate), notes, new Locker(locker), new Employee(employee)));
+        eldao.saveEmployeeLocker(new Employeelocker("id", dateFormat.parse(receivedate), dateFormat.parse(returndate), notes, new Locker(locker), new Employee(employee)));
         return "redirect:/Employeelocker";
     }
 
     @RequestMapping(value = "/emplockerEdit", method = RequestMethod.POST)
     public String edit(@RequestParam("id") String id, @RequestParam("receivedate") String receivedate, @RequestParam("returndate") String returndate,
             @RequestParam("notes") String notes, @RequestParam("locker") String locker, @RequestParam("employee") String employee) throws ParseException {
-        eldao.saveEmployeeLocker(new Employeelocker(id, dateFormatuci.parse(receivedate), dateFormatuci.parse(returndate), notes, new Locker(locker), new Employee(employee)));
+        eldao.saveEmployeeLocker(new Employeelocker(id, dateFormat.parse(receivedate), dateFormat.parse(returndate), notes, new Locker(locker), new Employee(employee)));
         return "redirect:/Employeelocker";
     }
     
@@ -546,7 +514,7 @@ public class MainController {
     @RequestMapping(value = "/empaccessSave", method = RequestMethod.POST)
     public String savee (String id, @RequestParam("receivedate") String receivedate, @RequestParam("returndate") String returndate,
             @RequestParam("notes") String notes, @RequestParam("accesscard") String accesscard, @RequestParam("employee") String employee) throws ParseException {
-        o.saveEmployeeAccess(new Employeeaccess("id", dateFormatuci.parse(receivedate), dateFormatuci.parse(returndate), notes, new Accesscard(accesscard).getAccessnumber(), new Employee(employee)));
+        o.saveEmployeeAccess(new Employeeaccess("id", dateFormat.parse(receivedate), dateFormat.parse(returndate), notes, new Accesscard(accesscard).getAccessnumber(), new Employee(employee)));
         return "redirect:/Employeeaccess";
     }
     
@@ -554,7 +522,7 @@ public class MainController {
     @RequestMapping(value = "/empaccessEdit", method = RequestMethod.POST)
     public String editt(@RequestParam("id")String id, @RequestParam("receivedate") String receivedate, @RequestParam("returndate") String returndate,
             @RequestParam("notes") String notes, @RequestParam("accesscard") String accesscard, @RequestParam("employee") String employee) throws ParseException {
-        o.saveEmployeeAccess(new Employeeaccess(id, dateFormatuci.parse(receivedate), dateFormatuci.parse(returndate), notes, new Accesscard(accesscard).getAccessnumber(), new Employee(employee)));
+        o.saveEmployeeAccess(new Employeeaccess(id, dateFormat.parse(receivedate), dateFormat.parse(returndate), notes, new Accesscard(accesscard).getAccessnumber(), new Employee(employee)));
         return "redirect:/Employeeaccess";
     }
     
@@ -578,7 +546,7 @@ public class MainController {
     @RequestMapping(value = "/placeSave", method = RequestMethod.POST)
     public String save(String id, @RequestParam("description") String description, @RequestParam("address") String address, @RequestParam("department") String department,
             @RequestParam("startdate") String startdate, @RequestParam("finishdate") String finishdate, @RequestParam("company") String company, @RequestParam("employee") String employee) throws ParseException {
-        pdao.savePlacement(new Placement("id", description, address, department, dateFormatuci.parse(startdate), dateFormatuci.parse(finishdate), new Company(company), new Employee(employee)));
+        pdao.savePlacement(new Placement("id", description, address, department, dateFormat.parse(startdate), dateFormat.parse(finishdate), new Company(company), new Employee(employee)));
         return "redirect:/Placement";
     }
 
@@ -586,7 +554,7 @@ public class MainController {
     @RequestMapping(value = "/placeEdit", method = RequestMethod.POST)
     public String edit(@RequestParam("id") String id, @RequestParam("description") String description, @RequestParam("address") String address, @RequestParam("department") String department,
             @RequestParam("startdate") String startdate, @RequestParam("finishdate") String finishdate, @RequestParam("company") String company, @RequestParam("employee") String employee) throws ParseException {
-        pdao.savePlacement(new Placement(id, description, address, department, dateFormatuci.parse(startdate), dateFormatuci.parse(finishdate), new Company(company), new Employee(employee)));
+        pdao.savePlacement(new Placement(id, description, address, department, dateFormat.parse(startdate), dateFormat.parse(finishdate), new Company(company), new Employee(employee)));
         return "redirect:/Placement";
     }
     
@@ -596,42 +564,42 @@ public class MainController {
         return "redirect:/Placement";
     }
     
-    @RequestMapping(value = "/achievementdelete", method = RequestMethod.GET)
-    public String deleteach(@RequestParam(value = "achid") String id) {
-        adao.delete(id);
-        return "redirect:/cv";
-    }
-
-    @RequestMapping(value = "/organizationdelete", method = RequestMethod.GET)
-    public String deleteorg(@RequestParam(value = "orgid") String id) {
-        odao.delete(id);
-        return "redirect:/cv";
-    }
-
-    @RequestMapping(value = "/certificatedelete", method = RequestMethod.GET)
-    public String deletecert(@RequestParam(value = "certid") String id) {
-        cdao.delete(id);
-        return "redirect:/cv";
-    }
-
-    @RequestMapping(value = "/educationdelete", method = RequestMethod.GET)
-    public String deleteedu(@RequestParam(value = "eduid") String id) {
-        edao.delete(id);
-        return "redirect:/cv";
-    }
+//    @RequestMapping(value = "/achievementdelete", method = RequestMethod.GET)
+//    public String deleteach(@RequestParam(value = "achid") String id) {
+//        adao.delete(id);
+//        return "redirect:/cv";
+//    }
+//
+//    @RequestMapping(value = "/organizationdelete", method = RequestMethod.GET)
+//    public String deleteorg(@RequestParam(value = "orgid") String id) {
+//        odao.delete(id);
+//        return "redirect:/cv";
+//    }
+//
+//    @RequestMapping(value = "/certificatedelete", method = RequestMethod.GET)
+//    public String deletecert(@RequestParam(value = "certid") String id) {
+//        cdao.delete(id);
+//        return "redirect:/cv";
+//    }
+//
+//    @RequestMapping(value = "/educationdelete", method = RequestMethod.GET)
+//    public String deleteedu(@RequestParam(value = "eduid") String id) {
+//        edao.delete(id);
+//        return "redirect:/cv";
+//    }
     
    
 
-    @GetMapping("/lihatcv")
-    public String lihatcv(Model mod) {
-        mod.addAttribute("employee", daoEmp.findById("14201"));
-        mod.addAttribute("education", daoEmp.findById("14201").getEducationhistoryList());
-        mod.addAttribute("achievementData", daoEmp.findById("14201").getAchievementList());
-        mod.addAttribute("organizationData", daoEmp.findById("14201").getOrganizationList());
-        mod.addAttribute("certificateData", daoEmp.findById("14201").getEmployeecertificationList());
-        mod.addAttribute("languageData", daoEmp.findById("14201").getEmployeelanguageList());
-        mod.addAttribute("skillData", daoEmp.findById("14201").getEmployeeskillList());
-        mod.addAttribute("workexperienceData", daoEmp.findById("14201").getWorkexperienceList());
-        return "/lihatCV";
-    }
+//    @GetMapping("/lihatcv")
+//    public String lihatcv(Model mod) {
+//        mod.addAttribute("employee", daoEmp.findById("14201"));
+//        mod.addAttribute("education", daoEmp.findById("14201").getEducationhistoryList());
+//        mod.addAttribute("achievementData", daoEmp.findById("14201").getAchievementList());
+//        mod.addAttribute("organizationData", daoEmp.findById("14201").getOrganizationList());
+//        mod.addAttribute("certificateData", daoEmp.findById("14201").getEmployeecertificationList());
+//        mod.addAttribute("languageData", daoEmp.findById("14201").getEmployeelanguageList());
+//        mod.addAttribute("skillData", daoEmp.findById("14201").getEmployeeskillList());
+//        mod.addAttribute("workexperienceData", daoEmp.findById("14201").getWorkexperienceList());
+//        return "/lihatCV";
+//    }
 }
