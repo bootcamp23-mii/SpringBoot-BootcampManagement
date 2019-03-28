@@ -96,31 +96,32 @@ public class CVController {
     private SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
     @GetMapping("/cv/cv")
-    public String cv(Model m) {
-        m.addAttribute("achievementData", adao.findAll());
+    public String cv(Model m, HttpServletRequest request) {
+        String empID = request.getSession().getAttribute("login").toString();
+        m.addAttribute("achievementData", daoEmp.findById(empID).getAchievementList());
         m.addAttribute("achievementsave", new Achievement());
         m.addAttribute("achievementedit", new Achievement());
         m.addAttribute("achievementdelete", new Achievement());
-        m.addAttribute("organizationData", odao.findAll());
+        m.addAttribute("organizationData", daoEmp.findById(empID).getOrganizationList());
         m.addAttribute("organizationsave", new Organization());
         m.addAttribute("organizationedit", new Organization());
         m.addAttribute("organizationdelete", new Organization());
-        m.addAttribute("educationData", edao.findAll());
+        m.addAttribute("educationData", daoEmp.findById(empID).getEducationhistoryList());
         m.addAttribute("educationsave", new Educationhistory());
         m.addAttribute("educationedit", new Educationhistory());
         m.addAttribute("educationdelete", new Educationhistory());
-        m.addAttribute("certificateData", cdao.findAll());
+        m.addAttribute("certificateData", daoEmp.findById(empID).getEmployeecertificationList());
         m.addAttribute("certificatesave", new Employeecertification());
         m.addAttribute("certificateedit", new Employeecertification());
         m.addAttribute("certificatedelete", new Employeecertification());
         m.addAttribute("dataedu", eddao.findAll());
         m.addAttribute("datacert", cedao.findAll());
         m.addAttribute("langData", daoL.findAll());
-        m.addAttribute("emplangData", daoEmpL.findAll());
+        m.addAttribute("emplangData", daoEmp.findById(empID).getEmployeelanguageList());
         m.addAttribute("skillData", daoS.findAll());
-        m.addAttribute("empskillData", daoEmpS.findAll());
+        m.addAttribute("empskillData", daoEmp.findById(empID).getEmployeeskillList());
         m.addAttribute("empskillsave", new Employeeskill());
-        m.addAttribute("workexpData", daoW.findAll());
+        m.addAttribute("workexpData", daoEmp.findById(empID).getWorkexperienceList());
         m.addAttribute("university", udao.findAll());
         m.addAttribute("major", mdao.findAll());
         m.addAttribute("degree", ddao.findAll());
