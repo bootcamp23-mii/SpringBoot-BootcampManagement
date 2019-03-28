@@ -127,7 +127,7 @@
                                     <td th:text="${tr.count}"></td>
                                     <td th:text="${os.name}"></td>
                                     <td th:text="${os.position}"></td>
-                                    <td th:text="${os.period}"></td>
+                                    <td th:text="${#dates.format(os.period,'yyyy')}"></td>
 
                                 </tr>
                             </tbody>
@@ -148,7 +148,7 @@
                             <tbody id="tblData">
                                 <tr th:each="cs,ite : ${certificateData}">
                                     <td th:text="${ite.count}"></td>
-                                    <td th:text="${cs.certificateDate}"></td>
+                                    <td th:text="${#dates.format(cs.certificateDate,'dd-MMM-yyyy')}"></td>
                                     <td th:text="${cs.certificateNumber}"></td>
                                     <td th:text="${cs.certificate.name}"></td>
 

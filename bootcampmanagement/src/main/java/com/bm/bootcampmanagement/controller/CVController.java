@@ -93,7 +93,7 @@ public class CVController {
     @Autowired
     DegreeDAO ddao;
 
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     @GetMapping("/cv/cv")
     public String cv(Model m, HttpServletRequest request) {

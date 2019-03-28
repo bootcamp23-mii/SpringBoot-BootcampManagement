@@ -262,7 +262,7 @@
                                     <td th:text="${tr.count}"></td>
                                     <td th:text="${os.name}"></td>
                                     <td th:text="${os.position}"></td>
-                                    <td th:text="${os.period}"></td>
+                                    <td th:text="${#dates.format(os.period, 'yyyy')}"></td>
                                     <td>
                                         <button data-target="#mdlEditOrg" data-toggle="modal" th:data-getoid="${os.id}" 
                                                 th:data-getoname="${os.name}"
@@ -290,14 +290,14 @@
                                     <th>No.</th>
                                     <th>Date</th>
                                     <th>Number</th>
-                                    <th>Certificate</th>
+                                    <th>Certificate Name</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody id="tblData">
                                 <tr th:each="cs,ite : ${certificateData}">
                                     <td th:text="${ite.count}"></td>
-                                    <td th:text="${cs.certificateDate}"></td>
+                                    <td th:text="${#dates.format(cs.certificateDate,'dd-MMM-yyyy')}"></td>
                                     <td th:text="${cs.certificateNumber}"></td>
                                     <td th:text="${cs.certificate.name}"></td>
                                     <td>
@@ -417,8 +417,8 @@
                                     <td th:text="${we.name}"></td>
                                     <td th:text="${we.position}"></td>
                                     <td th:text="${we.description}"></td>
-                                    <td th:text="${we.startdate}"></td>
-                                    <td th:text="${we.enddate}"></td>
+                                    <td th:text="${#dates.format(we.startdate, 'dd-MMM-yyyy')}"></td>
+                                    <td th:text="${#dates.format(we.enddate, 'dd-MMM-yyyy')}"></td>
                                     <td>
                                         <button data-target="#modalEditwork" data-toggle="modal" th:data-getid="${we.id}"
                                                 class="btn btn-outline-info" ><span data-feather="edit"></span></button>
