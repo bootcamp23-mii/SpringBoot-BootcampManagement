@@ -41,30 +41,34 @@ and open the template in the editor.
                                 CV <span class="sr-only"></span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/bm/bm}">
-                                <span data-feather="user"></span>
-                                Trainer <span class="sr-only"></span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/Idcard}">
-                                <span data-feather="key"></span>
-                                Equipment <span class="sr-only"></span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/employeerole}">
-                                <span data-feather="users"></span>
-                                Employee Role <span class="sr-only"></span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/registration}">
-                                <span data-feather="user-plus"></span>
-                                Registration <span class="sr-only"></span>
-                            </a>
-                        </li>
+                        <div th:if="${session.istrainer!=null}">
+                            <li class="nav-item">
+                                <a class="nav-link" th:href="@{/bm/bm}">
+                                    <span data-feather="user"></span>
+                                    Trainer <span class="sr-only"></span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" th:href="@{/Idcard}">
+                                    <span data-feather="key"></span>
+                                    Equipment <span class="sr-only"></span>
+                                </a>
+                            </li>
+                        </div>
+                        <div th:if="${session.isadmin!=null}">
+                            <li class="nav-item">
+                                <a class="nav-link" th:href="@{/employeerole}">
+                                    <span data-feather="users"></span>
+                                    Employee Role <span class="sr-only"></span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" th:href="@{/registration}">
+                                    <span data-feather="user-plus"></span>
+                                    Registration <span class="sr-only"></span>
+                                </a>
+                            </li>
+                        </div>
                     </ul>
                 </div>
             </nav>

@@ -177,21 +177,21 @@ public class MainController {
                 request.getSession().setAttribute("login", id);
                 Iterable<Batchclass> batchclasses = daoBC.findAll();
                 for (Batchclass data : batchclasses) {
-                    if (data.getTrainer().equals(id)) {
+                    if (data.getTrainer().getId().equals(id)) {
                         System.out.println("masuk");
-                        request.getSession().setAttribute("isTrainer", id);
+                        session.setAttribute("istrainer", id);
                     }
                 }
                 Iterable<Employeerole> employeeroles = daoEmpR.findAll();
                 for (Employeerole data : employeeroles) {
                     if (data.getEmployee().getId().equalsIgnoreCase(id) && data.getRole().getId().equalsIgnoreCase("CVR0")) {
-                        request.getSession().setAttribute("isAdmin", id);
+                        request.getSession().setAttribute("isadmin", id);
                     }
                 }
                 Iterable<Participant> participants = daoP.findAll();
                 for (Participant data : participants) {
                     if (data.getId().equalsIgnoreCase(id)) {
-                        request.getSession().setAttribute("isParticipant", id);
+                        request.getSession().setAttribute("isparticipant", id);
                     }
                 }
 
@@ -316,9 +316,9 @@ public class MainController {
     @GetMapping("/logout")
     public String logout(HttpServletRequest request) {
         request.getSession().removeAttribute("login");
-        request.getSession().removeAttribute("isAdmin");
-        request.getSession().removeAttribute("isTrainer");
-        request.getSession().removeAttribute("isParticipant");
+        request.getSession().removeAttribute("isadmin");
+        request.getSession().removeAttribute("istrainer");
+        request.getSession().removeAttribute("isparticipant");
         return "redirect:/";
     }
 
