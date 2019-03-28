@@ -40,19 +40,19 @@
                     <div class="sidebar-sticky">
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <a class="nav-link" th:href="@{/Idcard}">
+                                <a class="nav-link" th:href="@{/el/Idcard}">
                                     <span data-feather="user"></span>
                                     Id Card <span class="sr-only"></span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" th:href="@{/Employeeaccess}">
+                                <a class="nav-link" th:href="@{/el/Employeeaccess}">
                                     <span data-feather="smartphone"></span>
                                     Employee Access Card <span class="sr-only"></span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" th:href="@{/Employeelocker}">
+                                <a class="nav-link" th:href="@{/el/Employeelocker}">
                                     <span data-feather="key"></span>
                                     Employee Locker <span class="sr-only"></span>
                                 </a>
@@ -107,7 +107,7 @@
                                                 th:data-getfinishdate="${pd.finishdate}"
                                                 th:data-getcompany="${pd.company.id}" 
                                                 th:data-getemployee="${pd.employee.id}" class="btn btn-warning">Edit</button>
-                                        <a th:href="@{/placeDelete(pladid=${pd.id})}"><button value="" class="btn btn-danger">Delete</button></a>
+                                        <a th:href="@{/el/placeDelete(pladid=${pd.id})}"><button value="" class="btn btn-danger">Delete</button></a>
 <!--                                        <button data-target="#mdlDelete" data-toggle="modal" th:data-getid="${pd.id}" 
                                                 th:data-getdes="${pd.description}"
                                                 th:data-getadd="${pd.address}" 
@@ -133,7 +133,7 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <form th:action="@{/placeSave}" method="post">
+                                <form th:action="@{/el/placeSave}" method="post">
                                     <div class="modal-body">
                                         <div class="form-group">
                                             <label for="description">Description</label>
@@ -190,7 +190,7 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <form th:action="@{/placeEdit}" method="post">
+                                <form th:action="@{/el/placeEdit}" method="post">
                                     <div class="modal-body">
                                         <input id="id" name="id" class="form-control" type="hidden"/>
                                         <div class="form-group">

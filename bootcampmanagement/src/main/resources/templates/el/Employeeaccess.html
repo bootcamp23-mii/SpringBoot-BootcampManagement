@@ -40,7 +40,7 @@
                     <div class="sidebar-sticky">
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <a class="nav-link" th:href="@{/Idcard}">
+                                <a class="nav-link" th:href="@{/el/Idcard}">
                                     <span data-feather="user"></span>
                                     Id Card <span class="sr-only"></span>
                                 </a>
@@ -52,13 +52,13 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" th:href="@{/Employeelocker}">
+                                <a class="nav-link" th:href="@{/el/Employeelocker}">
                                     <span data-feather="key"></span>
                                     Employee Locker <span class="sr-only"></span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" th:href="@{/Placement}">
+                                <a class="nav-link" th:href="@{/el/Placement}">
                                     <span data-feather="map-pin"></span>
                                     Placement <span class="sr-only"></span>
                                 </a>
@@ -101,7 +101,7 @@
                                             th:data-getnote="${ead.notes}" 
                                             th:data-getaccess="${ead.accesscard}" 
                                             th:data-getemployee="${ead.employee.id}" class="btn btn-warning">Edit</button>
-                                    <a th:href="@{/empaccessDelete(epcid=${ead.id})}"><button value="" class="btn btn-danger">Delete</button></a>
+                                    <a th:href="@{/el/empaccessDelete(epcid=${ead.id})}"><button value="" class="btn btn-danger">Delete</button></a>
 <!--                                    <button data-target="#mdlDelete" data-toggle="modal" th:data-getid="${ead.id}" 
                                             th:data-getreceivedate="${ead.receivedate}"
                                             th:data-getreturndate="${ead.returndate}" 
@@ -125,7 +125,7 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <form th:action="@{/empaccessSave}" method="post">
+                                <form th:action="@{/el/empaccessSave}" method="post">
                                     <div class="modal-body">
                                         <div class="form-group">
                                             <label for="receivedate">Receive Date</label>
@@ -174,7 +174,7 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <form th:action="@{/empaccessEdit}" method="post">
+                                <form th:action="@{/el/empaccessEdit}" method="post">
                                     <div class="modal-body">
                                         <input id="id" name="id" class="form-control" type="hidden"/>
                                         <div class="form-group">
