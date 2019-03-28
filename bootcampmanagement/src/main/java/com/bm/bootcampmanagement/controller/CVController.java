@@ -144,11 +144,25 @@ public class CVController {
         return "/cv/lihatCV";
     }
 
+    @GetMapping("/cv/mycv")
+    public String mycv(Model mod, HttpServletRequest request) {
+        String empID = request.getSession().getAttribute("login").toString();
+        mod.addAttribute("employee", daoEmp.findById(empID));
+        mod.addAttribute("education", daoEmp.findById(empID).getEducationhistoryList());
+        mod.addAttribute("achievementData", daoEmp.findById(empID).getAchievementList());
+        mod.addAttribute("organizationData", daoEmp.findById(empID).getOrganizationList());
+        mod.addAttribute("certificateData", daoEmp.findById(empID).getEmployeecertificationList());
+        mod.addAttribute("languageData", daoEmp.findById(empID).getEmployeelanguageList());
+        mod.addAttribute("skillData", daoEmp.findById(empID).getEmployeeskillList());
+        mod.addAttribute("workexperienceData", daoEmp.findById(empID).getWorkexperienceList());
+        return "/cv/mycv";
+    }
     
     /* SAVE and EDIT functions */
     @RequestMapping(value = "/cv/achievementsave", method = RequestMethod.POST)  //@PostMapping("/regionsave")
-    public String savee(@RequestParam("sid") String id, @RequestParam("sname") String name) {
-        adao.save(new Achievement(id, name, new Employee("14201")));
+    public String savee(HttpServletRequest request, @RequestParam("sname") String name) {
+        String id = request.getSession().getAttribute("login").toString();
+        adao.save(new Achievement(id, name, new Employee("id")));
         return "redirect:/cv/cv";
     }
 
@@ -159,9 +173,10 @@ public class CVController {
     }
 
     @RequestMapping(value = "/cv/organizationsave", method = RequestMethod.POST)  //@PostMapping("/regionsave")
-    public String saveorg(@RequestParam("oname") String oname, @RequestParam("position") String position,
+    public String saveorg(HttpServletRequest request, @RequestParam("oname") String oname, @RequestParam("position") String position,
             @RequestParam("periode") String periode) throws ParseException {
-        odao.save(new Organization("id", oname, position, dateFormat.parse(periode), new Employee("14201")));
+        String id = request.getSession().getAttribute("login").toString();
+        odao.save(new Organization(id, oname, position, dateFormat.parse(periode), new Employee(id)));
         return "redirect:/cv/cv";
     }
 
@@ -173,8 +188,9 @@ public class CVController {
     }
 
     @RequestMapping(value = "/cv/educationsave", method = RequestMethod.POST)  //@PostMapping("/regionsave")
-    public String saveedu(@RequestParam("gpa") String gpa, @RequestParam("education") String education) {
-        edao.save(new Educationhistory("id", gpa, new Education(education), new Employee("14201")));
+    public String saveedu(HttpServletRequest request, @RequestParam("gpa") String gpa, @RequestParam("education") String education) {
+        String id = request.getSession().getAttribute("login").toString();
+        edao.save(new Educationhistory(id, gpa, new Education(education), new Employee(id)));
         return "redirect:/cv/cv";
     }
 
@@ -185,8 +201,9 @@ public class CVController {
     }
 
     @RequestMapping(value = "/cv/certificatesave", method = RequestMethod.POST)  //@PostMapping("/regionsave")
-    public String savecert(@RequestParam("datecert") String datec, @RequestParam("certnumber") String numc, @RequestParam("certificate") String certificate) throws ParseException {
-        cdao.save(new Employeecertification("id", dateFormat.parse(datec), numc, new Certificate(certificate), new Employee("14201")));
+    public String savecert(HttpServletRequest request, @RequestParam("datecert") String datec, @RequestParam("certnumber") String numc, @RequestParam("certificate") String certificate) throws ParseException {
+        String id = request.getSession().getAttribute("login").toString();
+        cdao.save(new Employeecertification(id, dateFormat.parse(datec), numc, new Certificate(certificate), new Employee(id)));
         return "redirect:/cv/cv";
     }
 

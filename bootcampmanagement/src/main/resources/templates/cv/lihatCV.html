@@ -7,8 +7,13 @@
         <meta name="author" content=""/>
         <!--Local css dan js semua pake th, @, dan {} dan / untuk single -->
         <link rel="icon" th:href="@{../dist/img/favicons/favicon.ico}"/>
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
         <title>MII Bootcamp Management</title>
+
+        <!--JQuery-->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 
         <!--JQuery-->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -170,7 +175,11 @@
 
                             <!--<h5 th:text="${/get-text}"></h5>-->
                             <div class="row">
-                                <h3>Curriculum Vitae</h3>
+                                <div class="col-md-10">
+                                    <table id="example" class="table table-borderless" style="width: 100%">
+                                        <h3><a th:href="@{/cv/mycv}">Curriculum Vitae</a></h3>
+                                    </table>
+                                </div>
                             </div>
                             <hr>
                             <div class="row">
