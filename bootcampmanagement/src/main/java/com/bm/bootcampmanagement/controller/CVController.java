@@ -27,6 +27,7 @@ import com.bm.bootcampmanagement.services.cv.SkillDAO;
 import com.bm.bootcampmanagement.services.cv.WorkExperienceDAO;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -109,15 +110,16 @@ public class CVController {
     }
     
     @GetMapping("/cv/lihatcv")
-    public String lihatcv(Model mod) {
-        mod.addAttribute("employee", daoEmp.findById("14201"));
-        mod.addAttribute("education", daoEmp.findById("14201").getEducationhistoryList());
-        mod.addAttribute("achievementData", daoEmp.findById("14201").getAchievementList());
-        mod.addAttribute("organizationData", daoEmp.findById("14201").getOrganizationList());
-        mod.addAttribute("certificateData", daoEmp.findById("14201").getEmployeecertificationList());
-        mod.addAttribute("languageData", daoEmp.findById("14201").getEmployeelanguageList());
-        mod.addAttribute("skillData", daoEmp.findById("14201").getEmployeeskillList());
-        mod.addAttribute("workexperienceData", daoEmp.findById("14201").getWorkexperienceList());
+    public String lihatcv(Model mod, HttpServletRequest request) {
+        String empID = request.getSession().getAttribute("login").toString();
+        mod.addAttribute("employee", daoEmp.findById(empID));
+        mod.addAttribute("education", daoEmp.findById(empID).getEducationhistoryList());
+        mod.addAttribute("achievementData", daoEmp.findById(empID).getAchievementList());
+        mod.addAttribute("organizationData", daoEmp.findById(empID).getOrganizationList());
+        mod.addAttribute("certificateData", daoEmp.findById(empID).getEmployeecertificationList());
+        mod.addAttribute("languageData", daoEmp.findById(empID).getEmployeelanguageList());
+        mod.addAttribute("skillData", daoEmp.findById(empID).getEmployeeskillList());
+        mod.addAttribute("workexperienceData", daoEmp.findById(empID).getWorkexperienceList());
         return "/cv/lihatCV";
     }
     
