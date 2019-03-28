@@ -143,6 +143,7 @@ public class CVController {
         return "/cv/lihatCV";
     }
 
+    
     /* SAVE and EDIT functions */
     @RequestMapping(value = "/cv/achievementsave", method = RequestMethod.POST)  //@PostMapping("/regionsave")
     public String savee(@RequestParam("sid") String id, @RequestParam("sname") String name) {

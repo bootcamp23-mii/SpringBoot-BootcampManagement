@@ -87,7 +87,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
  */
 @Controller
 public class MainController {
-    
+
     @Autowired
     EmployeeAccessRepository ear;
     @Autowired
@@ -118,7 +118,7 @@ public class MainController {
     VillageDAO daoLV;
     @Autowired
     DistrictDAO daoLD;
-    
+
 //    @Autowired
 //    AchievementDAO adao;
 //    @Autowired
@@ -141,7 +141,6 @@ public class MainController {
 //    EmployeeSkillDAO daoEmpS;
 //    @Autowired
 //    WorkExperienceDAO daoW;
-    
     @Autowired
     private static Logger log = LoggerFactory.getLogger(MainController.class);
     private SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
@@ -159,15 +158,15 @@ public class MainController {
     }
 
     @GetMapping("/*")
-    public String error(){
+    public String error() {
         return "redirect:/error";
     }
-    
+
     @GetMapping("/error")
-    public String errorpage(){
+    public String errorpage() {
         return "/error";
     }
-    
+
     @PostMapping("/login")
 //    @ResponseBody
     public String checkLogin(@RequestParam("idEmp") String id, @RequestParam("passEmp") String password, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
@@ -265,27 +264,21 @@ public class MainController {
         return "/upload";
     }
 
+    //upload foto
     @PostMapping("/uploadFile")
-    public String uploadFile(@RequestParam("file") MultipartFile file) {
-        Employee employee = DBFileStorageService.storeFile(file);
+    public String uploadFile(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
+        Employee employee = DBFileStorageService.storeFile(file, request.getSession().getAttribute("login").toString());
 //
-        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/downloadFile/")
-                .path(employee.getId())
-                .toUriString();
-
-        new UploadFileResponse(employee.getName(), fileDownloadUri,
-                file.getContentType(), file.getSize());
-        return "redirect:/cv";
+//        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+//                .path("/downloadFile/")
+//                .path(employee.getId())
+//                .toUriString();
+//
+//        new UploadFileResponse(employee.getName(), fileDownloadUri,
+//                file.getContentType(), file.getSize());
+        return "redirect:/cv/cv";
     }
 
-//    @PostMapping("/uploadMultipleFiles")
-//    public List<UploadFileResponse> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
-//        return Arrays.asList(files)
-//                .stream()
-//                .map(file -> uploadFile(file))
-//                .collect(Collectors.toList());
-//    }
     @GetMapping("/downloadFile/{fileId}")
     public ResponseEntity<Resource> downloadFile(@PathVariable String fileId) {
         // Load file from database
@@ -297,10 +290,11 @@ public class MainController {
                 .body(new ByteArrayResource(employee.getPhoto()));
     }
 
+    //tampilkanfoto
     @RequestMapping(value = "/lihatFile", method = RequestMethod.GET,
             produces = MediaType.IMAGE_JPEG_VALUE)
-    public ResponseEntity<byte[]> getImage() throws IOException {
-        Employee employee = DBFileStorageService.getFile("14201");
+    public ResponseEntity<byte[]> getImage(HttpServletRequest request) throws IOException {
+        Employee employee = DBFileStorageService.getFile(request.getSession().getAttribute("login").toString());
 
         return ResponseEntity
                 .ok()
@@ -357,8 +351,6 @@ public class MainController {
     }
 //    ENDOF Employee Role
 
-
-
 //    @GetMapping("/cv")
 //    public String cv(Model m) {
 //        m.addAttribute("achievementData", adao.findAll());
@@ -386,7 +378,6 @@ public class MainController {
 //        m.addAttribute("workexpData", daoW.findAll());
 //        return "/cv";
 //    }
-
 //    @RequestMapping(value = "/achievementsave", method = RequestMethod.POST)  //@PostMapping("/regionsave")
 //    public String savee(@RequestParam("sid") String id, @RequestParam("sname") String name) {
 //        adao.save(new Achievement(id, name, new Employee("14201")));
@@ -436,7 +427,6 @@ public class MainController {
 //        cdao.save(new Employeecertification(eid, dateFormat.parse(datec), numc, new Certificate(certificate), new Employee(employee)));
 //        return "redirect:/cv";
 //    }
-
     @GetMapping("/Idcard")
     public String Idcard(Model model) {
         model.addAttribute("idcardData", cardDAO.findAll());
@@ -460,7 +450,7 @@ public class MainController {
         cardDAO.saveIdCard(new Idcard(id, dateFormat.parse(receivedate), dateFormat.parse(returndate), note, new Employee(employee)));
         return "redirect:/Idcard";
     }
-    
+
     @RequestMapping(value = "/idcardDelete", method = RequestMethod.GET)
     public String deletecard(@RequestParam(value = "cardid") String id) {
         cardDAO.deleteIdCardById(id);
@@ -491,13 +481,12 @@ public class MainController {
         eldao.saveEmployeeLocker(new Employeelocker(id, dateFormat.parse(receivedate), dateFormat.parse(returndate), notes, new Locker(locker), new Employee(employee)));
         return "redirect:/Employeelocker";
     }
-    
+
     @RequestMapping(value = "/emplockerDelete", method = RequestMethod.GET)
     public String delete(@RequestParam(value = "empid") String id) {
         eldao.deleteEmployeeLockerById(id);
         return "redirect:/Employeelocker";
     }
-    
 
     @GetMapping("/Employeeaccess")
     public String Employeeaccess(Model model) {
@@ -510,28 +499,27 @@ public class MainController {
         model.addAttribute("empaccessDelete", new Employeeaccess());
         return "/Employeeaccess";
     }
-    
+
     @RequestMapping(value = "/empaccessSave", method = RequestMethod.POST)
-    public String savee (String id, @RequestParam("receivedate") String receivedate, @RequestParam("returndate") String returndate,
+    public String savee(String id, @RequestParam("receivedate") String receivedate, @RequestParam("returndate") String returndate,
             @RequestParam("notes") String notes, @RequestParam("accesscard") String accesscard, @RequestParam("employee") String employee) throws ParseException {
         o.saveEmployeeAccess(new Employeeaccess("id", dateFormat.parse(receivedate), dateFormat.parse(returndate), notes, new Accesscard(accesscard).getAccessnumber(), new Employee(employee)));
         return "redirect:/Employeeaccess";
     }
-    
-    
+
     @RequestMapping(value = "/empaccessEdit", method = RequestMethod.POST)
-    public String editt(@RequestParam("id")String id, @RequestParam("receivedate") String receivedate, @RequestParam("returndate") String returndate,
+    public String editt(@RequestParam("id") String id, @RequestParam("receivedate") String receivedate, @RequestParam("returndate") String returndate,
             @RequestParam("notes") String notes, @RequestParam("accesscard") String accesscard, @RequestParam("employee") String employee) throws ParseException {
         o.saveEmployeeAccess(new Employeeaccess(id, dateFormat.parse(receivedate), dateFormat.parse(returndate), notes, new Accesscard(accesscard).getAccessnumber(), new Employee(employee)));
         return "redirect:/Employeeaccess";
     }
-    
+
     @RequestMapping(value = "/empaccessDelete", method = RequestMethod.GET)
     public String deletee(@RequestParam(value = "epcid") String id) {
         o.deleteEmployeeAccessById(id);
         return "redirect:/Employeeaccess";
     }
-    
+
     @GetMapping("/Placement")
     public String Placement(Model model) {
         model.addAttribute("placeData", pdao.findAll());
@@ -550,20 +538,19 @@ public class MainController {
         return "redirect:/Placement";
     }
 
-    
     @RequestMapping(value = "/placeEdit", method = RequestMethod.POST)
     public String edit(@RequestParam("id") String id, @RequestParam("description") String description, @RequestParam("address") String address, @RequestParam("department") String department,
             @RequestParam("startdate") String startdate, @RequestParam("finishdate") String finishdate, @RequestParam("company") String company, @RequestParam("employee") String employee) throws ParseException {
         pdao.savePlacement(new Placement(id, description, address, department, dateFormat.parse(startdate), dateFormat.parse(finishdate), new Company(company), new Employee(employee)));
         return "redirect:/Placement";
     }
-    
+
     @RequestMapping(value = "/placeDelete", method = RequestMethod.GET)
     public String deletepla(@RequestParam(value = "pladid") String id) {
         pdao.deletePlacementById(id);
         return "redirect:/Placement";
     }
-    
+
 //    @RequestMapping(value = "/achievementdelete", method = RequestMethod.GET)
 //    public String deleteach(@RequestParam(value = "achid") String id) {
 //        adao.delete(id);
@@ -587,9 +574,6 @@ public class MainController {
 //        edao.delete(id);
 //        return "redirect:/cv";
 //    }
-    
-   
-
 //    @GetMapping("/lihatcv")
 //    public String lihatcv(Model mod) {
 //        mod.addAttribute("employee", daoEmp.findById("14201"));

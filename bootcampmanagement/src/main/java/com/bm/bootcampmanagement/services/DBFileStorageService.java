@@ -29,7 +29,7 @@ public class DBFileStorageService {
     @Autowired
     private DBRepository dbr;
 
-    public Employee storeFile(MultipartFile file) {
+    public Employee storeFile(MultipartFile file, String id) {
         // Normalize file name
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 
@@ -38,7 +38,7 @@ public class DBFileStorageService {
             if (fileName.contains("..")) {
                 throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
             }
-            Employee e = dbr.findById("14201").get();
+            Employee e = dbr.findById(id).get();
             Employee employee = new Employee(e.getId(), e.getName(), e.getBirthdate(), e.getGender(), e.getMarriedstatus(), e.getAddress(), e.getEmail(), e.getPhone(), e.getOnboarddate(),
             e.getPassword(), e.getSecurityqestion(), e.getSecurityanswer(), file.getBytes(), e.getIsdeleted(), new District(e.getBirthplace().getId()), new District(e.getHiringlocation().getId()), new Religion(e.getReligion().getId()),
             new Village(e.getVillage().getId()));
