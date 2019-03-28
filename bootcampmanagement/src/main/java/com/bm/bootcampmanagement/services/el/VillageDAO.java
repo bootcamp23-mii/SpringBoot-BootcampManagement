@@ -35,5 +35,10 @@ public class VillageDAO implements VillageDAOInterface{
     public void deleteVillageById(String id) {
        vr.deleteById(id);
     }
+
+    @Override
+    public Village findById(String id) {
+        return vr.findById(id).get();
+    }
     
 }

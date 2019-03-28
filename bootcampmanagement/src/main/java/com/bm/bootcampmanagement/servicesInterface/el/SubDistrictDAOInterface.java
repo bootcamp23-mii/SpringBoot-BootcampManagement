@@ -17,4 +17,5 @@ public interface SubDistrictDAOInterface {
     Iterable<Subdistrict> findAll();
     Subdistrict saveSubdistrict(Subdistrict subdistrict);
     void deleteSubdistrictById(String id);
+    public Subdistrict findById(String id);
 }

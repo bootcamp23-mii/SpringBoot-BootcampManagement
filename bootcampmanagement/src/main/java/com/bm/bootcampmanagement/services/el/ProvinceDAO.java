@@ -36,4 +36,9 @@ public class ProvinceDAO implements ProvinceDAOInterface{
         pr.deleteById(id);
     }
     
+    @Override
+    public Province findById(String id) {
+        return pr.findById(id).get();
+    }
+    
 }

@@ -17,4 +17,5 @@ public interface VillageDAOInterface {
     Iterable<Village> findAll();
     Village saveVillage(Village village);
     void deleteVillageById(String id);
+    public Village findById(String id);
 }

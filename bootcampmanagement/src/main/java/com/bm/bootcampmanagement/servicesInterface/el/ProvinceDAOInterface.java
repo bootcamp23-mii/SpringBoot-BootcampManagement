@@ -17,4 +17,5 @@ public interface ProvinceDAOInterface {
     Iterable<Province> findAll();
     Province saveProvince(Province province);
     void deleteProvinceById(String id);
+    public Province findById(String id);
 }

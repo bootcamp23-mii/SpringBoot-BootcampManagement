@@ -17,4 +17,5 @@ public interface DistrictDAOInterface {
     Iterable<District> findAll();
     District saveDistrict(District district);
     void deleteDistrictById(String id);
+    public District findById(String id);
 }

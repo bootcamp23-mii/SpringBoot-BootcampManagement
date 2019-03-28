@@ -16,15 +16,19 @@ import com.bm.bootcampmanagement.entities.Organization;
 import com.bm.bootcampmanagement.services.EmployeeDAO;
 import com.bm.bootcampmanagement.services.cv.AchievementDAO;
 import com.bm.bootcampmanagement.services.cv.CertificateDAO;
+import com.bm.bootcampmanagement.services.cv.DegreeDAO;
 import com.bm.bootcampmanagement.services.cv.EducationDAO;
 import com.bm.bootcampmanagement.services.cv.EducationHistoryDAO;
 import com.bm.bootcampmanagement.services.cv.EmployeeCertificationDAO;
 import com.bm.bootcampmanagement.services.cv.EmployeeLanguageDAO;
 import com.bm.bootcampmanagement.services.cv.EmployeeSkillDAO;
 import com.bm.bootcampmanagement.services.cv.LanguageDAO;
+import com.bm.bootcampmanagement.services.cv.MajorDAO;
 import com.bm.bootcampmanagement.services.cv.OrganizationDAO;
 import com.bm.bootcampmanagement.services.cv.SkillDAO;
+import com.bm.bootcampmanagement.services.cv.UniversityDAO;
 import com.bm.bootcampmanagement.services.cv.WorkExperienceDAO;
+import com.bm.bootcampmanagement.services.el.ProvinceDAO;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import javax.servlet.http.HttpServletRequest;
@@ -42,44 +46,55 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Controller
 public class CVController {
-    
+
     @Autowired
     EmployeeDAO daoEmp;
-    
+
     @Autowired
     AchievementDAO adao;
-    
+
     @Autowired
     OrganizationDAO odao;
-    
+
     @Autowired
     EducationHistoryDAO edao;
-    
+
     @Autowired
     EducationDAO eddao;
-    
+
     @Autowired
     CertificateDAO cedao;
-    
+
     @Autowired
     EmployeeCertificationDAO cdao;
-    
+
     @Autowired
     LanguageDAO daoL;
-    
+
     @Autowired
     EmployeeLanguageDAO daoEmpL;
     
     @Autowired
+    ProvinceDAO daoLP;
+
+    @Autowired
     SkillDAO daoS;
-    
+
     @Autowired
     EmployeeSkillDAO daoEmpS;
-    
+
     @Autowired
     WorkExperienceDAO daoW;
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");    
-    
+
+    @Autowired
+    UniversityDAO udao;
+    @Autowired
+    MajorDAO mdao;
+    @Autowired
+    DegreeDAO ddao;
+
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
     @GetMapping("/cv/cv")
     public String cv(Model m) {
         m.addAttribute("achievementData", adao.findAll());
@@ -106,9 +121,14 @@ public class CVController {
         m.addAttribute("empskillData", daoEmpS.findAll());
         m.addAttribute("empskillsave", new Employeeskill());
         m.addAttribute("workexpData", daoW.findAll());
+        m.addAttribute("university", udao.findAll());
+        m.addAttribute("major", mdao.findAll());
+        m.addAttribute("degree", ddao.findAll());
+        m.addAttribute("province", daoLP.findAll());
+        m.addAttribute("district", daoLP.findById("LP1").getDistrictList());
         return "/cv/cv";
     }
-    
+
     @GetMapping("/cv/lihatcv")
     public String lihatcv(Model mod, HttpServletRequest request) {
         String empID = request.getSession().getAttribute("login").toString();
@@ -122,7 +142,7 @@ public class CVController {
         mod.addAttribute("workexperienceData", daoEmp.findById(empID).getWorkexperienceList());
         return "/cv/lihatCV";
     }
-    
+
     /* SAVE and EDIT functions */
     @RequestMapping(value = "/cv/achievementsave", method = RequestMethod.POST)  //@PostMapping("/regionsave")
     public String savee(@RequestParam("sid") String id, @RequestParam("sname") String name) {
@@ -173,7 +193,7 @@ public class CVController {
         cdao.save(new Employeecertification(eid, dateFormat.parse(datec), numc, new Certificate(certificate), new Employee(employee)));
         return "redirect:/cv/cv";
     }
-    
+
     @RequestMapping(value = "/cv/languagesave", method = RequestMethod.POST)  //@PostMapping("/regionsave")
     public String savelang(@RequestParam("gpa") String gpa, @RequestParam("education") String education) {
 //        edao.save(new Educationhistory("id", gpa, new Education(education), new Employee("14201")));
@@ -185,7 +205,7 @@ public class CVController {
 //        edao.save(new Educationhistory(ide, gpae, new Education(educatione), new Employee("14201")));
         return "redirect:/cv/cv";
     }
-    
+
     @RequestMapping(value = "/cv/skillsave", method = RequestMethod.POST)  //@PostMapping("/regionsave")
     public String saveskill(@RequestParam("gpa") String gpa, @RequestParam("education") String education) {
 //        edao.save(new Educationhistory("id", gpa, new Education(education), new Employee("14201")));
@@ -197,7 +217,7 @@ public class CVController {
 //        edao.save(new Educationhistory(ide, gpae, new Education(educatione), new Employee("14201")));
         return "redirect:/cv/cv";
     }
-    
+
     @RequestMapping(value = "/cv/workexpsave", method = RequestMethod.POST)  //@PostMapping("/regionsave")
     public String saveworkexp(@RequestParam("gpa") String gpa, @RequestParam("education") String education) {
 //        edao.save(new Educationhistory("id", gpa, new Education(education), new Employee("14201")));
@@ -209,15 +229,14 @@ public class CVController {
 //        edao.save(new Educationhistory(ide, gpae, new Education(educatione), new Employee("14201")));
         return "redirect:/cv/cv";
     }
-    
-    
+
     /*   DELETE functions   */
     @RequestMapping(value = "/cv/achievementdelete", method = RequestMethod.GET)
     public String deleteach(@RequestParam(value = "achid") String id) {
         adao.delete(id);
         return "redirect:/cv/cv";
     }
-    
+
     @RequestMapping(value = "/cv/organizationdelete", method = RequestMethod.GET)
     public String deleteorg(@RequestParam(value = "orgid") String id) {
         odao.delete(id);
@@ -235,7 +254,7 @@ public class CVController {
         edao.delete(id);
         return "redirect:/cv/cv";
     }
-    
+
     @RequestMapping(value = "/cv/languagedelete", method = RequestMethod.GET)
     public String deletelang(@RequestParam(value = "langid") String id) {
         daoL.delete(id);
@@ -253,5 +272,5 @@ public class CVController {
         daoW.delete(id);
         return "redirect:/cv/cv";
     }
-    
+
 }

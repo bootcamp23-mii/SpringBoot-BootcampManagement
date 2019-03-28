@@ -16,11 +16,11 @@ import org.springframework.stereotype.Service;
  * @author Firsta
  */
 @Service
-public class SubDistrictDAO implements SubDistrictDAOInterface{
+public class SubDistrictDAO implements SubDistrictDAOInterface {
 
     @Autowired
     SubDistrictRepository sdr;
-    
+
     @Override
     public Iterable<Subdistrict> findAll() {
         return sdr.findAll();
@@ -35,5 +35,10 @@ public class SubDistrictDAO implements SubDistrictDAOInterface{
     public void deleteSubdistrictById(String id) {
         sdr.deleteById(id);
     }
-    
+
+    @Override
+    public Subdistrict findById(String id) {
+        return sdr.findById(id).get();
+    }
+
 }

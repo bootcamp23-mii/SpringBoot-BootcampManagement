@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
  * @author Firsta
  */
 @Service
+
 public class DistrictDAO implements DistrictDAOInterface{
     
     @Autowired
@@ -34,6 +35,11 @@ public class DistrictDAO implements DistrictDAOInterface{
     @Override
     public void deleteDistrictById(String id) {
         dr.deleteById(id);
+    }
+
+    @Override
+    public District findById(String id) {
+        return dr.findById(id).get();
     }
     
 }
