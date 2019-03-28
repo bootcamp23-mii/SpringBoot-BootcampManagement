@@ -143,7 +143,7 @@ public class MainController {
 //    WorkExperienceDAO daoW;
     @Autowired
     private static Logger log = LoggerFactory.getLogger(MainController.class);
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 //    private SimpleDateFormat dateFormatuci = new SimpleDateFormat("yyyy-MM-dd");
 
     @Autowired

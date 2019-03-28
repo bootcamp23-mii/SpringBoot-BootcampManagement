@@ -32,35 +32,127 @@
                     <div class="sidebar-sticky">
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <a class="nav-link" th:href="@{/cv/cv}">
+                                <a class="nav-link collapsed" href="#subCv" data-toggle="collapse">
                                     <span data-feather="file-text"></span>
                                     CV <span class="sr-only"></span>
                                 </a>
+                                <div id="subCv" class="collapse">
+                                    <ul class="nav-nav">
+                                        <li class="nav-item">
+                                            <a class="nav-link" th:href="@{/cv/cv}">
+                                                <span data-feather="edit"></span>
+                                                Edit CV <span class="sr-only"></span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" th:href="@{/cv/lihatcv}">
+                                                <span data-feather="file-text"></span>
+                                                View CV <span class="sr-only"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" th:href="@{/bm/bm}">
-                                    <span data-feather="user"></span>
-                                    Trainer <span class="sr-only"></span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" th:href="@{/Idcard}">
-                                    <span data-feather="key"></span>
-                                    Equipment <span class="sr-only"></span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" th:href="@{/employeerole}">
-                                    <span data-feather="users"></span>
-                                    Employee Role <span class="sr-only"></span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" th:href="@{#}">
-                                    <span data-feather="user-plus"></span>
-                                    Registration <span class="sr-only">(current)</span>
-                                </a>
-                            </li>
+                            <div th:if="${session.istrainer!=null}">
+                                <li class="nav-item">
+                                    <a class="nav-link collapsed" href="#subTrainer" data-toggle="collapse">
+                                        <span data-feather="user"></span>
+                                        Trainer <span class="sr-only"></span>
+                                    </a>
+                                    <div id="subTrainer" class="collapse ">
+                                        <ul class="nav-item">
+                                            <li class="nav-item">
+                                                <a class="nav-link" th:href="@{/bm/batchclass}">
+                                                    <span data-feather="grid"></span>
+                                                    Batch Class <span class="sr-only"></span>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" th:href="@{/bm/errorbank}">
+                                                    <span data-feather="clipboard"></span>
+                                                    ErrorBank <span class="sr-only"></span>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" th:href="@{/bm/evaluation}">
+                                                    <span data-feather="check-square"></span>
+                                                    Evaluation <span class="sr-only"></span>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" th:href="@{/bm/participant}">
+                                                    <span data-feather="users"></span>
+                                                    Participant <span class="sr-only"></span>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" th:href="@{/bm/report}">
+                                                    <span data-feather="file-text"></span>
+                                                    Report <span class="sr-only"></span>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" th:href="@{/el/Placement}">
+                                                    <span data-feather="map-pin"></span>
+                                                    Placement <span class="sr-only"></span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link collapsed" href="#subEquipment" data-toggle="collapse">
+                                        <span data-feather="key"></span>
+                                        Equipment <span class="sr-only"></span>
+                                    </a>
+                                    <div id="subEquipment" class="collapse ">
+                                        <ul class="nav-item">
+                                            <li class="nav-item">
+                                                <a class="nav-link" th:href="@{/el/Idcard}">
+                                                    <span data-feather="user"></span>
+                                                    Id Card <span class="sr-only"></span>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" th:href="@{/el/Employeeaccess}">
+                                                    <span data-feather="smartphone"></span>
+                                                    Employee Access Card <span class="sr-only"></span>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" th:href="@{/el/Employeelocker}">
+                                                    <span data-feather="key"></span>
+                                                    Employee Locker <span class="sr-only"></span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </div>
+                            <div th:if="${session.isadmin!=null}">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#subAdmin"  data-toggle="collapse">
+                                        <span data-feather="key"></span>
+                                        Admin <span class="sr-only"></span>
+                                    </a>
+                                    <div id="subAdmin" class="collapse show">
+                                        <ul class="nav-item">
+                                            <li class="nav-item">
+                                                <a class="nav-link" th:href="@{/employeerole}">
+                                                    <span data-feather="users"></span>
+                                                    Employee Role <span class="sr-only"></span>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link active" th:href="@{#}">
+                                                    <span data-feather="user-plus"></span>
+                                                    Registration <span class="sr-only">(current)</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </div>
                         </ul>
                     </div>
                 </nav>
