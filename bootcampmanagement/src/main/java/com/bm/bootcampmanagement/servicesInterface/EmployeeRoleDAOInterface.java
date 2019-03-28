@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.bm.bootcampmanagement.servicesInterface.cv;
+package com.bm.bootcampmanagement.servicesInterface;
 
 import com.bm.bootcampmanagement.entities.Employeerole;
 

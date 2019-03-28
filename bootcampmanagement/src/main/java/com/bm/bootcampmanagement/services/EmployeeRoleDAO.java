@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.bm.bootcampmanagement.services.cv;
+package com.bm.bootcampmanagement.services;
 
 import com.bm.bootcampmanagement.entities.Employeerole;
 import com.bm.bootcampmanagement.repository.cv.EmployeeRoleRepository;
-import com.bm.bootcampmanagement.servicesInterface.cv.EmployeeRoleDAOInterface;
+import com.bm.bootcampmanagement.servicesInterface.EmployeeRoleDAOInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

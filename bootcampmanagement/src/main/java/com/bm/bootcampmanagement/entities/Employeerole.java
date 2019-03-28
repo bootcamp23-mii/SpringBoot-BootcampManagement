@@ -60,6 +60,24 @@ public class Employeerole implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     private Employee employee;
 
+    public Employeerole(String id, Date startdate, Date enddate, Role role, Employee employee) {
+        this.id = id;
+        this.startdate = startdate;
+        this.enddate = enddate;
+        this.role = role;
+        this.employee = employee;
+    }
+
+    
+    public Employeerole(String id, Date startdate, Date enddate, Short isdeleted, Role role, Employee employee) {
+        this.id = id;
+        this.startdate = startdate;
+        this.enddate = enddate;
+        this.isdeleted = isdeleted;
+        this.role = role;
+        this.employee = employee;
+    }
+
     public Employeerole() {
     }
 
