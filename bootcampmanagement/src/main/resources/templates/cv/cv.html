@@ -74,7 +74,7 @@
                         <h3>Achievement</h3>
                         <div class="row" style="padding: 10px 0 10px 0">
                             <div class="col-sm-6">
-                                <button data-target="#mdlAdd" data-toggle="modal" class="btn btn-default">Add Data</button>
+                                <button data-target="#mdlAdd" data-toggle="modal" class="btn btn-info">Add Data</button>
                             </div>
                         </div>
                         <table id="cvAchievement" class="table table-bordered table-striped" style="width: 100%">
@@ -94,8 +94,8 @@
                                         <button data-target="#mdlEditAch" data-toggle="modal" th:data-getsid="${as.id}" 
                                                 th:data-getsname="${as.name}"
                                                 th:data-getsemployee="${as.employee.id}"
-                                                class="btn btn-warning">Edit</button>
-                                        <a th:href="@{/cv/achievementdelete(achid=${as.id})}"><button value="" class="btn btn-danger">Delete</button></a></td>
+                                                class="btn btn-warning"><span data-feather="edit"></span></button>
+                                        <a th:href="@{/cv/achievementdelete(achid=${as.id})}"><button value="" class="btn btn-danger"><span data-feather="trash"></span></button></a></td>
                                     </td>
                                 </tr>
                             </tbody>
@@ -106,7 +106,7 @@
                         <h4>Education</h4>
                         <div class="row" style="padding: 10px 0 10px 0">
                             <div class="col-sm-6">
-                                <button data-target="#mdledu" data-toggle="modal" class="btn btn-default">Add Data</button>
+                                <button data-target="#mdledu" data-toggle="modal" class="btn btn-info">Add Data</button>
                             </div>
                         </div>
                         <table id="cvEducation" class="table table-bordered table-striped" style="width: 100%">
@@ -130,8 +130,8 @@
                                         <button data-target="#mdlEditEdu" data-toggle="modal" th:data-getid="${es.id}" 
                                                 th:data-getgpa="${es.gpa}"
                                                 th:data-getuniv="${es.education.id}"
-                                                class="btn btn-warning">Edit</button>
-                                        <a th:href="@{/cv/educationdelete(eduid=${es.id})}"><button value="" class="btn btn-danger">Delete</button></a></td>
+                                                class="btn btn-warning"><span data-feather="edit"></span></button>
+                                        <a th:href="@{/cv/educationdelete(eduid=${es.id})}"><button value="" class="btn btn-danger"><span data-feather="trash"></span></button></a></td>
                                     </td>
                                 </tr>
                             </tbody>
@@ -141,7 +141,7 @@
                         <h4>Organization</h4>
                         <div class="row" style="padding: 10px 0 10px 0">
                             <div class="col-sm-6">
-                                <button data-target="#mdlAddorg" data-toggle="modal" class="btn btn-default">Add Data</button>
+                                <button data-target="#mdlAddorg" data-toggle="modal" class="btn btn-info">Add Data</button>
                             </div>
                         </div>
                         <table id="cvOrganization" class="table table-bordered table-striped" style="width: 100%">
@@ -166,8 +166,8 @@
                                                 th:data-getoposition="${os.position}"
                                                 th:data-getoperiode="${os.period}"
                                                 th:data-getoemployee="${os.employee.id}"
-                                                class="btn btn-warning">Edit</button>
-                                        <a th:href="@{/cv/organizationdelete(orgid=${os.id})}"><button value="" class="btn btn-danger">Delete</button></a></td>
+                                                class="btn btn-warning"><span data-feather="edit"></span></button>
+                                        <a th:href="@{/cv/organizationdelete(orgid=${os.id})}"><button value="" class="btn btn-danger"><span data-feather="trash"></span></button></a></td>
                                     </td>
                                 </tr>
                             </tbody>
@@ -178,7 +178,7 @@
                         <h4>Certificate</h4>
                         <div class="row" style="padding: 10px 0 10px 0">
                             <div class="col-sm-6">
-                                <button data-target="#mdlcert" data-toggle="modal" class="btn btn-default">Add Data</button>
+                                <button data-target="#mdlcert" data-toggle="modal" class="btn btn-info">Add Data</button>
                             </div>
                         </div>
                         <table id="cvCertificate" class="table table-bordered table-striped" style="width: 100%">
@@ -203,8 +203,8 @@
                                                 th:data-getcertnum="${cs.certificateNumber}"
                                                 th:data-getecertificate="${cs.certificate.id}"
                                                 th:data-getemployee="${cs.employee.id}"
-                                                class="btn btn-warning">Edit</button>
-                                        <a th:href="@{/cv/certificatedelete(certid=${cs.id})}"><button value="" class="btn btn-danger">Delete</button></a></td>
+                                                class="btn btn-warning"><span data-feather="edit"></span></button>
+                                        <a th:href="@{/cv/certificatedelete(certid=${cs.id})}"><button value="" class="btn btn-danger"><span data-feather="trash"></span></button></a></td>
                                     </td>
                                 </tr>
                             </tbody>
@@ -214,7 +214,7 @@
                         <h4>Language</h4>
                         <div class="row" style="padding: 10px 0 10px 0;">
                             <div class="col-sm-6">
-                                <button data-target="#modalAddlang" data-toggle="modal" class="btn btn-warning">Add Data</button>
+                                <button data-target="#modalAddlang" data-toggle="modal" class="btn btn-info">Add Data</button>
                             </div>
                         </div>
                         <table id="cvLanguage" class="table table-bordered table-striped" style="width: 100%">
@@ -239,12 +239,10 @@
                                     <td th:text="${el.score}"></td>
                                     <td th:text="${el.isactive}"></td>
                                     <td>
-                                        <button data-target="#modalEditlang" data-toggle="modal" th:data-getid="${el.id}"
-                                                class="btn btn-outline-info" >
-                                            Edit </button>
+                                        <span data-feather="edit"><button data-target="#modalEditlang" data-toggle="modal" th:data-getid="${el.id}"
+                                                class="btn btn-warning" ><span data-feather="edit"></span></span></button>
                                         <button data-target="#modalDeletelang" data-toggle="modal" th:data-getid="${el.id}"
-                                                class="btn btn-outline-danger" >
-                                            Delete</button>
+                                                class="btn btn-danger" ><span data-feather="trash"></span></button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -254,7 +252,7 @@
                         <h4>Skill</h4>
                         <div class="row" style="padding: 10px 0 10px 0;">
                             <div class="col-sm-6">
-                                <button data-target="#modalAddskill" data-toggle="modal" class="btn btn-warning">Add Data</button>
+                                <button data-target="#modalAddskill" data-toggle="modal" class="btn btn-info">Add Data</button>
                             </div>
                         </div>
                         <table id="cvSkill" class="table table-bordered table-striped" style="width: 100%">
@@ -278,11 +276,9 @@
                                     <td th:text="${es.score}"></td>
                                     <td>
                                         <button data-target="#modalEditskill" data-toggle="modal" th:data-getid="${es.id}"
-                                                class="btn btn-outline-info" >
-                                            Edit </button>
+                                                class="btn btn-warning" ><span data-feather="edit"></span></button>
                                         <button data-target="#modalDeleteskill" data-toggle="modal" th:data-getid="${es.id}"
-                                                class="btn btn-outline-danger" >
-                                            Delete</button>
+                                                class="btn btn-danger" ><span data-feather="trash"></span></button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -292,7 +288,7 @@
                         <h4>Work Experience</h4>
                         <div class="row" style="padding: 10px 0 10px 0;">
                             <div class="col-sm-6">
-                                <button data-target="#modalAddwork" data-toggle="modal" class="btn btn-warning">Add Data</button>
+                                <button data-target="#modalAddwork" data-toggle="modal" class="btn btn-info">Add Data</button>
                             </div>
                         </div>
                         <table id="cvWorkexperience" class="table table-bordered table-striped" style="width: 100%">
@@ -322,11 +318,9 @@
                                     <td th:text="${we.enddate}"></td>
                                     <td>
                                         <button data-target="#modalEditwork" data-toggle="modal" th:data-getid="${we.id}"
-                                                class="btn btn-outline-info" >
-                                            Edit </button>
+                                                class="btn btn-outline-info" ><span data-feather="edit"></span></button>
                                         <button data-target="#modalDeletework" data-toggle="modal" th:data-getid="${we.id}"
-                                                class="btn btn-outline-danger" >
-                                            Delete</button>
+                                                class="btn btn-outline-danger" ><span data-feather="trash"></span></button>
                                     </td>
                                 </tr>
                             </tbody>
