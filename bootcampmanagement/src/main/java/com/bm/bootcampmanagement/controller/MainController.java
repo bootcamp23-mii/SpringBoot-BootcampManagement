@@ -177,7 +177,6 @@ public class MainController {
                 Iterable<Batchclass> batchclasses = daoBC.findAll();
                 for (Batchclass data : batchclasses) {
                     if (data.getTrainer().getId().equals(id)) {
-                        System.out.println("masuk");
                         session.setAttribute("istrainer", id);
                     }
                 }

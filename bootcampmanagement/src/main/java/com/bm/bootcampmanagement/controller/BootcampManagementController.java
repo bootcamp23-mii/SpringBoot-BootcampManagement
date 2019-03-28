@@ -55,6 +55,11 @@ public class BootcampManagementController {
     private SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
     private SimpleDateFormat dateFormatOut = new SimpleDateFormat("yyyy-MM-dd");
 
+    @GetMapping("/bm/*")
+    public String error(){
+        return "redirect:/error";
+    }
+    
     @GetMapping("/bm/bm")
     public String bm(){
         return "/bm/bm";
