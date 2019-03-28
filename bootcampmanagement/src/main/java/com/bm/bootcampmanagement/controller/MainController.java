@@ -102,8 +102,7 @@ public class MainController {
     VillageDAO daoLV;
     @Autowired
     DistrictDAO daoLD;
-    
-    
+
     @Autowired
     private static Logger log = LoggerFactory.getLogger(MainController.class);
     private SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
@@ -175,13 +174,23 @@ public class MainController {
     }
 
     @GetMapping("/activation")
-    public String activation(@RequestParam("id") String id, @RequestParam("ca") String password) {
+    public String activation(@RequestParam("id") String id, @RequestParam("ca") String password,Model model) {
         Employee emp = daoEmp.findById(id);
         if (password.equalsIgnoreCase(emp.getPassword())) {
             emp.setIsdeleted(new Short("0"));
             daoEmp.save(emp);
-        }
-        return "/dashboard";
+            model.addAttribute("idemp", id);
+        }else
+            return "redirect:/error";
+        return "/activation";
+    }
+
+    @PostMapping("/newpassword")
+    public String newpassString(@RequestParam("idemp")String id, @RequestParam("newpass")String pass) {
+        Employee emp = daoEmp.findById(id);
+        emp.setPassword(BCrypt.hashpw(pass, BCrypt.gensalt()));
+        daoEmp.save(emp);
+        return "redirect:/logout";
     }
 
     @GetMapping("/registration")
@@ -292,9 +301,9 @@ public class MainController {
 
     @RequestMapping(value = "/emprolesave", method = RequestMethod.POST) //@PostMapping("/regionsave")
     public String saveEmployeerole(
-            @RequestParam("ername") String ername, 
-            @RequestParam("errole") String errole, 
-            @RequestParam("erstartdate") String erstartdate, 
+            @RequestParam("ername") String ername,
+            @RequestParam("errole") String errole,
+            @RequestParam("erstartdate") String erstartdate,
             @RequestParam("erenddate") String erenddate) {
 //        daoEmpR.save(new Employeerole("id", dateFormat.parse(erstartdate), dateFormat.parse(erenddate), Short.MIN_VALUE, errole, employee));
         return "redirect:/employeerole";
@@ -304,8 +313,7 @@ public class MainController {
     public String editEmployeerole(@ModelAttribute("emproleedit") Employeerole employeerole) {
         daoEmpR.save(employeerole);
         return "redirect:/employeerole";
-        
-    
+
     }
 
     @GetMapping("/deleteEmpRole/{id}")
@@ -322,7 +330,6 @@ public class MainController {
         return "redirect:/employeerole";
     }
 //    ENDOF Employee Role
-
 
 //    @RequestMapping(value = "/achievementdelete", method = RequestMethod.GET)
 //    public String deleteach(@RequestParam(value = "achid") String id) {

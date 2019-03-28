@@ -193,7 +193,7 @@ and open the template in the editor.
                                     <td th:text="${data.description}"></td>
                                     <td th:text="${data.solution}"></td>
                                     <td th:text="${data.classes.id}"></td>
-                                    <td th:text="${data.submitdate}"></td>
+                                    <td th:text="${#dates.format(data.submitdate, 'dd-MM-yyyy')}"></td>
                                     <td th:text="${data.employee.id}"></td>
                                     <td>
                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalForm" 

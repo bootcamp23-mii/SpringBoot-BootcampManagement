@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <meta name="description" content=""/>
+        <meta name="author" content=""/>
+        <!--Local css dan js semua pake th, @, dan {} dan / untuk single -->
+        <link rel="icon" th:href="@{../dist/img/favicons/favicon.ico}"/>
+
+        <title>MII Bootcamp Management</title>
+
+        <!--JQuery-->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+        <!-- Bootstrap core CSS -->
+        <link th:href="@{../dist/css/bootstrap.min.css}" rel="stylesheet"/>
+
+        <!-- Custom styles for this template -->
+        <link th:href="@{../dist/css/dashboard.css}" rel="stylesheet"/>
+
+        <!--Datatable-->
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jqc-1.12.4/dt-1.10.18/datatables.min.css"/>
+        <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jqc-1.12.4/dt-1.10.18/datatables.min.js"></script>
+    </head>
+    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+        <a class="navbar-brand col-sm-3 col-md-2 mr-0" th:href="@{/dashboard}">Bootcamp Management</a>
+        <ul class="navbar-nav px-3">
+            <li class="nav-item text-nowrap">
+                <a class="nav-link" th:href="@{/logout}">Sign out</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Dashboard</h1>
+                </div>
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom">
+                    <h1 class="h2">Register</h1>
+                </div>
+                <!-- Content -->
+                <!--Registration form-->
+                <form name="form-register" th:action="@{/newpassword}" method="POST">
+                    <input type="hidden" id="idemp" name="idemp" th:value="${idemp}">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="password" class="form-control" id="newpass" name="newpass" value=""/>
+                        </div>
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="password" class="form-control" id="newpassconfirmation" name="newpassconfirmation" value=""/>
+                        </div>
+                        <button type="submit" class="btn btn-default" value="submit" onclick="return validate()">Save</button>
+                    </div>
+                </form>
+
+                <!-- Content -->
+
+                <!-- /.End Content -->
+            </main>
+        </div>
+    </div>
+    <script type="text/javascript">
+        function validate() {
+            var password = document.getElementById("newpass").value;
+            var confirmPassword = document.getElementById("newpassconfirmation").value;
+            if (password != confirmPassword) {
+                alert("Passwords do not match.");
+                return false;
+            }
+            return true;
+        }
+    </script>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    
+    <!--    <script>window.jQuery || document.write('<script th:src="@{dist/js/jquery-slim.min.js}"><\/script>')</script>-->
+    <script th:src="@{dist/js/popper.min.js}"></script>
+    <script th:src="@{dist/js/bootstrap.min.js}"></script>
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+
+    <script>
+        feather.replace();
+    </script>
+    <script>
+        $(function () {
+            $('.editModal').click(function ()
+            {
+                var $row = $(this).closest("tr"), $tds = $row.find("td");
+                $('#id').val($row.find('td:eq(0)').text());
+                document.getElementById('rid').value = $row.find('td:eq(0)').text();
+                document.getElementById('rname').value = $row.find('td:eq(1)').text();
+            });
+        });
+    </script>
+    <script  type="text/javascript">
+        function setEdit(id, name)
+        {
+            document.getElementById('rid').value = id;
+            document.getElementById('rname').value = name;
+        }
+    </script>
+</body>
+</html>
