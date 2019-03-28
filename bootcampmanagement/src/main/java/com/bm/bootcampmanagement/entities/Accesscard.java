@@ -6,16 +6,20 @@
 package com.bm.bootcampmanagement.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -42,6 +46,8 @@ public class Accesscard implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "accessnumber")
     private String accessnumber;
+    @OneToMany(mappedBy = "accesscard", fetch = FetchType.LAZY)
+    private List<Employeeaccess> employeeaccessList;
 
     public Accesscard() {
     }
@@ -70,6 +76,15 @@ public class Accesscard implements Serializable {
     public void setAccessnumber(String accessnumber) {
         this.accessnumber = accessnumber;
     }
+    
+    @XmlTransient
+    public List<Employeeaccess> getEmployeeAccessList() {
+        return employeeaccessList;
+    }
+
+    public void setEmployeeAccessList(List<Employeeaccess> employeeaccessList) {
+        this.employeeaccessList = employeeaccessList;
+}
 
     @Override
     public int hashCode() {
@@ -95,5 +110,5 @@ public class Accesscard implements Serializable {
     public String toString() {
         return "com.bm.bootcampmanagement.entities.Accesscard[ id=" + id + " ]";
     }
-    
+
 }

@@ -35,8 +35,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Employeeaccess.findAll", query = "SELECT e FROM Employeeaccess e")
     , @NamedQuery(name = "Employeeaccess.findById", query = "SELECT e FROM Employeeaccess e WHERE e.id = :id")
     , @NamedQuery(name = "Employeeaccess.findByReceivedate", query = "SELECT e FROM Employeeaccess e WHERE e.receivedate = :receivedate")
-    , @NamedQuery(name = "Employeeaccess.findByReturndate", query = "SELECT e FROM Employeeaccess e WHERE e.returndate = :returndate")
-    , @NamedQuery(name = "Employeeaccess.findByAccesscard", query = "SELECT e FROM Employeeaccess e WHERE e.accesscard = :accesscard")})
+    , @NamedQuery(name = "Employeeaccess.findByReturndate", query = "SELECT e FROM Employeeaccess e WHERE e.returndate = :returndate")})
 public class Employeeaccess implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -58,9 +57,9 @@ public class Employeeaccess implements Serializable {
     @Size(max = 2147483647)
     @Column(name = "notes")
     private String notes;
-    @Size(max = 10)
-    @Column(name = "accesscard")
-    private String accesscard;
+    @JoinColumn(name = "accesscard", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Accesscard accesscard;
     @JoinColumn(name = "employee", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Employee employee;
@@ -77,7 +76,7 @@ public class Employeeaccess implements Serializable {
         this.receivedate = receivedate;
     }
 
-    public Employeeaccess(String id, Date receivedate, Date returndate, String notes, String accesscard, Employee employee) {
+    public Employeeaccess(String id, Date receivedate, Date returndate, String notes, Accesscard accesscard, Employee employee) {
         this.id = id;
         this.receivedate = receivedate;
         this.returndate = returndate;
@@ -85,7 +84,7 @@ public class Employeeaccess implements Serializable {
         this.accesscard = accesscard;
         this.employee = employee;
     }
-    
+
     public String getId() {
         return id;
     }
@@ -118,11 +117,11 @@ public class Employeeaccess implements Serializable {
         this.notes = notes;
     }
 
-    public String getAccesscard() {
+    public Accesscard getAccesscard() {
         return accesscard;
     }
 
-    public void setAccesscard(String accesscard) {
+    public void setAccesscard(Accesscard accesscard) {
         this.accesscard = accesscard;
     }
 
@@ -158,5 +157,5 @@ public class Employeeaccess implements Serializable {
     public String toString() {
         return "com.bm.bootcampmanagement.entities.Employeeaccess[ id=" + id + " ]";
     }
-    
+
 }

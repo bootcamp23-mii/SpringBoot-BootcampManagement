@@ -93,7 +93,7 @@ public class ELController {
     @Autowired
     DistrictDAO daoLD;
     
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");    
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");    
     
     @GetMapping("/el/Idcard")
     public String Idcard(Model model) {
@@ -172,7 +172,7 @@ public class ELController {
     @RequestMapping(value = "/el/empaccessSave", method = RequestMethod.POST)
     public String savee (String id, @RequestParam("receivedate") String receivedate, @RequestParam("returndate") String returndate,
             @RequestParam("notes") String notes, @RequestParam("accesscard") String accesscard, @RequestParam("employee") String employee) throws ParseException {
-        o.saveEmployeeAccess(new Employeeaccess("id", dateFormat.parse(receivedate), dateFormat.parse(returndate), notes, new Accesscard(accesscard).getAccessnumber(), new Employee(employee)));
+        o.saveEmployeeAccess(new Employeeaccess("id", dateFormat.parse(receivedate), dateFormat.parse(returndate), notes, new Accesscard(accesscard), new Employee(employee)));
         return "redirect:/el/Employeeaccess";
     }
     
@@ -180,7 +180,8 @@ public class ELController {
     @RequestMapping(value = "/el/empaccessEdit", method = RequestMethod.POST)
     public String editt(@RequestParam("id")String id, @RequestParam("receivedate") String receivedate, @RequestParam("returndate") String returndate,
             @RequestParam("notes") String notes, @RequestParam("accesscard") String accesscard, @RequestParam("employee") String employee) throws ParseException {
-        o.saveEmployeeAccess(new Employeeaccess(id, dateFormat.parse(receivedate), dateFormat.parse(returndate), notes, new Accesscard(accesscard).getAccessnumber(), new Employee(employee)));
+        o.saveEmployeeAccess(new Employeeaccess(id, dateFormat.parse(receivedate), dateFormat.parse(returndate), notes, new Accesscard(accesscard), new Employee(employee)));
+        new Employeeaccess().getAccesscard().getAccessnumber();
         return "redirect:/el/Employeeaccess";
     }
     
