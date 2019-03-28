@@ -6,7 +6,7 @@
         <meta name="description" content=""/>
         <meta name="author" content=""/>
         <!--Local css dan js semua pake th, @, dan {} dan / untuk single -->
-        <link rel="icon" th:href="@{dist/img/favicons/favicon.ico}"/>
+        <link rel="icon" th:href="@{../dist/img/favicons/favicon.ico}"/>
 
         <title>MII Bootcamp Management</title>
         
@@ -14,10 +14,10 @@
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         
         <!-- Bootstrap core CSS -->
-        <link th:href="@{dist/css/bootstrap.min.css}" rel="stylesheet"/>
+        <link th:href="@{../dist/css/bootstrap.min.css}" rel="stylesheet"/>
 
         <!-- Custom styles for this template -->
-        <link th:href="@{dist/css/dashboard.css}" rel="stylesheet"/>
+        <link th:href="@{../dist/css/dashboard.css}" rel="stylesheet"/>
         
         <!--Datatable-->
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jqc-1.12.4/dt-1.10.18/datatables.min.css"/>
@@ -52,7 +52,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" th:href="@{/lihatcv}">
+                                <a class="nav-link" th:href="@{/cv/lihatcv}">
                                     <span data-feather="file-text"></span>
                                     View CV <span class="sr-only"></span>
                                 </a>
@@ -80,7 +80,7 @@
                         <table id="cvAchievement" class="table table-bordered table-striped" style="width: 100%">
                             <thead>
                                 <tr>
-                                    <th>Id</th>
+                                    <th>No.</th>
                                     <th>Name</th>
                                     <th>Action</th>
                                 </tr>
@@ -95,7 +95,7 @@
                                                 th:data-getsname="${as.name}"
                                                 th:data-getsemployee="${as.employee.id}"
                                                 class="btn btn-warning">Edit</button>
-                                        <a th:href="@{/achievementdelete(achid=${as.id})}"><button value="" class="btn btn-danger">Delete</button></a></td>
+                                        <a th:href="@{/cv/achievementdelete(achid=${as.id})}"><button value="" class="btn btn-danger">Delete</button></a></td>
                                     </td>
                                 </tr>
                             </tbody>
@@ -112,7 +112,7 @@
                         <table id="cvEducation" class="table table-bordered table-striped" style="width: 100%">
                             <thead>
                                 <tr>
-                                    <th>Id</th>
+                                    <th>No.</th>
                                     <th>GPA</th>
                                     <th>University</th>
                                     <th>Action</th>
@@ -131,7 +131,7 @@
                                                 th:data-getgpa="${es.gpa}"
                                                 th:data-getuniv="${es.education.id}"
                                                 class="btn btn-warning">Edit</button>
-                                        <a th:href="@{/educationdelete(eduid=${es.id})}"><button value="" class="btn btn-danger">Delete</button></a></td>
+                                        <a th:href="@{/cv/educationdelete(eduid=${es.id})}"><button value="" class="btn btn-danger">Delete</button></a></td>
                                     </td>
                                 </tr>
                             </tbody>
@@ -147,7 +147,7 @@
                         <table id="cvOrganization" class="table table-bordered table-striped" style="width: 100%">
                             <thead>
                                 <tr>
-                                    <th>Id</th>
+                                    <th>No.</th>
                                     <th>Name</th>
                                     <th>Position</th>
                                     <th>Tanggal</th>
@@ -167,7 +167,7 @@
                                                 th:data-getoperiode="${os.period}"
                                                 th:data-getoemployee="${os.employee.id}"
                                                 class="btn btn-warning">Edit</button>
-                                        <a th:href="@{/organizationdelete(orgid=${os.id})}"><button value="" class="btn btn-danger">Delete</button></a></td>
+                                        <a th:href="@{/cv/organizationdelete(orgid=${os.id})}"><button value="" class="btn btn-danger">Delete</button></a></td>
                                     </td>
                                 </tr>
                             </tbody>
@@ -184,7 +184,7 @@
                         <table id="cvCertificate" class="table table-bordered table-striped" style="width: 100%">
                             <thead>
                                 <tr>
-                                    <th>Id</th>
+                                    <th>No.</th>
                                     <th>Date</th>
                                     <th>Number</th>
                                     <th>Certificate</th>
@@ -204,7 +204,7 @@
                                                 th:data-getecertificate="${cs.certificate.id}"
                                                 th:data-getemployee="${cs.employee.id}"
                                                 class="btn btn-warning">Edit</button>
-                                        <a th:href="@{/certificatedelete(certid=${cs.id})}"><button value="" class="btn btn-danger">Delete</button></a></td>
+                                        <a th:href="@{/cv/certificatedelete(certid=${cs.id})}"><button value="" class="btn btn-danger">Delete</button></a></td>
                                     </td>
                                 </tr>
                             </tbody>
@@ -221,8 +221,9 @@
                         <!--<table id="emplangTable" class="table table-bordered table-striped" style="width: 100%">-->
                             <thead>
                                 <tr>
+                                    <th>No.</th>
                                     <th>ID</th>
-                                    <th>Employee</th>
+                                    <!--<th>Employee</th>-->
                                     <th>Language</th>
                                     <th>Score</th>
                                     <th>Active / Passive</th>
@@ -230,9 +231,10 @@
                                 </tr>
                             </thead>
                             <tbody id="tblData">
-                                <tr th:each="el : ${emplangData}">
+                                <tr th:each="el,iteL : ${emplangData}">
+                                    <td th:text="${iteL.count}"></td>
                                     <td th:text="${el.id}"></td>
-                                    <td th:text="${el.employee.name}"></td>
+                                    <!--<td th:text="${el.employee.name}"></td>-->
                                     <td th:text="${el.language.name}"></td>
                                     <td th:text="${el.score}"></td>
                                     <td th:text="${el.isactive}"></td>
@@ -259,6 +261,7 @@
                         <!--<table id="empskillTable" class="table table-bordered table-striped" style="width: 100%">-->
                             <thead>
                                 <tr>
+                                    <th>No.</th>
                                     <th>ID</th>
                                     <!--<th>Employee</th>-->
                                     <th>Skill</th>
@@ -267,7 +270,8 @@
                                 </tr>
                             </thead>
                             <tbody id="tblData">
-                                <tr th:each="es : ${empskillData}">
+                                <tr th:each="es,iteS : ${empskillData}">
+                                    <td th:text="${iteS.count}"></td>
                                     <td th:text="${es.id}"></td>
                                     <!--<td th:text="${es.employee.name}"></td>-->
                                     <td th:text="${es.skill.name}"></td>
@@ -295,6 +299,7 @@
                         <!--<table id="workexpTable" class="table table-bordered table-striped" style="width: 100%">-->
                             <thead>
                                 <tr>
+                                    <th>No.</th>
                                     <th>ID</th>
                                     <!--<th>Employee</th>-->
                                     <th>Company</th>
@@ -306,9 +311,10 @@
                                 </tr>
                             </thead>
                             <tbody id="tblData">
-                                <tr th:each="we : ${workexpData}">
+                                <tr th:each="we,iteW : ${workexpData}">
+                                    <td th:text="${iteW.count}"></td>
                                     <td th:text="${we.id}"></td>
-                                    <!--                                <td th:text="${we.employee.name}"></td>-->
+                                    <!--<td th:text="${we.employee.name}"></td>-->
                                     <td th:text="${we.name}"></td>
                                     <td th:text="${we.position}"></td>
                                     <td th:text="${we.description}"></td>
@@ -337,7 +343,7 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <form th:action="@{/achievementsave}" method="post">
+                                <form th:action="@{/cv/achievementsave}" method="post">
                                     <div class="modal-body">
                                         <div class="form-group">
                                             <label for="name">Nama</label>
@@ -365,7 +371,7 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <form th:action="@{/organizationsave}" method="post">
+                                <form th:action="@{/cv/organizationsave}" method="post">
                                     <div class="modal-body">
                                         <div class="form-group">
                                             <label for="name">Nama</label>
@@ -399,7 +405,7 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <form th:action="@{/educationsave}" method="post">
+                                <form th:action="@{/cv/educationsave}" method="post">
                                     <div class="modal-body">
                                         <div class="form-group">
                                             <label for="gpa">GPA</label>
@@ -433,7 +439,7 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <form th:action="@{/certificatesave}" method="post">
+                                <form th:action="@{/cv/certificatesave}" method="post">
                                     <div class="modal-body">
                                         <div class="form-group">
                                             <label for="datecert">Certificate Date</label>
@@ -470,7 +476,7 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <form th:action="@{/educationedit}" method="post">
+                                <form th:action="@{/cv/educationedit}" method="post">
                                     <div class="modal-body">
                                         <div class="form-group">
                                             <input id="ide" name="ide" type="hidden" class="form-control"/>
@@ -505,7 +511,7 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <form th:action="@{/achievementedit}" method="post">
+                                <form th:action="@{/cv/achievementedit}" method="post">
                                     <div class="modal-body">
                                         <div class="form-group">
                                             <label for="name">Nama</label>
@@ -533,7 +539,7 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <form th:action="@{/organizationedit}" method="post">
+                                <form th:action="@{/cv/organizationedit}" method="post">
                                     <div class="modal-body">
                                         <div class="form-group">
                                             <input id="oid" name="oid" class="form-control" type="hidden"/>
@@ -569,7 +575,7 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <form th:action="@{/certificateedit}" method="post">
+                                <form th:action="@{/cv/certificateedit}" method="post">
                                     <div class="modal-body">
                                         <div class="form-group">
                                             <input id="eid" name="eid" class="form-control" type="hidden"/>

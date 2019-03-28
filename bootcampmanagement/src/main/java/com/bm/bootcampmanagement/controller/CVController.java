@@ -77,10 +77,9 @@ public class CVController {
     
     @Autowired
     WorkExperienceDAO daoW;
-    
     private SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");    
     
-    @GetMapping("/cv")
+    @GetMapping("/cv/cv")
     public String cv(Model m) {
         m.addAttribute("achievementData", adao.findAll());
         m.addAttribute("achievementsave", new Achievement());
@@ -100,15 +99,16 @@ public class CVController {
         m.addAttribute("certificatedelete", new Employeecertification());
         m.addAttribute("dataedu", eddao.findAll());
         m.addAttribute("datacert", cedao.findAll());
+        m.addAttribute("langData", daoL.findAll());
         m.addAttribute("emplangData", daoEmpL.findAll());
-        m.addAttribute("empskillData", daoEmpS.findAll());
         m.addAttribute("skillData", daoS.findAll());
+        m.addAttribute("empskillData", daoEmpS.findAll());
         m.addAttribute("empskillsave", new Employeeskill());
         m.addAttribute("workexpData", daoW.findAll());
-        return "/cv";
+        return "/cv/cv";
     }
     
-    @GetMapping("/lihatcv")
+    @GetMapping("/cv/lihatcv")
     public String lihatcv(Model mod) {
         mod.addAttribute("employee", daoEmp.findById("14201"));
         mod.addAttribute("education", daoEmp.findById("14201").getEducationhistoryList());
@@ -118,101 +118,138 @@ public class CVController {
         mod.addAttribute("languageData", daoEmp.findById("14201").getEmployeelanguageList());
         mod.addAttribute("skillData", daoEmp.findById("14201").getEmployeeskillList());
         mod.addAttribute("workexperienceData", daoEmp.findById("14201").getWorkexperienceList());
-        return "/lihatCV";
+        return "/cv/lihatCV";
     }
     
-    
-    @RequestMapping(value = "/achievementsave", method = RequestMethod.POST)  //@PostMapping("/regionsave")
+    /* SAVE and EDIT functions */
+    @RequestMapping(value = "/cv/achievementsave", method = RequestMethod.POST)  //@PostMapping("/regionsave")
     public String savee(@RequestParam("sid") String id, @RequestParam("sname") String name) {
         adao.save(new Achievement(id, name, new Employee("14201")));
-        return "redirect:/cv";
+        return "redirect:/cv/cv";
     }
 
-    @RequestMapping(value = "/achievementedit", method = RequestMethod.POST)  //@PostMapping("/regionsave")
+    @RequestMapping(value = "/cv/achievementedit", method = RequestMethod.POST)  //@PostMapping("/regionsave")
     public String editach(@RequestParam("sid") String id, @RequestParam("sname") String name, @RequestParam("semployee") String semployee) {
         adao.save(new Achievement(id, name, new Employee(semployee)));
-        return "redirect:/cv";
+        return "redirect:/cv/cv";
     }
 
-    @RequestMapping(value = "/organizationsave", method = RequestMethod.POST)  //@PostMapping("/regionsave")
+    @RequestMapping(value = "/cv/organizationsave", method = RequestMethod.POST)  //@PostMapping("/regionsave")
     public String saveorg(@RequestParam("oname") String oname, @RequestParam("position") String position,
             @RequestParam("periode") String periode) throws ParseException {
         odao.save(new Organization("id", oname, position, dateFormat.parse(periode), new Employee("14201")));
-        return "redirect:/cv";
+        return "redirect:/cv/cv";
     }
 
-    @RequestMapping(value = "/organizationedit", method = RequestMethod.POST)  //@PostMapping("/regionsave")
+    @RequestMapping(value = "/cv/organizationedit", method = RequestMethod.POST)  //@PostMapping("/regionsave")
     public String editorg(@RequestParam("oid") String oid, @RequestParam("ooname") String oname, @RequestParam("oposition") String position,
             @RequestParam("operiode") String periode, @RequestParam("oemployee") String employee) throws ParseException {
         odao.save(new Organization(oid, oname, position, dateFormat.parse(periode), new Employee(employee)));
-        return "redirect:/cv";
+        return "redirect:/cv/cv";
     }
 
-    @RequestMapping(value = "/educationsave", method = RequestMethod.POST)  //@PostMapping("/regionsave")
+    @RequestMapping(value = "/cv/educationsave", method = RequestMethod.POST)  //@PostMapping("/regionsave")
     public String saveedu(@RequestParam("gpa") String gpa, @RequestParam("education") String education) {
         edao.save(new Educationhistory("id", gpa, new Education(education), new Employee("14201")));
-        return "redirect:/cv";
+        return "redirect:/cv/cv";
     }
 
-    @RequestMapping(value = "/educationedit", method = RequestMethod.POST)  //@PostMapping("/regionsave")
+    @RequestMapping(value = "/cv/educationedit", method = RequestMethod.POST)  //@PostMapping("/regionsave")
     public String saveedu(@RequestParam("ide") String ide, @RequestParam("gpae") String gpae, @RequestParam("educatione") String educatione) {
         edao.save(new Educationhistory(ide, gpae, new Education(educatione), new Employee("14201")));
-        return "redirect:/cv";
+        return "redirect:/cv/cv";
     }
 
-    @RequestMapping(value = "/certificatesave", method = RequestMethod.POST)  //@PostMapping("/regionsave")
+    @RequestMapping(value = "/cv/certificatesave", method = RequestMethod.POST)  //@PostMapping("/regionsave")
     public String savecert(@RequestParam("datecert") String datec, @RequestParam("certnumber") String numc, @RequestParam("certificate") String certificate) throws ParseException {
         cdao.save(new Employeecertification("id", dateFormat.parse(datec), numc, new Certificate(certificate), new Employee("14201")));
-        return "redirect:/cv";
+        return "redirect:/cv/cv";
     }
 
-    @RequestMapping(value = "/certificateedit", method = RequestMethod.POST)  //@PostMapping("/regionsave")
+    @RequestMapping(value = "/cv/certificateedit", method = RequestMethod.POST)  //@PostMapping("/regionsave")
     public String editcert(@RequestParam("eid") String eid, @RequestParam("edatecert") String datec, @RequestParam("certnum") String numc, @RequestParam("ecertificate") String certificate, @RequestParam("employee") String employee) throws ParseException {
         cdao.save(new Employeecertification(eid, dateFormat.parse(datec), numc, new Certificate(certificate), new Employee(employee)));
-        return "redirect:/cv";
+        return "redirect:/cv/cv";
     }
+    
+    @RequestMapping(value = "/cv/languagesave", method = RequestMethod.POST)  //@PostMapping("/regionsave")
+    public String savelang(@RequestParam("gpa") String gpa, @RequestParam("education") String education) {
+//        edao.save(new Educationhistory("id", gpa, new Education(education), new Employee("14201")));
+        return "redirect:/cv/cv";
+    }
+
+    @RequestMapping(value = "/cv/languageedit", method = RequestMethod.POST)  //@PostMapping("/regionsave")
+    public String savelang(@RequestParam("ide") String ide, @RequestParam("gpae") String gpae, @RequestParam("educatione") String educatione) {
+//        edao.save(new Educationhistory(ide, gpae, new Education(educatione), new Employee("14201")));
+        return "redirect:/cv/cv";
+    }
+    
+    @RequestMapping(value = "/cv/skillsave", method = RequestMethod.POST)  //@PostMapping("/regionsave")
+    public String saveskill(@RequestParam("gpa") String gpa, @RequestParam("education") String education) {
+//        edao.save(new Educationhistory("id", gpa, new Education(education), new Employee("14201")));
+        return "redirect:/cv/cv";
+    }
+
+    @RequestMapping(value = "/cv/skilledit", method = RequestMethod.POST)  //@PostMapping("/regionsave")
+    public String saveskill(@RequestParam("ide") String ide, @RequestParam("gpae") String gpae, @RequestParam("educatione") String educatione) {
+//        edao.save(new Educationhistory(ide, gpae, new Education(educatione), new Employee("14201")));
+        return "redirect:/cv/cv";
+    }
+    
+    @RequestMapping(value = "/cv/workexpsave", method = RequestMethod.POST)  //@PostMapping("/regionsave")
+    public String saveworkexp(@RequestParam("gpa") String gpa, @RequestParam("education") String education) {
+//        edao.save(new Educationhistory("id", gpa, new Education(education), new Employee("14201")));
+        return "redirect:/cv/cv";
+    }
+
+    @RequestMapping(value = "/cv/workexpedit", method = RequestMethod.POST)  //@PostMapping("/regionsave")
+    public String saveworkexp(@RequestParam("ide") String ide, @RequestParam("gpae") String gpae, @RequestParam("educatione") String educatione) {
+//        edao.save(new Educationhistory(ide, gpae, new Education(educatione), new Employee("14201")));
+        return "redirect:/cv/cv";
+    }
+    
     
     /*   DELETE functions   */
-    @RequestMapping(value = "/achievementdelete", method = RequestMethod.GET)
+    @RequestMapping(value = "/cv/achievementdelete", method = RequestMethod.GET)
     public String deleteach(@RequestParam(value = "achid") String id) {
         adao.delete(id);
-        return "redirect:/cv";
+        return "redirect:/cv/cv";
     }
     
-    @RequestMapping(value = "/organizationdelete", method = RequestMethod.GET)
+    @RequestMapping(value = "/cv/organizationdelete", method = RequestMethod.GET)
     public String deleteorg(@RequestParam(value = "orgid") String id) {
         odao.delete(id);
-        return "redirect:/cv";
+        return "redirect:/cv/cv";
     }
 
-    @RequestMapping(value = "/certificatedelete", method = RequestMethod.GET)
+    @RequestMapping(value = "/cv/certificatedelete", method = RequestMethod.GET)
     public String deletecert(@RequestParam(value = "certid") String id) {
         cdao.delete(id);
-        return "redirect:/cv";
+        return "redirect:/cv/cv";
     }
 
-    @RequestMapping(value = "/educationdelete", method = RequestMethod.GET)
+    @RequestMapping(value = "/cv/educationdelete", method = RequestMethod.GET)
     public String deleteedu(@RequestParam(value = "eduid") String id) {
         edao.delete(id);
-        return "redirect:/cv";
+        return "redirect:/cv/cv";
     }
     
-    @RequestMapping(value = "/languagedelete", method = RequestMethod.GET)
+    @RequestMapping(value = "/cv/languagedelete", method = RequestMethod.GET)
     public String deletelang(@RequestParam(value = "langid") String id) {
         daoL.delete(id);
-        return "redirect:/cv";
+        return "redirect:/cv/cv";
     }
 
-    @RequestMapping(value = "/skilldelete", method = RequestMethod.GET)
+    @RequestMapping(value = "/cv/skilldelete", method = RequestMethod.GET)
     public String deleteskill(@RequestParam(value = "skillid") String id) {
         daoS.delete(id);
-        return "redirect:/cv";
+        return "redirect:/cv/cv";
     }
 
-    @RequestMapping(value = "/workexperiencedelete", method = RequestMethod.GET)
+    @RequestMapping(value = "/cv/workexperiencedelete", method = RequestMethod.GET)
     public String deleteworkexp(@RequestParam(value = "workexpid") String id) {
         daoW.delete(id);
-        return "redirect:/cv";
+        return "redirect:/cv/cv";
     }
     
 }
