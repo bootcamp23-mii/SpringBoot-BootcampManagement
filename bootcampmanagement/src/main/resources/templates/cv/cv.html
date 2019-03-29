@@ -195,8 +195,8 @@
                                     <td th:text="${as.name}"></td>
                                     <td>
                                         <button data-target="#mdlEditAch" data-toggle="modal" th:data-getsid="${as.id}" 
-                                                th:data-getsname="${as.name}"
-                                                th:data-getsemployee="${as.employee.id}"
+                                                th:data-getsname="${as.name}" 
+                                                th:data-getsemployee="${as.employee.id}" 
                                                 class="btn btn-warning"><span data-feather="edit"></span></button>
                                         <a th:href="@{/cv/achievementdelete(achid=${as.id})}"><button value="" class="btn btn-danger"><span data-feather="trash"></span></button></a></td>
                                     </td>
@@ -325,8 +325,6 @@
                             <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th>ID</th>
-                                    <!--<th>Employee</th>-->
                                     <th>Language</th>
                                     <th>Score</th>
                                     <th>Active / Passive</th>
@@ -336,16 +334,16 @@
                             <tbody id="tblData">
                                 <tr th:each="el,iteL : ${emplangData}">
                                     <td th:text="${iteL.count}"></td>
-                                    <td th:text="${el.id}"></td>
-                                    <!--<td th:text="${el.employee.name}"></td>-->
                                     <td th:text="${el.language.name}"></td>
                                     <td th:text="${el.score}"></td>
                                     <td th:text="${el.isactive}"></td>
                                     <td>
-                                        <span data-feather="edit"><button data-target="#modalEditlang" data-toggle="modal" th:data-getid="${el.id}"
-                                                                          class="btn btn-warning" ><span data-feather="edit"></span></span></button>
-                                        <button data-target="#modalDeletelang" data-toggle="modal" th:data-getid="${el.id}"
-                                                class="btn btn-danger" ><span data-feather="trash"></span></button>
+                                        <button data-target="#modalEditlang" data-toggle="modal" th:data-getid="${el.id}" 
+                                                                          th:data-idlang="el.language.id" 
+                                                                          th:data-score="el.score" 
+                                                                          th:data-isactive="el.isactive" 
+                                                                          class="btn btn-warning" ><span data-feather="edit"></span></button>
+                                        <a th:href="@{/cv/languagedelete(id=${el.id})}"><button value="" class="btn btn-danger"><span data-feather="trash"></span></button></a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -363,8 +361,6 @@
                             <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th>ID</th>
-                                    <!--<th>Employee</th>-->
                                     <th>Skill</th>
                                     <th>Score</th>
                                     <th>Actions</th>
@@ -373,15 +369,14 @@
                             <tbody id="tblData">
                                 <tr th:each="es,iteS : ${empskillData}">
                                     <td th:text="${iteS.count}"></td>
-                                    <td th:text="${es.id}"></td>
-                                    <!--<td th:text="${es.employee.name}"></td>-->
                                     <td th:text="${es.skill.name}"></td>
                                     <td th:text="${es.score}"></td>
                                     <td>
-                                        <button data-target="#modalEditskill" data-toggle="modal" th:data-getid="${es.id}"
-                                                class="btn btn-warning" ><span data-feather="edit"></span></button>
-                                        <button data-target="#modalDeleteskill" data-toggle="modal" th:data-getid="${es.id}"
-                                                class="btn btn-danger" ><span data-feather="trash"></span></button>
+                                        <button data-target="#modalEditskill" data-toggle="modal" th:data-getid="${es.id}" 
+                                                                          th:data-idskill="${es.skill.id}" 
+                                                                          th:data-score="${es.score}" 
+                                                                          class="btn btn-warning" ><span data-feather="edit"></span></button>
+                                        <a th:href="@{/cv/skilldelete(id=${es.id})}"><button value="" class="btn btn-danger"><span data-feather="trash"></span></button></a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -399,8 +394,6 @@
                             <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th>ID</th>
-                                    <!--<th>Employee</th>-->
                                     <th>Company</th>
                                     <th>Position</th>
                                     <th>Description</th>
@@ -412,8 +405,6 @@
                             <tbody id="tblData">
                                 <tr th:each="we,iteW : ${workexpData}">
                                     <td th:text="${iteW.count}"></td>
-                                    <td th:text="${we.id}"></td>
-                                    <!--<td th:text="${we.employee.name}"></td>-->
                                     <td th:text="${we.name}"></td>
                                     <td th:text="${we.position}"></td>
                                     <td th:text="${we.description}"></td>
@@ -421,9 +412,13 @@
                                     <td th:text="${#dates.format(we.enddate, 'dd-MMM-yyyy')}"></td>
                                     <td>
                                         <button data-target="#modalEditwork" data-toggle="modal" th:data-getid="${we.id}"
-                                                class="btn btn-outline-info" ><span data-feather="edit"></span></button>
-                                        <button data-target="#modalDeletework" data-toggle="modal" th:data-getid="${we.id}"
-                                                class="btn btn-outline-danger" ><span data-feather="trash"></span></button>
+                                                                          th:data-workname="${we.name}" 
+                                                                          th:data-workposition="${we.position}" 
+                                                                          th:data-workdesc="${we.description}" 
+                                                                          th:data-workstart="${we.startdate}" 
+                                                                          th:data-workend="${we.enddate}" 
+                                                                          class="btn btn-outline-info" ><span data-feather="edit"></span></button>
+                                        <a th:href="@{/cv/workexperiencedelete(id=${we.id})}"><button value="" class="btn btn-danger"><span data-feather="trash"></span></button></a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -562,6 +557,111 @@
                         </div>
                     </div>
                     <!--end modal--> 
+                    <!--modal add data Language-->
+                    <div class="modal fade" id="modalAddlang" tabindex="-1" role="dialog" aria-labelledby="modal-add" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modal-add">Add Language</h5>
+                                    <button class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form th:action="@{/cv/languagesave}" method="post">
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="datecert">Language</label>
+                                            <select name="idlanga" id="idlanga" class="form-control">
+                                                <div th:each="data :${langData}">
+                                                    <option th:value="${data.id}" th:text="${data.name}"></option>
+                                                </div>
+                                            </select>
+                                            <label for="datecert">Score</label>
+                                            <input type="range" min="0" max="100" value="0" class="form-control" id="langscorea" name="scorea">
+                                            <p>Value: <span id="resultSliderlangscorea"></span></p>
+                                            <label for="certnumber">Active / Passive</label>
+                                            <select name="isactivea" id="isactivea" class="form-control">
+                                                <option value="0">No</option>
+                                                <option value="1">Yes</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-default" value="Submit">Save</button>
+                                    </div>                          
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end modal language--> 
+                    <!--modal add data Skill-->
+                    <div class="modal fade" id="modalAddskill" tabindex="-1" role="dialog" aria-labelledby="modal-add" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modal-add">Add Language</h5>
+                                    <button class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form th:action="@{/cv/skillsave}" method="post">
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="datecert">Skill</label>
+                                            <select name="idskilla" id="idskilla" class="form-control">
+                                                <div th:each="data :${skillData}">
+                                                    <option th:value="${data.id}" th:text="${data.name+'('+data.category.name+')'}"></option>
+                                                </div>
+                                            </select>
+                                            <label for="datecert">Score</label>
+                                            <input type="range" min="0" max="100" value="0" class="form-control" id="skillscorea" name="scorea">
+                                            <p>Value: <span id="resultSliderskillscorea"></span></p>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-default" value="Submit">Save</button>
+                                    </div>                          
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end modal skill--> 
+                    <!--modal add data work experience-->
+                    <div class="modal fade" id="modalAddwork" tabindex="-1" role="dialog" aria-labelledby="modal-add" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modal-add">Add Language</h5>
+                                    <button class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form th:action="@{/cv/workexpsave}" method="post">
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="datecert">Company</label>
+                                            <input id="worknamea" name="worknamea" class="form-control" type="text"/>
+                                            <label for="datecert">Position</label>
+                                            <input id="workpositiona" name="workpositiona" class="form-control" type="text"/>
+                                            <label for="datecert">Description</label>
+                                            <textarea class="form-control" id="workdescriptiona" name="workdescriptiona"></textarea>
+                                            <label for="datecert">Start Date</label>
+                                            <input id="workstartdatea" name="workstartdatea" class="form-control" type="date"/>
+                                            <label for="datecert">End Date</label>
+                                            <input id="workenddatea" name="workenddatea" class="form-control" type="date"/>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-default" value="Submit">Save</button>
+                                    </div>                          
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end modal work experience--> 
                     <!--ini modal untuk edit-->
                     <!--Modal Edit Data-->
                     <div class="modal fade" id="mdlEditEdu" tabindex="-1" role="dialog" aria-labelledby="modal-add" aria-hidden="true">
@@ -701,7 +801,126 @@
                             </div>
                         </div>
                     </div>
-                    <!--end modal-->
+                    <!--end modal add data Certification-->
+                    <!--modal edit data Language-->
+                    <div class="modal fade" id="modalEditlang" tabindex="-1" role="dialog" aria-labelledby="modal-add" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modal-add">Add Language</h5>
+                                    <button class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form th:action="@{/cv/languageedit}" method="post">
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <input id="elid" name="elid" class="form-control" type="hidden"/>
+                                            <label for="datecert">Language</label>
+                                            <select name="idlange" id="idlange" class="form-control">
+                                                <div th:each="data :${langData}">
+                                                    <option th:value="${data.id}" th:text="${data.name}"></option>
+                                                </div>
+                                            </select>
+                                            <label for="datecert">Score</label>
+                                            <input type="range" min="0" max="100" value="0" class="form-control" id="langscoree" name="scoree">
+                                            <p>Value: <span id="resultSliderlangscoree"></span></p>
+                                            <label for="certnumber">Active / Passive</label>
+                                            <select name="isactivee" id="isactivea" class="form-control">
+                                                <option th:value="${No}" th:text="${0}"></option>
+                                                <option th:value="${Yes}" th:text="${1}"></option>
+                                            </select>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-default" value="Submit">Save</button>
+                                        </div>                          
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end modal add data Language-->
+                    <!--modal add data Skill-->
+                    <div class="modal fade" id="modalEditskill" tabindex="-1" role="dialog" aria-labelledby="modal-add" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modal-add">Add Skill</h5>
+                                    <button class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form th:action="@{/cv/skilledit}" method="post">
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <input id="sid" name="sid" class="form-control" type="hidden"/>
+                                            <label for="datecert">Skill</label>
+                                            <select name="idskille" id="idskille" class="form-control">
+                                                <div th:each="data :${skillData}">
+                                                    <option th:value="${data.id}" th:text="${data.name+'('+data.category.name+')'}"></option>
+                                                </div>
+                                            </select>
+                                            <label for="datecert">Score</label>
+                                            <input type="range" min="0" max="100" value="0" class="form-control" id="skillscoree" name="scoree">
+                                            <p>Value: <span id="resultSliderskillscoree"></span></p>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-default" value="Submit">Save</button>
+                                    </div>                          
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end modal add data Skill-->
+                    <!--modal add Work Experience-->
+                    <div class="modal fade" id="modalEditwork" tabindex="-1" role="dialog" aria-labelledby="modal-add" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modal-add">Add Work Experience</h5>
+                                    <button class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form th:action="@{/cv/workexpedit}" method="post">
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <input id="weid" name="weid" class="form-control" type="hidden"/>
+                                            <label for="datecert">Company</label>
+                                            <input id="worknamee" name="worknamee" class="form-control" type="text"/>
+                                            <label for="datecert">Position</label>
+                                            <input id="workpositione" name="workpositione" class="form-control" type="text"/>
+                                            <label for="datecert">Description</label>
+                                            <textarea class="form-control" id="workdescriptione" name="workdescriptione"></textarea>
+                                            <label for="datecert">Start Date</label>
+                                            <input id="workstartdatee" name="workstartdatee" class="form-control" type="date"/>
+                                            <label for="datecert">End Date</label>
+                                            <input id="workenddatee" name="workenddatee" class="form-control" type="date"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="certnum">Certificate Number</label>
+                                            <input id="certnum" name="certnum" type="text" class="form-control"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="ecertificate">Certificate</label>
+                                            <select name="ecertificate" id="certificate" class="form-control">
+                                                <div th:each="datac :${datacert}">
+                                                    <option th:value="${datac.id}" th:text="${datac.name}"></option>
+                                                </div>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-default" value="Submit">Save</button>
+                                    </div>                          
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end modal add data Work Experience-->
                 </main>
             </div>
         </div>
@@ -783,28 +1002,46 @@
         <script>
             $('#modalEditlang').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget);
-                var langid = button.data('getlangid');
+                var getid = button.data('getid');
+                var idlang = button.data('idlang');
+                var score = button.data('score');
+                var isactive = button.data('isactive');
 
                 var modal = $(this);
-                modal.find('#langid').val(langid);
+                modal.find('#elid').val(getid);
+                modal.find('#idlange').val(idlang);
+                modal.find('#langscoree').val(score);
+                modal.find('#isactivee').val(isactive);
             });
         </script>
         <script>
             $('#modalEditskill').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget);
-                var skillid = button.data('getskillid');
+                var sid = button.data('getid');
+                var idskille = button.data('idskill');
+                var scoree = button.data('score');
 
                 var modal = $(this);
-                modal.find('#skillid').val(skillid);
+                modal.find('#sid').val(sid);
+                modal.find('#idskille').val(idskille);
+                modal.find('#skillscoree').val(scoree);
             });
         </script>
         <script>
             $('#modalEditwork').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget);
-                var workid = button.data('getworkid');
+                var workid = button.data('getid');
+                var workname = button.data('workname');
+                var workdesc = button.data('workdesc');
+                var workstart = button.data('workstart');
+                var workend = button.data('workend');
 
                 var modal = $(this);
-                modal.find('#workid').val(workid);
+                modal.find('#weid').val(workid);
+                modal.find('#worknamee').val(workname);
+                modal.find('#workdescriptione').val(workdesc);
+                modal.find('#workstartdatee').val(workstart);
+                modal.find('#workenddatee').val(workend);
             });
         </script>
 
@@ -844,6 +1081,41 @@
                 $('#cvWorkexperience').DataTable();
             });
         </script>
+        <script  type="text/javascript">
+            var slider = document.getElementById("langscorea");
+            var output = document.getElementById("resultSliderlangscorea");
+            output.innerHTML = slider.value;
 
+            slider.oninput = function () {
+                output.innerHTML = this.value;
+            };
+        </script>
+        <script  type="text/javascript">
+            var slider = document.getElementById("langscoree");
+            var output = document.getElementById("resultSliderlangscoree");
+            output.innerHTML = slider.value;
+
+            slider.oninput = function () {
+                output.innerHTML = this.value;
+            };
+        </script>
+        <script  type="text/javascript">
+            var slider = document.getElementById("skillscorea");
+            var output = document.getElementById("resultSliderskillscorea");
+            output.innerHTML = slider.value;
+
+            slider.oninput = function () {
+                output.innerHTML = this.value;
+            };
+        </script>
+        <script  type="text/javascript">
+            var slider = document.getElementById("skillscoree");
+            var output = document.getElementById("resultSliderskillscoree");
+            output.innerHTML = slider.value;
+
+            slider.oninput = function () {
+                output.innerHTML = this.value;
+            };
+        </script>
     </body>
 </html>

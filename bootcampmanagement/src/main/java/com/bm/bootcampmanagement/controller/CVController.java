@@ -11,8 +11,12 @@ import com.bm.bootcampmanagement.entities.Education;
 import com.bm.bootcampmanagement.entities.Educationhistory;
 import com.bm.bootcampmanagement.entities.Employee;
 import com.bm.bootcampmanagement.entities.Employeecertification;
+import com.bm.bootcampmanagement.entities.Employeelanguage;
 import com.bm.bootcampmanagement.entities.Employeeskill;
+import com.bm.bootcampmanagement.entities.Language;
 import com.bm.bootcampmanagement.entities.Organization;
+import com.bm.bootcampmanagement.entities.Skill;
+import com.bm.bootcampmanagement.entities.Workexperience;
 import com.bm.bootcampmanagement.services.EmployeeDAO;
 import com.bm.bootcampmanagement.services.cv.AchievementDAO;
 import com.bm.bootcampmanagement.services.cv.CertificateDAO;
@@ -31,6 +35,8 @@ import com.bm.bootcampmanagement.services.cv.WorkExperienceDAO;
 import com.bm.bootcampmanagement.services.el.ProvinceDAO;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -73,7 +79,7 @@ public class CVController {
 
     @Autowired
     EmployeeLanguageDAO daoEmpL;
-    
+
     @Autowired
     ProvinceDAO daoLP;
 
@@ -114,6 +120,18 @@ public class CVController {
         m.addAttribute("certificatesave", new Employeecertification());
         m.addAttribute("certificateedit", new Employeecertification());
         m.addAttribute("certificatedelete", new Employeecertification());
+        m.addAttribute("employeelanguageData", daoEmp.findById(empID).getEmployeelanguageList());
+        m.addAttribute("employeelanguagesave", new Employeelanguage());
+        m.addAttribute("employeelanguageedit", new Employeelanguage());
+        m.addAttribute("employeelanguagedelete", new Employeelanguage());
+        m.addAttribute("employeeskillData", daoEmp.findById(empID).getEmployeeskillList());
+        m.addAttribute("employeeskillsave", new Employeeskill());
+        m.addAttribute("employeeskilledit", new Employeeskill());
+        m.addAttribute("employeeskilldelete", new Employeeskill());
+        m.addAttribute("workexperienceData", daoEmp.findById(empID).getWorkexperienceList());
+        m.addAttribute("workexperiencesave", new Workexperience());
+        m.addAttribute("workexperienceedit", new Workexperience());
+        m.addAttribute("workexperiencedelete", new Workexperience());
         m.addAttribute("dataedu", eddao.findAll());
         m.addAttribute("datacert", cedao.findAll());
         m.addAttribute("langData", daoL.findAll());
@@ -157,7 +175,7 @@ public class CVController {
         mod.addAttribute("workexperienceData", daoEmp.findById(empID).getWorkexperienceList());
         return "/cv/mycv";
     }
-    
+
     /* SAVE and EDIT functions */
     @RequestMapping(value = "/cv/achievementsave", method = RequestMethod.POST)  //@PostMapping("/regionsave")
     public String savee(HttpServletRequest request, @RequestParam("sname") String name) {
@@ -214,38 +232,52 @@ public class CVController {
     }
 
     @RequestMapping(value = "/cv/languagesave", method = RequestMethod.POST)  //@PostMapping("/regionsave")
-    public String savelang(@RequestParam("gpa") String gpa, @RequestParam("education") String education) {
-//        edao.save(new Educationhistory("id", gpa, new Education(education), new Employee("14201")));
+    public String savelang(@RequestParam("idlanga") String idlang, @RequestParam("scorea") String score, @RequestParam("isactivea") String isactive, HttpServletRequest request) {
+        String id = request.getSession().getAttribute("login").toString();
+        daoEmpL.save(new Employeelanguage(id, new Double(score), new Short(isactive), new Short("0"), new Language(idlang), new Employee(id)));
         return "redirect:/cv/cv";
     }
 
     @RequestMapping(value = "/cv/languageedit", method = RequestMethod.POST)  //@PostMapping("/regionsave")
-    public String savelang(@RequestParam("ide") String ide, @RequestParam("gpae") String gpae, @RequestParam("educatione") String educatione) {
-//        edao.save(new Educationhistory(ide, gpae, new Education(educatione), new Employee("14201")));
+    public String savelang(@RequestParam("elid") String id, @RequestParam("idlange") String idlang, @RequestParam("scoree") String score, @RequestParam("isactivee") String isactive, HttpServletRequest request) {
+        String idemp = request.getSession().getAttribute("login").toString();
+        daoEmpL.save(new Employeelanguage(id, new Double(score), new Short(isactive), new Short("0"), new Language(idlang), new Employee(idemp)));
         return "redirect:/cv/cv";
     }
 
     @RequestMapping(value = "/cv/skillsave", method = RequestMethod.POST)  //@PostMapping("/regionsave")
-    public String saveskill(@RequestParam("gpa") String gpa, @RequestParam("education") String education) {
-//        edao.save(new Educationhistory("id", gpa, new Education(education), new Employee("14201")));
+    public String saveskill(@RequestParam("idskilla") String skill, @RequestParam("scorea") String score, HttpServletRequest request) {
+        String idemp = request.getSession().getAttribute("login").toString();
+        daoEmpS.save(new Employeeskill(idemp, new Double(score), new Short("0"), new Skill(skill), new Employee(idemp)));
         return "redirect:/cv/cv";
     }
 
     @RequestMapping(value = "/cv/skilledit", method = RequestMethod.POST)  //@PostMapping("/regionsave")
-    public String saveskill(@RequestParam("ide") String ide, @RequestParam("gpae") String gpae, @RequestParam("educatione") String educatione) {
-//        edao.save(new Educationhistory(ide, gpae, new Education(educatione), new Employee("14201")));
+    public String saveskill(@RequestParam("sid") String id, @RequestParam("idskille") String skill, @RequestParam("scoree") String score, HttpServletRequest request) {
+        String idemp = request.getSession().getAttribute("login").toString();
+        daoEmpS.save(new Employeeskill(id, new Double(score), new Short("0"), new Skill(skill), new Employee(idemp)));
         return "redirect:/cv/cv";
     }
 
     @RequestMapping(value = "/cv/workexpsave", method = RequestMethod.POST)  //@PostMapping("/regionsave")
-    public String saveworkexp(@RequestParam("gpa") String gpa, @RequestParam("education") String education) {
-//        edao.save(new Educationhistory("id", gpa, new Education(education), new Employee("14201")));
+    public String saveworkexp(@RequestParam("worknamea") String name,@RequestParam("workdescriptiona") String desc, @RequestParam("workpositiona") String position,@RequestParam("workstartdatea") String startdate, @RequestParam("workenddatea") String enddate, HttpServletRequest request) {
+        try {
+            String idemp = request.getSession().getAttribute("login").toString();
+            daoW.save(new Workexperience(idemp, name, desc, position, dateFormat.parse(startdate), dateFormat.parse(enddate), new Short("0"), new Employee(idemp)));
+        } catch (Exception ex) {
+            Logger.getLogger(CVController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return "redirect:/cv/cv";
     }
 
     @RequestMapping(value = "/cv/workexpedit", method = RequestMethod.POST)  //@PostMapping("/regionsave")
-    public String saveworkexp(@RequestParam("ide") String ide, @RequestParam("gpae") String gpae, @RequestParam("educatione") String educatione) {
-//        edao.save(new Educationhistory(ide, gpae, new Education(educatione), new Employee("14201")));
+    public String saveworkexp(@RequestParam("weid") String id,@RequestParam("worknamee") String name,@RequestParam("workdescriptione") String desc, @RequestParam("workpositione") String position,@RequestParam("workstartdatee") String startdate, @RequestParam("workenddatee") String enddate, HttpServletRequest request) {
+        try {
+            String idemp = request.getSession().getAttribute("login").toString();
+            daoW.save(new Workexperience(id, name, desc, position, dateFormat.parse(startdate), dateFormat.parse(enddate), new Short("0"), new Employee(idemp)));
+        } catch (ParseException ex) {
+            Logger.getLogger(CVController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return "redirect:/cv/cv";
     }
 
@@ -275,19 +307,19 @@ public class CVController {
     }
 
     @RequestMapping(value = "/cv/languagedelete", method = RequestMethod.GET)
-    public String deletelang(@RequestParam(value = "langid") String id) {
-        daoL.delete(id);
+    public String deletelang(@RequestParam(value = "id") String id) {
+        daoEmpL.delete(id);
         return "redirect:/cv/cv";
     }
 
     @RequestMapping(value = "/cv/skilldelete", method = RequestMethod.GET)
-    public String deleteskill(@RequestParam(value = "skillid") String id) {
-        daoS.delete(id);
+    public String deleteskill(@RequestParam(value = "id") String id) {
+        daoEmpS.delete(id);
         return "redirect:/cv/cv";
     }
 
-    @RequestMapping(value = "/cv/workexperiencedelete", method = RequestMethod.GET)
-    public String deleteworkexp(@RequestParam(value = "workexpid") String id) {
+        @RequestMapping(value = "/cv/workexperiencedelete", method = RequestMethod.GET)
+    public String deleteworkexp(@RequestParam(value = "id") String id) {
         daoW.delete(id);
         return "redirect:/cv/cv";
     }

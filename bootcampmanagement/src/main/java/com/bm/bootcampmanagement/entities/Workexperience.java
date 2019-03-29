@@ -93,6 +93,17 @@ public class Workexperience implements Serializable {
         this.enddate = enddate;
     }
 
+    public Workexperience(String id, String name, String description, String position, Date startdate, Date enddate, Short isdeleted, Employee employee) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.position = position;
+        this.startdate = startdate;
+        this.enddate = enddate;
+        this.isdeleted = isdeleted;
+        this.employee = employee;
+    }
+
     public String getId() {
         return id;
     }
