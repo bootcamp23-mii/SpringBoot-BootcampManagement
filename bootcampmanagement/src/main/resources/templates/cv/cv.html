@@ -217,6 +217,8 @@
                                 <tr>
                                     <th>No.</th>
                                     <th>GPA</th>
+                                    <th>Degree</th>
+                                    <th>Major</th>
                                     <th>University</th>
                                     <th>Action</th>
                                 </tr>
@@ -225,6 +227,8 @@
                                 <tr th:each="es,itera : ${educationData}">
                                     <td th:text="${itera.count}"></td>
                                     <td th:text="${es.gpa}"></td>
+                                    <td th:text="${es.education.degree.name}"></td>
+                                    <td th:text="${es.education.major.name}"></td>
                                     <td th:text="${es.education.university.name}"></td>
                                     <td>
                                         <!--<a th:href="@{/regiondelete/{id}(id=${as.id})}" data-target="#mdlAdd" data-toggle="modal">Delete</a>-->
@@ -405,6 +409,7 @@
                             <tbody id="tblData">
                                 <tr th:each="we,iteW : ${workexpData}">
                                     <td th:text="${iteW.count}"></td>
+
                                     <td th:text="${we.name}"></td>
                                     <td th:text="${we.position}"></td>
                                     <td th:text="${we.description}"></td>
@@ -507,7 +512,7 @@
                                             <label for="education">Education</label>
                                             <select name="education" id="education" class="form-control">
                                                 <div th:each="data :${dataedu}">
-                                                    <option th:value="${data.id}" th:text="${data.university.name}"></option>
+                                                    <option th:value="${data.id}" th:text="${data.degree.name } + ${data.major.name } + ${data.university.name}"></option>
                                                 </div>
                                             </select>
                                         </div>

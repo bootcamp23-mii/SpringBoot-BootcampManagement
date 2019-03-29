@@ -260,7 +260,7 @@ public class CVController {
     }
 
     @RequestMapping(value = "/cv/workexpsave", method = RequestMethod.POST)  //@PostMapping("/regionsave")
-    public String saveworkexp(@RequestParam("worknamea") String name,@RequestParam("workdescriptiona") String desc, @RequestParam("workpositiona") String position,@RequestParam("workstartdatea") String startdate, @RequestParam("workenddatea") String enddate, HttpServletRequest request) {
+    public String saveworkexp(@RequestParam("worknamea") String name, @RequestParam("workdescriptiona") String desc, @RequestParam("workpositiona") String position, @RequestParam("workstartdatea") String startdate, @RequestParam("workenddatea") String enddate, HttpServletRequest request) {
         try {
             String idemp = request.getSession().getAttribute("login").toString();
             daoW.save(new Workexperience(idemp, name, desc, position, dateFormat.parse(startdate), dateFormat.parse(enddate), new Short("0"), new Employee(idemp)));
@@ -271,7 +271,7 @@ public class CVController {
     }
 
     @RequestMapping(value = "/cv/workexpedit", method = RequestMethod.POST)  //@PostMapping("/regionsave")
-    public String saveworkexp(@RequestParam("weid") String id,@RequestParam("worknamee") String name,@RequestParam("workdescriptione") String desc, @RequestParam("workpositione") String position,@RequestParam("workstartdatee") String startdate, @RequestParam("workenddatee") String enddate, HttpServletRequest request) {
+    public String saveworkexp(@RequestParam("weid") String id, @RequestParam("worknamee") String name, @RequestParam("workdescriptione") String desc, @RequestParam("workpositione") String position, @RequestParam("workstartdatee") String startdate, @RequestParam("workenddatee") String enddate, HttpServletRequest request) {
         try {
             String idemp = request.getSession().getAttribute("login").toString();
             daoW.save(new Workexperience(id, name, desc, position, dateFormat.parse(startdate), dateFormat.parse(enddate), new Short("0"), new Employee(idemp)));
@@ -318,7 +318,7 @@ public class CVController {
         return "redirect:/cv/cv";
     }
 
-        @RequestMapping(value = "/cv/workexperiencedelete", method = RequestMethod.GET)
+    @RequestMapping(value = "/cv/workexperiencedelete", method = RequestMethod.GET)
     public String deleteworkexp(@RequestParam(value = "id") String id) {
         daoW.delete(id);
         return "redirect:/cv/cv";
