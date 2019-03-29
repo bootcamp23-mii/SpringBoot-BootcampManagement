@@ -193,8 +193,8 @@
                                     <td th:text="${pd.description}"></td>
                                     <td th:text="${pd.address}"></td>
                                     <td th:text="${pd.department}"></td>
-                                    <td th:text="${pd.startdate}"></td>
-                                    <td th:text="${pd.finishdate}"></td>
+                                    <td th:text="${#dates.format(pd.startdate,'dd-MMM-yyyy')}"></td>
+                                    <td th:text="${#dates.format(pd.finishdate,'dd-MMM-yyyy')}"></td>
                                     <td th:text="${pd.company.name}"</td>
                                     <td th:text="${pd.employee.name}"></td>
                                     <td>

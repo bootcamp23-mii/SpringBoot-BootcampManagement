@@ -186,8 +186,8 @@
                             <tbody id="tblData">
                                 <tr th:each="idc,ih : ${idcardData}">
                                     <td th:text="${ih.count}"></td>
-                                    <td th:text="${idc.receivedate}"></td>
-                                    <td th:text="${idc.returndate}"></td>
+                                    <td th:text="${#dates.format(idc.receivedate,'dd-MMM-yyyy')}"></td>
+                                    <td th:text="${#dates.format(idc.returndate,'dd-MMM-yyyy')}"></td>
                                     <td th:text="${idc.note}"></td>
                                     <td th:text="${idc.employee.name}"></td>
                                     <td>

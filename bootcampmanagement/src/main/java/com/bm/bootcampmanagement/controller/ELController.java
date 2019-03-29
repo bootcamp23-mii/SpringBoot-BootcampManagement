@@ -44,6 +44,7 @@ import com.bm.bootcampmanagement.services.el.PlacementDAO;
 import com.bm.bootcampmanagement.services.el.VillageDAO;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -58,43 +59,42 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Controller
 public class ELController {
-    
-     
+
     @Autowired
     EmployeeAccessRepository ear;
-    
+
     @Autowired
     CompanyRepository cr;
-    
+
     @Autowired
     AccessCardDAO acdao;
-    
+
     @Autowired
     LockerDAO ldao;
-    
+
     @Autowired
     IdCardDAO cardDAO;
-    
+
     @Autowired
     EmployeeLockerDAO eldao;
-    
+
     @Autowired
     EmployeeAccessDAO o;
-    
+
     @Autowired
     PlacementDAO pdao;
-    
+
     @Autowired
     EmployeeDAO daoEmp;
-    
+
     @Autowired
     VillageDAO daoLV;
-    
+
     @Autowired
     DistrictDAO daoLD;
-    
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");    
-    
+
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
     @GetMapping("/el/Idcard")
     public String Idcard(Model model) {
         model.addAttribute("idcardData", cardDAO.findAll());
@@ -118,15 +118,25 @@ public class ELController {
         cardDAO.saveIdCard(new Idcard(id, dateFormat.parse(receivedate), dateFormat.parse(returndate), note, new Employee(employee)));
         return "redirect:/el/Idcard";
     }
-    
+
     @RequestMapping(value = "/el/idcardDelete", method = RequestMethod.GET)
     public String deletecard(@RequestParam(value = "cardid") String id) {
         cardDAO.deleteIdCardById(id);
-         return "redirect:/el/Idcard";
+        return "redirect:/el/Idcard";
     }
 
     @GetMapping("/el/Employeelocker")
     public String Employeelocker(Model model) {
+//        Locker lock = (Locker) ldao.findAll();
+//        List<Employeelocker> elok = (List<Employeelocker>) (Employeelocker) eldao.findAll();
+//        for (Employeelocker employeelocker : elok) {
+//            for (int i = 0; i < elok.size(); i++) {
+//                if (lock.getId() == elok.get(i).getLocker().getId()) {
+//
+//                }
+//
+//            }
+//        }
         model.addAttribute("emplockerData", eldao.findAll());
         model.addAttribute("datalock", ldao.findAll());
         model.addAttribute("empl", daoEmp.findAll());
@@ -139,6 +149,16 @@ public class ELController {
     @RequestMapping(value = "/el/emplockerSave", method = RequestMethod.POST)
     public String save(String id, @RequestParam("receivedate") String receivedate, @RequestParam("returndate") String returndate,
             @RequestParam("notes") String notes, @RequestParam("locker") String locker, @RequestParam("employee") String employee) throws ParseException {
+        boolean isNew = true;
+        
+        for (Employeelocker data : eldao.findAll()) {
+            if (!employee.equalsIgnoreCase(data.getEmployee().getId())) {
+                if (locker.equalsIgnoreCase(data.getLocker().getId())) {
+                    isNew=false;
+                }    
+            }
+        }
+        if (isNew)
         eldao.saveEmployeeLocker(new Employeelocker("id", dateFormat.parse(receivedate), dateFormat.parse(returndate), notes, new Locker(locker), new Employee(employee)));
         return "redirect:/el/Employeelocker";
     }
@@ -146,16 +166,22 @@ public class ELController {
     @RequestMapping(value = "/el/emplockerEdit", method = RequestMethod.POST)
     public String edit(@RequestParam("id") String id, @RequestParam("receivedate") String receivedate, @RequestParam("returndate") String returndate,
             @RequestParam("notes") String notes, @RequestParam("locker") String locker, @RequestParam("employee") String employee) throws ParseException {
+        boolean isNew = true;
+        for (Employeelocker data2 : eldao.findAll()) {
+                    if (locker.equalsIgnoreCase(data2.getLocker().getId())) {
+                        isNew=false;
+                    }
+                }  
+        if (isNew)
         eldao.saveEmployeeLocker(new Employeelocker(id, dateFormat.parse(receivedate), dateFormat.parse(returndate), notes, new Locker(locker), new Employee(employee)));
         return "redirect:/el/Employeelocker";
     }
-    
+
     @RequestMapping(value = "/el/emplockerDelete", method = RequestMethod.GET)
     public String delete(@RequestParam(value = "empid") String id) {
         eldao.deleteEmployeeLockerById(id);
         return "redirect:/el/Employeelocker";
     }
-    
 
     @GetMapping("/el/Employeeaccess")
     public String Employeeaccess(Model model) {
@@ -168,29 +194,28 @@ public class ELController {
         model.addAttribute("empaccessDelete", new Employeeaccess());
         return "/el/Employeeaccess";
     }
-    
+
     @RequestMapping(value = "/el/empaccessSave", method = RequestMethod.POST)
-    public String savee (String id, @RequestParam("receivedate") String receivedate, @RequestParam("returndate") String returndate,
+    public String savee(String id, @RequestParam("receivedate") String receivedate, @RequestParam("returndate") String returndate,
             @RequestParam("notes") String notes, @RequestParam("accesscard") String accesscard, @RequestParam("employee") String employee) throws ParseException {
         o.saveEmployeeAccess(new Employeeaccess("id", dateFormat.parse(receivedate), dateFormat.parse(returndate), notes, new Accesscard(accesscard), new Employee(employee)));
         return "redirect:/el/Employeeaccess";
     }
-    
-    
+
     @RequestMapping(value = "/el/empaccessEdit", method = RequestMethod.POST)
-    public String editt(@RequestParam("id")String id, @RequestParam("receivedate") String receivedate, @RequestParam("returndate") String returndate,
+    public String editt(@RequestParam("id") String id, @RequestParam("receivedate") String receivedate, @RequestParam("returndate") String returndate,
             @RequestParam("notes") String notes, @RequestParam("accesscard") String accesscard, @RequestParam("employee") String employee) throws ParseException {
         o.saveEmployeeAccess(new Employeeaccess(id, dateFormat.parse(receivedate), dateFormat.parse(returndate), notes, new Accesscard(accesscard), new Employee(employee)));
         new Employeeaccess().getAccesscard().getAccessnumber();
         return "redirect:/el/Employeeaccess";
     }
-    
+
     @RequestMapping(value = "/el/empaccessDelete", method = RequestMethod.GET)
     public String deletee(@RequestParam(value = "epcid") String id) {
         o.deleteEmployeeAccessById(id);
         return "redirect:/el/Employeeaccess";
     }
-    
+
     @GetMapping("/el/Placement")
     public String Placement(Model model) {
         model.addAttribute("placeData", pdao.findAll());
@@ -209,18 +234,17 @@ public class ELController {
         return "redirect:/el/Placement";
     }
 
-    
     @RequestMapping(value = "/el/placeEdit", method = RequestMethod.POST)
     public String edit(@RequestParam("id") String id, @RequestParam("description") String description, @RequestParam("address") String address, @RequestParam("department") String department,
             @RequestParam("startdate") String startdate, @RequestParam("finishdate") String finishdate, @RequestParam("company") String company, @RequestParam("employee") String employee) throws ParseException {
         pdao.savePlacement(new Placement(id, description, address, department, dateFormat.parse(startdate), dateFormat.parse(finishdate), new Company(company), new Employee(employee)));
         return "redirect:/el/Placement";
     }
-    
+
     @RequestMapping(value = "/el/placeDelete", method = RequestMethod.GET)
     public String deletepla(@RequestParam(value = "pladid") String id) {
         pdao.deletePlacementById(id);
         return "redirect:/el/Placement";
     }
-    
+
 }

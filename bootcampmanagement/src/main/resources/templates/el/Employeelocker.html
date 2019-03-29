@@ -187,8 +187,8 @@
                             <tbody id="tblData">
                                 <tr th:each="eld,ih : ${emplockerData}">
                                     <td th:text="${ih.count}"></td>
-                                    <td th:text="${eld.receivedate}"></td>
-                                    <td th:text="${eld.returndate}"></td>
+                                    <td th:text="${#dates.format(eld.receivedate,'dd-MMM-yyyy')}"></td>
+                                    <td th:text="${#dates.format(eld.returndate,'dd-MMM-yyyy')}"></td>
                                     <td th:text="${eld.notes}"></td>
                                     <td th:text="${eld.locker.lockernumber}"</td>
                                     <td th:text="${eld.employee.name}"></td>
