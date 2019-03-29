@@ -422,7 +422,7 @@
                                                 th:data-workdesc="${we.description}" 
                                                 th:data-workstart="${we.startdate}" 
                                                 th:data-workend="${we.enddate}" 
-                                                class="btn btn-outline-info" ><span data-feather="edit"></span></button>
+                                                class="btn btn-warning" ><span data-feather="edit"></span></button>
                                         <a th:href="@{/cv/workexperiencedelete(id=${we.id})}"><button value="" class="btn btn-danger"><span data-feather="trash"></span></button></a>
                                     </td>
                                 </tr>
@@ -444,8 +444,8 @@
                                     <div class="modal-body">
                                         <div class="form-group">
                                             <label for="name">Nama</label>
-                                            <input id="sid" name="sid" class="form-control" value="99" type="hidden" required="true"/>
-                                            <input id="sname" name="sname" class="form-control" type="text"/>
+                                            <input id="sid" name="sid" class="form-control" value="99" type="hidden"/>
+                                            <input id="sname" name="sname" class="form-control" type="text" required="true"/>
                                             <input id="semployee" class="form-control" value="14201" type="hidden"/>
                                         </div>
                                     </div>

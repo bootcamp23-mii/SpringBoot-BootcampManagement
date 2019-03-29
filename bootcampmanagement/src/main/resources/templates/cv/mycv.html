@@ -34,11 +34,13 @@
                             <div class="panel-heading">Personal Information</div>
                             <div class="panel-body">
                                 <table id="example" class="table table-borderless" style="width: 100%">
-
                                     <tbody id="tblData">
-                                    <i class="fa fa-save"><tr><td> <span class="glyphicon glyphicon-user"></span></td><td th:text="${employee.name}"></td></tr></i>
+                                    <tr><td> <span class="glyphicon glyphicon-user"></span></td><td th:text="${employee.name}"></td></tr>
+                                    <tr><td><span class="glyphicon glyphicon-calendar"></span></td><td th:text="${#dates.format(employee.birthdate,'dd-MMM-yyyy')}"></td></tr>
+                                    <tr><td><span class="glyphicon glyphicon-home"></span></td><td th:text="${employee.address}"></td></tr>
                                     <tr><td><span class="glyphicon glyphicon-envelope"></span></td><td th:text="${employee.email}"></td></tr>
                                     <tr><td><span class="glyphicon glyphicon-earphone"></span></td><td th:text="${employee.phone}"></td></tr>
+                                    
                                     </tbody>
                                 </table>
                             </div>
