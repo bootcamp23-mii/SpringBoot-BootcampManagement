@@ -444,7 +444,7 @@
                                     <div class="modal-body">
                                         <div class="form-group">
                                             <label for="name">Nama</label>
-                                            <input id="sid" name="sid" class="form-control" value="99" type="hidden"/>
+                                            <input id="sid" name="sid" class="form-control" value="99" type="hidden" required="true"/>
                                             <input id="sname" name="sname" class="form-control" type="text"/>
                                             <input id="semployee" class="form-control" value="14201" type="hidden"/>
                                         </div>
@@ -472,15 +472,15 @@
                                     <div class="modal-body">
                                         <div class="form-group">
                                             <label for="name">Nama</label>
-                                            <input id="oname" name="oname" class="form-control" type="text"/>
+                                            <input id="oname" name="oname" class="form-control" type="text" required="true"/>
                                         </div>
                                         <div class="form-group">
                                             <label for="position">Position</label>
-                                            <input id="position" name="position" class="form-control" type="text"/>
+                                            <input id="position" name="position" class="form-control" type="text" required="true"/>
                                         </div>
                                         <div class="form-group">
                                             <label for="periode">Periode</label>
-                                            <input id="periode" name="periode" class="form-control" type="date"/>
+                                            <input id="periode" name="periode" class="form-control" type="date" required="true"/>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -506,7 +506,7 @@
                                     <div class="modal-body">
                                         <div class="form-group">
                                             <label for="gpa">GPA</label>
-                                            <input id="gpa" name="gpa" type="number" step="0.01" min="0" max="4" class="form-control"/>
+                                            <input id="gpa" name="gpa" type="number" step="0.01" min="0" max="4" class="form-control" required="true"/>
                                         </div>
                                         <div class="form-group">
                                             <label for="education">Education</label>
@@ -540,13 +540,15 @@
                                     <div class="modal-body">
                                         <div class="form-group">
                                             <label for="datecert">Certificate Date</label>
-                                            <input id="datecert" name="datecert" class="form-control" type="date"/>
+                                            <input id="datecert" name="datecert" class="form-control" type="date" required="true"/>
+                                        </div>
+                                        <div class="form-group">
                                             <label for="certnumber">Certificate Number</label>
-                                            <input id="certnumber" name="certnumber" type="text" class="form-control"/>
+                                            <input id="certnumber" name="certnumber" type="text" class="form-control" required="true"/>
                                         </div>
                                         <div class="form-group">
                                             <label for="certificate">Certificate</label>
-                                            <select name="certificate" id="certificate" class="form-control">
+                                            <select name="certificate" id="certificate" class="form-control" >
                                                 <div th:each="datac :${datacert}">
                                                     <option th:value="${datac.id}" th:text="${datac.name}"></option>
                                                 </div>
@@ -582,7 +584,7 @@
                                                 </div>
                                             </select>
                                             <label for="datecert">Score</label>
-                                            <input type="range" min="0" max="100" value="0" class="form-control" id="langscorea" name="scorea">
+                                            <input type="range" min="0" max="100" value="0" class="form-control" id="langscorea" name="scorea" required="true">
                                             <p>Value: <span id="resultSliderlangscorea"></span></p>
                                             <label for="certnumber">Active / Passive</label>
                                             <select name="isactivea" id="isactivea" class="form-control">
@@ -620,7 +622,7 @@
                                                 </div>
                                             </select>
                                             <label for="datecert">Score</label>
-                                            <input type="range" min="0" max="100" value="0" class="form-control" id="skillscorea" name="scorea">
+                                            <input type="range" min="0" max="100" value="0" class="form-control" id="skillscorea" name="scorea" required="true">
                                             <p>Value: <span id="resultSliderskillscorea"></span></p>
                                         </div>
                                     </div>
@@ -647,11 +649,11 @@
                                     <div class="modal-body">
                                         <div class="form-group">
                                             <label for="datecert">Company</label>
-                                            <input id="worknamea" name="worknamea" class="form-control" type="text"/>
+                                            <input id="worknamea" name="worknamea" class="form-control" type="text" required="true"/>
                                             <label for="datecert">Position</label>
-                                            <input id="workpositiona" name="workpositiona" class="form-control" type="text"/>
+                                            <input id="workpositiona" name="workpositiona" class="form-control" type="text" required="true"/>
                                             <label for="datecert">Description</label>
-                                            <textarea class="form-control" id="workdescriptiona" name="workdescriptiona"></textarea>
+                                            <textarea class="form-control" id="workdescriptiona" name="workdescriptiona" required="true"></textarea>
                                             <label for="datecert">Start Date</label>
                                             <input id="workstartdatea" name="workstartdatea" class="form-control" type="date"/>
                                             <label for="datecert">End Date</label>

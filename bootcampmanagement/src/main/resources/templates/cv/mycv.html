@@ -64,24 +64,6 @@
                 <div class="col-md-6">
                     <div class="panel-group">
                         <div class="panel panel-default">
-                            <div class="panel-heading">Achievement</div>
-                            <div class="panel-body">
-                                <table id="example" class="table table-hover" style="width: 100%">
-
-                                    <tbody id="tblData">
-                                        <tr th:each="as,iter : ${achievementData}">
-                                            <td th:text="${iter.count}"></td>
-                                            <td th:text="${as.name}"></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="panel-group">
-                        <div class="panel panel-default">
                             <div class="panel-heading">Education</div>
                             <div class="panel-body">
                                 <table id="example" class="table tablehover" style="width: 100%">
@@ -94,6 +76,24 @@
                                             <td th:text="${es.education.major.name}"></td>
                                             <td th:text="${es.education.university.name}"></td>
 
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="panel-group">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Achievement</div>
+                            <div class="panel-body">
+                                <table id="example" class="table table-hover" style="width: 100%">
+
+                                    <tbody id="tblData">
+                                        <tr th:each="as,iter : ${achievementData}">
+                                            <td th:text="${iter.count}"></td>
+                                            <td th:text="${as.name}"></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -125,20 +125,20 @@
                     </div>
                 </div>
             </div>
+
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <div class="panel-group">
                         <div class="panel panel-default">
-                            <div class="panel-heading">Certification</div>
+                            <div class="panel-heading">Technical Qualification</div>
                             <div class="panel-body">
                                 <table id="example" class="table table-hover" style="width: 100%">
 
                                     <tbody id="tblData">
-                                        <tr th:each="cs,ite : ${certificateData}">
-                                            <td th:text="${ite.count}"></td>
-                                            <td th:text="${#dates.format(cs.certificateDate,'dd-MMM-yyyy')}"></td>
-                                            <td th:text="${cs.certificateNumber}"></td>
-                                            <td th:text="${cs.certificate.name}"></td>
+                                        <tr th:each="esk,itrs : ${skillData}">
+                                            <td th:text="${itrs.count}"></td>
+                                            <td th:text="${esk.skill.name}"></td>
+                                            <td th:text="${esk.score}"></td>
 
                                         </tr>
                                     </tbody>
@@ -147,8 +147,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
                 <div class="col-md-6">
                     <div class="panel-group">
                         <div class="panel panel-default">
@@ -169,18 +167,21 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
+            </div>
+            <div class="row">
+                <div class="col-md-12">
                     <div class="panel-group">
                         <div class="panel panel-default">
-                            <div class="panel-heading">Skill</div>
+                            <div class="panel-heading">Training / Certification</div>
                             <div class="panel-body">
                                 <table id="example" class="table table-hover" style="width: 100%">
 
                                     <tbody id="tblData">
-                                        <tr th:each="esk,itrs : ${skillData}">
-                                            <td th:text="${itrs.count}"></td>
-                                            <td th:text="${esk.skill.name}"></td>
-                                            <td th:text="${esk.score}"></td>
+                                        <tr th:each="cs,ite : ${certificateData}">
+                                            <td th:text="${ite.count}"></td>
+                                            <td th:text="${#dates.format(cs.certificateDate,'dd-MMM-yyyy')}"></td>
+                                            <td th:text="${cs.certificateNumber}"></td>
+                                            <td th:text="${cs.certificate.name}"></td>
 
                                         </tr>
                                     </tbody>
