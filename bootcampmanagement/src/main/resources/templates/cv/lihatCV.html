@@ -248,15 +248,20 @@
                                 <thead>
                                     <tr>
                                         <th>No.</th>
-                                        <th>University</th>
                                         <th>GPA</th>
+                                        <th>Degree</th>
+                                        <th>Major</th>
+                                        <th>University</th>
+                                        
                                     </tr>
                                 </thead>
                                 <tbody id="tblData">
                                     <tr th:each="es,itera : ${education}">
                                         <td th:text="${itera.count}"></td>
-                                        <td th:text="${es.education.university.name}"></td>
                                         <td th:text="${es.gpa}"></td>
+                                        <td th:text="${es.education.degree.name}"></td>
+                                        <td th:text="${es.education.major.name}"></td>
+                                        <td th:text="${es.education.university.name}"></td>
 
                                     </tr>
                                 </tbody>

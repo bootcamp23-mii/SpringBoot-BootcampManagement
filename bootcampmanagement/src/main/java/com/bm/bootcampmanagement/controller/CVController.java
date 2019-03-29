@@ -11,8 +11,12 @@ import com.bm.bootcampmanagement.entities.Education;
 import com.bm.bootcampmanagement.entities.Educationhistory;
 import com.bm.bootcampmanagement.entities.Employee;
 import com.bm.bootcampmanagement.entities.Employeecertification;
+import com.bm.bootcampmanagement.entities.Employeelanguage;
 import com.bm.bootcampmanagement.entities.Employeeskill;
+import com.bm.bootcampmanagement.entities.Language;
 import com.bm.bootcampmanagement.entities.Organization;
+import com.bm.bootcampmanagement.entities.Skill;
+import com.bm.bootcampmanagement.entities.Workexperience;
 import com.bm.bootcampmanagement.services.EmployeeDAO;
 import com.bm.bootcampmanagement.services.cv.AchievementDAO;
 import com.bm.bootcampmanagement.services.cv.CertificateDAO;
@@ -214,8 +218,9 @@ public class CVController {
     }
 
     @RequestMapping(value = "/cv/languagesave", method = RequestMethod.POST)  //@PostMapping("/regionsave")
-    public String savelang(@RequestParam("gpa") String gpa, @RequestParam("education") String education) {
-//        edao.save(new Educationhistory("id", gpa, new Education(education), new Employee("14201")));
+    public String savelang(HttpServletRequest request, @RequestParam("s-name") String name, @RequestParam("s-score") String score,  @RequestParam("s-isactive") String active) {
+        String id = request.getSession().getAttribute("login").toString();
+        daoEmpL.save(new Employeelanguage("ID", Double.parseDouble(score), new Language(name), new Employee(id)));
         return "redirect:/cv/cv";
     }
 
@@ -226,8 +231,9 @@ public class CVController {
     }
 
     @RequestMapping(value = "/cv/skillsave", method = RequestMethod.POST)  //@PostMapping("/regionsave")
-    public String saveskill(@RequestParam("gpa") String gpa, @RequestParam("education") String education) {
-//        edao.save(new Educationhistory("id", gpa, new Education(education), new Employee("14201")));
+    public String saveskill(HttpServletRequest request, @RequestParam("score") String score, @RequestParam("skill") String skill) {
+        String id = request.getSession().getAttribute("login").toString();
+        daoEmpS.save(new Employeeskill("id", Double.parseDouble(score), new Skill(skill), new Employee(id)));
         return "redirect:/cv/cv";
     }
 
@@ -237,9 +243,11 @@ public class CVController {
         return "redirect:/cv/cv";
     }
 
-    @RequestMapping(value = "/cv/workexpsave", method = RequestMethod.POST)  //@PostMapping("/regionsave")
-    public String saveworkexp(@RequestParam("gpa") String gpa, @RequestParam("education") String education) {
-//        edao.save(new Educationhistory("id", gpa, new Education(education), new Employee("14201")));
+    @RequestMapping(value = "/cv/workexperiencesave", method = RequestMethod.POST)  //@PostMapping("/regionsave")
+    public String saveworkexp(HttpServletRequest request, @RequestParam("name") String name, @RequestParam("description") String description, @RequestParam("position") String position,
+            @RequestParam("startdate") String startdate, @RequestParam("enddate") String enddate) throws ParseException {
+        String id = request.getSession().getAttribute("login").toString();
+        daoW.save(new Workexperience("id", name, description, position, dateFormat.parse(startdate), dateFormat.parse(enddate), new Employee(id)));
         return "redirect:/cv/cv";
     }
 

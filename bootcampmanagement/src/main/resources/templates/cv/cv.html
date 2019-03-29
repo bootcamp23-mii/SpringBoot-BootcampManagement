@@ -217,6 +217,8 @@
                                 <tr>
                                     <th>No.</th>
                                     <th>GPA</th>
+                                    <th>Degree</th>
+                                    <th>Major</th>
                                     <th>University</th>
                                     <th>Action</th>
                                 </tr>
@@ -225,6 +227,8 @@
                                 <tr th:each="es,itera : ${educationData}">
                                     <td th:text="${itera.count}"></td>
                                     <td th:text="${es.gpa}"></td>
+                                    <td th:text="${es.education.degree.name}"></td>
+                                    <td th:text="${es.education.major.name}"></td>
                                     <td th:text="${es.education.university.name}"></td>
                                     <td>
                                         <!--<a th:href="@{/regiondelete/{id}(id=${as.id})}" data-target="#mdlAdd" data-toggle="modal">Delete</a>-->
@@ -325,7 +329,6 @@
                             <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th>ID</th>
                                     <!--<th>Employee</th>-->
                                     <th>Language</th>
                                     <th>Score</th>
@@ -336,7 +339,6 @@
                             <tbody id="tblData">
                                 <tr th:each="el,iteL : ${emplangData}">
                                     <td th:text="${iteL.count}"></td>
-                                    <td th:text="${el.id}"></td>
                                     <!--<td th:text="${el.employee.name}"></td>-->
                                     <td th:text="${el.language.name}"></td>
                                     <td th:text="${el.score}"></td>
@@ -363,7 +365,6 @@
                             <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th>ID</th>
                                     <!--<th>Employee</th>-->
                                     <th>Skill</th>
                                     <th>Score</th>
@@ -373,7 +374,6 @@
                             <tbody id="tblData">
                                 <tr th:each="es,iteS : ${empskillData}">
                                     <td th:text="${iteS.count}"></td>
-                                    <td th:text="${es.id}"></td>
                                     <!--<td th:text="${es.employee.name}"></td>-->
                                     <td th:text="${es.skill.name}"></td>
                                     <td th:text="${es.score}"></td>
@@ -399,7 +399,6 @@
                             <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th>ID</th>
                                     <!--<th>Employee</th>-->
                                     <th>Company</th>
                                     <th>Position</th>
@@ -412,7 +411,6 @@
                             <tbody id="tblData">
                                 <tr th:each="we,iteW : ${workexpData}">
                                     <td th:text="${iteW.count}"></td>
-                                    <td th:text="${we.id}"></td>
                                     <!--<td th:text="${we.employee.name}"></td>-->
                                     <td th:text="${we.name}"></td>
                                     <td th:text="${we.position}"></td>
@@ -512,7 +510,7 @@
                                             <label for="education">Education</label>
                                             <select name="education" id="education" class="form-control">
                                                 <div th:each="data :${dataedu}">
-                                                    <option th:value="${data.id}" th:text="${data.university.name}"></option>
+                                                    <option th:value="${data.id}" th:text="${data.degree.name } + ${data.major.name } + ${data.university.name}"></option>
                                                 </div>
                                             </select>
                                         </div>
@@ -562,6 +560,120 @@
                         </div>
                     </div>
                     <!--end modal--> 
+                    <!--Modal add lang-->
+                    <div class="modal fade" id="modalAddlang" tabindex="-1" role="dialog" aria-labelledby="modal-add" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modal-add">Add Role</h5>
+                                    <button class="close" data-dismiss="modal" aria-label="close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form th:action="@{/cv/languagesave}" method="post" >
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            
+                                            <label for="name">Language</label>
+                                            <select name="s-language" id="s-language" class="form-control">
+                                                <div th:each="data :${langData}">
+                                                    <option th:value="${data.id}" th:text="${data.name}"></option>
+                                                </div>
+                                            </select>
+                                            <label for="name">Score</label>
+                                            <input id="s-score" class="form-control" type="text"/>
+                                            <label for="name">Active / Passive</label>
+<!--                                            <input id="s-enddate" class="form-control" type="text"/>-->
+                                            <select class="form-control" name="s-isactive" id="s-isactive">
+                                                <option value="0">Passive</option>
+                                                <option value="1">Active</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="submit" value="Submit" class="btn btn-default">Save</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!--ENDOF Modal add data-->
+                    
+                     <div class="modal fade" id="modalAddwork" tabindex="-1" role="dialog" aria-labelledby="modal-add" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modal-add">Add Work Experience</h5>
+                                    <button class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form th:action="@{/cv/workexperiencesave}" method="post">
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="name">Job Name</label>
+                                            <input id="name" name="name" class="form-control" type="text"/>
+                                        </div>
+                                         <div class="form-group">
+                                            <label for="description">Description</label>
+                                            <input id="description" name="description" class="form-control" type="text"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="position">Position</label>
+                                            <input id="position" name="position" class="form-control" type="text"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="startdate">Start Date</label>
+                                            <input id="startdate" name="startdate" class="form-control" type="date"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="enddate">End Date</label>
+                                            <input id="enddate" name="enddate" class="form-control" type="date"/>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-default" value="Submit">Save</button>
+                                    </div>                          
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end modal-->
+                    <div class="modal fade" id="modalAddskill" tabindex="-1" role="dialog" aria-labelledby="modal-add" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modal-add">Add Work Experience</h5>
+                                    <button class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form th:action="@{/cv/skillsave}" method="post">
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="score">Score</label>
+                                            <input id="score" name="score" class="form-control" type="number"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="skill">Education</label>
+                                            <select name="skill" id="skill" class="form-control">
+                                                <div th:each="dataskill :${skillData}">
+                                                    <option th:value="${dataskill.id}" th:text="${dataskill.name}"></option>
+                                                </div>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-default" value="Submit">Save</button>
+                                    </div>                          
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end modal-->
                     <!--ini modal untuk edit-->
                     <!--Modal Edit Data-->
                     <div class="modal fade" id="mdlEditEdu" tabindex="-1" role="dialog" aria-labelledby="modal-add" aria-hidden="true">

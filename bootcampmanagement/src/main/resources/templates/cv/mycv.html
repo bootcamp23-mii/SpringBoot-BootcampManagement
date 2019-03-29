@@ -24,208 +24,213 @@
 
                 <row>
 
-                            <!--<h5 th:text="${/get-text}"></h5>-->
-                            <div class="row">
-                                <h3>Curriculum Vitae</h3>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-md-5">
-                                    <table id="example" class="table table-borderless" style="width: 100%">
-                                        <thead>
-                                            <tr>
-                                                <th>Data</th>
-                                            </tr>
-
-                                        </thead>
-                                        <tbody id="tblData">
-                                            <i class="fa fa-save"><tr><td th:text="${employee.name}"></td></tr></i>
-                                            <tr><td th:text="${employee.email}"></td></tr>
-                                            <tr><td th:text="${employee.phone}"></td></tr>
-
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                                <div class="col-md-3">
-                                </div>
-                                <div class="col-md-2">
-                                    <table id="example" class="table table-borderless" style="width: 100%">
-                                        <thead>
-                                            <tr>
-                                                <th></th>
-                                            </tr>
-
-                                        </thead>
-                                        <tbody id="tblData">
-                                            <tr><td class="align-content-md-end"><div class="image">
-                                                        <img class="image" th:src="@{/lihatFile}" alt="[photo]" width="100px" height="130px"/>
-                                                    </div></td></tr>
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                    <!--<h5 th:text="${/get-text}"></h5>-->
+                    <div class="row">
+                        <h3>Curriculum Vitae</h3>
                     </div>
                     <hr>
                     <div class="row">
                         <div class="col-md-5">
-                            <h5>Achievement</h5>
-                            <table id="example" class="table table-hover" style="width: 100%">
+                            <table id="example" class="table table-borderless" style="width: 100%">
                                 <thead>
                                     <tr>
-                                        <th>No.</th>
-                                        <th>Name</th>
+                                        <th>Data</th>
                                     </tr>
 
                                 </thead>
                                 <tbody id="tblData">
-                                    <tr th:each="as,iter : ${achievementData}">
-                                        <td th:text="${iter.count}"></td>
-                                        <td th:text="${as.name}"></td>
-                                    </tr>
+                                <i class="fa fa-save"><tr><td th:text="${employee.name}"></td></tr></i>
+                                <tr><td th:text="${employee.email}"></td></tr>
+                                <tr><td th:text="${employee.phone}"></td></tr>
+
                                 </tbody>
                             </table>
                         </div>
-                        <!--row table organization-->
-                        <hr>
-                        <div class="col-md-7">
-                            <h5>Education</h5>
-                            <table id="example" class="table tablehover" style="width: 100%">
+
+                        <div class="col-md-3">
+                        </div>
+                        <div class="col-md-2">
+                            <table id="example" class="table table-borderless" style="width: 100%">
                                 <thead>
                                     <tr>
-                                        <th>No.</th>
-                                        <th>University</th>
-                                        <th>GPA</th>
+                                        <th></th>
                                     </tr>
+
                                 </thead>
                                 <tbody id="tblData">
-                                    <tr th:each="es,itera : ${education}">
-                                        <td th:text="${itera.count}"></td>
-                                        <td th:text="${es.education.university.name}"></td>
-                                        <td th:text="${es.gpa}"></td>
+                                    <tr><td class="align-content-md-end"><div class="image">
+                                                <img class="image" th:src="@{/lihatFile}" alt="[photo]" width="100px" height="130px"/>
+                                            </div></td></tr>
 
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                    <hr>
-                    <div class="row">
-                        <h5>Organization</h5>
-                        <table id="example" class="table table-hover" style="width: 100%">
-                            <thead>
-                                <tr>
-                                    <th>No.</th>
-                                    <th>Name</th>
-                                    <th>Position</th>
-                                    <th>Period</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tblData">
-                                <tr th:each="os,tr : ${organizationData}">
-                                    <td th:text="${tr.count}"></td>
-                                    <td th:text="${os.name}"></td>
-                                    <td th:text="${os.position}"></td>
-                                    <td th:text="${#dates.format(os.period,'yyyy')}"></td>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-5">
+                    <h5>Achievement</h5>
+                    <table id="example" class="table table-hover" style="width: 100%">
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Name</th>
+                            </tr>
 
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <h5>Certificate</h5>
-                        <table id="example" class="table table-hover" style="width: 100%">
-                            <thead>
-                                <tr>
-                                    <th>No.</th>
-                                    <th>Date</th>
-                                    <th>Certificate Number</th>
-                                    <th>Certificate Name</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tblData">
-                                <tr th:each="cs,ite : ${certificateData}">
-                                    <td th:text="${ite.count}"></td>
-                                    <td th:text="${#dates.format(cs.certificateDate,'dd-MMM-yyyy')}"></td>
-                                    <td th:text="${cs.certificateNumber}"></td>
-                                    <td th:text="${cs.certificate.name}"></td>
+                        </thead>
+                        <tbody id="tblData">
+                            <tr th:each="as,iter : ${achievementData}">
+                                <td th:text="${iter.count}"></td>
+                                <td th:text="${as.name}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!--row table organization-->
+                <hr>
+                <div class="col-md-7">
+                    <h5>Education</h5>
+                    <table id="example" class="table tablehover" style="width: 100%">
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>GPA</th>
+                                <th>Degree</th>
+                                <th>Major</th>
+                                <th>University</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tblData">
+                            <tr th:each="es,itera : ${educationData}">
+                                <td th:text="${itera.count}"></td>
+                                <td th:text="${es.gpa}"></td>
+                                <td th:text="${es.education.degree.name}"></td>
+                                <td th:text="${es.education.major.name}"></td>
+                                <td th:text="${es.education.university.name}"></td>
 
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <h5>Language</h5>
-                        <table id="emplangTable" class="table table-hover" style="width: 100%">
-                            <thead>
-                                <tr>
-                                    <th>No.</th>
-                                    <th>Language</th>
-                                    <th>Score</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tblData">
-                                <tr th:each="el,it : ${languageData}">
-                                    <td th:text="${it.count}"></td>
-                                    <td th:text="${el.language.name}"></td>
-                                    <td th:text="${el.score}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <h5>Organization</h5>
+                <table id="example" class="table table-hover" style="width: 100%">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Name</th>
+                            <th>Position</th>
+                            <th>Period</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tblData">
+                        <tr th:each="os,tr : ${organizationData}">
+                            <td th:text="${tr.count}"></td>
+                            <td th:text="${os.name}"></td>
+                            <td th:text="${os.position}"></td>
+                            <td th:text="${#dates.format(os.period,'yyyy')}"></td>
 
-                                </tr>
-                            </tbody>
-                        </table>
-                        <!--ENDOF Show table data-->
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <h5>Skill</h5>
-                        <table id="example" class="table table-hover" style="width: 100%">
-                            <thead>
-                                <tr>
-                                    <th>No.</th>
-                                    <th>Skill</th>
-                                    <th>Score</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tblData">
-                                <tr th:each="esk,itrs : ${skillData}">
-                                    <td th:text="${itrs.count}"></td>
-                                    <td th:text="${esk.skill.name}"></td>
-                                    <td th:text="${esk.score}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <hr>
+            <div class="row">
+                <h5>Certificate</h5>
+                <table id="example" class="table table-hover" style="width: 100%">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Date</th>
+                            <th>Certificate Number</th>
+                            <th>Certificate Name</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tblData">
+                        <tr th:each="cs,ite : ${certificateData}">
+                            <td th:text="${ite.count}"></td>
+                            <td th:text="${#dates.format(cs.certificateDate,'dd-MMM-yyyy')}"></td>
+                            <td th:text="${cs.certificateNumber}"></td>
+                            <td th:text="${cs.certificate.name}"></td>
 
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <h5>Work Experience</h5>
-                        <table id="example" class="table table-hover" style="width: 100%">
-                            <thead>
-                                <tr>
-                                    <th>No.</th>
-                                    <th>Company</th>
-                                    <th>Position</th>
-                                    <th>Description</th>
-                                    <th>Start Date</th>
-                                    <th>End Date</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tblData">
-                                <tr th:each="we,itrw : ${workexperienceData}">
-                                    <td th:text="${itrw.count}"></td>
-                                    <td th:text="${we.name}"></td>
-                                    <td th:text="${we.position}"></td>
-                                    <td th:text="${we.description}"></td>
-                                    <td th:text="${we.startdate}"></td>
-                                    <td th:text="${we.enddate}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <hr>
+            <div class="row">
+                <h5>Language</h5>
+                <table id="emplangTable" class="table table-hover" style="width: 100%">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Language</th>
+                            <th>Score</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tblData">
+                        <tr th:each="el,it : ${languageData}">
+                            <td th:text="${it.count}"></td>
+                            <td th:text="${el.language.name}"></td>
+                            <td th:text="${el.score}"></td>
 
-                                </tr>
-                            </tbody>
-                        </table>
-                    
+                        </tr>
+                    </tbody>
+                </table>
+                <!--ENDOF Show table data-->
+            </div>
+            <hr>
+            <div class="row">
+                <h5>Skill</h5>
+                <table id="example" class="table table-hover" style="width: 100%">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Skill</th>
+                            <th>Score</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tblData">
+                        <tr th:each="esk,itrs : ${skillData}">
+                            <td th:text="${itrs.count}"></td>
+                            <td th:text="${esk.skill.name}"></td>
+                            <td th:text="${esk.score}"></td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <hr>
+            <div class="row">
+                <h5>Work Experience</h5>
+                <table id="example" class="table table-hover" style="width: 100%">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Company</th>
+                            <th>Position</th>
+                            <th>Description</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tblData">
+                        <tr th:each="we,itrw : ${workexperienceData}">
+                            <td th:text="${itrw.count}"></td>
+                            <td th:text="${we.name}"></td>
+                            <td th:text="${we.position}"></td>
+                            <td th:text="${we.description}"></td>
+                            <td th:text="${we.startdate}"></td>
+                            <td th:text="${we.enddate}"></td>
+
+                        </tr>
+                    </tbody>
+                </table>
+
             </div>
         </div>
 
