@@ -43,7 +43,9 @@ import com.bm.bootcampmanagement.services.el.VillageDAO;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -116,6 +118,9 @@ public class MainController {
 
     @GetMapping("/")
     public String index() {
+        if (true) {
+
+        }
         return "index";
     }
 
@@ -176,19 +181,20 @@ public class MainController {
     }
 
     @GetMapping("/activation")
-    public String activation(@RequestParam("id") String id, @RequestParam("ca") String password,Model model) {
+    public String activation(@RequestParam("id") String id, @RequestParam("ca") String password, Model model) {
         Employee emp = daoEmp.findById(id);
         if (password.equalsIgnoreCase(emp.getPassword())) {
             emp.setIsdeleted(new Short("0"));
             daoEmp.save(emp);
             model.addAttribute("idemp", id);
-        }else
+        } else {
             return "redirect:/error";
+        }
         return "/activation";
     }
 
     @PostMapping("/newpassword")
-    public String newpassString(@RequestParam("idemp")String id, @RequestParam("newpass")String pass) {
+    public String newpassString(@RequestParam("idemp") String id, @RequestParam("newpass") String pass) {
         Employee emp = daoEmp.findById(id);
         emp.setPassword(BCrypt.hashpw(pass, BCrypt.gensalt()));
         daoEmp.save(emp);
@@ -292,9 +298,16 @@ public class MainController {
     //    Employee Role
     @GetMapping("/employeerole")
     public String employeerole(Model m) {
+        List<Employeerole> empRoleList = (List<Employeerole>) daoEmpR.findAll();
+        List<Employeerole> dataEmployeeRole = new ArrayList<>();
+        for (int i = 0; i < empRoleList.size(); i++) {
+            if (empRoleList.get(i).getIsdeleted().intValue() == 0) {
+                dataEmployeeRole.add(empRoleList.get(i));
+            }
+        }
         m.addAttribute("empData", daoEmp.findAll());
         m.addAttribute("roleData", daoRl.findAll());
-        m.addAttribute("emproleData", daoEmpR.findAll());
+        m.addAttribute("emproleData", dataEmployeeRole);
         m.addAttribute("emprolesave", new Employeerole());
 //        m.addAttribute("emproleedit", new Employeerole());
 //        m.addAttribute("emproledelete", new Employeerole());
@@ -303,17 +316,27 @@ public class MainController {
 
     @RequestMapping(value = "/emprolesave", method = RequestMethod.POST) //@PostMapping("/regionsave")
     public String saveEmployeerole(
-            @RequestParam("ername") String ername,
-            @RequestParam("errole") String errole,
-            @RequestParam("erstartdate") String erstartdate,
-            @RequestParam("erenddate") String erenddate) {
-//        daoEmpR.save(new Employeerole("id", dateFormat.parse(erstartdate), dateFormat.parse(erenddate), Short.MIN_VALUE, errole, employee));
+            @RequestParam("emproleid") String id,
+            @RequestParam("empid") String ername,
+            @RequestParam("roleid") String errole,
+            @RequestParam("startdate") String erstartdate,
+            @RequestParam("enddate") String erenddate,
+            HttpServletRequest request) {
+        try {
+            String tempId = "-";
+            if (!id.equalsIgnoreCase("")) {
+                tempId = id;
+            }
+            daoEmpR.save(new Employeerole(tempId, dateFormatuci.parse(erstartdate), dateFormatuci.parse(erenddate), new Short("0"), new Role(errole), new Employee(ername)));
+        } catch (ParseException ex) {
+            java.util.logging.Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return "redirect:/employeerole";
     }
 
     @RequestMapping(value = "/emproleedit", method = RequestMethod.POST) //@PostMapping("/regionsave")
     public String editEmployeerole(@ModelAttribute("emproleedit") Employeerole employeerole) {
-        daoEmpR.save(employeerole);
+//        daoEmpR.save(employeerole);
         return "redirect:/employeerole";
 
     }
@@ -323,9 +346,6 @@ public class MainController {
         List<Employeerole> list = (List<Employeerole>) daoEmpR.findAll();
         for (Employeerole data : list) {
             if (data.getId().equalsIgnoreCase(id)) {
-                if (!data.getEmployee().getId().equalsIgnoreCase(request.getSession().getAttribute("login").toString())) {
-                    return "redirect:/employeerole";
-                }
                 daoEmpR.save(new Employeerole(data.getId(), data.getStartdate(), data.getEnddate(), new Short("1"), new Role(data.getRole().getId()), new Employee(data.getEmployee().getId())));
             }
         }
