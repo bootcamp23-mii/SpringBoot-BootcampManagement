@@ -10,242 +10,226 @@
 
         <title>MII Bootcamp Management</title>
 
-        <!-- Bootstrap core CSS -->
-        <link th:href="@{../dist/css/bootstrap.min.css}" rel="stylesheet"/>
 
-        <!-- Custom styles for this template -->
-        <link th:href="@{../dist/css/dashboard.css}" rel="stylesheet"/>
+        <link rel="stylesheet"
+              href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     </head>
 
     <body>
 
         <div class="container">
             <div class="row">
-
-                <row>
-
-                    <!--<h5 th:text="${/get-text}"></h5>-->
-                    <div class="row">
-                        <h3>Curriculum Vitae</h3>
+                <div class="col-md-10">
+                    <div class="panel-group">
+                        <div class="panel-body">
+                            <h1>Curriculum Vitae</h1>
+                        </div>
                     </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-md-5">
-                            <table id="example" class="table table-borderless" style="width: 100%">
-                                <thead>
-                                    <tr>
-                                        <th>Data</th>
-                                    </tr>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="panel-group">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Personal Information</div>
+                            <div class="panel-body">
+                                <table id="example" class="table table-borderless" style="width: 100%">
 
-                                </thead>
-                                <tbody id="tblData">
-                                <i class="fa fa-save"><tr><td th:text="${employee.name}"></td></tr></i>
-                                <tr><td th:text="${employee.email}"></td></tr>
-                                <tr><td th:text="${employee.phone}"></td></tr>
-
-                                </tbody>
-                            </table>
+                                    <tbody id="tblData">
+                                    <i class="fa fa-save"><tr><td> <span class="glyphicon glyphicon-user"></span></td><td th:text="${employee.name}"></td></tr></i>
+                                    <tr><td><span class="glyphicon glyphicon-envelope"></span></td><td th:text="${employee.email}"></td></tr>
+                                    <tr><td><span class="glyphicon glyphicon-earphone"></span></td><td th:text="${employee.phone}"></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="panel-group">
+                        <div class="panel panel-default">
 
-                        <div class="col-md-3">
-                        </div>
-                        <div class="col-md-2">
-                            <table id="example" class="table table-borderless" style="width: 100%">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                    </tr>
+                            <div class="panel-body" >
+                                <table id="example" class="table table-borderless" style="width: 100%">
 
-                                </thead>
-                                <tbody id="tblData">
-                                    <tr><td class="align-content-md-end"><div class="image">
-                                                <img class="image" th:src="@{/lihatFile}" alt="[photo]" width="100px" height="130px"/>
+                                    <tr><td><div class="image">
+                                                <img class="image" th:src="@{/lihatFile}" alt="[photo]" width="130px" height="160px"/>
                                             </div></td></tr>
-
-                                </tbody>
-                            </table>
+                                </table>
+                            </div>
                         </div>
                     </div>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col-md-5">
-                    <h5>Achievement</h5>
-                    <table id="example" class="table table-hover" style="width: 100%">
-                        <thead>
-                            <tr>
-                                <th>No.</th>
-                                <th>Name</th>
-                            </tr>
-
-                        </thead>
-                        <tbody id="tblData">
-                            <tr th:each="as,iter : ${achievementData}">
-                                <td th:text="${iter.count}"></td>
-                                <td th:text="${as.name}"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <!--row table organization-->
-                <hr>
-                <div class="col-md-7">
-                    <h5>Education</h5>
-                    <table id="example" class="table tablehover" style="width: 100%">
-                        <thead>
-                            <tr>
-                                <th>No.</th>
-                                <th>GPA</th>
-                                <th>Degree</th>
-                                <th>Major</th>
-                                <th>University</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tblData">
-                            <tr th:each="es,itera : ${educationData}">
-                                <td th:text="${itera.count}"></td>
-                                <td th:text="${es.gpa}"></td>
-                                <td th:text="${es.education.degree.name}"></td>
-                                <td th:text="${es.education.major.name}"></td>
-                                <td th:text="${es.education.university.name}"></td>
-
-                            </tr>
-                        </tbody>
-                    </table>
                 </div>
             </div>
-            <hr>
             <div class="row">
-                <h5>Organization</h5>
-                <table id="example" class="table table-hover" style="width: 100%">
-                    <thead>
-                        <tr>
-                            <th>No.</th>
-                            <th>Name</th>
-                            <th>Position</th>
-                            <th>Period</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tblData">
-                        <tr th:each="os,tr : ${organizationData}">
-                            <td th:text="${tr.count}"></td>
-                            <td th:text="${os.name}"></td>
-                            <td th:text="${os.position}"></td>
-                            <td th:text="${#dates.format(os.period,'yyyy')}"></td>
+                <div class="col-md-6">
+                    <div class="panel-group">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Achievement</div>
+                            <div class="panel-body">
+                                <table id="example" class="table table-hover" style="width: 100%">
 
-                        </tr>
-                    </tbody>
-                </table>
+                                    <tbody id="tblData">
+                                        <tr th:each="as,iter : ${achievementData}">
+                                            <td th:text="${iter.count}"></td>
+                                            <td th:text="${as.name}"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="panel-group">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Education</div>
+                            <div class="panel-body">
+                                <table id="example" class="table tablehover" style="width: 100%">
+
+                                    <tbody id="tblData">
+                                        <tr th:each="es,itera : ${education}">
+                                            <td th:text="${itera.count}"></td>
+                                            <td th:text="${es.gpa}"></td>
+                                            <td th:text="${es.education.degree.name}"></td>
+                                            <td th:text="${es.education.major.name}"></td>
+                                            <td th:text="${es.education.university.name}"></td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <hr>
             <div class="row">
-                <h5>Certificate</h5>
-                <table id="example" class="table table-hover" style="width: 100%">
-                    <thead>
-                        <tr>
-                            <th>No.</th>
-                            <th>Date</th>
-                            <th>Certificate Number</th>
-                            <th>Certificate Name</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tblData">
-                        <tr th:each="cs,ite : ${certificateData}">
-                            <td th:text="${ite.count}"></td>
-                            <td th:text="${#dates.format(cs.certificateDate,'dd-MMM-yyyy')}"></td>
-                            <td th:text="${cs.certificateNumber}"></td>
-                            <td th:text="${cs.certificate.name}"></td>
+                <div class="col-md-12">
+                    <div class="panel-group">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Organization</div>
+                            <div class="panel-body">
+                                <table id="example" class="table table-hover" style="width: 100%">
 
-                        </tr>
-                    </tbody>
-                </table>
+                                    <tbody id="tblData">
+                                        <tr th:each="os,tr : ${organizationData}">
+                                            <td th:text="${tr.count}"></td>
+                                            <td th:text="${os.name}"></td>
+                                            <td th:text="${os.position}"></td>
+                                            <td th:text="${#dates.format(os.period,'yyyy')}"></td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <hr>
             <div class="row">
-                <h5>Language</h5>
-                <table id="emplangTable" class="table table-hover" style="width: 100%">
-                    <thead>
-                        <tr>
-                            <th>No.</th>
-                            <th>Language</th>
-                            <th>Score</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tblData">
-                        <tr th:each="el,it : ${languageData}">
-                            <td th:text="${it.count}"></td>
-                            <td th:text="${el.language.name}"></td>
-                            <td th:text="${el.score}"></td>
+                <div class="col-md-12">
+                    <div class="panel-group">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Certification</div>
+                            <div class="panel-body">
+                                <table id="example" class="table table-hover" style="width: 100%">
 
-                        </tr>
-                    </tbody>
-                </table>
-                <!--ENDOF Show table data-->
+                                    <tbody id="tblData">
+                                        <tr th:each="cs,ite : ${certificateData}">
+                                            <td th:text="${ite.count}"></td>
+                                            <td th:text="${#dates.format(cs.certificateDate,'dd-MMM-yyyy')}"></td>
+                                            <td th:text="${cs.certificateNumber}"></td>
+                                            <td th:text="${cs.certificate.name}"></td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <hr>
             <div class="row">
-                <h5>Skill</h5>
-                <table id="example" class="table table-hover" style="width: 100%">
-                    <thead>
-                        <tr>
-                            <th>No.</th>
-                            <th>Skill</th>
-                            <th>Score</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tblData">
-                        <tr th:each="esk,itrs : ${skillData}">
-                            <td th:text="${itrs.count}"></td>
-                            <td th:text="${esk.skill.name}"></td>
-                            <td th:text="${esk.score}"></td>
+                <div class="col-md-6">
+                    <div class="panel-group">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Language</div>
+                            <div class="panel-body">
+                                <table id="emplangTable" class="table table-hover" style="width: 100%">
 
-                        </tr>
-                    </tbody>
-                </table>
+                                    <tbody id="tblData">
+                                        <tr th:each="el,it : ${languageData}">
+                                            <td th:text="${it.count}"></td>
+                                            <td th:text="${el.language.name}"></td>
+                                            <td th:text="${el.score}"></td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="panel-group">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Skill</div>
+                            <div class="panel-body">
+                                <table id="example" class="table table-hover" style="width: 100%">
+
+                                    <tbody id="tblData">
+                                        <tr th:each="esk,itrs : ${skillData}">
+                                            <td th:text="${itrs.count}"></td>
+                                            <td th:text="${esk.skill.name}"></td>
+                                            <td th:text="${esk.score}"></td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <hr>
             <div class="row">
-                <h5>Work Experience</h5>
-                <table id="example" class="table table-hover" style="width: 100%">
-                    <thead>
-                        <tr>
-                            <th>No.</th>
-                            <th>Company</th>
-                            <th>Position</th>
-                            <th>Description</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tblData">
-                        <tr th:each="we,itrw : ${workexperienceData}">
-                            <td th:text="${itrw.count}"></td>
-                            <td th:text="${we.name}"></td>
-                            <td th:text="${we.position}"></td>
-                            <td th:text="${we.description}"></td>
-                            <td th:text="${we.startdate}"></td>
-                            <td th:text="${we.enddate}"></td>
+                <div class="col-md-12">
+                    <div class="panel-group">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Work Experience</div>
+                            <div class="panel-body">
+                                <table id="example" class="table table-hover" style="width: 100%">
 
-                        </tr>
-                    </tbody>
-                </table>
+                                    <tbody id="tblData">
+                                        <tr th:each="we,itrw : ${workexperienceData}">
+                                            <td th:text="${itrw.count}"></td>
+                                            <td th:text="${we.name}"></td>
+                                            <td th:text="${we.position}"></td>
+                                            <td th:text="${we.description}"></td>
+                                            <td th:text="${we.startdate}"></td>
+                                            <td th:text="${we.enddate}"></td>
 
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+    </body>
+    <!-- Bootstrap core JavaScript
+            ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!--<script>window.jQuery || document.write('<script src="dist/js/jquery-slim.min.js"><\/script>')</script>-->
+    <script th:src="@{dist/js/popper.min.js}"></script>
+    <script th:src="@{dist/js/bootstrap.min.js}"></script>
 
-        <!-- Bootstrap core JavaScript
-                ================================================== -->
-        <!-- Placed at the end of the document so the pages load faster -->
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <!--<script>window.jQuery || document.write('<script src="dist/js/jquery-slim.min.js"><\/script>')</script>-->
-        <script th:src="@{dist/js/popper.min.js}"></script>
-        <script th:src="@{dist/js/bootstrap.min.js}"></script>
-
-        <!-- Icons -->
-        <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
-        <script>
-            feather.replace()
-        </script>
+    <!-- Icons -->
+    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+    <script>
+        feather.replace()
+    </script>
 
 </html>

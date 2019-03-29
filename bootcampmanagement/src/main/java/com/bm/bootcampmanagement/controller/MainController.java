@@ -169,7 +169,9 @@ public class MainController {
     }
 
     @GetMapping("/dashboard")
-    public String dashboard() {
+    public String dashboard(Model m, HttpServletRequest request) {
+        String id = request.getSession().getAttribute("login").toString();
+        m.addAttribute("employee", daoEmp.findById(id));
         return "/dashboard";
     }
 
