@@ -170,7 +170,7 @@
 
                         <div class="row" style="padding: 10px 0 10px 0">   
                             <form id="singleUploadForm" enctype="multipart/form-data" name="singleUploadForm" th:action="@{/uploadFile}" method="POST">
-                                <input id="singleFileUploadInput" type="file" name="file" class="file-input" required />
+                                <input id="singleFileUploadInput" type="file" name="file" accept="image/*" class="file-input" required />
                                 <button type="submit" class="primary submit-btn">Submit</button>
                             </form>
                         </div>
@@ -343,10 +343,10 @@
                                     <td th:text="${el.isactive}"></td>
                                     <td>
                                         <button data-target="#modalEditlang" data-toggle="modal" th:data-getid="${el.id}" 
-                                                                          th:data-idlang="el.language.id" 
-                                                                          th:data-score="el.score" 
-                                                                          th:data-isactive="el.isactive" 
-                                                                          class="btn btn-warning" ><span data-feather="edit"></span></button>
+                                                th:data-idlang="el.language.id" 
+                                                th:data-score="el.score" 
+                                                th:data-isactive="el.isactive" 
+                                                class="btn btn-warning" ><span data-feather="edit"></span></button>
                                         <a th:href="@{/cv/languagedelete(id=${el.id})}"><button value="" class="btn btn-danger"><span data-feather="trash"></span></button></a>
                                     </td>
                                 </tr>
@@ -377,9 +377,9 @@
                                     <td th:text="${es.score}"></td>
                                     <td>
                                         <button data-target="#modalEditskill" data-toggle="modal" th:data-getid="${es.id}" 
-                                                                          th:data-idskill="${es.skill.id}" 
-                                                                          th:data-score="${es.score}" 
-                                                                          class="btn btn-warning" ><span data-feather="edit"></span></button>
+                                                th:data-idskill="${es.skill.id}" 
+                                                th:data-score="${es.score}" 
+                                                class="btn btn-warning" ><span data-feather="edit"></span></button>
                                         <a th:href="@{/cv/skilldelete(id=${es.id})}"><button value="" class="btn btn-danger"><span data-feather="trash"></span></button></a>
                                     </td>
                                 </tr>
@@ -417,12 +417,12 @@
                                     <td th:text="${#dates.format(we.enddate, 'dd-MMM-yyyy')}"></td>
                                     <td>
                                         <button data-target="#modalEditwork" data-toggle="modal" th:data-getid="${we.id}"
-                                                                          th:data-workname="${we.name}" 
-                                                                          th:data-workposition="${we.position}" 
-                                                                          th:data-workdesc="${we.description}" 
-                                                                          th:data-workstart="${we.startdate}" 
-                                                                          th:data-workend="${we.enddate}" 
-                                                                          class="btn btn-outline-info" ><span data-feather="edit"></span></button>
+                                                th:data-workname="${we.name}" 
+                                                th:data-workposition="${we.position}" 
+                                                th:data-workdesc="${we.description}" 
+                                                th:data-workstart="${we.startdate}" 
+                                                th:data-workend="${we.enddate}" 
+                                                class="btn btn-outline-info" ><span data-feather="edit"></span></button>
                                         <a th:href="@{/cv/workexperiencedelete(id=${we.id})}"><button value="" class="btn btn-danger"><span data-feather="trash"></span></button></a>
                                     </td>
                                 </tr>
