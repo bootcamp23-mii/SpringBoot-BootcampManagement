@@ -163,17 +163,17 @@ and open the template in the editor.
                         </div>
                     </nav>
                     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-                        <h1>Generate Report</h1>
+                        <h1>Report</h1>
                         <!--show save form modal-->
                         <form action="/bm/generatereport" method="POST">
-                            <label data-error="wrong" data-success="true">Employee</label>
+                            <label data-error="wrong" data-success="true">Participant</label>
                             <select name="participantId" id="participantId" class="form-control">
                                 <div th:each="data :${dataParticipant}">
                                     <option th:value="${data.id}" th:text="${data.employee.name}"></option>
                                 </div>
                             </select>
                             <div class="modal-footer">
-                                <input type="submit" class="btn btn-info" value="Save" name="save"/>
+                                <input type="submit" class="btn btn-outline-success" value="Generate Report" name="save"/>
                             </div>
 
                         </form>

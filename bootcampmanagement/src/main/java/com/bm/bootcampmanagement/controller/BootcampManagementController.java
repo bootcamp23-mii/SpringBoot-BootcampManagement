@@ -8,6 +8,7 @@ package com.bm.bootcampmanagement.controller;
 import com.bm.bootcampmanagement.entities.*;
 import com.bm.bootcampmanagement.services.*;
 import com.bm.bootcampmanagement.services.bm.*;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -17,6 +18,8 @@ import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.HttpRequest;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.*;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +30,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @Controller
 public class BootcampManagementController {
-    
+
     @Autowired
     EmployeeDAO daoEmp;
     @Autowired
@@ -56,15 +59,15 @@ public class BootcampManagementController {
     private SimpleDateFormat dateFormatOut = new SimpleDateFormat("yyyy-MM-dd");
 
     @GetMapping("/bm/*")
-    public String error(){
+    public String error() {
         return "redirect:/error";
     }
-    
+
     @GetMapping("/bm/bm")
-    public String bm(){
+    public String bm() {
         return "/bm/bm";
     }
-    
+
     //participant
     @GetMapping("/bm/participant")
     public String participant(Model model) {
@@ -94,13 +97,13 @@ public class BootcampManagementController {
         model.addAttribute("dataBatchclass", daoBC.findAll());
         return "/bm/participant";
     }
-    
+
     @PostMapping("/bm/saveParticipant")
     public String saveParticipant(@RequestParam("employeeId") String empId, @RequestParam("batchclassId") String batchclassId) {
         daoP.save(new Participant(empId, "", new Short("0"), new Batchclass(batchclassId), new Employee(empId)));
         return "redirect:/bm/participant";
     }
-    
+
     @GetMapping("/bm/deleteParticipant/{id}")
     public String deleteParticipant(@PathVariable("id") String id) {
         List<Participant> list = (List<Participant>) daoP.findAll();
@@ -130,14 +133,14 @@ public class BootcampManagementController {
                 dataEvaluation.add(evaluationList.get(i));
             }
         }
-        
+
         model.addAttribute("dataParticipant", dataParticipant);
         model.addAttribute("dataEvaluation", dataEvaluation);
         model.addAttribute("dataTopic", daoT.findAll());
         model.addAttribute("dataLesson", daoL.findAll());
         return "/bm/evaluation";
     }
-    
+
     @PostMapping("/bm/saveEvaluation")
     public String saveEvaluation(@RequestParam("idEvaluation") String id, @RequestParam("idEmployee") String idEmployee, @RequestParam("evaluationDate") String evaluationDate, @RequestParam("idlesson") String idLesson, @RequestParam("idTopic") String idTopic, @RequestParam("isDaily") String isDaily) {
         try {
@@ -151,7 +154,7 @@ public class BootcampManagementController {
         }
         return "redirect:/bm/evaluation";
     }
-    
+
     @GetMapping("/bm/deleteEvaluation/{id}")
     public String deleteEvaluation(@PathVariable("id") String id) {
         try {
@@ -181,13 +184,13 @@ public class BootcampManagementController {
         model.addAttribute("dataAspect", daoA.findAll());
         return "/bm/score";
     }
-    
+
     @GetMapping("/bm/getscore/{id}")
     public String getscore(@PathVariable("id") String id, HttpServletRequest request) {
         request.getSession().setAttribute("idScore", id);
         return "redirect:/bm/score";
     }
-    
+
     @PostMapping("/bm/saveScore")
     public String saveScore(@RequestParam("scoreId") String id, @RequestParam("aspectId") String aspect, @RequestParam("aspectRating") String rating, HttpServletRequest request) {
         String tempId = "-";
@@ -209,7 +212,7 @@ public class BootcampManagementController {
         daoS.save(new Score(tempId, new Double(rating), new Short("0"), new Aspect(aspect), new Evaluation(request.getSession().getAttribute("idScore").toString())));
         return "redirect:/bm/score";
     }
-    
+
     @GetMapping("/bm/deleteScore/{id}")
     public String saveScore(@PathVariable("id") String id) {
         List<Score> list = (List<Score>) daoS.findAll();
@@ -251,7 +254,7 @@ public class BootcampManagementController {
         model.addAttribute("dataClasses", daoC.findAll());
         return "/bm/batchclass";
     }
-    
+
     @PostMapping("/bm/saveBatchclass")
     public String saveBatchclass(@RequestParam("idBatchclass") String id, @RequestParam("idTrainer") String idTrainer, @RequestParam("idBatch") String idBatch, @RequestParam("idClasses") String idClasses, @RequestParam("idRoom") String idRoom) {
         String tempId = "-";
@@ -261,7 +264,7 @@ public class BootcampManagementController {
         daoBC.save(new Batchclass(tempId, new Short("0"), new Batch(idBatch), new Room(idRoom), new Classes(idClasses), new Employee(idTrainer)));
         return "redirect:/bm/batchclass";
     }
-    
+
     @GetMapping("/bm/deleteBatchclass/{id}")
     public String deleteBatchclass(@PathVariable("id") String id) {
         List<Batchclass> list = (List<Batchclass>) daoBC.findAll();
@@ -287,7 +290,7 @@ public class BootcampManagementController {
         model.addAttribute("dataClasses", daoC.findAll());
         return "/bm/errorbank";
     }
-    
+
     @PostMapping("/bm/saveErrorbank")
     public String saveErrorbank(@RequestParam("errorbankId") String id, @RequestParam("errorbankSubmiter") String employeeId, @RequestParam("errorbankClassesId") String classesId, @RequestParam("errorbankSubmitdate") String SubmitDate, @RequestParam("errorbankDescription") String description, @RequestParam("errorbankSolution") String solution, HttpServletRequest request) {
         try {
@@ -307,7 +310,7 @@ public class BootcampManagementController {
         }
         return "redirect:/bm/errorbank";
     }
-    
+
     @GetMapping("/bm/deleteErrorbank/{id}")
     public String saveErrorbank(@PathVariable("id") String id, HttpServletRequest request) {
         List<Errorbank> list = (List<Errorbank>) daoEB.findAll();
@@ -335,7 +338,7 @@ public class BootcampManagementController {
         model.addAttribute("dataParticipant", dataParticipant);
         return "/bm/report";
     }
-    
+
     @PostMapping("/bm/generatereport")
     public String generateReport(HttpServletRequest request, @RequestParam("participantId") String id) {
         List<Evaluation> evaluationList = (List<Evaluation>) daoE.findAll();
@@ -360,28 +363,43 @@ public class BootcampManagementController {
             }
         }
         isDailyScore = (isDailyScore / count) * 0.7;
-        GenerateGrade(id,isDailyScore+isWeeklyScore);
+        GenerateGrade(id, isDailyScore + isWeeklyScore);
         request.getSession().setAttribute("isdailyscore", isDailyScore);
         request.getSession().setAttribute("isweeklyscore", isWeeklyScore);
         request.getSession().setAttribute("participantid", id);
         return "redirect:/bm/reportpage";
     }
-    
+
+//    @RequestMapping(value = "/lihatFile", method = RequestMethod.GET,
+//            produces = MediaType.IMAGE_JPEG_VALUE)
+//    public ResponseEntity<byte[]> getImage(HttpServletRequest request) throws IOException {
+//        Employee employee = DBFileStorageService.getFile(request.getSession().getAttribute("login").toString());
+//
+//        return ResponseEntity
+//                .ok()
+//                .contentType(MediaType.IMAGE_JPEG)
+//                .body(employee.getPhoto());
+//    }
+
     public String GenerateGrade(String id, double finalScore) {
-        String grade="";
-        if (finalScore>=75)grade = "A";else grade = "B";
+        String grade = "";
+        if (finalScore >= 75) {
+            grade = "A";
+        } else {
+            grade = "B";
+        }
         Participant data = daoP.findById(id);
         daoP.save(new Participant(data.getId(), grade, new Short("0"), new Batchclass(data.getBatchclass().getId()), new Employee(data.getId())));
         return grade;
     }
-    
+
     @GetMapping("/bm/reportpage")
     public String reportpage(Model model, HttpServletRequest request) {
         Participant participant = daoP.findById(request.getSession().getAttribute("participantid").toString());
-        model.addAttribute("participant",participant);
-        model.addAttribute("isdailyscore",request.getSession().getAttribute("isdailyscore"));
-        model.addAttribute("isweeklyscore",request.getSession().getAttribute("isweeklyscore"));
+        model.addAttribute("participant", participant);
+        model.addAttribute("isdailyscore", request.getSession().getAttribute("isdailyscore"));
+        model.addAttribute("isweeklyscore", request.getSession().getAttribute("isweeklyscore"));
         return "/bm/reportpage";
     }
-    
+
 }

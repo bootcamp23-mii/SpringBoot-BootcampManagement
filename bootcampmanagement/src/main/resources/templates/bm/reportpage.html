@@ -1,65 +1,116 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
+<!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
         <meta name="description" content=""/>
         <meta name="author" content=""/>
+        <!--Local css dan js semua pake th, @, dan {} dan / untuk single -->
         <link rel="icon" th:href="@{../dist/img/favicons/favicon.ico}"/>
 
         <title>MII Bootcamp Management</title>
 
         <!-- Bootstrap core CSS -->
         <link th:href="@{../dist/css/bootstrap.min.css}" rel="stylesheet"/>
-        <!--<link href="dist/css/bootstrap.min.css" rel="stylesheet">-->
 
         <!-- Custom styles for this template -->
         <link th:href="@{../dist/css/dashboard.css}" rel="stylesheet"/>
     </head>
+
     <body>
-        <div class="container" style="border-style: solid;">
-            <div class="main">
-                <div class="container-fluid align-content-center">
-                    <div>
-                        <h1>Bootcamp Report</h1>
+        <!--DIV CONTAINER-->
+        <div class="container" style="width: 100%">
+            <div class="row">
+
+                <form method="post" action="#" id="printJS-form" style="width: 100%">
+                    <div class="row">
+                        <h1> Bootcamp Report</h1>
                     </div>
-                    <p/>
-                    <h3 th:text="${participant.id}"></h3>
-                    <h3 th:text="${participant.employee.name}"></h3>
-                    <h4 th:text="'Batch '+${participant.batchclass.batch.id}+' '+${participant.batchclass.classes.id}"></h4>
-                    <h4 th:text="'Daily Score Average: '+${isdailyscore}"></h4>
-                    <h4 th:text="'Weekly Score Average: '+${isweeklyscore}"></h4>
-                    <h4 th:text="'Grade: '+${participant.grade}"></h4>
+                    <div class="row" style="align-content: center; border-style: solid; width: 100%">
+                        <div class="col-md-9">
+                            <table id="example" class="table table-borderless">
+                                <thead>
+                                </thead>
+                                <tbody id="tblReport">
+                                    <tr><td ><h2>Name               </h3></td> <td><h3>:</h3></td> <td> <h3 th:text="${participant.employee.name}"></h3> </td></tr>
+                                    <tr><td><h3>ID                  </h3></td> <td><h3>:</h3></td> <td> <h3 th:text="${participant.id}"></h3> </td></tr>
+                                    <tr><td><h3>Class               </h3></td> <td><h3>:</h3></td> <td> <h3 th:text="${participant.batchclass.classes.id}+'  Batch '+${participant.batchclass.batch.id}"></h3> </td></tr>
+                                    <tr><td><h3>Daily score average </h5></td> <td><h3>:</h3></td> <td> <h3 th:text="${isdailyscore}"></h3> </td></tr>
+                                    <tr><td><h3>Weekly score average</h5></td> <td><h3>:</h3></td> <td> <h3 th:text="${isweeklyscore}"></h3> </td></tr>
+                                    <tr><td><h2>Grade               </h2></td> <td><h3>:</h3></td> <td> <h2 th:text="${participant.grade}"></h2> </td></tr>
+                                </tbody>
+                            </table>
+                            <hr>
+                        </div>
+
+                        <div class="col-md-1">
+                        </div>
+                        <div class="col-md-2">
+                            <table id="example" class="table table-borderless">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tblData">
+                                    <tr>
+                                        <td class="align-content-md-end">
+                                            <div class="image">
+                                                <img id="photo" class="image" th:src="@{/lihatFile}" alt="[photo]" width="100px" height="100%"/>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div> 
+
+                </form>
+
+                <!--<h5 th:text="${/get-text}"></h5>-->
+
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-12">
+
+                    <h5>Print Report</h5>
+
+                    <button type="button" onclick="printJS('printJS-form', 'html')">
+                        Print
+                    </button>
+
                 </div>
             </div>
-            <p>
-                <a class="btn btn-success" data-target="#modalForm" data-toggle="modal" onclick="print()">
-                    Print
-                </a>
-            </p>
+
         </div>
+        <!--ENDOF DIV CONTAINER-->
+
 
         <!-- Bootstrap core JavaScript
-        ================================================== -->
+                ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <!--    <script>window.jQuery || document.write('<script th:src="@{dist/js/jquery-slim.min.js}"><\/script>')</script>-->
-        <script th:src="@{../dist/js/popper.min.js}"></script>
-        <script th:src="@{../dist/js/bootstrap.min.js}"></script>
+        <!--<script>window.jQuery || document.write('<script src="dist/js/jquery-slim.min.js"><\/script>')</script>-->
+        <script th:src="@{dist/js/popper.min.js}"></script>
+        <script th:src="@{dist/js/bootstrap.min.js}"></script>
+
+        <!--PrintJS-->
+        <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
+        <script src="https://printjs-4de6.kxcdn.com/print.min.css"></script>
+
+
 
         <!-- Icons -->
         <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
 
         <script>
-            feather.replace();
-            function print(){
-                window.print();
-            };
+                        feather.replace();
+                        function print() {
+                            window.print();
+                        }
+                        ;
         </script>
-    </body>
+
 </html>
