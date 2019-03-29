@@ -219,7 +219,7 @@ and open the template in the editor.
                                                 </span>
                                             </button>
                                         </div>
-                                        <div class="modal-body">
+                                        <div id="sandbox" class="modal-body">
                                             <input type="hidden" id="errorbankId" name="errorbankId" value=""/>
                                             <input type="hidden" id="errorbankSubmiter" name="errorbankSubmiter" value=""/>
                                             <label data-error="wrong" data-success="true">Class</label>
@@ -291,6 +291,22 @@ and open the template in the editor.
             $(document).ready(function () {
                 $('#errorbankTable').DataTable();
             });
+        </script>
+        <script>
+            var date = new Date();
+            var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+
+            var optErrorbankSubmitdate = {
+                format: 'dd-MMM-yyyy',
+                todayHighlight: true,
+                orientation: 'bottom right',
+                autoclose: true,
+                container: '#sandbox'
+            };
+    
+            $('#errorbankSubmitdate').datepicker(optErrorbankSubmitdate);
+
+            $('#errorbankSubmitdate').datepicker('setDate', today);
         </script>
     </body>
 </html>

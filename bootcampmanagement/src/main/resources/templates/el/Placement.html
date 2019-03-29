@@ -205,8 +205,9 @@
                                                 th:data-getstartdate="${pd.startdate}"
                                                 th:data-getfinishdate="${pd.finishdate}"
                                                 th:data-getcompany="${pd.company.id}" 
-                                                th:data-getemployee="${pd.employee.id}" class="btn btn-warning">Edit</button>
-                                        <a th:href="@{/el/placeDelete(pladid=${pd.id})}"><button value="" class="btn btn-danger">Delete</button></a>
+                                                th:data-getemployee="${pd.employee.id}" 
+                                                class="btn btn-warning"><span data-feather="edit"></span></button>
+                                        <a th:href="@{/el/placeDelete(pladid=${pd.id})}"><button value="" class="btn btn-danger"><span data-feather="trash"></span></button></a>
                                         <!--                                        <button data-target="#mdlDelete" data-toggle="modal" th:data-getid="${pd.id}" 
                                                                                         th:data-getdes="${pd.description}"
                                                                                         th:data-getadd="${pd.address}" 
@@ -246,11 +247,11 @@
                                             <label for="department">Department</label>
                                             <input id="department" name="department" class="form-control" type="text"/>
                                         </div>
-                                        <div class="form-group">
+                                        <div id="sandbox" class="form-group">
                                             <label for="startdate">Start Date</label>
                                             <input id="startdate" name="startdate" class="form-control" type="date"/>
                                         </div>
-                                        <div class="form-group">
+                                        <div id="sandbox1" class="form-group">
                                             <label for="finishdate">Finish Date</label>
                                             <input id="finishdate" name="finishdate" class="form-control" type="date"/>
                                         </div>
@@ -385,6 +386,32 @@
             $(document).ready(function () {
                 $('#placementTable').DataTable();
             });
+        </script>
+        <script>
+            var date = new Date();
+            var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+
+            var optStartdate = {
+                format: 'dd-MMM-yyyy',
+                todayHighlight: true,
+                orientation: 'bottom right',
+                autoclose: true,
+                container: '#sandbox'
+            };
+            
+            var optFinishdate = {
+                format: 'dd-MMM-yyyy',
+                todayHighlight: true,
+                orientation: 'bottom right',
+                autoclose: true,
+                container: '#sandbox1'
+            };
+
+            $('#startdate').datepicker(optStartdate);
+
+            $('#finishdate').datepicker(optFinishdate);
+            
+            $('#startdate, #finishdate').datepicker('setDate', today);
         </script>
     </body>
 </html>

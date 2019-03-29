@@ -150,16 +150,17 @@ public class ELController {
     public String save(String id, @RequestParam("receivedate") String receivedate, @RequestParam("returndate") String returndate,
             @RequestParam("notes") String notes, @RequestParam("locker") String locker, @RequestParam("employee") String employee) throws ParseException {
         boolean isNew = true;
-        
+
         for (Employeelocker data : eldao.findAll()) {
             if (!employee.equalsIgnoreCase(data.getEmployee().getId())) {
                 if (locker.equalsIgnoreCase(data.getLocker().getId())) {
-                    isNew=false;
-                }    
+                    isNew = false;
+                }
             }
         }
-        if (isNew)
-        eldao.saveEmployeeLocker(new Employeelocker("id", dateFormat.parse(receivedate), dateFormat.parse(returndate), notes, new Locker(locker), new Employee(employee)));
+        if (isNew) {
+            eldao.saveEmployeeLocker(new Employeelocker("id", dateFormat.parse(receivedate), dateFormat.parse(returndate), notes, new Locker(locker), new Employee(employee)));
+        }
         return "redirect:/el/Employeelocker";
     }
 
@@ -168,12 +169,13 @@ public class ELController {
             @RequestParam("notes") String notes, @RequestParam("locker") String locker, @RequestParam("employee") String employee) throws ParseException {
         boolean isNew = true;
         for (Employeelocker data2 : eldao.findAll()) {
-                    if (locker.equalsIgnoreCase(data2.getLocker().getId())) {
-                        isNew=false;
-                    }
-                }  
-        if (isNew)
-        eldao.saveEmployeeLocker(new Employeelocker(id, dateFormat.parse(receivedate), dateFormat.parse(returndate), notes, new Locker(locker), new Employee(employee)));
+            if (locker.equalsIgnoreCase(data2.getLocker().getId())) {
+                isNew = false;
+            }
+        }
+        if (isNew) {
+            eldao.saveEmployeeLocker(new Employeelocker(id, dateFormat.parse(receivedate), dateFormat.parse(returndate), notes, new Locker(locker), new Employee(employee)));
+        }
         return "redirect:/el/Employeelocker";
     }
 
@@ -198,15 +200,34 @@ public class ELController {
     @RequestMapping(value = "/el/empaccessSave", method = RequestMethod.POST)
     public String savee(String id, @RequestParam("receivedate") String receivedate, @RequestParam("returndate") String returndate,
             @RequestParam("notes") String notes, @RequestParam("accesscard") String accesscard, @RequestParam("employee") String employee) throws ParseException {
-        o.saveEmployeeAccess(new Employeeaccess("id", dateFormat.parse(receivedate), dateFormat.parse(returndate), notes, new Accesscard(accesscard), new Employee(employee)));
+        boolean isNew = true;
+
+        for (Employeeaccess data : o.findAll()) {
+            if (!employee.equalsIgnoreCase(data.getEmployee().getId())) {
+                if (accesscard.equalsIgnoreCase(data.getAccesscard().getId())) {
+                    isNew = false;
+                }
+            }
+        }
+        if (isNew) {
+            o.saveEmployeeAccess(new Employeeaccess("id", dateFormat.parse(receivedate), dateFormat.parse(returndate), notes, new Accesscard(accesscard), new Employee(employee)));
+        }
         return "redirect:/el/Employeeaccess";
     }
 
     @RequestMapping(value = "/el/empaccessEdit", method = RequestMethod.POST)
     public String editt(@RequestParam("id") String id, @RequestParam("receivedate") String receivedate, @RequestParam("returndate") String returndate,
             @RequestParam("notes") String notes, @RequestParam("accesscard") String accesscard, @RequestParam("employee") String employee) throws ParseException {
-        o.saveEmployeeAccess(new Employeeaccess(id, dateFormat.parse(receivedate), dateFormat.parse(returndate), notes, new Accesscard(accesscard), new Employee(employee)));
-        new Employeeaccess().getAccesscard().getAccessnumber();
+        boolean isNew = true;
+        for (Employeeaccess data2 : o.findAll()) {
+            if (accesscard.equalsIgnoreCase(data2.getAccesscard().getId())) {
+                isNew = false;
+            }
+        }
+        if (isNew) {
+            o.saveEmployeeAccess(new Employeeaccess(id, dateFormat.parse(receivedate), dateFormat.parse(returndate), notes, new Accesscard(accesscard), new Employee(employee)));
+            new Employeeaccess().getAccesscard().getAccessnumber();
+        }
         return "redirect:/el/Employeeaccess";
     }
 
