@@ -173,8 +173,8 @@ and open the template in the editor.
                         <h1>Batch Class</h1>
                         <!--show table-->
                         <p>
-                            <a class="btn btn-success" data-target="#modalForm" data-toggle="modal">
-                                Insert Data
+                            <a class="btn btn-info" data-target="#modalForm" data-toggle="modal">
+                                Add Data
                             </a>
                         </p>
                         <table class="table table-striped" id="batchclassTable" cellspacing='30' align ='center' border="1">
@@ -194,13 +194,12 @@ and open the template in the editor.
                                     <td th:text="${data.classes.id}"></td>
                                     <td th:text="${data.room.name}"></td>
                                     <td>
-                                        <button class="btn btn-primary editModal" data-toggle="modal" data-target="#modalForm" 
+                                        <button class="btn btn-warning editModal" data-toggle="modal" data-target="#modalForm" 
                                                 th:data-getid="${data.id}" th:data-gettrainer="${data.trainer.id}" 
                                                 th:data-getbatch="${data.batch.id}" th:data-getclasses="${data.classes.id}" 
                                                 th:data-getroom="${data.room.id}" 
-                                                >Edit
-                                        </button>
-                                        <a class="btn btn-danger" th:href="@{/bm/deleteBatchclass/{id}(id=${data.id})}">Delete</a>
+                                                ><span data-feather="edit"></span></button>
+                                        <a class="btn btn-danger" th:href="@{/bm/deleteBatchclass/{id}(id=${data.id})}"><span data-feather="trash"></span></a>
                                     </td>
                                 </tr>
                             </tbody>

@@ -173,8 +173,8 @@ and open the template in the editor.
                         <h1>Error Bank</h1>
                         <!--show table-->
                         <p>
-                            <a class="btn btn-success" data-target="#modalForm" data-toggle="modal">
-                                Insert Data
+                            <a class="btn btn-info" data-target="#modalForm" data-toggle="modal">
+                                Add Data
                             </a>
                         </p>
                         <table class="table table-striped" id="errorbankTable" cellspacing='30' align ='center' border="1">
@@ -196,12 +196,12 @@ and open the template in the editor.
                                     <td th:text="${#dates.format(data.submitdate, 'dd-MM-yyyy')}"></td>
                                     <td th:text="${data.employee.id}"></td>
                                     <td>
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalForm" 
+                                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalForm" 
                                                 th:data-getid="${data.id}" th:data-getdescription="${data.description}" 
                                                 th:data-getsolution="${data.solution}" th:data-getclasses="${data.classes.id}" 
                                                 th:data-getsubmitdate="${data.submitdate}" th:data-getemployee="${data.employee.id}" 
-                                                >Edit</button>
-                                        <a class="btn btn-danger" th:href="@{/bm/deleteErrorbank/{id}(id=${data.id})}">Delete</a>
+                                                ><span data-feather="edit"></span></button>
+                                        <a class="btn btn-danger" th:href="@{/bm/deleteErrorbank/{id}(id=${data.id})}"><span data-feather="trash"></span></a>
                                     </td>
                                 </tr>
                             </tbody>

@@ -170,7 +170,7 @@
                     </div>
                     <div class="row" style="padding: 10px 0 10px 0;">
                         <div class="col-sm-6">
-                            <button data-target="#modalAdd" data-toggle="modal" class="btn btn-warning">Add Data</button>
+                            <button data-target="#modalAdd" data-toggle="modal" class="btn btn-info">Add Data</button>
                         </div>
                     </div>
 
@@ -178,7 +178,6 @@
                     <table id="emproleTable" class="table table-bordered table-striped" style="width: 100%">
                         <thead>
                             <tr>
-                                <th>No.</th>
                                 <!--<th>Employee ID</th>-->
                                 <th>Employee Name</th>
                                 <th>Role</th>
@@ -199,10 +198,9 @@
                                             th:data-getroleid="${er.role.id}" 
                                             th:data-getstartdate="${er.startdate}" 
                                             th:data-getenddate="${er.enddate}"
-                                            class="btn btn-outline-info" >
-                                        Edit </button>
+                                            class="btn btn-warning"><span data-feather="edit"></span></button>
                                     <a th:href="@{/deleteEmpRole/{id}(id=${er.id})}"><button value="" class="btn btn-danger">
-                                            Delete</button>
+                                            <span data-feather="trash"></span></button>
                                 </td>
                             </tr>
                         </tbody>

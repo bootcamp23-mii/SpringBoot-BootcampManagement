@@ -173,8 +173,8 @@ and open the template in the editor.
                         <h1>Evaluation</h1>
                         <!--show table-->
                         <p>
-                            <a class="btn btn-success" data-target="#modalForm" data-toggle="modal">
-                                Insert Data
+                            <a class="btn btn-info" data-target="#modalForm" data-toggle="modal">
+                                Add Data
                             </a>
                         </p>
                         <table class="table table-striped" id="evaluationTable" cellspacing='30' align ='center' border="1">
@@ -198,14 +198,14 @@ and open the template in the editor.
                                     <td th:text="${data.isdaily}"></td>
                                     <td th:text="${data.note}"></td>
                                     <td>
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalForm" 
+                                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalForm" 
                                                 th:data-id="${data.id}" th:data-idparticipant="${data.participant.id}" 
                                                 th:data-evaluationdate="${data.evaluationdate}" th:data-idlession="${data.lesson.id}" 
                                                 th:data-idtopic="${data.topic.id}" th:data-isdaily="${data.isdaily}" 
                                                 th:data-note="${data.note}"
-                                                >Edit</button>
+                                                ><span data-feather="edit"></span></button>
                                         <a class="btn btn-primary" th:href="@{/bm/getscore/{id}(id=${data.id})}">Score</a>
-                                        <a class="btn btn-danger" th:href="@{/bm/deleteEvaluation/{id}(id=${data.id})}">Delete</a>
+                                        <a class="btn btn-danger" th:href="@{/bm/deleteEvaluation/{id}(id=${data.id})}"><span data-feather="trash"></span></a>
                                     </td>
                                 </tr>
                             </tbody>
