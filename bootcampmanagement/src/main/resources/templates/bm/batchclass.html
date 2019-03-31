@@ -179,6 +179,27 @@ and open the template in the editor.
                                 Add Data
                             </a>
                         </p>
+                        <div class="row" style="padding: 10px 0 10px 0">
+                            <div class="col-md-3">
+                                <label> Select Batch  </label>
+                                <select name="selBatch" id="selBatch">
+                                    <option value=""></option>
+                                    <div th:each="data :${dataBatch}">
+                                        <option th:value="${data.id}" th:text="${data.id}"></option>
+                                    </div>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label> Select Class  </label>
+                                <select name="selClasses" id="selClasses">
+                                    <option value=""></option>
+                                    <div th:each="data :${dataClasses}">
+                                        <option th:value="${data.id}" th:text="${data.id}"></option>
+                                    </div>
+                                </select>
+                            </div>
+                        </div>
+
                         <table class="table table-striped" id="batchclassTable" cellspacing='30' align ='center' border="1">
                             <thead class="active">
                                 <tr>
@@ -299,7 +320,27 @@ and open the template in the editor.
         <!--Datatable function-->
         <script>
             $(document).ready(function () {
-                $('#batchclassTable').DataTable();
+                /* Initialise the DataTable */
+                var oTable = $('#batchclassTable').dataTable({
+                    "oLanguage": {
+                        "sSearch": "Search all columns:"
+                    },
+                    "iDisplayLength": 10,
+                    "bJQueryUI": true,
+                    "sPaginationType": "full_numbers",
+                    "bFilter": true,
+                });
+
+                /* Add a select menu for each TH element in the table footer */
+                $('#selBatch').on('change', function () {
+                    var selectedValue = $(this).val();
+                    oTable.fnFilter(selectedValue, 1, false); //Exact value, column, reg
+                });
+
+                $('#selClasses').on('change', function () {
+                    var selectedValue = $(this).val();
+                    oTable.fnFilter(selectedValue, 2, false); //Exact value, column, reg
+                });
             });
         </script>
     </body>
