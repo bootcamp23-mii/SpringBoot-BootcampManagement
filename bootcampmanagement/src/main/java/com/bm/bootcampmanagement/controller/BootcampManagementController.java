@@ -110,7 +110,7 @@ public class BootcampManagementController {
         }
         List<Batchclass> dataBatchclass = new ArrayList<>();
         for (Batchclass data : batchclassList) {
-            if (data.getIsdeleted() == 0&&data.getTrainer().getId().equalsIgnoreCase(request.getSession().getAttribute("login").toString())) {
+            if (data.getIsdeleted() == 0 && data.getTrainer().getId().equalsIgnoreCase(request.getSession().getAttribute("login").toString())) {
                 dataBatchclass.add(data);
             }
         }
@@ -153,7 +153,7 @@ public class BootcampManagementController {
                     isParticipant = false;
                 }
             }
-            if (participantList.get(i).getIsdeleted().intValue() == 0 && participantList.get(i).getBatchclass().getTrainer().getId().equalsIgnoreCase(trainer)&&isParticipant) {
+            if (participantList.get(i).getIsdeleted().intValue() == 0 && participantList.get(i).getBatchclass().getTrainer().getId().equalsIgnoreCase(trainer) && isParticipant) {
                 dataParticipant.add(participantList.get(i));
             }
         }
@@ -164,14 +164,14 @@ public class BootcampManagementController {
                     isParticipant = false;
                 }
             }
-            if (evaluationList.get(i).getIsdeleted().intValue() == 0 && evaluationList.get(i).getParticipant().getParticipant().getBatchclass().getTrainer().getId().equalsIgnoreCase(trainer)&&isParticipant) {
+            if (evaluationList.get(i).getIsdeleted().intValue() == 0 && evaluationList.get(i).getParticipant().getParticipant().getBatchclass().getTrainer().getId().equalsIgnoreCase(trainer) && isParticipant) {
                 dataEvaluation.add(evaluationList.get(i));
             }
         }
         List<Batchclass> batchclassList = (List<Batchclass>) daoBC.findAll();
         List<Batchclass> dataBatchclass = new ArrayList<>();
         for (Batchclass data : batchclassList) {
-            if (data.getIsdeleted() == 0&&data.getTrainer().getId().equalsIgnoreCase(request.getSession().getAttribute("login").toString())) {
+            if (data.getIsdeleted() == 0 && data.getTrainer().getId().equalsIgnoreCase(request.getSession().getAttribute("login").toString())) {
                 dataBatchclass.add(data);
             }
         }
@@ -184,7 +184,7 @@ public class BootcampManagementController {
     }
 
     @PostMapping("/bm/saveEvaluation")
-    public String saveEvaluation(@RequestParam("idEvaluation") String id, @RequestParam("idEmployee") String idEmployee, @RequestParam("evaluationDate") String evaluationDate, @RequestParam("idlesson") String idLesson, @RequestParam("idTopic") String idTopic, @RequestParam("isDaily") String isDaily,@RequestParam("note") String note) {
+    public String saveEvaluation(@RequestParam("idEvaluation") String id, @RequestParam("idEmployee") String idEmployee, @RequestParam("evaluationDate") String evaluationDate, @RequestParam("idlesson") String idLesson, @RequestParam("idTopic") String idTopic, @RequestParam("isDaily") String isDaily, @RequestParam("note") String note) {
         try {
             String tempId = "-";
             if (!id.equalsIgnoreCase("")) {
@@ -270,16 +270,17 @@ public class BootcampManagementController {
     @GetMapping("/bm/batchclass")
     public String batchclass(Model model) {
         List<Employee> empList = (List<Employee>) daoEmp.findAll();
+        List<Participant> participantList = (List<Participant>) daoP.findAll();
         List<Batchclass> batchclassList = (List<Batchclass>) daoBC.findAll();
         List<Employee> dataTrainer = new ArrayList<>();
         for (int i = 0; i < empList.size(); i++) {
-            boolean isTrainer = false;
-            for (Batchclass batchclass : batchclassList) {
-                if (batchclass.getTrainer().getId().equalsIgnoreCase(empList.get(i).getId())) {
-                    isTrainer = true;
+            boolean isParticipant = false;
+            for (Participant data : participantList) {
+                if (data.getId().equalsIgnoreCase(empList.get(i).getId())) {
+                    isParticipant = true;
                 }
             }
-            if (empList.get(i).getIsdeleted().intValue() == 0 && isTrainer) {
+            if (empList.get(i).getIsdeleted().intValue() == 0 && !isParticipant) {
                 dataTrainer.add(empList.get(i));
             }
         }
@@ -298,12 +299,46 @@ public class BootcampManagementController {
     }
 
     @PostMapping("/bm/saveBatchclass")
-    public String saveBatchclass(@RequestParam("idBatchclass") String id, @RequestParam("idTrainer") String idTrainer, @RequestParam("idBatch") String idBatch, @RequestParam("idClasses") String idClasses, @RequestParam("idRoom") String idRoom) {
+    public String saveBatchclass(@RequestParam("idBatchclass") String id, @RequestParam("idTrainer") String idTrainer, @RequestParam("idBatch") String idBatch, @RequestParam("idClasses") String idClasses, @RequestParam("idRoom") String idRoom, HttpServletRequest request) {
+        List<Batchclass> batchclassList = (List<Batchclass>) daoBC.findAll();
         String tempId = "-";
+        boolean isAvaiable = true;
         if (!id.equalsIgnoreCase("")) {
             tempId = id;
+            for (Batchclass data : batchclassList) {
+                if (data.getTrainer().getId().equals(idTrainer)) {
+                    if (data.getBatch().getId().equalsIgnoreCase(idBatch)) {
+                        isAvaiable = false;
+                    } else {
+                        if ((daoB.findById(idBatch).getStartdate().getTime() < data.getBatch().getEnddate().getTime()
+                                && daoB.findById(idBatch).getStartdate().getTime() > data.getBatch().getStartdate().getTime())
+                                || (daoB.findById(idBatch).getEnddate().getTime() < data.getBatch().getEnddate().getTime()
+                                && daoB.findById(idBatch).getEnddate().getTime() > data.getBatch().getStartdate().getTime())) {
+                            isAvaiable = false;
+                        }
+                    }
+                }
+            }
         }
-        daoBC.save(new Batchclass(tempId, new Short("0"), new Batch(idBatch), new Room(idRoom), new Classes(idClasses), new Employee(idTrainer)));
+        if (id.equalsIgnoreCase("")) {
+            for (Batchclass data : batchclassList) {
+                if (data.getTrainer().getId().equals(idTrainer)) {
+                    if (data.getBatch().getId().equalsIgnoreCase(idBatch)) {
+                        isAvaiable = false;
+                    } else {
+                        if ((daoB.findById(idBatch).getStartdate().getTime() < data.getBatch().getEnddate().getTime()
+                                && daoB.findById(idBatch).getStartdate().getTime() > data.getBatch().getStartdate().getTime())
+                                || (daoB.findById(idBatch).getEnddate().getTime() < data.getBatch().getEnddate().getTime()
+                                && daoB.findById(idBatch).getEnddate().getTime() > data.getBatch().getStartdate().getTime())) {
+                            isAvaiable = false;
+                        }
+                    }
+                }
+            }
+        }
+        if (isAvaiable) {
+            daoBC.save(new Batchclass(tempId, new Short("0"), new Batch(idBatch), new Room(idRoom), new Classes(idClasses), new Employee(idTrainer)));
+        }
         return "redirect:/bm/batchclass";
     }
 
@@ -387,7 +422,7 @@ public class BootcampManagementController {
         List<Batchclass> batchclassList = (List<Batchclass>) daoBC.findAll();
         List<Batchclass> dataBatchclass = new ArrayList<>();
         for (Batchclass data : batchclassList) {
-            if (data.getIsdeleted() == 0&&data.getTrainer().getId().equalsIgnoreCase(request.getSession().getAttribute("login").toString())) {
+            if (data.getIsdeleted() == 0 && data.getTrainer().getId().equalsIgnoreCase(request.getSession().getAttribute("login").toString())) {
                 dataBatchclass.add(data);
             }
         }

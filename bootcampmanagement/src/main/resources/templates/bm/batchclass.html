@@ -203,18 +203,18 @@ and open the template in the editor.
                         <table class="table table-striped" id="batchclassTable" cellspacing='30' align ='center' border="1">
                             <thead class="active">
                                 <tr>
+                                    <th>Batch Class</th>
+                                    <th>Period</th>
                                     <th>Trainer</th>
-                                    <th>Batch</th>
-                                    <th>Class</th>
                                     <th>Room</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr th:each="data :${dataBatchclass}">
+                                    <td th:text="${data.batch.id+' '+data.classes.id}"></td>
+                                    <td th:text="${#dates.format(data.batch.startdate,'MMMM')+'-'+#dates.format(data.batch.enddate,'MMMM')}"></td>
                                     <td th:text="${data.trainer.id+'-'+data.trainer.name}"></td>
-                                    <td th:text="${data.batch.id}"></td>
-                                    <td th:text="${data.classes.id}"></td>
                                     <td th:text="${data.room.name}"></td>
                                     <td>
                                         <button class="btn btn-warning editModal" data-toggle="modal" data-target="#modalForm" 
@@ -242,22 +242,22 @@ and open the template in the editor.
                                         </div>
                                         <div class="modal-body">
                                             <input type="hidden" id="idBatchclass" name="idBatchclass" value=""/>
-                                            <label data-error="wrong" data-success="true">Trainer</label>
-                                            <select name="idTrainer" id="idTrainer" class="form-control">
-                                                <div th:each="data :${dataTrainer}">
-                                                    <option th:value="${data.id}" th:text="${data.name}"></option>
-                                                </div>
-                                            </select>
                                             <label data-error="wrong" data-success="true">Batch</label>
                                             <select name="idBatch" id="idBatch" class="form-control">
                                                 <div th:each="data :${dataBatch}">
-                                                    <option th:value="${data.id}" th:text="${data.id}"></option>
+                                                    <option th:value="${data.id}" th:text="${data.id+' ('+#dates.format(data.startdate,'MMMM')+'-'+#dates.format(data.enddate,'MMMM')+')'}"></option>
                                                 </div>
                                             </select>
                                             <label data-error="wrong" data-success="true">Class</label>
                                             <select name="idClasses" id="idClasses" class="form-control">
                                                 <div th:each="data :${dataClasses}">
                                                     <option th:value="${data.id}" th:text="${data.id}"></option>
+                                                </div>
+                                            </select>
+                                            <label data-error="wrong" data-success="true">Trainer</label>
+                                            <select name="idTrainer" id="idTrainer" class="form-control">
+                                                <div th:each="data :${dataTrainer}">
+                                                    <option th:value="${data.id}" th:text="${data.name}"></option>
                                                 </div>
                                             </select>
                                             <label data-error="wrong" data-success="true">Room</label>
