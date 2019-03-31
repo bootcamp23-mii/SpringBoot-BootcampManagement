@@ -149,13 +149,13 @@ public class MainController {
                 }
                 Iterable<Employeerole> employeeroles = daoEmpR.findAll();
                 for (Employeerole data : employeeroles) {
-                    if (data.getEmployee().getId().equalsIgnoreCase(id) && data.getRole().getId().equalsIgnoreCase("CVR0")) {
+                    if (data.getEmployee().getId().equalsIgnoreCase(id) && data.getRole().getId().equalsIgnoreCase("CVR0")&&data.getIsdeleted().toString().equalsIgnoreCase("0")) {
                         request.getSession().setAttribute("isadmin", id);
                     }
                 }
                 Iterable<Participant> participants = daoP.findAll();
                 for (Participant data : participants) {
-                    if (data.getId().equalsIgnoreCase(id)) {
+                    if (data.getId().equalsIgnoreCase(id)&&data.getIsdeleted().toString().equalsIgnoreCase("0")) {
                         request.getSession().setAttribute("isparticipant", id);
                     }
                 }

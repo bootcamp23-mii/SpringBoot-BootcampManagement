@@ -74,12 +74,6 @@ and open the template in the editor.
                                                     </a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a class="nav-link" th:href="@{/bm/errorbank}">
-                                                        <span data-feather="clipboard"></span>
-                                                        ErrorBank <span class="sr-only"></span>
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
                                                     <a class="nav-link" th:href="@{/bm/evaluation}">
                                                         <span data-feather="check-square"></span>
                                                         Evaluation <span class="sr-only"></span>
@@ -157,6 +151,14 @@ and open the template in the editor.
                                                 </li>
                                             </ul>
                                         </div>
+                                    </li>
+                                </div>
+                                <div th:if="${session.isparticipant!=null||session.istrainer!=null}">
+                                    <li class="nav-item">
+                                        <a class="nav-link" th:href="@{/bm/errorbank}">
+                                            <span data-feather="clipboard"></span>
+                                            ErrorBank <span class="sr-only"></span>
+                                        </a>
                                     </li>
                                 </div>
                             </ul>

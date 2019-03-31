@@ -27,7 +27,7 @@
     <body>
         <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
             <a class="navbar-brand col-sm-3 col-md-2 mr-0" th:href="@{/dashboard}">Bootcamp Management</a>
-            
+
             <ul class="navbar-nav px-3">
                 <li class="nav-item text-nowrap">
                     <a class="nav-link" th:href="@{/logout}">Sign out</a>
@@ -73,12 +73,6 @@
                                                 <a class="nav-link" th:href="@{/bm/batchclass}">
                                                     <span data-feather="grid"></span>
                                                     Batch Class <span class="sr-only"></span>
-                                                </a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" th:href="@{/bm/errorbank}">
-                                                    <span data-feather="clipboard"></span>
-                                                    ErrorBank <span class="sr-only"></span>
                                                 </a>
                                             </li>
                                             <li class="nav-item">
@@ -159,6 +153,14 @@
                                             </li>
                                         </ul>
                                     </div>
+                                </li>
+                            </div>
+                            <div th:if="${session.isparticipant!=null||session.istrainer!=null}">
+                                <li class="nav-item">
+                                    <a class="nav-link" th:href="@{/bm/errorbank}">
+                                        <span data-feather="clipboard"></span>
+                                        ErrorBank <span class="sr-only"></span>
+                                    </a>
                                 </li>
                             </div>
                         </ul>
@@ -398,7 +400,7 @@
                 autoclose: true,
                 container: '#sandbox'
             };
-            
+
             var optFinishdate = {
                 format: 'dd-MMM-yyyy',
                 todayHighlight: true,
@@ -410,7 +412,7 @@
             $('#startdate').datepicker(optStartdate);
 
             $('#finishdate').datepicker(optFinishdate);
-            
+
             $('#startdate, #finishdate').datepicker('setDate', today);
         </script>
     </body>

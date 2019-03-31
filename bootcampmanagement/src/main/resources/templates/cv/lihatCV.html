@@ -7,7 +7,7 @@
         <meta name="author" content=""/>
         <!--Local css dan js semua pake th, @, dan {} dan / untuk single -->
         <link rel="icon" th:href="@{../dist/img/favicons/favicon.ico}"/>
-        
+
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
         <title>MII Bootcamp Management</title>
@@ -32,7 +32,7 @@
     <body>
         <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
             <a class="navbar-brand col-sm-3 col-md-2 mr-0" th:href="@{/dashboard}">Bootcamp Management</a>
-            
+
             <ul class="navbar-nav px-3">
                 <li class="nav-item text-nowrap">
                     <a class="nav-link" th:href="@{/logout}">Sign out</a>
@@ -78,12 +78,6 @@
                                                 <a class="nav-link" th:href="@{/bm/batchclass}">
                                                     <span data-feather="grid"></span>
                                                     Batch Class <span class="sr-only"></span>
-                                                </a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" th:href="@{/bm/errorbank}">
-                                                    <span data-feather="clipboard"></span>
-                                                    ErrorBank <span class="sr-only"></span>
                                                 </a>
                                             </li>
                                             <li class="nav-item">
@@ -164,6 +158,14 @@
                                             </li>
                                         </ul>
                                     </div>
+                                </li>
+                            </div>
+                            <div th:if="${session.isparticipant!=null||session.istrainer!=null}">
+                                <li class="nav-item">
+                                    <a class="nav-link" th:href="@{/bm/errorbank}">
+                                        <span data-feather="clipboard"></span>
+                                        ErrorBank <span class="sr-only"></span>
+                                    </a>
                                 </li>
                             </div>
                         </ul>
@@ -252,7 +254,7 @@
                                         <th>Degree</th>
                                         <th>Major</th>
                                         <th>University</th>
-                                        
+
                                     </tr>
                                 </thead>
                                 <tbody id="tblData">
@@ -392,7 +394,7 @@
         <!-- Bootstrap core JavaScript
                 ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
-        
+
         <!--<script>window.jQuery || document.write('<script src="dist/js/jquery-slim.min.js"><\/script>')</script>-->
         <script th:src="@{../dist/js/popper.min.js}"></script>
         <script th:src="@{../dist/js/bootstrap.min.js}"></script>

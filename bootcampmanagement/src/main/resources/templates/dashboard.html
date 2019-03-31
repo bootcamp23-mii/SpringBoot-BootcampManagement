@@ -21,7 +21,7 @@ and open the template in the editor.
 
         <!-- Custom styles for this template -->
         <link th:href="@{dist/css/dashboard.css}" rel="stylesheet"/>
-        
+
     </head>
     <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
         <a class="navbar-brand col-sm-3 col-md-2 mr-0" th:href="@{/dashboard}">Bootcamp Management</a>
@@ -71,12 +71,6 @@ and open the template in the editor.
                                             <a class="nav-link" th:href="@{/bm/batchclass}">
                                                 <span data-feather="grid"></span>
                                                 Batch Class <span class="sr-only"></span>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" th:href="@{/bm/errorbank}">
-                                                <span data-feather="clipboard"></span>
-                                                ErrorBank <span class="sr-only"></span>
                                             </a>
                                         </li>
                                         <li class="nav-item">
@@ -157,6 +151,14 @@ and open the template in the editor.
                                         </li>
                                     </ul>
                                 </div>
+                            </li>
+                        </div>
+                        <div th:if="${session.isparticipant!=null||session.istrainer!=null}">
+                            <li class="nav-item">
+                                <a class="nav-link" th:href="@{/bm/errorbank}">
+                                    <span data-feather="clipboard"></span>
+                                    ErrorBank <span class="sr-only"></span>
+                                </a>
                             </li>
                         </div>
                     </ul>
