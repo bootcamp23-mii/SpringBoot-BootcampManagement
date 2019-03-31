@@ -68,22 +68,16 @@ and open the template in the editor.
                                 </li>
                                 <div th:if="${session.istrainer!=null}">
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#subTrainer" data-toggle="collapse">
+                                        <a class="nav-link collapsed" href="#subTrainer" data-toggle="collapse">
                                             <span data-feather="user"></span>
                                             Trainer <span class="sr-only"></span>
                                         </a>
-                                        <div id="subTrainer" class="collapse show">
+                                        <div id="subTrainer" class="collapse">
                                             <ul class="nav-item">
                                                 <li class="nav-item">
                                                     <a class="nav-link" th:href="@{/bm/batchclass}">
                                                         <span data-feather="grid"></span>
                                                         Batch Class <span class="sr-only"></span>
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link active" th:href="@{#}">
-                                                        <span data-feather="clipboard"></span>
-                                                        ErrorBank <span class="sr-only">(current)</span>
                                                     </a>
                                                 </li>
                                                 <li class="nav-item">
@@ -163,6 +157,14 @@ and open the template in the editor.
                                                     </a>
                                                 </li>
                                             </ul>
+                                        </div>
+                                        <div th:if="${session.isparticipant!=null||session.istrainer!=null}">
+                                            <li class="nav-item">
+                                                    <a class="nav-link active" th:href="@{#}">
+                                                        <span data-feather="clipboard"></span>
+                                                        ErrorBank <span class="sr-only">(current)</span>
+                                                    </a>
+                                                </li>
                                         </div>
                                     </li>
                                 </div>
@@ -303,7 +305,7 @@ and open the template in the editor.
                 autoclose: true,
                 container: '#sandbox'
             };
-    
+
             $('#errorbankSubmitdate').datepicker(optErrorbankSubmitdate);
 
             $('#errorbankSubmitdate').datepicker('setDate', today);

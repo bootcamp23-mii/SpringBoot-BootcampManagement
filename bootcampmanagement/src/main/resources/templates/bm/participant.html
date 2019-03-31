@@ -174,48 +174,37 @@ and open the template in the editor.
                     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
                         <h1>Participant</h1>
                         <!--show table-->
+                        <form th:href="@{/bm/participant}">
+                            <p>
+                                <select name="bc" id="bc" class="form-control">
+                                    <div th:each="data :${dataBatchclass}">
+                                        <option th:value="${data.id}" th:text="${data.batch.id+' '+data.classes.id}">
+                                        </option>
+                                    </div>
+                                    <input type="submit" class="btn btn-success" value="Select"/>
+                                </select>
+                            </p>
+                        </form>
                         <p>
                             <a class="btn btn-info" data-target="#modalForm" data-toggle="modal">
                                 Add Data
                             </a>
                         </p>
-                        <div class="row" style="padding: 10px 0 10px 0">
-                            <div class="col-md-2">
-                                <label> Batch  </label>
-                                <select name="selBatch" id="selBatch">
-                                    <option value=""></option>
-                                    <div th:each="data :${dataBatchclass}">
-                                        <option th:value="${data.batch.id}" th:text="${data.batch.id}"></option>
-                                    </div>
-                                </select>
-                            </div>
-                            <div class="col-md-2">
-                                <label> Class  </label>
-                                <select name="selClasses" id="selClasses">
-                                    <option value=""></option>
-                                    <div th:each="data :${dataBatchclass}">
-                                        <option th:value="${data.classes.id}" th:text="${data.classes.id}"></option>
-                                    </div>
-                                </select>
-                            </div>
-                        </div>
                         <table class="table table-striped" id="participantTable" cellspacing='30' align ='center' border="1">
                             <thead class="active">
                                 <tr>
                                     <th>Name</th>
                                     <th>Trainer</th>
-                                    <th>Batch</th>
-                                    <th>Class</th>
+                                    <th>Batch Class</th>
                                     <th>Room</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr th:each="data :${dataParticipant}">
-                                    <td th:text="${data.employee.name}"></td>
-                                    <td th:text="${data.batchclass.trainer.name}"></td>
-                                    <td th:text="${data.batchclass.batch.id}"></td>
-                                    <td th:text="${data.batchclass.classes.id}"></td>
+                                    <td th:text="${data.employee.id+' - '+data.employee.name}"></td>
+                                    <td th:text="${data.batchclass.trainer.id+' - '+data.batchclass.trainer.name}"></td>
+                                    <td th:text="${data.batchclass.batch.id+' '+data.batchclass.classes.id}"></td>
                                     <td th:text="${data.batchclass.room.name}"></td>
                                     <td>
                                         <button class="btn btn-warning editModal" data-toggle="modal" data-target="#modalForm" 
@@ -243,13 +232,13 @@ and open the template in the editor.
                                             <label data-error="wrong" data-success="true">Employee</label>
                                             <select name="employeeId" id="employeeId" class="form-control">
                                                 <div th:each="data :${dataEmployee}">
-                                                    <option th:value="${data.id}" th:text="${data.name}"></option>
+                                                    <option th:value="${data.id}" th:text="${data.name}" th:selected="true"></option>
                                                 </div>
                                             </select>
                                             <label data-error="wrong" data-success="true">Batch Class</label>
                                             <select name="batchclassId" id="batchclassId" class="form-control">
                                                 <div th:each="data :${dataBatchclass}">
-                                                    <option th:value="${data.id}" th:text="${data.batch.id+' '+data.classes.id}"></option>
+                                                    <option th:value="${data.id}" th:text="${data.batch.id+' '+data.classes.id}" selected></option>
                                                 </div>
                                             </select>
                                         </div>
@@ -289,42 +278,9 @@ and open the template in the editor.
                 modal.find('#employeeId').val(idemp);
             });
         </script>
-        <script  type="text/javascript">
-            function setEdit(id, name)
-            {
-                document.getElementById('rid').value = id;
-                document.getElementById('rname').value = name;
-            }
-        </script>
-
         <script>
             $(document).ready(function () {
-                /* Initialise the DataTable */
-                var oTable = $('#participantTable').dataTable({
-                    "oLanguage": {
-                        "sSearch": "Search all columns:"
-                    },
-                    "iDisplayLength": 10,
-                    "bJQueryUI": true,
-                    "sPaginationType": "full_numbers",
-                    "bFilter": true,
-                });
-
-                /* Add a select menu for each TH element in the table footer */
-                $('#selBatch').on('change', function () {
-                    var selectedValue = $(this).val();
-                    oTable.fnFilter(selectedValue, 2, false); //Exact value, column, reg
-                });
-
-                $('#selClasses').on('change', function () {
-                    var selectedValue = $(this).val();
-                    oTable.fnFilter(selectedValue, 3, false); //Exact value, column, reg
-                });
-                
-                $('#selEmp').on('change', function () {
-                    var selectedValue = $(this).val();
-                    oTable.fnFilter(selectedValue, 1, false); //Exact value, column, reg
-                });
+                $('#participantTable').DataTable();
             });
         </script>
     </body>

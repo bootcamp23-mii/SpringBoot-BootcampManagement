@@ -70,31 +70,53 @@ public class BootcampManagementController {
 
     //participant
     @GetMapping("/bm/participant")
-    public String participant(Model model) {
+    public String participant(Model model, HttpServletRequest request) {
         List<Employee> empList = (List<Employee>) daoEmp.findAll();
         List<Batchclass> batchclassList = (List<Batchclass>) daoBC.findAll();
         List<Employee> dataEmployee = new ArrayList<>();
+        boolean selectBatchclass = request.getParameter("bc") != null;
         for (int i = 0; i < empList.size(); i++) {
-            boolean isTrainer = false;
+            boolean isTrainer = false, inClass = false;
             for (Batchclass batchclass : batchclassList) {
                 if (batchclass.getTrainer().getId().equalsIgnoreCase(empList.get(i).getId())) {
                     isTrainer = true;
                 }
             }
+            if (selectBatchclass) {
+                if (empList.get(i).getParticipant() != null) {
+                    if (request.getParameter("bc").equalsIgnoreCase(empList.get(i).getParticipant().getBatchclass().getId())) {
+                        inClass = true;
+                    }
+                }
+            }
             if (empList.get(i).getIsdeleted().intValue() == 0 && !isTrainer) {
-                dataEmployee.add(empList.get(i));
+                if (empList.get(i).getParticipant() == null || inClass) {
+                    dataEmployee.add(empList.get(i));
+                }
             }
         }
         List<Participant> participantList = (List<Participant>) daoP.findAll();
         List<Participant> dataParticipant = new ArrayList<>();
         for (Participant data : participantList) {
-            if (data.getIsdeleted() == 0) {
+            boolean isParticipant = true;
+            if (selectBatchclass) {
+                if (!request.getParameter("bc").equalsIgnoreCase(data.getBatchclass().getId())) {
+                    isParticipant = false;
+                }
+            }
+            if (data.getIsdeleted() == 0 && isParticipant) {
                 dataParticipant.add(data);
             }
         }
+        List<Batchclass> dataBatchclass = new ArrayList<>();
+        for (Batchclass data : batchclassList) {
+            if (data.getIsdeleted() == 0) {
+                dataBatchclass.add(data);
+            }
+        }
+        model.addAttribute("dataBatchclass", dataBatchclass);
         model.addAttribute("dataEmployee", dataEmployee);
         model.addAttribute("dataParticipant", dataParticipant);
-        model.addAttribute("dataBatchclass", daoBC.findAll());
         return "/bm/participant";
     }
 
@@ -133,7 +155,14 @@ public class BootcampManagementController {
                 dataEvaluation.add(evaluationList.get(i));
             }
         }
-
+        List<Batchclass> batchclassList = (List<Batchclass>) daoBC.findAll();
+        List<Batchclass> dataBatchclass = new ArrayList<>();
+        for (Batchclass data : batchclassList) {
+            if (data.getIsdeleted() == 0) {
+                dataBatchclass.add(data);
+            }
+        }
+        model.addAttribute("dataBatchclass", dataBatchclass);
         model.addAttribute("dataParticipant", dataParticipant);
         model.addAttribute("dataEvaluation", dataEvaluation);
         model.addAttribute("dataTopic", daoT.findAll());
@@ -330,11 +359,26 @@ public class BootcampManagementController {
     public String report(Model model, HttpServletRequest request) {
         List<Participant> participantList = (List<Participant>) daoP.findAll();
         List<Participant> dataParticipant = new ArrayList<>();
+        boolean selectBatchclass = request.getParameter("bc") != null;
         for (Participant data : participantList) {
-            if (data.getBatchclass().getTrainer().getId().equalsIgnoreCase(request.getSession().getAttribute("login").toString())) {
+            boolean isParticipant = true;
+            if (selectBatchclass) {
+                if (!request.getParameter("bc").equalsIgnoreCase(data.getBatchclass().getId())) {
+                    isParticipant = false;
+                }
+            }
+            if (data.getBatchclass().getTrainer().getId().equalsIgnoreCase(request.getSession().getAttribute("login").toString()) && isParticipant) {
                 dataParticipant.add(data);
             }
         }
+        List<Batchclass> batchclassList = (List<Batchclass>) daoBC.findAll();
+        List<Batchclass> dataBatchclass = new ArrayList<>();
+        for (Batchclass data : batchclassList) {
+            if (data.getIsdeleted() == 0) {
+                dataBatchclass.add(data);
+            }
+        }
+        model.addAttribute("dataBatchclass", dataBatchclass);
         model.addAttribute("dataParticipant", dataParticipant);
         return "/bm/report";
     }
@@ -380,7 +424,6 @@ public class BootcampManagementController {
 //                .contentType(MediaType.IMAGE_JPEG)
 //                .body(employee.getPhoto());
 //    }
-
     public String GenerateGrade(String id, double finalScore) {
         String grade = "";
         if (finalScore >= 75) {
