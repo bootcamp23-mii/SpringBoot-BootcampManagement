@@ -15,39 +15,14 @@
 
         <!-- Custom styles for this template -->
         <link th:href="@{../dist/css/dashboard.css}" rel="stylesheet"/>
-
-        <!--Custom div for print purpose-->
-        <script type="text/javascript">
-
-            function PrintElem(elem)
-            {
-                Popup($(elem).html());
-            }
-
-            function Popup(data)
-            {
-                var mywindow = window.open('', 'my div', 'height=400,width=600');
-                mywindow.document.write('<html><head><title>my div</title>');
-                /*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
-                mywindow.document.write('</head><body >');
-                mywindow.document.write(data);
-                mywindow.document.write('</body></html>');
-
-                mywindow.print();
-                mywindow.close();
-
-                return true;
-            }
-
-        </script>
     </head>
 
     <body>
+        <!--DIV CONTAINER-->
+        <div class="container" style="width: 100%">
+            <div class="row">
 
-        <div id="mydiv">
-            <div class="container" style="width: 100%">
-
-                <div class="row">
+                <form method="post" action="#" id="printJS-form" style="width: 100%">
                     <div class="row">
                         <table>
                             <thead> </thead>
@@ -56,11 +31,11 @@
                                     <td>   </td> <td><h1> Bootcamp Report</h1></td>
                                 </tr>
                                 <tr>
-
+                                    
                                 </tr>
                             </tbody>
                         </table>
-
+                        
                     </div>
                     <div class="row" style="align-content: center; border-style: solid; width: 100%">
                         <div class="col-md-9">
@@ -100,94 +75,11 @@
                             </table>
                         </div>
                     </div> 
-                </div>
 
+                </form>
 
+                <!--<h5 th:text="${/get-text}"></h5>-->
 
-
-            </div> 
-        </div>
-
-        <div>
-            <!--This will not be printed.-->
-
-            <div class="row">
-                <div class="col-md-12">
-
-                    <h5>Print Report</h5>
-
-                    <input type="button" value="Print Div" onclick="PrintElem('#mydiv')" />
-                    <!--<button type="button" onclick="printJS('printJS-form', 'html')"> Print </button>-->
-
-                </div>
-            </div>
-        </div>
-
-        <div id="anotherdiv">
-            <!--Nor will this.-->
-        </div>
-
-        <!--<input type="button" value="Print Div" onclick="PrintElem('#mydiv')" />-->
-
-        <!--================================================================================================-->
-
-        <!--DIV CONTAINER-->
-        <!--
-        <div class="container" style="width: 100%">
-            
-            <div class="row">
-                <div class="row">
-                    <table>
-                        <thead> </thead>
-                        <tbody>
-                            <tr>
-                                <td>   </td> <td><h1> Bootcamp Report</h1></td>
-                            </tr>
-                            <tr>
-
-                            </tr>
-                        </tbody>
-                    </table>
-
-                </div>
-                <div class="row" style="align-content: center; border-style: solid; width: 100%">
-                    <div class="col-md-9">
-                        <table id="example" class="table table-borderless">
-                            <thead>
-                            </thead>
-                            <tbody id="tblReport">
-                                <tr><td ><h2>Name               </h3></td> <td><h3>:</h3></td> <td> <h3 th:text="${participant.employee.name}"></h3> </td></tr>
-                                <tr><td><h3>ID                  </h3></td> <td><h3>:</h3></td> <td> <h3 th:text="${participant.id}"></h3> </td></tr>
-                                <tr><td><h3>Class               </h3></td> <td><h3>:</h3></td> <td> <h3 th:text="${participant.batchclass.classes.id}+'  Batch '+${participant.batchclass.batch.id}"></h3> </td></tr>
-                                <tr><td><h3>Daily score average </h5></td> <td><h3>:</h3></td> <td> <h3 th:text="${isdailyscore}"></h3> </td></tr>
-                                <tr><td><h3>Weekly score average</h5></td> <td><h3>:</h3></td> <td> <h3 th:text="${isweeklyscore}"></h3> </td></tr>
-                                <tr><td><h2>Grade               </h2></td> <td><h3>:</h3></td> <td> <h2 th:text="${participant.grade}"></h2> </td></tr>
-                            </tbody>
-                        </table>
-                        <hr>
-                    </div>
-
-                    <div class="col-md-1">
-                    </div>
-                    <div class="col-md-2">
-                        <table id="example" class="table table-borderless">
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody id="tblData">
-                                <tr>
-                                    <td class="align-content-md-end">
-                                        <div class="image">
-                                            <img id="photo" class="image" th:src="@{/lihatFile}" alt="[photo]" width="100px" height="100%"/>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div> 
             </div>
 
 
@@ -203,7 +95,7 @@
                 </div>
             </div>
 
-        </div> -->
+        </div>
         <!--ENDOF DIV CONTAINER-->
 
 
@@ -225,11 +117,11 @@
         <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
 
         <script>
-            feather.replace();
-            function print() {
-                window.print();
-            }
-            ;
+                        feather.replace();
+                        function print() {
+                            window.print();
+                        }
+                        ;
         </script>
 
 </html>
