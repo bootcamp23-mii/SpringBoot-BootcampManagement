@@ -306,15 +306,18 @@ public class BootcampManagementController {
         if (!id.equalsIgnoreCase("")) {
             tempId = id;
             for (Batchclass data : batchclassList) {
-                if (data.getTrainer().getId().equals(idTrainer)) {
-                    if (data.getBatch().getId().equalsIgnoreCase(idBatch)) {
-                        isAvaiable = false;
-                    } else {
-                        if ((daoB.findById(idBatch).getStartdate().getTime() < data.getBatch().getEnddate().getTime()
-                                && daoB.findById(idBatch).getStartdate().getTime() > data.getBatch().getStartdate().getTime())
-                                || (daoB.findById(idBatch).getEnddate().getTime() < data.getBatch().getEnddate().getTime()
-                                && daoB.findById(idBatch).getEnddate().getTime() > data.getBatch().getStartdate().getTime())) {
+                if (data.getIsdeleted().toString().equalsIgnoreCase("0")) {
+                    if (data.getTrainer().getId().equals(idTrainer)) {
+                        if (data.getBatch().getId().equalsIgnoreCase(idBatch)) {
                             isAvaiable = false;
+                        } else {
+                            if (((daoB.findById(idBatch).getStartdate().getTime() < data.getBatch().getEnddate().getTime()
+                                    && daoB.findById(idBatch).getStartdate().getTime() > data.getBatch().getStartdate().getTime())
+                                    || (daoB.findById(idBatch).getEnddate().getTime() < data.getBatch().getEnddate().getTime()
+                                    && daoB.findById(idBatch).getEnddate().getTime() > data.getBatch().getStartdate().getTime()))
+                                    &&!data.getId().equalsIgnoreCase(tempId)) {
+                                isAvaiable = false;
+                            }
                         }
                     }
                 }
@@ -322,15 +325,17 @@ public class BootcampManagementController {
         }
         if (id.equalsIgnoreCase("")) {
             for (Batchclass data : batchclassList) {
-                if (data.getTrainer().getId().equals(idTrainer)) {
-                    if (data.getBatch().getId().equalsIgnoreCase(idBatch)) {
-                        isAvaiable = false;
-                    } else {
-                        if ((daoB.findById(idBatch).getStartdate().getTime() < data.getBatch().getEnddate().getTime()
-                                && daoB.findById(idBatch).getStartdate().getTime() > data.getBatch().getStartdate().getTime())
-                                || (daoB.findById(idBatch).getEnddate().getTime() < data.getBatch().getEnddate().getTime()
-                                && daoB.findById(idBatch).getEnddate().getTime() > data.getBatch().getStartdate().getTime())) {
+                if (data.getIsdeleted().toString().equalsIgnoreCase("0")) {
+                    if (data.getTrainer().getId().equals(idTrainer)) {
+                        if (data.getBatch().getId().equalsIgnoreCase(idBatch)) {
                             isAvaiable = false;
+                        } else {
+                            if ((daoB.findById(idBatch).getStartdate().getTime() < data.getBatch().getEnddate().getTime()
+                                    && daoB.findById(idBatch).getStartdate().getTime() > data.getBatch().getStartdate().getTime())
+                                    || (daoB.findById(idBatch).getEnddate().getTime() < data.getBatch().getEnddate().getTime()
+                                    && daoB.findById(idBatch).getEnddate().getTime() > data.getBatch().getStartdate().getTime())) {
+                                isAvaiable = false;
+                            }
                         }
                     }
                 }
