@@ -95,6 +95,13 @@ public class ELController {
 
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
+    
+    @GetMapping("/el/*")
+    public String error() {
+        return "redirect:/error";
+    }
+
+    
     @GetMapping("/el/Idcard")
     public String Idcard(Model model) {
         model.addAttribute("idcardData", cardDAO.findAll());

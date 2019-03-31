@@ -362,7 +362,7 @@ public class BootcampManagementController {
                 }
             }
         }
-        isDailyScore = (isDailyScore / count) * 0.7;
+        isWeeklyScore = (isWeeklyScore / count) * 0.7;
         GenerateGrade(id, isDailyScore + isWeeklyScore);
         request.getSession().setAttribute("isdailyscore", isDailyScore);
         request.getSession().setAttribute("isweeklyscore", isWeeklyScore);

@@ -207,8 +207,8 @@
                                             <td th:text="${we.name}"></td>
                                             <td th:text="${we.position}"></td>
                                             <td th:text="${we.description}"></td>
-                                            <td th:text="${we.startdate}"></td>
-                                            <td th:text="${we.enddate}"></td>
+                                            <td th:text="${#dates.format(we.startdate,'dd-MMM-yyyy')}"></td>
+                                            <td th:text="${#dates.format(we.enddate,'dd-MMM-yyyy')}"></td>
 
                                         </tr>
                                     </tbody>

@@ -51,6 +51,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author gerydanu
  */
 @Controller
+@RequestMapping("cv")
 public class CVController {
 
     @Autowired
@@ -101,7 +102,14 @@ public class CVController {
 
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-    @GetMapping("/cv/cv")
+    
+    @GetMapping("/*")
+    public String error() {
+        return "redirect:/error";
+    }
+
+    
+    @GetMapping("/cv")
     public String cv(Model m, HttpServletRequest request) {
         String empID = request.getSession().getAttribute("login").toString();
         m.addAttribute("achievementData", daoEmp.findById(empID).getAchievementList());
@@ -145,9 +153,10 @@ public class CVController {
         m.addAttribute("degree", ddao.findAll());
         m.addAttribute("province", daoLP.findAll());
         m.addAttribute("district", daoLP.findById("LP1").getDistrictList());
-        return "/cv/cv";
+        return "/cv";
     }
 
+//    /cv depan dihapus
     @GetMapping("/cv/lihatcv")
     public String lihatcv(Model mod, HttpServletRequest request) {
         String empID = request.getSession().getAttribute("login").toString();

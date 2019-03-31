@@ -229,7 +229,7 @@ public class MainController {
             daoEmp.save(emp);
             for (Employee data : daoEmp.findAll()) {
                 if (data.getEmail().equalsIgnoreCase(email)) {
-                    mailService.sendMail(email, "New Account for " + data.getName(), "Congratulation...", data.getName(), "Your account has been created. Please activation your account by click this link.", "http://localhost:8083/activation?id=" + data.getId() + "&ca=" + data.getPassword());
+                    mailService.sendMail(email, "New Account for " + data.getName(), "Congratulation...", data.getId() +" - "+ data.getName(), "Your account has been created. Please activation your account by click this link.", "http://localhost:8083/activation?id=" + data.getId() + "&ca=" + data.getPassword());
                 }
             }
         } catch (Exception ex) {
