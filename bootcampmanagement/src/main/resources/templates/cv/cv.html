@@ -27,7 +27,7 @@
     <body>
         <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
             <a class="navbar-brand col-sm-3 col-md-2 mr-0" th:href="@{/dashboard}">Bootcamp Management</a>
-      
+
             <ul class="navbar-nav px-3">
                 <li class="nav-item text-nowrap">
                     <a class="nav-link" th:href="@{/logout}">Sign out</a>
@@ -290,6 +290,24 @@
                                 <button data-target="#mdlcert" data-toggle="modal" class="btn btn-info">Add Data</button>
                             </div>
                         </div>
+                        <div class="row" style="padding: 10px 0 10px 0">
+                            <label> Select Month </label>
+                            <select id="mySelect">
+                                <option value=""></option>
+                                <option value="January">January</option>
+                                <option value="February">February</option>
+                                <option value="March">March</option>
+                                <option value="April">April</option>
+                                <option value="May">May</option>
+                                <option value="June">June</option>
+                                <option value="July">July</option>
+                                <option value="August">August</option>
+                                <option value="September">September</option>
+                                <option value="October">October</option>
+                                <option value="January">November</option>
+                                <option value="December">December</option>
+                            </select>
+                        </div>
                         <table id="cvCertificate" class="table table-bordered table-striped" style="width: 100%">
                             <thead>
                                 <tr>
@@ -303,7 +321,7 @@
                             <tbody id="tblData">
                                 <tr th:each="cs,ite : ${certificateData}">
                                     <td th:text="${ite.count}"></td>
-                                    <td th:text="${#dates.format(cs.certificateDate,'dd-MMM-yyyy')}"></td>
+                                    <td th:text="${#dates.format(cs.certificateDate,'dd MMMM yyyy')}"></td>
                                     <td th:text="${cs.certificateNumber}"></td>
                                     <td th:text="${cs.certificate.name}"></td>
                                     <td>
@@ -1072,7 +1090,22 @@
         </script>
         <script>
             $(document).ready(function () {
-                $('#cvCertificate').DataTable();
+                /* Initialise the DataTable */
+                var oTable = $('#cvCertificate').dataTable({
+                    "oLanguage": {
+                        "sSearch": "Search all columns:"
+                    },
+                    "iDisplayLength": 10,
+                    "bJQueryUI": true,
+                    "sPaginationType": "full_numbers",
+                    "bFilter": true,
+                });
+
+                /* Add a select menu for each TH element in the table footer */
+                $('#mySelect').on('change', function () {
+                    var selectedValue = $(this).val();
+                    oTable.fnFilter(selectedValue, 1, false); //Exact value, column, reg
+                });
             });
         </script>
         <script>
