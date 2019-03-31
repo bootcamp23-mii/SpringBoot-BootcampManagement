@@ -110,7 +110,7 @@ public class BootcampManagementController {
         }
         List<Batchclass> dataBatchclass = new ArrayList<>();
         for (Batchclass data : batchclassList) {
-            if (data.getIsdeleted() == 0) {
+            if (data.getIsdeleted() == 0&&data.getTrainer().getId().equalsIgnoreCase(request.getSession().getAttribute("login").toString())) {
                 dataBatchclass.add(data);
             }
         }
@@ -145,20 +145,33 @@ public class BootcampManagementController {
         List<Evaluation> evaluationList = (List<Evaluation>) daoE.findAll();
         List<Participant> dataParticipant = new ArrayList<>();
         List<Evaluation> dataEvaluation = new ArrayList<>();
+        boolean selectBatchclass = request.getParameter("bc") != null;
         for (int i = 0; i < participantList.size(); i++) {
-            if (participantList.get(i).getIsdeleted().intValue() == 0 && participantList.get(i).getBatchclass().getTrainer().getId().equalsIgnoreCase(trainer)) {
+            boolean isParticipant = true;
+            if (selectBatchclass) {
+                if (!request.getParameter("bc").equalsIgnoreCase(participantList.get(i).getBatchclass().getId())) {
+                    isParticipant = false;
+                }
+            }
+            if (participantList.get(i).getIsdeleted().intValue() == 0 && participantList.get(i).getBatchclass().getTrainer().getId().equalsIgnoreCase(trainer)&&isParticipant) {
                 dataParticipant.add(participantList.get(i));
             }
         }
         for (int i = 0; i < evaluationList.size(); i++) {
-            if (evaluationList.get(i).getIsdeleted().intValue() == 0 && evaluationList.get(i).getParticipant().getParticipant().getBatchclass().getTrainer().getId().equalsIgnoreCase(trainer)) {
+            boolean isParticipant = true;
+            if (selectBatchclass) {
+                if (!request.getParameter("bc").equalsIgnoreCase(evaluationList.get(i).getParticipant().getParticipant().getBatchclass().getId())) {
+                    isParticipant = false;
+                }
+            }
+            if (evaluationList.get(i).getIsdeleted().intValue() == 0 && evaluationList.get(i).getParticipant().getParticipant().getBatchclass().getTrainer().getId().equalsIgnoreCase(trainer)&&isParticipant) {
                 dataEvaluation.add(evaluationList.get(i));
             }
         }
         List<Batchclass> batchclassList = (List<Batchclass>) daoBC.findAll();
         List<Batchclass> dataBatchclass = new ArrayList<>();
         for (Batchclass data : batchclassList) {
-            if (data.getIsdeleted() == 0) {
+            if (data.getIsdeleted() == 0&&data.getTrainer().getId().equalsIgnoreCase(request.getSession().getAttribute("login").toString())) {
                 dataBatchclass.add(data);
             }
         }
@@ -171,13 +184,13 @@ public class BootcampManagementController {
     }
 
     @PostMapping("/bm/saveEvaluation")
-    public String saveEvaluation(@RequestParam("idEvaluation") String id, @RequestParam("idEmployee") String idEmployee, @RequestParam("evaluationDate") String evaluationDate, @RequestParam("idlesson") String idLesson, @RequestParam("idTopic") String idTopic, @RequestParam("isDaily") String isDaily) {
+    public String saveEvaluation(@RequestParam("idEvaluation") String id, @RequestParam("idEmployee") String idEmployee, @RequestParam("evaluationDate") String evaluationDate, @RequestParam("idlesson") String idLesson, @RequestParam("idTopic") String idTopic, @RequestParam("isDaily") String isDaily,@RequestParam("note") String note) {
         try {
             String tempId = "-";
             if (!id.equalsIgnoreCase("")) {
                 tempId = id;
             }
-            daoE.save(new Evaluation(tempId, new Short(isDaily), dateFormatOut.parse(evaluationDate), "", new Short("0"), new Lesson(idLesson), new Topic(idTopic), new Employee(idEmployee)));
+            daoE.save(new Evaluation(tempId, new Short(isDaily), dateFormatOut.parse(evaluationDate), note, new Short("0"), new Lesson(idLesson), new Topic(idTopic), new Employee(idEmployee)));
         } catch (Exception ex) {
             Logger.getLogger(BootcampManagementController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -374,7 +387,7 @@ public class BootcampManagementController {
         List<Batchclass> batchclassList = (List<Batchclass>) daoBC.findAll();
         List<Batchclass> dataBatchclass = new ArrayList<>();
         for (Batchclass data : batchclassList) {
-            if (data.getIsdeleted() == 0) {
+            if (data.getIsdeleted() == 0&&data.getTrainer().getId().equalsIgnoreCase(request.getSession().getAttribute("login").toString())) {
                 dataBatchclass.add(data);
             }
         }

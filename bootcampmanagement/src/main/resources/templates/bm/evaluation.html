@@ -174,29 +174,22 @@ and open the template in the editor.
                     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
                         <h1>Evaluation</h1>
                         <!--show table-->
+                        <form th:href="@{/bm/evaluation}">
+                            <p>
+                                <select name="bc" id="bc" class="form-control">
+                                    <div th:each="data :${dataBatchclass}">
+                                        <option th:value="${data.id}" th:text="${data.batch.id+' '+data.classes.id}">
+                                        </option>
+                                    </div>
+                                    <input type="submit" class="btn btn-success" value="Select"/>
+                                </select>
+                            </p>
+                        </form>
                         <p>
-                            <a class="btn btn-info" data-target="#modalForm" data-toggle="modal">
-                                Add Data
+                            <a class="btn btn-success" data-target="#modalForm" data-toggle="modal">
+                                Insert Data
                             </a>
                         </p>
-                        <div class="row" style="padding: 10px 0 10px 0">
-                            <label> Select Month </label>
-                            <select id="mySelect">
-                                <option value=""></option>
-                                <option value="January">January</option>
-                                <option value="February">February</option>
-                                <option value="March">March</option>
-                                <option value="April">April</option>
-                                <option value="May">May</option>
-                                <option value="June">June</option>
-                                <option value="July">July</option>
-                                <option value="August">August</option>
-                                <option value="September">September</option>
-                                <option value="October">October</option>
-                                <option value="January">November</option>
-                                <option value="December">December</option>
-                            </select>
-                        </div>
                         <table class="table table-striped" id="evaluationTable" cellspacing='30' align ='center' border="1">
                             <thead class="active">
                                 <tr>
@@ -205,7 +198,7 @@ and open the template in the editor.
                                     <th>Lesson</th>
                                     <th>Topic</th>
                                     <th>Daily Score</th>
-                                    <!--                                    <th>Note</th>-->
+                                    <th>Note</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -215,19 +208,25 @@ and open the template in the editor.
                                     <td th:text="${#dates.format(data.evaluationdate,'dd MMMM yyyy')}"></td>
                                     <td th:text="${data.lesson.name}"></td>
                                     <td th:text="${data.topic.name}"></td>
-                                    <td th:text="${data.isdaily}"></td>
-                                    <!--                                    <td th:text="${data.note}"></td>-->
-                                    <td>
-                                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalForm" 
-                                                th:data-id="${data.id}" th:data-idparticipant="${data.participant.id}" 
-                                                th:data-evaluationdate="${data.evaluationdate}" th:data-idlession="${data.lesson.id}" 
-                                                th:data-idtopic="${data.topic.id}" th:data-isdaily="${data.isdaily}" 
-                                                th:data-note="${data.note}"
-                                                ><span data-feather="edit"></span></button>
-                                        <a class="btn btn-primary" th:href="@{/bm/getscore/{id}(id=${data.id})}">Score</a>
-                                        <a class="btn btn-danger" th:href="@{/bm/deleteEvaluation/{id}(id=${data.id})}"><span data-feather="trash"></span></a>
-                                    </td>
-                                </tr>
+                            <div th:if="${data.isdaily}==1">
+                                <td>Yes</td>
+                            </div>
+                            <div th:if="${data.isdaily}==0">
+                                <td>No</td>
+                            </div>
+
+                            <td th:text="${data.note}"></td>
+                            <td>
+                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalForm" 
+                                        th:data-id="${data.id}" th:data-idparticipant="${data.participant.id}" 
+                                        th:data-evaluationdate="${data.evaluationdate}" th:data-idlession="${data.lesson.id}" 
+                                        th:data-idtopic="${data.topic.id}" th:data-isdaily="${data.isdaily}" 
+                                        th:data-note="${data.note}"
+                                        ><span data-feather="edit"></span></button>
+                                <a class="btn btn-primary" th:href="@{/bm/getscore/{id}(id=${data.id})}">Score</a>
+                                <a class="btn btn-danger" th:href="@{/bm/deleteEvaluation/{id}(id=${data.id})}"><span data-feather="trash"></span></a>
+                            </td>
+                            </tr>
                             </tbody>
                         </table>
                         <!--end of show table-->
@@ -271,7 +270,7 @@ and open the template in the editor.
                                                 <option value="1">yes</option>
                                             </select>
                                             <label data-error="wrong" data-success="true">Note</label>
-                                            <textarea class="form-control" id="note" name="note" required="true" placeholder="Note"></textarea>
+                                            <textarea class="form-control" id="note" name="note"></textarea>
                                         </div>
                                         <div class="modal-footer">
                                             <input type="submit" class="btn btn-success" value="Save" name="save"/>
@@ -320,32 +319,9 @@ and open the template in the editor.
                 modal.find('#note').val(note);
             });
         </script>
-        <script  type="text/javascript">
-            function setEdit(id, name)
-            {
-                document.getElementById('rid').value = id;
-                document.getElementById('rname').value = name;
-            }
-        </script>
-
         <script>
             $(document).ready(function () {
-                /* Initialise the DataTable */
-                var oTable = $('#evaluationTable').dataTable({
-                    "oLanguage": {
-                        "sSearch": "Search all columns:"
-                    },
-                    "iDisplayLength": 10,
-                    "bJQueryUI": true,
-                    "sPaginationType": "full_numbers",
-                    "bFilter": true,
-                });
-
-                /* Add a select menu for each TH element in the table footer */
-                $('#mySelect').on('change', function () {
-                    var selectedValue = $(this).val();
-                    oTable.fnFilter(selectedValue, 1, false); //Exact value, column, reg
-                });
+                $('#evaluationTable').DataTable();
             });
         </script>
     </body>
