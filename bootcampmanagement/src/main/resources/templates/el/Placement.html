@@ -175,30 +175,59 @@
                                 <button data-target="#mdlAdd" data-toggle="modal" class="btn btn-info">Add Data</button>
                             </div>
                         </div>
+                        <div class="row" style="padding: 10px 0 10px 0">
+                            <div class="col-md-3">
+                                <label> Select Month </label>
+                                <select id="mySelect">
+                                    <option value=""></option>
+                                    <option value="January">January</option>
+                                    <option value="February">February</option>
+                                    <option value="March">March</option>
+                                    <option value="April">April</option>
+                                    <option value="May">May</option>
+                                    <option value="June">June</option>
+                                    <option value="July">July</option>
+                                    <option value="August">August</option>
+                                    <option value="September">September</option>
+                                    <option value="October">October</option>
+                                    <option value="January">November</option>
+                                    <option value="December">December</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label> Company  </label>
+                                <select name="selcomp" id="selcomp">
+                                    <option value=""></option>
+                                    <div th:each="cp :${comp}">
+                                        <option th:value="${cp.name}" th:text="${cp.name}"></option>
+                                    </div>
+                                </select>
+                            </div>
+                        </div>
                         <table id="placementTable" class="table table-bordered table-striped" style="width: 100%">
                             <thead>
                                 <tr>
                                     <th>No</th>
+                                    <th>Employee</th>
+                                    <th>Company</th>
+                                    <th>Start/Onboard Date</th>
                                     <th>Description</th>
                                     <th>Address</th>
                                     <th>Department</th>
-                                    <th>Start Date</th>
-                                    <th>Finish Date</th>
-                                    <th>Company</th>
-                                    <th>Employee</th>
+                                    <!--                                    <th>Finish Date</th>-->
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody id="tblData">
                                 <tr th:each="pd,ih : ${placeData}">
                                     <td th:text="${ih.count}"></td>
+                                    <td th:text="${pd.employee.name}"></td>
+                                    <td th:text="${pd.company.name}"</td>
+                                    <td th:text="${#dates.format(pd.startdate,'dd MMMM yyyy')}"></td>
                                     <td th:text="${pd.description}"></td>
                                     <td th:text="${pd.address}"></td>
                                     <td th:text="${pd.department}"></td>
-                                    <td th:text="${#dates.format(pd.startdate,'dd-MMM-yyyy')}"></td>
-                                    <td th:text="${#dates.format(pd.finishdate,'dd-MMM-yyyy')}"></td>
-                                    <td th:text="${pd.company.name}"</td>
-                                    <td th:text="${pd.employee.name}"></td>
+                                    <!--                                    <td th:text="${#dates.format(pd.finishdate,'dd-MMM-yyyy')}"></td>-->
                                     <td>
                                         <button data-target="#mdlEdit" data-toggle="modal" th:data-getid="${pd.id}" 
                                                 th:data-getdes="${pd.description}"
@@ -386,7 +415,27 @@
 
         <script>
             $(document).ready(function () {
-                $('#placementTable').DataTable();
+                /* Initialise the DataTable */
+                var oTable = $('#placementTable').dataTable({
+                    "oLanguage": {
+                        "sSearch": "Search all columns:"
+                    },
+                    "iDisplayLength": 10,
+                    "bJQueryUI": true,
+                    "sPaginationType": "full_numbers",
+                    "bFilter": true,
+                });
+
+                /* Add a select menu for each TH element in the table footer */
+                $('#mySelect').on('change', function () {
+                    var selectedValue = $(this).val();
+                    oTable.fnFilter(selectedValue, 3, false); //Exact value, column, reg
+                });
+
+                $('#selcomp').on('change', function () {
+                    var selectedValue = $(this).val();
+                    oTable.fnFilter(selectedValue, 2, false); //Exact value, column, reg
+                });
             });
         </script>
         <script>

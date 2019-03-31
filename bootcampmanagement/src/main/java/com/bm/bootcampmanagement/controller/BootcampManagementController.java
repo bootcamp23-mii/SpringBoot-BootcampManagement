@@ -148,7 +148,7 @@ public class BootcampManagementController {
             if (!id.equalsIgnoreCase("")) {
                 tempId = id;
             }
-            daoE.save(new Evaluation(tempId, new Short(isDaily), dateFormat.parse(evaluationDate), "", new Short("0"), new Lesson(idLesson), new Topic(idTopic), new Employee(idEmployee)));
+            daoE.save(new Evaluation(tempId, new Short(isDaily), dateFormatOut.parse(evaluationDate), "", new Short("0"), new Lesson(idLesson), new Topic(idTopic), new Employee(idEmployee)));
         } catch (Exception ex) {
             Logger.getLogger(BootcampManagementController.class.getName()).log(Level.SEVERE, null, ex);
         }
