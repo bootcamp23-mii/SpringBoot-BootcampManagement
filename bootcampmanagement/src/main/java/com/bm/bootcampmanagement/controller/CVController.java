@@ -189,7 +189,7 @@ public class CVController {
     @RequestMapping(value = "/cv/achievementsave", method = RequestMethod.POST)  //@PostMapping("/regionsave")
     public String savee(HttpServletRequest request, @RequestParam("sname") String name) {
         String id = request.getSession().getAttribute("login").toString();
-        adao.save(new Achievement(id, name, new Employee("id")));
+        adao.save(new Achievement("ini", name, new Employee(id)));
         return "redirect:/cv/cv";
     }
 

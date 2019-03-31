@@ -17,7 +17,18 @@
 
     <body>
 
-        <div class="container">
+        <div class="container" id="printJS-form">
+            <div class="row">
+                <div class="col-md-12">
+
+                    <h5>Print Report</h5>
+
+                    <button type="button" class="button badge-info" onclick="printJS({ printable: 'printJS-form', type: 'html', header: 'PrintJS - Form Element Selection' })">
+                        Print
+                    </button>
+
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-10">
                     <div class="panel-group">
@@ -35,12 +46,12 @@
                             <div class="panel-body">
                                 <table id="example" class="table table-borderless" style="width: 100%">
                                     <tbody id="tblData">
-                                    <tr><td> <span class="glyphicon glyphicon-user"></span></td><td th:text="${employee.name}"></td></tr>
-                                    <tr><td><span class="glyphicon glyphicon-calendar"></span></td><td th:text="${#dates.format(employee.birthdate,'dd-MMM-yyyy')}"></td></tr>
-                                    <tr><td><span class="glyphicon glyphicon-home"></span></td><td th:text="${employee.address}"></td></tr>
-                                    <tr><td><span class="glyphicon glyphicon-envelope"></span></td><td th:text="${employee.email}"></td></tr>
-                                    <tr><td><span class="glyphicon glyphicon-earphone"></span></td><td th:text="${employee.phone}"></td></tr>
-                                    
+                                        <tr><td> <span class="glyphicon glyphicon-user"></span></td><td th:text="${employee.name}"></td></tr>
+                                        <tr><td><span class="glyphicon glyphicon-calendar"></span></td><td th:text="${#dates.format(employee.birthdate,'dd-MMM-yyyy')}"></td></tr>
+                                        <tr><td><span class="glyphicon glyphicon-home"></span></td><td th:text="${employee.address}"></td></tr>
+                                        <tr><td><span class="glyphicon glyphicon-envelope"></span></td><td th:text="${employee.email}"></td></tr>
+                                        <tr><td><span class="glyphicon glyphicon-earphone"></span></td><td th:text="${employee.phone}"></td></tr>
+
                                     </tbody>
                                 </table>
                             </div>
@@ -231,7 +242,25 @@
     <!-- Icons -->
     <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
     <script>
-        feather.replace()
+                        feather.replace()
+    </script>
+    <!--PrintJS-->
+    <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
+    <!--<script src="https://printjs-4de6.kxcdn.com/print.min.css"></script>-->
+    <script>
+                        feather.replace();
+                        function Print()
+                        {
+                            var mywindow = window.open('', 'new div', 'height=400,width=600');
+                            mywindow.document.write('<html><head><title></title>');
+                            mywindow.document.write('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" type="text/css" />');
+                            mywindow.document.write('</head><body >');
+                            mywindow.document.write(data);
+                            mywindow.document.write('</body></html>');
+                            winprint.document.close();
+                            winprint.focus();
+                        }
+                        ;
     </script>
 
 </html>
