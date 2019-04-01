@@ -72,7 +72,7 @@ public class BootcampManagementController {
     @GetMapping("/bm/participant")
     public String participant(Model model, HttpServletRequest request) {
         if (request.getSession().getAttribute("login") == null) {
-            return "index";
+            return "redirect:../logout";
         }
         List<Employee> empList = (List<Employee>) daoEmp.findAll();
         List<Batchclass> batchclassList = (List<Batchclass>) daoBC.findAll();
@@ -144,7 +144,7 @@ public class BootcampManagementController {
     @GetMapping("/bm/evaluation")
     public String evaluation(Model model, HttpServletRequest request) {
         if (request.getSession().getAttribute("login") == null) {
-            return "index";
+            return "redirect:../logout";
         }
         String trainer = request.getSession().getAttribute("login").toString();
         List<Participant> participantList = (List<Participant>) daoP.findAll();
@@ -222,7 +222,7 @@ public class BootcampManagementController {
     @GetMapping("/bm/score")
     public String score(Model model, HttpServletRequest request) {
         if (request.getSession().getAttribute("login") == null) {
-            return "index";
+            return "redirect:../logout";
         }
         List<Score> scoreList = (List<Score>) daoS.findAll();
         List<Score> dataScore = new ArrayList<>();
@@ -277,9 +277,9 @@ public class BootcampManagementController {
 
     //batchclass
     @GetMapping("/bm/batchclass")
-    public String batchclass(Model model) {
+    public String batchclass(Model model,HttpServletRequest request) {
         if (request.getSession().getAttribute("login") == null) {
-            return "index";
+            return "redirect:../logout";
         }
         List<Employee> empList = (List<Employee>) daoEmp.findAll();
         List<Participant> participantList = (List<Participant>) daoP.findAll();
@@ -372,9 +372,9 @@ public class BootcampManagementController {
 
     //errorbank
     @GetMapping("/bm/errorbank")
-    public String errorbank(Model model) {
+    public String errorbank(Model model,HttpServletRequest request) {
         if (request.getSession().getAttribute("login") == null) {
-            return "index";
+            return "redirect:../logout";
         }
         List<Errorbank> errorList = (List<Errorbank>) daoEB.findAll();
         List<Errorbank> dataErrorbank = new ArrayList<>();
@@ -426,7 +426,7 @@ public class BootcampManagementController {
     @GetMapping("/bm/report")
     public String report(Model model, HttpServletRequest request) {
         if (request.getSession().getAttribute("login") == null) {
-            return "index";
+            return "redirect:../logout";
         }
         List<Participant> participantList = (List<Participant>) daoP.findAll();
         List<Participant> dataParticipant = new ArrayList<>();
