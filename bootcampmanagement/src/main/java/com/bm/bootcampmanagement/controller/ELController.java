@@ -7,6 +7,7 @@ package com.bm.bootcampmanagement.controller;
 
 import com.bm.bootcampmanagement.entities.Accesscard;
 import com.bm.bootcampmanagement.entities.Achievement;
+import com.bm.bootcampmanagement.entities.Batchclass;
 import com.bm.bootcampmanagement.entities.Certificate;
 import com.bm.bootcampmanagement.entities.Company;
 import com.bm.bootcampmanagement.entities.Education;
@@ -19,10 +20,13 @@ import com.bm.bootcampmanagement.entities.Employeeskill;
 import com.bm.bootcampmanagement.entities.Idcard;
 import com.bm.bootcampmanagement.entities.Locker;
 import com.bm.bootcampmanagement.entities.Organization;
+import com.bm.bootcampmanagement.entities.Participant;
 import com.bm.bootcampmanagement.entities.Placement;
 import com.bm.bootcampmanagement.repository.el.CompanyRepository;
 import com.bm.bootcampmanagement.repository.el.EmployeeAccessRepository;
 import com.bm.bootcampmanagement.services.EmployeeDAO;
+import com.bm.bootcampmanagement.services.bm.BatchclassDAO;
+import com.bm.bootcampmanagement.services.bm.ParticipantDAO;
 import com.bm.bootcampmanagement.services.cv.AchievementDAO;
 import com.bm.bootcampmanagement.services.cv.CertificateDAO;
 import com.bm.bootcampmanagement.services.cv.EducationDAO;
@@ -44,7 +48,9 @@ import com.bm.bootcampmanagement.services.el.PlacementDAO;
 import com.bm.bootcampmanagement.services.el.VillageDAO;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -92,6 +98,12 @@ public class ELController {
 
     @Autowired
     DistrictDAO daoLD;
+    
+    @Autowired
+    BatchclassDAO daoBC;
+    
+    @Autowired
+    ParticipantDAO daoP;
 
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -103,9 +115,57 @@ public class ELController {
 
     
     @GetMapping("/el/Idcard")
-    public String Idcard(Model model) {
+    public String Idcard(Model model, HttpServletRequest request) {
+        if (request.getSession().getAttribute("login") == null) {
+            return "redirect:../logout";
+        }
+        String trainer = request.getSession().getAttribute("login").toString();
+        List<Employee> empList = (List<Employee>) daoEmp.findAll();
+        List<Batchclass> batchclassList = (List<Batchclass>) daoBC.findAll();
+        List<Employee> dataEmployee = new ArrayList<>();
+        boolean selectBatchclass = request.getParameter("bc") != null;
+        for (int i = 0; i < empList.size(); i++) {
+            boolean isTrainer = false, inClass = false;
+            for (Batchclass batchclass : batchclassList) {
+                if (batchclass.getTrainer().getId().equalsIgnoreCase(empList.get(i).getId())) {
+                    isTrainer = true;
+                }
+            }
+            if (selectBatchclass) {
+                if (empList.get(i).getParticipant() != null) {
+                    if (request.getParameter("bc").equalsIgnoreCase(empList.get(i).getParticipant().getBatchclass().getId())) {
+                        inClass = true;
+                    }
+                }
+            }
+            if (empList.get(i).getIsdeleted().intValue() == 0 && !isTrainer) {
+                if (inClass) {
+                    dataEmployee.add(empList.get(i));
+                }
+            }
+        }
+        List<Participant> participantList = (List<Participant>) daoP.findAll();
+        List<Participant> dataParticipant = new ArrayList<>();
+        for (Participant data : participantList) {
+            boolean isParticipant = true;
+            if (selectBatchclass) {
+                if (!request.getParameter("bc").equalsIgnoreCase(data.getBatchclass().getId())) {
+                    isParticipant = false;
+                }
+            }
+            if (data.getIsdeleted() == 0 && isParticipant) {
+                dataParticipant.add(data);
+            }
+        }
+        List<Batchclass> dataBatchclass = new ArrayList<>();
+        for (Batchclass data : batchclassList) {
+            if (data.getIsdeleted() == 0 && data.getTrainer().getId().equalsIgnoreCase(request.getSession().getAttribute("login").toString())) {
+                dataBatchclass.add(data);
+            }
+        }
+        model.addAttribute("dataBatchclass", dataBatchclass);
         model.addAttribute("idcardData", cardDAO.findAll());
-        model.addAttribute("empl", daoEmp.findAll());
+        model.addAttribute("empl", dataEmployee);
         model.addAttribute("idcardSave", new Idcard());
         model.addAttribute("idcardEdit", new Idcard());
         model.addAttribute("idcardDelete", new Idcard());
@@ -133,20 +193,58 @@ public class ELController {
     }
 
     @GetMapping("/el/Employeelocker")
-    public String Employeelocker(Model model) {
-//        Locker lock = (Locker) ldao.findAll();
-//        List<Employeelocker> elok = (List<Employeelocker>) (Employeelocker) eldao.findAll();
-//        for (Employeelocker employeelocker : elok) {
-//            for (int i = 0; i < elok.size(); i++) {
-//                if (lock.getId() == elok.get(i).getLocker().getId()) {
-//
-//                }
-//
-//            }
-//        }
+    public String Employeelocker(Model model, HttpServletRequest request) {
+        if (request.getSession().getAttribute("login") == null) {
+            return "redirect:../logout";
+        }
+        String trainer = request.getSession().getAttribute("login").toString();
+        List<Employee> empList = (List<Employee>) daoEmp.findAll();
+        List<Batchclass> batchclassList = (List<Batchclass>) daoBC.findAll();
+        List<Employee> dataEmployee = new ArrayList<>();
+        boolean selectBatchclass = request.getParameter("bc") != null;
+        for (int i = 0; i < empList.size(); i++) {
+            boolean isTrainer = false, inClass = false;
+            for (Batchclass batchclass : batchclassList) {
+                if (batchclass.getTrainer().getId().equalsIgnoreCase(empList.get(i).getId())) {
+                    isTrainer = true;
+                }
+            }
+            if (selectBatchclass) {
+                if (empList.get(i).getParticipant() != null) {
+                    if (request.getParameter("bc").equalsIgnoreCase(empList.get(i).getParticipant().getBatchclass().getId())) {
+                        inClass = true;
+                    }
+                }
+            }
+            if (empList.get(i).getIsdeleted().intValue() == 0 && !isTrainer) {
+                if (inClass) {
+                    dataEmployee.add(empList.get(i));
+                }
+            }
+        }
+        List<Participant> participantList = (List<Participant>) daoP.findAll();
+        List<Participant> dataParticipant = new ArrayList<>();
+        for (Participant data : participantList) {
+            boolean isParticipant = true;
+            if (selectBatchclass) {
+                if (!request.getParameter("bc").equalsIgnoreCase(data.getBatchclass().getId())) {
+                    isParticipant = false;
+                }
+            }
+            if (data.getIsdeleted() == 0 && isParticipant) {
+                dataParticipant.add(data);
+            }
+        }
+        List<Batchclass> dataBatchclass = new ArrayList<>();
+        for (Batchclass data : batchclassList) {
+            if (data.getIsdeleted() == 0 && data.getTrainer().getId().equalsIgnoreCase(request.getSession().getAttribute("login").toString())) {
+                dataBatchclass.add(data);
+            }
+        }
+        model.addAttribute("dataBatchclass", dataBatchclass);
         model.addAttribute("emplockerData", eldao.findAll());
         model.addAttribute("datalock", ldao.findAll());
-        model.addAttribute("empl", daoEmp.findAll());
+        model.addAttribute("empl", dataEmployee);
         model.addAttribute("emplockerSave", new Employeelocker());
         model.addAttribute("emplockerEdit", new Employeelocker());
         model.addAttribute("emplockerDelete", new Employeelocker());
@@ -193,9 +291,57 @@ public class ELController {
     }
 
     @GetMapping("/el/Employeeaccess")
-    public String Employeeaccess(Model model) {
+    public String Employeeaccess(Model model, HttpServletRequest request) {
+        if (request.getSession().getAttribute("login") == null) {
+            return "redirect:../logout";
+        }
+        String trainer = request.getSession().getAttribute("login").toString();
+        List<Employee> empList = (List<Employee>) daoEmp.findAll();
+        List<Batchclass> batchclassList = (List<Batchclass>) daoBC.findAll();
+        List<Employee> dataEmployee = new ArrayList<>();
+        boolean selectBatchclass = request.getParameter("bc") != null;
+        for (int i = 0; i < empList.size(); i++) {
+            boolean isTrainer = false, inClass = false;
+            for (Batchclass batchclass : batchclassList) {
+                if (batchclass.getTrainer().getId().equalsIgnoreCase(empList.get(i).getId())) {
+                    isTrainer = true;
+                }
+            }
+            if (selectBatchclass) {
+                if (empList.get(i).getParticipant() != null) {
+                    if (request.getParameter("bc").equalsIgnoreCase(empList.get(i).getParticipant().getBatchclass().getId())) {
+                        inClass = true;
+                    }
+                }
+            }
+            if (empList.get(i).getIsdeleted().intValue() == 0 && !isTrainer) {
+                if (inClass) {
+                    dataEmployee.add(empList.get(i));
+                }
+            }
+        }
+        List<Participant> participantList = (List<Participant>) daoP.findAll();
+        List<Participant> dataParticipant = new ArrayList<>();
+        for (Participant data : participantList) {
+            boolean isParticipant = true;
+            if (selectBatchclass) {
+                if (!request.getParameter("bc").equalsIgnoreCase(data.getBatchclass().getId())) {
+                    isParticipant = false;
+                }
+            }
+            if (data.getIsdeleted() == 0 && isParticipant) {
+                dataParticipant.add(data);
+            }
+        }
+        List<Batchclass> dataBatchclass = new ArrayList<>();
+        for (Batchclass data : batchclassList) {
+            if (data.getIsdeleted() == 0 && data.getTrainer().getId().equalsIgnoreCase(request.getSession().getAttribute("login").toString())) {
+                dataBatchclass.add(data);
+            }
+        }
+        model.addAttribute("dataBatchclass", dataBatchclass);
         model.addAttribute("empaccessData", o.findAll());
-        model.addAttribute("empl", daoEmp.findAll());
+        model.addAttribute("empl", dataEmployee);
         model.addAttribute("epc", o.findAll());
         model.addAttribute("access", acdao.findAll());
         model.addAttribute("empaccessSave", new Employeeaccess());
@@ -245,10 +391,58 @@ public class ELController {
     }
 
     @GetMapping("/el/Placement")
-    public String Placement(Model model) {
+    public String Placement(Model model, HttpServletRequest request) {
+        if (request.getSession().getAttribute("login") == null) {
+            return "redirect:../logout";
+        }
+        String trainer = request.getSession().getAttribute("login").toString();
+        List<Employee> empList = (List<Employee>) daoEmp.findAll();
+        List<Batchclass> batchclassList = (List<Batchclass>) daoBC.findAll();
+        List<Employee> dataEmployee = new ArrayList<>();
+        boolean selectBatchclass = request.getParameter("bc") != null;
+        for (int i = 0; i < empList.size(); i++) {
+            boolean isTrainer = false, inClass = false;
+            for (Batchclass batchclass : batchclassList) {
+                if (batchclass.getTrainer().getId().equalsIgnoreCase(empList.get(i).getId())) {
+                    isTrainer = true;
+                }
+            }
+            if (selectBatchclass) {
+                if (empList.get(i).getParticipant() != null) {
+                    if (request.getParameter("bc").equalsIgnoreCase(empList.get(i).getParticipant().getBatchclass().getId())) {
+                        inClass = true;
+                    }
+                }
+            }
+            if (empList.get(i).getIsdeleted().intValue() == 0 && !isTrainer) {
+                if (inClass) {
+                    dataEmployee.add(empList.get(i));
+                }
+            }
+        }
+        List<Participant> participantList = (List<Participant>) daoP.findAll();
+        List<Participant> dataParticipant = new ArrayList<>();
+        for (Participant data : participantList) {
+            boolean isParticipant = true;
+            if (selectBatchclass) {
+                if (!request.getParameter("bc").equalsIgnoreCase(data.getBatchclass().getId())) {
+                    isParticipant = false;
+                }
+            }
+            if (data.getIsdeleted() == 0 && isParticipant) {
+                dataParticipant.add(data);
+            }
+        }
+        List<Batchclass> dataBatchclass = new ArrayList<>();
+        for (Batchclass data : batchclassList) {
+            if (data.getIsdeleted() == 0 && data.getTrainer().getId().equalsIgnoreCase(request.getSession().getAttribute("login").toString())) {
+                dataBatchclass.add(data);
+            }
+        }
+        model.addAttribute("dataBatchclass", dataBatchclass);
         model.addAttribute("placeData", pdao.findAll());
-        model.addAttribute("empl", daoEmp.findAll());
         model.addAttribute("comp", cr.findAll());
+        model.addAttribute("empl", dataEmployee);
         model.addAttribute("placeSave", new Placement());
         model.addAttribute("placeEdit", new Placement());
         model.addAttribute("placeDelete", new Placement());
@@ -256,16 +450,16 @@ public class ELController {
     }
 
     @RequestMapping(value = "/el/placeSave", method = RequestMethod.POST)
-    public String save(String id, @RequestParam("description") String description, @RequestParam("address") String address, @RequestParam("department") String department,
+    public String save(String id, @RequestParam("description") String description, @RequestParam("department") String department,
             @RequestParam("startdate") String startdate, @RequestParam("finishdate") String finishdate, @RequestParam("company") String company, @RequestParam("employee") String employee) throws ParseException {
-        pdao.savePlacement(new Placement("id", description, address, department, dateFormat.parse(startdate), dateFormat.parse(finishdate), new Company(company), new Employee(employee)));
+        pdao.savePlacement(new Placement("id", description, " ", department, dateFormat.parse(startdate), dateFormat.parse(finishdate), new Company(company), new Employee(employee)));
         return "redirect:/el/Placement";
     }
 
     @RequestMapping(value = "/el/placeEdit", method = RequestMethod.POST)
-    public String edit(@RequestParam("id") String id, @RequestParam("description") String description, @RequestParam("address") String address, @RequestParam("department") String department,
+    public String edit(@RequestParam("id") String id, @RequestParam("description") String description, @RequestParam("department") String department,
             @RequestParam("startdate") String startdate, @RequestParam("finishdate") String finishdate, @RequestParam("company") String company, @RequestParam("employee") String employee) throws ParseException {
-        pdao.savePlacement(new Placement(id, description, address, department, dateFormat.parse(startdate), dateFormat.parse(finishdate), new Company(company), new Employee(employee)));
+        pdao.savePlacement(new Placement(id, description, " ", department, dateFormat.parse(startdate), dateFormat.parse(finishdate), new Company(company), new Employee(employee)));
         return "redirect:/el/Placement";
     }
 

@@ -169,6 +169,17 @@
                 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
                     <row>
                         <h3>Id Card</h3>
+                        <form th:href="@{/bm/participant}">
+                            <p>
+                                <select name="bc" id="bc" class="form-control">
+                                    <div th:each="data :${dataBatchclass}">
+                                        <option th:value="${data.id}" th:text="${data.batch.id+' '+data.classes.id}">
+                                        </option>
+                                    </div>
+                                    <input type="submit" class="btn btn-success" value="Select"/>
+                                </select>
+                            </p>
+                        </form>
                         <div class="row" style="padding: 10px 0 10px 0">
                             <div class="col-sm-6">
                                 <button data-target="#mdlAdd" data-toggle="modal" class="btn btn-info">Add Data</button>
@@ -196,26 +207,28 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
+                                    <th>Employee Name</th>
                                     <th>Receive Date</th>
                                     <th>Return Date</th>
                                     <th>Note</th>
-                                    <th>Employee</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody id="tblData">
                                 <tr th:each="idc,ih : ${idcardData}">
                                     <td th:text="${ih.count}"></td>
+                                    <td th:text="${idc.employee.name}"></td>
                                     <td th:text="${#dates.format(idc.receivedate,'dd MMMM yyyy')}"></td>
                                     <td th:text="${#dates.format(idc.returndate,'dd MMMM yyyy')}"></td>
                                     <td th:text="${idc.note}"></td>
-                                    <td th:text="${idc.employee.name}"></td>
+
                                     <td>
                                         <button data-target="#mdlEdit" data-toggle="modal" th:data-getid="${idc.id}" 
+                                                th:data-getemployee="${idc.employee.id}" 
                                                 th:data-getreceivedate="${idc.receivedate}"
                                                 th:data-getreturndate="${idc.returndate}" 
                                                 th:data-getnote="${idc.note}" 
-                                                th:data-getemployee="${idc.employee.id}" 
+
                                                 class="btn btn-warning"><span data-feather="edit"></span></button>
                                         <a th:href="@{/el/idcardDelete(cardid=${idc.id})}"><button value="" class="btn btn-danger"><span data-feather="trash"></span></button></a>
                                         <!--                                    <button data-target="#mdlDelete" data-toggle="modal" h:data-getid="${idc.id}" 
@@ -243,6 +256,14 @@
                                 </div>
                                 <form th:action="@{/el/idcardSave}" method="post">
                                     <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="employee">Employee Name</label>
+                                            <select name="employee" id="employee" class="form-control">
+                                                <div th:each="epl :${empl}">
+                                                    <option th:value="${epl.id}" th:text="${epl.name}"></option>
+                                                </div>
+                                            </select>
+                                        </div>
                                         <div id="sandbox" class="form-group">
                                             <label for="receivedate">Receive Date</label>
                                             <input id="receivedate" name="receivedate" class="form-control" type="date"/>
@@ -255,14 +276,7 @@
                                             <label for="note">Note</label>
                                             <input id="note" name="note" class="form-control" type="text" required="true" placeholder="Note"/>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="employee">Employee</label>
-                                            <select name="employee" id="employee" class="form-control">
-                                                <div th:each="epl :${empl}">
-                                                    <option th:value="${epl.id}" th:text="${epl.name}"></option>
-                                                </div>
-                                            </select>
-                                        </div>
+
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -286,6 +300,14 @@
                                     <div class="modal-body">
                                         <input id="id" name="id" class="form-control" type="hidden"/>
                                         <div class="form-group">
+                                            <label for="employee">Employee Name</label>
+                                            <select name="employee" id="employee" class="form-control">
+                                                <div th:each="epl :${empl}">
+                                                    <option th:value="${epl.id}" th:text="${epl.name}"></option>
+                                                </div>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
                                             <label for="receive">Receive Date</label>
                                             <input id="receivedate" name="receivedate" class="form-control" type="date"/>
                                         </div>
@@ -297,14 +319,7 @@
                                             <label for="note">Note</label>
                                             <input id="note" name="note" class="form-control" type="text"/>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="employee">Employee</label>
-                                            <select name="employee" id="employee" class="form-control">
-                                                <div th:each="epl :${empl}">
-                                                    <option th:value="${epl.id}" th:text="${epl.name}"></option>
-                                                </div>
-                                            </select>
-                                        </div>
+
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -359,17 +374,19 @@
             $('#mdlEdit').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget);
                 var id = button.data('getid');
+                var employee = button.data('getemployee');
                 var receivedate = button.data('getreceivedate');
                 var returndate = button.data('getreturndate');
                 var note = button.data('getnote');
-                var employee = button.data('getemployee');
+
 
                 var modal = $(this);
                 modal.find('#id').val(id);
+                modal.find('#employee').val(employee);
                 modal.find('#receivedate').val(receivedate);
                 modal.find('#returndate').val(returndate);
                 modal.find('#note').val(note);
-                modal.find('#employee').val(employee);
+
 
             });
         </script>

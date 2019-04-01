@@ -170,6 +170,17 @@
                 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
                     <row>
                         <h3>Placement</h3>
+                        <form th:href="@{/bm/participant}">
+                            <p>
+                                <select name="bc" id="bc" class="form-control">
+                                    <div th:each="data :${dataBatchclass}">
+                                        <option th:value="${data.id}" th:text="${data.batch.id+' '+data.classes.id}">
+                                        </option>
+                                    </div>
+                                    <input type="submit" class="btn btn-success" value="Select"/>
+                                </select>
+                            </p>
+                        </form>
                         <div class="row" style="padding: 10px 0 10px 0">
                             <div class="col-sm-6">
                                 <button data-target="#mdlAdd" data-toggle="modal" class="btn btn-info">Add Data</button>
@@ -208,11 +219,10 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Employee</th>
+                                    <th>Employee Name</th>
                                     <th>Company</th>
                                     <th>Start/Onboard Date</th>
                                     <th>Description</th>
-                                    <th>Address</th>
                                     <th>Department</th>
                                     <!--                                    <th>Finish Date</th>-->
                                     <th>Action</th>
@@ -225,18 +235,17 @@
                                     <td th:text="${pd.company.name}"</td>
                                     <td th:text="${#dates.format(pd.startdate,'dd MMMM yyyy')}"></td>
                                     <td th:text="${pd.description}"></td>
-                                    <td th:text="${pd.address}"></td>
                                     <td th:text="${pd.department}"></td>
                                     <!--                                    <td th:text="${#dates.format(pd.finishdate,'dd-MMM-yyyy')}"></td>-->
                                     <td>
                                         <button data-target="#mdlEdit" data-toggle="modal" th:data-getid="${pd.id}" 
+                                                th:data-getemployee="${pd.employee.id}" 
+                                                th:data-getcompany="${pd.company.id}"
                                                 th:data-getdes="${pd.description}"
-                                                th:data-getadd="${pd.address}" 
                                                 th:data-getdep="${pd.department}"
                                                 th:data-getstartdate="${pd.startdate}"
                                                 th:data-getfinishdate="${pd.finishdate}"
-                                                th:data-getcompany="${pd.company.id}" 
-                                                th:data-getemployee="${pd.employee.id}" 
+                                                
                                                 class="btn btn-warning"><span data-feather="edit"></span></button>
                                         <a th:href="@{/el/placeDelete(pladid=${pd.id})}"><button value="" class="btn btn-danger"><span data-feather="trash"></span></button></a>
                                         <!--                                        <button data-target="#mdlDelete" data-toggle="modal" th:data-getid="${pd.id}" 
@@ -267,12 +276,24 @@
                                 <form th:action="@{/el/placeSave}" method="post">
                                     <div class="modal-body">
                                         <div class="form-group">
-                                            <label for="description">Description</label>
-                                            <input id="description" name="description" class="form-control" type="text" required="true" placeholder="Description"/>
+                                            <label for="employee">Employee Name</label>
+                                            <select name="employee" id="employee" class="form-control">
+                                                <div th:each="epl :${empl}">
+                                                    <option th:value="${epl.id}" th:text="${epl.name}"></option>
+                                                </div>
+                                            </select>
                                         </div>
                                         <div class="form-group">
-                                            <label for="address">Address</label>
-                                            <input id="address" name="address" class="form-control" type="text" required="true" placeholder="Address"/>
+                                            <label for="company">Company</label>
+                                            <select name="company" id="company" class="form-control">
+                                                <div th:each="cp :${comp}">
+                                                    <option th:value="${cp.id}" th:text="${cp.name}"></option>
+                                                </div>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="description">Description</label>
+                                            <input id="description" name="description" class="form-control" type="text" required="true" placeholder="Description"/>
                                         </div>
                                         <div class="form-group">
                                             <label for="department">Department</label>
@@ -286,22 +307,8 @@
                                             <label for="finishdate">Finish Date</label>
                                             <input id="finishdate" name="finishdate" class="form-control" type="date"/>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="company">Company</label>
-                                            <select name="company" id="company" class="form-control">
-                                                <div th:each="cp :${comp}">
-                                                    <option th:value="${cp.id}" th:text="${cp.name}"></option>
-                                                </div>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="employee">Employee</label>
-                                            <select name="employee" id="employee" class="form-control">
-                                                <div th:each="epl :${empl}">
-                                                    <option th:value="${epl.id}" th:text="${epl.name}"></option>
-                                                </div>
-                                            </select>
-                                        </div>
+                                        
+                                        
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -325,12 +332,24 @@
                                     <div class="modal-body">
                                         <input id="id" name="id" class="form-control" type="hidden"/>
                                         <div class="form-group">
-                                            <label for="description">Description</label>
-                                            <input id="description" name="description" class="form-control" type="text"/>
+                                            <label for="employee">Employee Name</label>
+                                            <select name="employee" id="employee" class="form-control">
+                                                <div th:each="epl :${empl}">
+                                                    <option th:value="${epl.id}" th:text="${epl.name}" th:selected="true"></option>
+                                                </div>
+                                            </select>
                                         </div>
                                         <div class="form-group">
-                                            <label for="address">Address</label>
-                                            <input id="address" name="address" class="form-control" type="text"/>
+                                            <label for="company">Company</label>
+                                            <select name="company" id="company" class="form-control">
+                                                <div th:each="cp :${comp}">
+                                                    <option th:value="${cp.id}" th:text="${cp.name}"></option>
+                                                </div>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="description">Description</label>
+                                            <input id="description" name="description" class="form-control" type="text"/>
                                         </div>
                                         <div class="form-group">
                                             <label for="department">Department</label>
@@ -344,22 +363,8 @@
                                             <label for="finishdate">Finish Date</label>
                                             <input id="finishdate" name="finishdate" class="form-control" type="date"/>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="company">Company</label>
-                                            <select name="company" id="company" class="form-control">
-                                                <div th:each="cp :${comp}">
-                                                    <option th:value="${cp.id}" th:text="${cp.name}"></option>
-                                                </div>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="employee">Employee</label>
-                                            <select name="employee" id="employee" class="form-control">
-                                                <div th:each="epl :${empl}">
-                                                    <option th:value="${epl.id}" th:text="${epl.name}"></option>
-                                                </div>
-                                            </select>
-                                        </div>
+                                        
+                                        
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -392,23 +397,25 @@
             $('#mdlEdit').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget);
                 var id = button.data('getid');
+                var employee = button.data('getemployee');
+                var company = button.data('getcompany');
                 var description = button.data('getdes');
-                var address = button.data('getadd');
                 var department = button.data('getdep');
                 var startdate = button.data('getstartdate');
                 var finishdate = button.data('getfinishdate');
-                var company = button.data('getcompany');
-                var employee = button.data('getemployee');
+                
+                
 
                 var modal = $(this);
                 modal.find('#id').val(id);
+                modal.find('#employee').val(employee);
+                modal.find('#company').val(company);
                 modal.find('#description').val(description);
-                modal.find('#address').val(address);
                 modal.find('#department').val(department);
                 modal.find('#startdate').val(startdate);
                 modal.find('#finishdate').val(finishdate);
-                modal.find('#company').val(company);
-                modal.find('#employee').val(employee);
+                
+                
 
             });
         </script>

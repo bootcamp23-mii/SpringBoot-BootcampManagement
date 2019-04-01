@@ -170,6 +170,17 @@
                 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
                     <row>
                         <h3>Employee Access</h3>
+                        <form th:href="@{/bm/participant}">
+                            <p>
+                                <select name="bc" id="bc" class="form-control">
+                                    <div th:each="data :${dataBatchclass}">
+                                        <option th:value="${data.id}" th:text="${data.batch.id+' '+data.classes.id}">
+                                        </option>
+                                    </div>
+                                    <input type="submit" class="btn btn-success" value="Select"/>
+                                </select>
+                            </p>
+                        </form>
                         <div class="row" style="padding: 10px 0 10px 0">
                             <div class="col-sm-6">
                                 <button data-target="#mdlAdd" data-toggle="modal" class="btn btn-info">Add Data</button>
@@ -197,29 +208,29 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
+                                    <th>Employee Name</th>
+                                    <th>Access Card</th>
                                     <th>Receive Date</th>
                                     <th>Return Date</th>
                                     <th>Note</th>
-                                    <th>Access Card</th>
-                                    <th>Employee</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody id="tblData">
                                 <tr th:each="ead,ih : ${empaccessData}">
                                     <td th:text="${ih.count}"></td>
+                                    <td th:text="${ead.employee.name}"></td>
+                                    <td th:text="${ead.accesscard.accessnumber}"</td>
                                     <td th:text="${#dates.format(ead.receivedate,'dd MMMM yyyy')}"></td>
                                     <td th:text="${#dates.format(ead.returndate,'dd MMMM yyyy')}"></td>
                                     <td th:text="${ead.notes}"></td>
-                                    <td th:text="${ead.accesscard.accessnumber}"</td>
-                                    <td th:text="${ead.employee.name}"></td>
                                     <td>
                                         <button data-target="#mdlEdit" data-toggle="modal" th:data-getid="${ead.id}" 
+                                                th:data-getemployee="${ead.employee.id}" 
+                                                th:data-getaccess="${ead.accesscard.id}"
                                                 th:data-getreceivedate="${ead.receivedate}"
                                                 th:data-getreturndate="${ead.returndate}" 
                                                 th:data-getnote="${ead.notes}" 
-                                                th:data-getaccess="${ead.accesscard.id}" 
-                                                th:data-getemployee="${ead.employee.id}" 
                                                 class="btn btn-warning"><span data-feather="edit"></span></button>
                                         <a th:href="@{/el/empaccessDelete(epcid=${ead.id})}"><button value="" class="btn btn-danger"><span data-feather="trash"></span></button></a>
                                         <!--                                    <button data-target="#mdlDelete" data-toggle="modal" th:data-getid="${ead.id}" 
@@ -247,6 +258,22 @@
                                 </div>
                                 <form th:action="@{/el/empaccessSave}" method="post">
                                     <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="employee">Employee</label>
+                                            <select name="employee" id="employee" class="form-control">
+                                                <div th:each="epl :${empl}">
+                                                    <option th:value="${epl.id}" th:text="${epl.name}"></option>
+                                                </div>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="accesscard">Access Card</label>
+                                            <select name="accesscard" id="accesscard" class="form-control">
+                                                <div th:each="ac :${access}">
+                                                    <option th:value="${ac.id}" th:text="${ac.accessnumber}"></option>
+                                                </div>
+                                            </select>
+                                        </div>
                                         <div id="sandbox" class="form-group">
                                             <label for="receivedate">Receive Date</label>
                                             <input id="receivedate" name="receivedate" class="form-control" type="date"/>
@@ -258,22 +285,6 @@
                                         <div class="form-group">
                                             <label for="notes">Note</label>
                                             <input id="notes" name="notes" class="form-control" type="text" required="true" placeholder="Note"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="accesscard">Access Card</label>
-                                            <select name="accesscard" id="accesscard" class="form-control">
-                                                <div th:each="ac :${access}">
-                                                    <option th:value="${ac.id}" th:text="${ac.accessnumber}"></option>
-                                                </div>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="employee">Employee</label>
-                                            <select name="employee" id="employee" class="form-control">
-                                                <div th:each="epl :${empl}">
-                                                    <option th:value="${epl.id}" th:text="${epl.name}"></option>
-                                                </div>
-                                            </select>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -298,16 +309,12 @@
                                     <div class="modal-body">
                                         <input id="id" name="id" class="form-control" type="hidden"/>
                                         <div class="form-group">
-                                            <label for="receive">Receive Date</label>
-                                            <input id="receivedate" name="receivedate" class="form-control" type="date"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="returndate">Return Date</label>
-                                            <input id="returndate" name="returndate" class="form-control" type="date"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="notes">Note</label>
-                                            <input id="notes" name="notes" class="form-control" type="text"/>
+                                            <label for="employee">Employee</label>
+                                            <select name="employee" id="employee" class="form-control">
+                                                <div th:each="epl :${empl}">
+                                                    <option th:value="${epl.id}" th:text="${epl.name}"></option>
+                                                </div>
+                                            </select>
                                         </div>
                                         <div class="form-group">
                                             <label for="accesscard">Access Card</label>
@@ -318,12 +325,16 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <label for="employee">Employee</label>
-                                            <select name="employee" id="employee" class="form-control">
-                                                <div th:each="epl :${empl}">
-                                                    <option th:value="${epl.id}" th:text="${epl.name}"></option>
-                                                </div>
-                                            </select>
+                                            <label for="receive">Receive Date</label>
+                                            <input id="receivedate" name="receivedate" class="form-control" type="date"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="returndate">Return Date</label>
+                                            <input id="returndate" name="returndate" class="form-control" type="date"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="notes">Note</label>
+                                            <input id="notes" name="notes" class="form-control" type="text"/>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -357,19 +368,23 @@
             $('#mdlEdit').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget);
                 var id = button.data('getid');
+                var employee = button.data('getemployee');
+                var accesscard = button.data('getaccess');
                 var receivedate = button.data('getreceivedate');
                 var returndate = button.data('getreturndate');
                 var notes = button.data('getnote');
-                var accesscard = button.data('getaccess');
-                var employee = button.data('getemployee');
+                
+                
 
                 var modal = $(this);
                 modal.find('#id').val(id);
+                modal.find('#employee').val(employee);
+                modal.find('#accesscard').val(accesscard);
                 modal.find('#receivedate').val(receivedate);
                 modal.find('#returndate').val(returndate);
                 modal.find('#notes').val(notes);
-                modal.find('#accesscard').val(accesscard);
-                modal.find('#employee').val(employee);
+                
+                
 
             });
         </script>
