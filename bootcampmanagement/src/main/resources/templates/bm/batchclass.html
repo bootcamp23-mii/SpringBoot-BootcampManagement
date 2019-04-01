@@ -179,7 +179,7 @@ and open the template in the editor.
                                 Add Data
                             </a>
                         </p>
-                        <div class="row" style="padding: 10px 0 10px 0">
+<!--                        <div class="row" style="padding: 10px 0 10px 0">
                             <div class="col-md-2">
                                 <label> Batch  </label>
                                 <select name="selBatch" id="selBatch">
@@ -198,11 +198,12 @@ and open the template in the editor.
                                     </div>
                                 </select>
                             </div>
-                        </div>
+                        </div>-->
 
                         <table class="table table-striped" id="batchclassTable" cellspacing='30' align ='center' border="1">
                             <thead class="active">
                                 <tr>
+                                    <th>No</th>
                                     <th>Batch Class</th>
                                     <th>Period</th>
                                     <th>Trainer</th>
@@ -211,7 +212,8 @@ and open the template in the editor.
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr th:each="data :${dataBatchclass}">
+                                <tr th:each="data,r :${dataBatchclass}">
+                                    <td th:text="${r.count}"></td>
                                     <td th:text="${data.batch.id+' '+data.classes.id}"></td>
                                     <td th:text="${#dates.format(data.batch.startdate,'MMMM')+'-'+#dates.format(data.batch.enddate,'MMMM')}"></td>
                                     <td th:text="${data.trainer.id+'-'+data.trainer.name}"></td>
