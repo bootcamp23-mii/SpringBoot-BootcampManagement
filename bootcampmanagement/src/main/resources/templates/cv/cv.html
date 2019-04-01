@@ -433,8 +433,8 @@
                                     <td th:text="${we.name}"></td>
                                     <td th:text="${we.position}"></td>
                                     <td th:text="${we.description}"></td>
-                                    <td th:text="${#dates.format(we.startdate, 'dd-MMM-yyyy')}"></td>
-                                    <td th:text="${#dates.format(we.enddate, 'dd-MMM-yyyy')}"></td>
+                                    <td th:text="${#dates.format(we.startdate, 'dd MMMM yyyy')}"></td>
+                                    <td th:text="${#dates.format(we.enddate, 'dd MMMM yyyy')}"></td>
                                     <td>
                                         <button data-target="#modalEditwork" data-toggle="modal" th:data-getid="${we.id}"
                                                 th:data-workname="${we.name}" 
@@ -1123,40 +1123,40 @@
                 $('#cvWorkexperience').DataTable();
             });
         </script>
-        <script  type="text/javascript">
-            var slider = document.getElementById("langscorea");
-            var output = document.getElementById("resultSliderlangscorea");
-            output.innerHTML = slider.value;
+        <script>
+            var sliders = document.getElementById("langscorea");
+            var outputs = document.getElementById("resultSliderlangscorea");
+            outputs.innerHTML = sliders.value;
 
-            slider.oninput = function () {
-                output.innerHTML = this.value;
+            sliders.oninput = function () {
+                outputs.innerHTML = this.value;
             };
         </script>
-        <script  type="text/javascript">
-            var slider = document.getElementById("langscoree");
-            var output = document.getElementById("resultSliderlangscoree");
-            output.innerHTML = slider.value;
+        <script>
+            var slider1 = document.getElementById("langscoree");
+            var output1 = document.getElementById("resultSliderlangscoree");
+            output1.innerHTML = slider1.value;
 
-            slider.oninput = function () {
-                output.innerHTML = this.value;
+            slider1.oninput = function () {
+                output1.innerHTML = this.value;
             };
         </script>
-        <script  type="text/javascript">
-            var slider = document.getElementById("skillscorea");
-            var output = document.getElementById("resultSliderskillscorea");
-            output.innerHTML = slider.value;
+        <script>
+            var sliderr = document.getElementById("skillscorea");
+            var outputt = document.getElementById("resultSliderskillscorea");
+            outputt.innerHTML = sliderr.value;
 
-            slider.oninput = function () {
-                output.innerHTML = this.value;
+            sliderr.oninput = function () {
+                outputt.innerHTML = this.value;
             };
         </script>
-        <script  type="text/javascript">
-            var slider = document.getElementById("skillscoree");
-            var output = document.getElementById("resultSliderskillscoree");
-            output.innerHTML = slider.value;
+        <script>
+            var slider2 = document.getElementById("skillscoree");
+            var output2 = document.getElementById("resultSliderskillscoree");
+            output2.innerHTML = slider2.value;
 
-            slider.oninput = function () {
-                output.innerHTML = this.value;
+            slider2.oninput = function () {
+                output2.innerHTML = this.value;
             };
         </script>
     </body>
