@@ -24,16 +24,21 @@
 
             function Popup(data)
             {
-            var mywindow = window.open('', 'my div', 'height=1024,width=768');
-            mywindow.document.write('<html><head><title>Print CV</title>');
-            /*optional stylesheet*/
-            mywindow.document.write('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" type="text/css" />');
-            mywindow.document.write('</head><body >');
-            mywindow.document.write(data);
-            mywindow.document.write('</body></html>');
-            mywindow.print();
-            mywindow.close();
-            return true;
+                var mywindow = window.open('', 'my div', 'height=1500,width=1200');
+                mywindow.document.write('<html><head><title>Print CV</title>');
+                
+                /*optional stylesheet*/ 
+                mywindow.document.write('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" type="text/css" />');
+                mywindow.document.write('<link rel="icon" th:href="@{../dist/img/favicons/favicon.ico}" />');
+                
+                mywindow.document.write('</head><body >');
+                mywindow.document.write(data);
+                mywindow.document.write('</body></html>');
+
+                mywindow.print();
+                mywindow.close();
+
+                return true;
             }
 
         </script>
@@ -46,8 +51,8 @@
                 <div class="col-md-12">
 
                     <h5>Print Report</h5>
-
-                    <input type="button" value="Print" onclick="PrintElem('#printpage')" />
+                    
+                    <input type="button" value="Print" onclick="PrintElem('#printpage', '#printimage')" />
 
                     <!--<button type="button" class="button badge-info" onclick="printJS({ printable: 'printJS-form', type: 'html', header: 'PrintJS - Form Element Selection' })">  Print </button>-->
 
@@ -88,11 +93,8 @@
                 <div class="col-md-2">
                     <div class="panel-group">
                         <div class="panel panel-default">
-
                             <div class="panel-body" >
-
-
-                                <div class="image">
+                                <div class="image" id="printimage">
                                     <img class="image" th:src="@{/lihatFile}" alt="[photo]" width="130px" height="160px"/>
                                 </div>
                             </div>
@@ -260,6 +262,7 @@
     </body>
     <!-- Bootstrap core JavaScript
             ================================================== -->
+    
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <!--<script>window.jQuery || document.write('<script src="dist/js/jquery-slim.min.js"><\/script>')</script>-->
