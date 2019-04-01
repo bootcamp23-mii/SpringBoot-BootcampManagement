@@ -13,31 +13,27 @@
 
         <link rel="stylesheet"
               href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-        
+
         <!--Custom div for print purpose-->
         <script type="text/javascript">
 
             function PrintElem(elem)
             {
-                Popup($(elem).html());
+            Popup($(elem).html());
             }
 
             function Popup(data)
             {
-                var mywindow = window.open('', 'my div', 'height=1024,width=768');
-                mywindow.document.write('<html><head><title>Print CV</title>');
-                
-                /*optional stylesheet*/ 
-                mywindow.document.write('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" type="text/css" />');
-                
-                mywindow.document.write('</head><body >');
-                mywindow.document.write(data);
-                mywindow.document.write('</body></html>');
-
-                mywindow.print();
-                mywindow.close();
-
-                return true;
+            var mywindow = window.open('', 'my div', 'height=1024,width=768');
+            mywindow.document.write('<html><head><title>Print CV</title>');
+            /*optional stylesheet*/
+            mywindow.document.write('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" type="text/css" />');
+            mywindow.document.write('</head><body >');
+            mywindow.document.write(data);
+            mywindow.document.write('</body></html>');
+            mywindow.print();
+            mywindow.close();
+            return true;
             }
 
         </script>
@@ -50,7 +46,7 @@
                 <div class="col-md-12">
 
                     <h5>Print Report</h5>
-                    
+
                     <input type="button" value="Print" onclick="PrintElem('#printpage')" />
 
                     <!--<button type="button" class="button badge-info" onclick="printJS({ printable: 'printJS-form', type: 'html', header: 'PrintJS - Form Element Selection' })">  Print </button>-->
@@ -59,7 +55,7 @@
             </div>
         </div>
         <div class="container" id="printpage">
-            
+
             <div class="row">
                 <div class="col-md-10">
                     <div class="panel-group">
@@ -105,7 +101,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-6" id="edupan">
                     <div class="panel-group">
                         <div class="panel panel-default">
                             <div class="panel-heading">Education</div>
@@ -127,7 +123,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6" id="achpan">
                     <div class="panel-group">
                         <div class="panel panel-default">
                             <div class="panel-heading">Achievement</div>
@@ -147,7 +143,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-12" id="orgpan">
                     <div class="panel-group">
                         <div class="panel panel-default">
                             <div class="panel-heading">Organization</div>
@@ -171,7 +167,7 @@
             </div>
 
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-6" id="skillpan">
                     <div class="panel-group">
                         <div class="panel panel-default">
                             <div class="panel-heading">Technical Qualification</div>
@@ -191,7 +187,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6" id="langpan">
                     <div class="panel-group">
                         <div class="panel panel-default">
                             <div class="panel-heading">Language</div>
@@ -212,7 +208,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" id="certpan">
                 <div class="col-md-12">
                     <div class="panel-group">
                         <div class="panel panel-default">
@@ -220,7 +216,7 @@
                             <div class="panel-body">
                                 <table id="example" class="table table-hover" style="width: 100%">
 
-                                    <tbody id="tblData">
+                                    <tbody id="tblDatacert">
                                         <tr th:each="cs,ite : ${certificateData}">
                                             <td th:text="${ite.count}"></td>
                                             <td th:text="${#dates.format(cs.certificateDate,'dd-MMM-yyyy')}"></td>
@@ -235,7 +231,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" id="workpan">
                 <div class="col-md-12">
                     <div class="panel-group">
                         <div class="panel panel-default">
@@ -243,7 +239,7 @@
                             <div class="panel-body">
                                 <table id="example" class="table table-hover" style="width: 100%">
 
-                                    <tbody id="tblData">
+                                    <tbody id="tblDatawork">
                                         <tr th:each="we,itrw : ${workexperienceData}">
                                             <td th:text="${itrw.count}"></td>
                                             <td th:text="${we.name}"></td>
@@ -278,20 +274,80 @@
     <!--PrintJS-->
     <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
     <!--<script src="https://printjs-4de6.kxcdn.com/print.min.css"></script>-->
-    <script>
-                        feather.replace();
-                        function Print()
-                        {
-                            var mywindow = window.open('', 'new div', 'height=400,width=600');
-                            mywindow.document.write('<html><head><title></title>');
-                            mywindow.document.write('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" type="text/css" />');
-                            mywindow.document.write('</head><body >');
-                            mywindow.document.write(data);
-                            mywindow.document.write('</body></html>');
-                            winprint.document.close();
-                            winprint.focus();
+    <script th:inline="javascript">
+                        $(document).ready(function () {
+                        var value = [[${workexperienceData}]];
+                        if (value != null) {
+                        $("#workpan").hide();
                         }
-                        ;
+                        });
+    </script>
+    <script>
+       
+        $(document).ready(function () {
+        var value2 = [[${certificateData}]];
+        if (value2 != null) {
+        $("#certpan").hide();
+        }
+        });
+        
     </script>
 
+    
+    <script>
+       
+        $(document).ready(function () {
+        var value3 = [[${organizationData}]];
+        if (value3 != null) {
+        $("#orgpan").hide();
+        }
+        });
+        
+    </script>
+    
+    
+    <script>
+       
+        $(document).ready(function () {
+        var value4 = [[${education}]];
+        if (value4 != null) {
+        $("#edupan").hide();
+        }
+        });
+        
+    </script>
+    
+    <script>
+       
+        $(document).ready(function () {
+        var value5 = [[${languageData}]];
+        if (value5 != null) {
+        $("#langpan").hide();
+        }
+        });
+        
+    </script>
+        
+    <script>
+       
+        $(document).ready(function () {
+        var value6 = [[${achievementData}]];
+        if (value6 != null) {
+        $("#achpan").hide();
+        }
+        });
+        
+    </script>
+    
+    <script>
+       
+        $(document).ready(function () {
+        var value7 = [[${skillData}]];
+        if (value7 != null) {
+        $("#skillpan").hide();
+        }
+        });
+        
+    </script>    
+        
 </html>
