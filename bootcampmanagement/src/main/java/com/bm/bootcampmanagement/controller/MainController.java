@@ -117,9 +117,9 @@ public class MainController {
     private DBFileStorageService DBFileStorageService;
 
     @GetMapping("/")
-    public String index() {
-        if (true) {
-
+    public String index(HttpServletRequest request) {
+        if (request.getSession().getAttribute("login")!=null) {
+            return "redirect:/dashboard";
         }
         return "index";
     }

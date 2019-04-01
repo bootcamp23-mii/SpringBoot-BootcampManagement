@@ -225,7 +225,7 @@ and open the template in the editor.
                                             <input type="hidden" id="errorbankId" name="errorbankId" value=""/>
                                             <input type="hidden" id="errorbankSubmiter" name="errorbankSubmiter" value=""/>
                                             <label data-error="wrong" data-success="true">Class</label>
-                                            <select name="errorbankClassesId" id="errorbankClassesId" class="form-control">
+                                            <select name="errorbankClassesId" id="errorbankClassesId" class="form-control" required>
                                                 <div th:each="data :${dataClasses}">
                                                     <option th:value="${data.id}" th:text="${data.id}"></option>
                                                 </div>

@@ -245,7 +245,7 @@ and open the template in the editor.
                                         <div class="modal-body">
                                             <input type="hidden" id="idEvaluation" name="idEvaluation" value=""/>
                                             <label data-error="wrong" data-success="true">Employee</label>
-                                            <select name="idEmployee" id="idEmployee" class="form-control">
+                                            <select name="idEmployee" id="idEmployee" class="form-control" required>
                                                 <div th:each="data :${dataParticipant}">
                                                     <option th:value="${data.id}" th:text="${data.employee.name}"></option>
                                                 </div>
@@ -253,19 +253,19 @@ and open the template in the editor.
                                             <label data-error="wrong" data-success="true">Evaluation Date</label>
                                             <input type="date" class="form-control" id="evaluationDate" name="evaluationDate">
                                             <label data-error="wrong" data-success="true">Lesson</label>
-                                            <select name="idlesson" id="idlesson" class="form-control">
+                                            <select name="idlesson" id="idlesson" class="form-control" required>
                                                 <div th:each="data :${dataLesson}">
                                                     <option th:value="${data.id}" th:text="${data.classes.id+' - '+data.name}"></option>
                                                 </div>
                                             </select>
                                             <label data-error="wrong" data-success="true">Topic</label>
-                                            <select name="idTopic" id="idTopic" class="form-control">
+                                            <select name="idTopic" id="idTopic" class="form-control" required>
                                                 <div th:each="data :${dataTopic}">
                                                     <option th:value="${data.id}" th:text="${data.name}"></option>
                                                 </div>
                                             </select>
                                             <label data-error="wrong" data-success="true">Is Daily</label>
-                                            <select name="isDaily" id="isDaily" class="form-control">
+                                            <select name="isDaily" id="isDaily" class="form-control" required>
                                                 <option value="0">no</option>
                                                 <option value="1">yes</option>
                                             </select>

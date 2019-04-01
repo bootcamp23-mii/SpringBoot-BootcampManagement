@@ -230,13 +230,13 @@ and open the template in the editor.
                                         </div>
                                         <div class="modal-body">
                                             <label data-error="wrong" data-success="true">Employee</label>
-                                            <select name="employeeId" id="employeeId" class="form-control">
+                                            <select name="employeeId" id="employeeId" class="form-control" required>
                                                 <div th:each="data :${dataEmployee}">
                                                     <option th:value="${data.id}" th:text="${data.name}" th:selected="true"></option>
                                                 </div>
                                             </select>
                                             <label data-error="wrong" data-success="true">Batch Class</label>
-                                            <select name="batchclassId" id="batchclassId" class="form-control">
+                                            <select name="batchclassId" id="batchclassId" class="form-control" required>
                                                 <div th:each="data :${dataBatchclass}">
                                                     <option th:value="${data.id}" th:text="${data.batch.id+' '+data.classes.id}" selected></option>
                                                 </div>
