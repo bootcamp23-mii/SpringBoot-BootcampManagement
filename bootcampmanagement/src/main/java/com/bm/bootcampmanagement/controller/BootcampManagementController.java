@@ -71,6 +71,9 @@ public class BootcampManagementController {
     //participant
     @GetMapping("/bm/participant")
     public String participant(Model model, HttpServletRequest request) {
+        if (request.getSession().getAttribute("login") == null) {
+            return "index";
+        }
         List<Employee> empList = (List<Employee>) daoEmp.findAll();
         List<Batchclass> batchclassList = (List<Batchclass>) daoBC.findAll();
         List<Employee> dataEmployee = new ArrayList<>();
@@ -140,6 +143,9 @@ public class BootcampManagementController {
     //evaluation
     @GetMapping("/bm/evaluation")
     public String evaluation(Model model, HttpServletRequest request) {
+        if (request.getSession().getAttribute("login") == null) {
+            return "index";
+        }
         String trainer = request.getSession().getAttribute("login").toString();
         List<Participant> participantList = (List<Participant>) daoP.findAll();
         List<Evaluation> evaluationList = (List<Evaluation>) daoE.findAll();
@@ -215,6 +221,9 @@ public class BootcampManagementController {
     //score
     @GetMapping("/bm/score")
     public String score(Model model, HttpServletRequest request) {
+        if (request.getSession().getAttribute("login") == null) {
+            return "index";
+        }
         List<Score> scoreList = (List<Score>) daoS.findAll();
         List<Score> dataScore = new ArrayList<>();
         for (int i = 0; i < scoreList.size(); i++) {
@@ -269,6 +278,9 @@ public class BootcampManagementController {
     //batchclass
     @GetMapping("/bm/batchclass")
     public String batchclass(Model model) {
+        if (request.getSession().getAttribute("login") == null) {
+            return "index";
+        }
         List<Employee> empList = (List<Employee>) daoEmp.findAll();
         List<Participant> participantList = (List<Participant>) daoP.findAll();
         List<Batchclass> batchclassList = (List<Batchclass>) daoBC.findAll();
@@ -315,7 +327,7 @@ public class BootcampManagementController {
                                     && daoB.findById(idBatch).getStartdate().getTime() > data.getBatch().getStartdate().getTime())
                                     || (daoB.findById(idBatch).getEnddate().getTime() < data.getBatch().getEnddate().getTime()
                                     && daoB.findById(idBatch).getEnddate().getTime() > data.getBatch().getStartdate().getTime()))
-                                    &&!data.getId().equalsIgnoreCase(tempId)) {
+                                    && !data.getId().equalsIgnoreCase(tempId)) {
                                 isAvaiable = false;
                             }
                         }
@@ -361,6 +373,9 @@ public class BootcampManagementController {
     //errorbank
     @GetMapping("/bm/errorbank")
     public String errorbank(Model model) {
+        if (request.getSession().getAttribute("login") == null) {
+            return "index";
+        }
         List<Errorbank> errorList = (List<Errorbank>) daoEB.findAll();
         List<Errorbank> dataErrorbank = new ArrayList<>();
         for (Errorbank data : errorList) {
@@ -410,6 +425,9 @@ public class BootcampManagementController {
     //report
     @GetMapping("/bm/report")
     public String report(Model model, HttpServletRequest request) {
+        if (request.getSession().getAttribute("login") == null) {
+            return "index";
+        }
         List<Participant> participantList = (List<Participant>) daoP.findAll();
         List<Participant> dataParticipant = new ArrayList<>();
         boolean selectBatchclass = request.getParameter("bc") != null;

@@ -111,6 +111,9 @@ public class CVController {
     
     @GetMapping("/cv/cv")
     public String cv(Model m, HttpServletRequest request) {
+        if (request.getSession().getAttribute("login")==null) {
+            return "index";
+        }
         String empID = request.getSession().getAttribute("login").toString();
         m.addAttribute("achievementData", daoEmp.findById(empID).getAchievementList());
         m.addAttribute("achievementsave", new Achievement());
@@ -159,6 +162,9 @@ public class CVController {
 //    /cv depan dihapus
     @GetMapping("/cv/lihatcv")
     public String lihatcv(Model mod, HttpServletRequest request) {
+        if (request.getSession().getAttribute("login")==null) {
+            return "index";
+        }
         String empID = request.getSession().getAttribute("login").toString();
         mod.addAttribute("employee", daoEmp.findById(empID));
         mod.addAttribute("education", daoEmp.findById(empID).getEducationhistoryList());
@@ -173,6 +179,9 @@ public class CVController {
 
     @GetMapping("/cv/mycv")
     public String mycv(Model mod, HttpServletRequest request) {
+        if (request.getSession().getAttribute("login")==null) {
+            return "index";
+        }
         String empID = request.getSession().getAttribute("login").toString();
         mod.addAttribute("employee", daoEmp.findById(empID));
         mod.addAttribute("education", daoEmp.findById(empID).getEducationhistoryList());

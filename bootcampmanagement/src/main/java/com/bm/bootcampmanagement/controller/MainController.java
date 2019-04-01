@@ -118,7 +118,7 @@ public class MainController {
 
     @GetMapping("/")
     public String index(HttpServletRequest request) {
-        if (request.getSession().getAttribute("login")!=null) {
+        if (request.getSession().getAttribute("login") != null) {
             return "redirect:/dashboard";
         }
         return "index";
@@ -149,13 +149,13 @@ public class MainController {
                 }
                 Iterable<Employeerole> employeeroles = daoEmpR.findAll();
                 for (Employeerole data : employeeroles) {
-                    if (data.getEmployee().getId().equalsIgnoreCase(id) && data.getRole().getId().equalsIgnoreCase("CVR0")&&data.getIsdeleted().toString().equalsIgnoreCase("0")) {
+                    if (data.getEmployee().getId().equalsIgnoreCase(id) && data.getRole().getId().equalsIgnoreCase("CVR0") && data.getIsdeleted().toString().equalsIgnoreCase("0")) {
                         request.getSession().setAttribute("isadmin", id);
                     }
                 }
                 Iterable<Participant> participants = daoP.findAll();
                 for (Participant data : participants) {
-                    if (data.getId().equalsIgnoreCase(id)&&data.getIsdeleted().toString().equalsIgnoreCase("0")) {
+                    if (data.getId().equalsIgnoreCase(id) && data.getIsdeleted().toString().equalsIgnoreCase("0")) {
                         request.getSession().setAttribute("isparticipant", id);
                     }
                 }
@@ -175,6 +175,9 @@ public class MainController {
 
     @GetMapping("/dashboard")
     public String dashboard(Model m, HttpServletRequest request) {
+        if (request.getSession().getAttribute("login") == null) {
+            return "index";
+        }
         String id = request.getSession().getAttribute("login").toString();
         m.addAttribute("employee", daoEmp.findById(id));
         return "/dashboard";
@@ -202,7 +205,10 @@ public class MainController {
     }
 
     @GetMapping("/registration")
-    public String registration(Model model) {
+    public String registration(Model model, HttpServletRequest request) {
+        if (request.getSession().getAttribute("login") == null) {
+            return "index";
+        }
         model.addAttribute("dataReligion", daoR.findAll());
         model.addAttribute("dataVillage", daoLV.findAll());
         model.addAttribute("dataDistrict", daoLD.findAll());
@@ -229,7 +235,7 @@ public class MainController {
             daoEmp.save(emp);
             for (Employee data : daoEmp.findAll()) {
                 if (data.getEmail().equalsIgnoreCase(email)) {
-                    mailService.sendMail(email, "New Account for " + data.getName(), "Congratulation...", data.getId() +" - "+ data.getName(), "Your account has been created. Please activation your account by click this link.", "http://localhost:8083/activation?id=" + data.getId() + "&ca=" + data.getPassword());
+                    mailService.sendMail(email, "New Account for " + data.getName(), "Congratulation...", data.getId() + " - " + data.getName(), "Your account has been created. Please activation your account by click this link.", "http://localhost:8083/activation?id=" + data.getId() + "&ca=" + data.getPassword());
                 }
             }
         } catch (Exception ex) {
@@ -297,7 +303,10 @@ public class MainController {
 
     //    Employee Role
     @GetMapping("/employeerole")
-    public String employeerole(Model m) {
+    public String employeerole(Model m, HttpServletRequest request) {
+        if (request.getSession().getAttribute("login") == null) {
+            return "index";
+        }
         List<Employeerole> empRoleList = (List<Employeerole>) daoEmpR.findAll();
         List<Employeerole> dataEmployeeRole = new ArrayList<>();
         for (int i = 0; i < empRoleList.size(); i++) {
@@ -322,6 +331,9 @@ public class MainController {
             @RequestParam("startdate") String erstartdate,
             @RequestParam("enddate") String erenddate,
             HttpServletRequest request) {
+        if (request.getSession().getAttribute("login") == null) {
+            return "index";
+        }
         try {
             String tempId = "-";
             if (!id.equalsIgnoreCase("")) {
