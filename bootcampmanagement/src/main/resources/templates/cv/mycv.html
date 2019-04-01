@@ -13,22 +13,53 @@
 
         <link rel="stylesheet"
               href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        
+        <!--Custom div for print purpose-->
+        <script type="text/javascript">
+
+            function PrintElem(elem)
+            {
+                Popup($(elem).html());
+            }
+
+            function Popup(data)
+            {
+                var mywindow = window.open('', 'my div', 'height=1024,width=768');
+                mywindow.document.write('<html><head><title>Print CV</title>');
+                
+                /*optional stylesheet*/ 
+                mywindow.document.write('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" type="text/css" />');
+                
+                mywindow.document.write('</head><body >');
+                mywindow.document.write(data);
+                mywindow.document.write('</body></html>');
+
+                mywindow.print();
+                mywindow.close();
+
+                return true;
+            }
+
+        </script>
     </head>
 
     <body>
 
-        <div class="container" id="printJS-form">
+        <div class="container">
             <div class="row">
                 <div class="col-md-12">
 
                     <h5>Print Report</h5>
+                    
+                    <input type="button" value="Print" onclick="PrintElem('#printpage')" />
 
-                    <button type="button" class="button badge-info" onclick="printJS({ printable: 'printJS-form', type: 'html', header: 'PrintJS - Form Element Selection' })">
-                        Print
-                    </button>
+                    <!--<button type="button" class="button badge-info" onclick="printJS({ printable: 'printJS-form', type: 'html', header: 'PrintJS - Form Element Selection' })">  Print </button>-->
 
                 </div>
             </div>
+        </div>
+        <div class="container" id="printpage">
+            
             <div class="row">
                 <div class="col-md-10">
                     <div class="panel-group">
