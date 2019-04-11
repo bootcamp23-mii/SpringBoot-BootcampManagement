@@ -230,7 +230,7 @@
                                                         </div>-->
                             <div class="form-group">
                                 <select name="dprovince" id="dprovince" class="form-control">
-                                    <option value="x">Select Province</option>
+                                    <option value="" disabled selected>Province</option>
                                     <div th:each="datapr :${dataProvince}">
                                         <option th:value="${datapr.id}" th:text="${datapr.name}"></option>
                                     </div>
@@ -239,7 +239,7 @@
 
                             <div class="form-group">
                                 <select name="ddistrict" id="ddistrict" class="form-control">
-                                    <option value="y" class="x">Select District</option>
+                                    <option value="" disabled selected>District</option>
                                     <div th:each="datase :${dataDistrict}">
                                         <option th:value="${datase.id}" th:text="${datase.name}" th:class="${datase.province.id}"></option>
                                     </div>
@@ -248,7 +248,7 @@
 
                             <div class="form-group">
                                 <select name="dsubdistrict" id="dsubdistrict" class="form-control">
-                                    <option value="z" class="y">Select Subdistrict</option>
+                                    <option value="" disabled selected>Subdistrict</option>
                                     <div th:each="datasd :${dataSubDistrict}">
                                         <option th:value="${datasd.id}" th:text="${datasd.name}" th:class="${datasd.district.id}"></option>
                                     </div>
@@ -257,7 +257,7 @@
 
                             <div class="form-group">
                                 <select name="village" id="village" class="form-control">
-                                    <option value="u" class="z">Select Village</option>
+                                    <option value="" disabled selected>Village</option>
                                     <div th:each="datavl :${dataVillage}">
                                         <option th:value="${datavl.id}" th:text="${datavl.name}" th:class="${datavl.subdistrict.id}"></option>
                                     </div>
@@ -278,7 +278,7 @@
 
                                 <div class="form-group">
                                     <select name="hprovince" id="hprovince" class="form-control">
-                                        <option value="x">Select Province</option>
+                                        <option value="" disabled selected>Province</option>
                                         <div th:each="datapr :${dataProvince}">
                                             <option th:value="${datapr.id}" th:text="${datapr.name}"></option>
                                         </div>
@@ -286,8 +286,8 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <select name="hiringlocation" id="hiringlocation" class="form-control">
-                                        <option value="y" class="x">Select District</option>
+                                    <select name="hiringlocation" id="hiringlocation" class="form-control" placeholder="">
+                                        <option value="" disabled selected>District</option>
                                         <div th:each="datase :${dataDistrict}">
                                             <option th:value="${datase.id}" th:text="${datase.name}" th:class="${datase.province.id}"></option>
                                         </div>
@@ -332,11 +332,11 @@
         <script th:src="@{dist/js/bootstrap.min.js}"></script>
 
         <!-- Icons -->
-        <script src="http://code.jquery.com/jquery-2.0.3.min.js" data-semver="2.0.3" data-require="jquery"></script>
+         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script type="text/javascript" src="http://www.appelsiini.net/projects/chained/jquery.chained.js?v=0.9.10"></script>
 
         <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
-        <script type="text/javascript">
+        <script>
             $(function () {
                 $("#ddistrict").chained("#dprovince");
                 $("#dsubdistrict").chained("#ddistrict");
@@ -344,6 +344,7 @@
                 $("#hiringlocation").chained("#hprovince");
             });
         </script>
+
         <script>
             feather.replace();
         </script>
