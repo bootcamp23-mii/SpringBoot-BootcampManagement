@@ -39,6 +39,8 @@ import com.bm.bootcampmanagement.services.el.EmployeeLockerDAO;
 import com.bm.bootcampmanagement.services.el.IdCardDAO;
 import com.bm.bootcampmanagement.services.el.LockerDAO;
 import com.bm.bootcampmanagement.services.el.PlacementDAO;
+import com.bm.bootcampmanagement.services.el.ProvinceDAO;
+import com.bm.bootcampmanagement.services.el.SubDistrictDAO;
 import com.bm.bootcampmanagement.services.el.VillageDAO;
 import java.io.IOException;
 import java.text.ParseException;
@@ -104,6 +106,10 @@ public class MainController {
     VillageDAO daoLV;
     @Autowired
     DistrictDAO daoLD;
+    @Autowired
+    SubDistrictDAO daoSD;
+    @Autowired
+    ProvinceDAO daoPr;
 
     @Autowired
     private static Logger log = LoggerFactory.getLogger(MainController.class);
@@ -169,7 +175,10 @@ public class MainController {
     @PostMapping("/register")
 //    @ResponseBody
     public String register(Model model) {
-
+        model.addAttribute("dataProvince", daoPr.findAll());
+        model.addAttribute("dataDistrict", daoLD.findAll());
+        model.addAttribute("dataSubDistrict", daoSD.findAll());
+        model.addAttribute("dataVillage", daoLV.findAll());
         return "redirect:/register";
     }
 
@@ -209,6 +218,8 @@ public class MainController {
         if (request.getSession().getAttribute("login") == null) {
             return "index";
         }
+        model.addAttribute("dataProvince", daoPr.findAll());
+        model.addAttribute("dataSubDistrict", daoSD.findAll());
         model.addAttribute("dataReligion", daoR.findAll());
         model.addAttribute("dataVillage", daoLV.findAll());
         model.addAttribute("dataDistrict", daoLD.findAll());

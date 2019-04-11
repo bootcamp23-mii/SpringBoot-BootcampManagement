@@ -220,11 +220,46 @@
                                 <label>Address</label>
                                 <input type="text" class="form-control" id="address" name="address" value="" required="true" placeholder="Address"/>
                             </div>
+                            <!--                            <div class="form-group">
+                                                            <label>Village</label>
+                                                            <select name="village" id="village" class="form-control">
+                                                                <div th:each="data :${dataVillage}">
+                                                                    <option th:value="${data.id}" th:text="${data.name}"></option>
+                                                                </div>
+                                                            </select>
+                                                        </div>-->
                             <div class="form-group">
-                                <label>Village</label>
+                                <select name="dprovince" id="dprovince" class="form-control">
+                                    <option value="x">Select Province</option>
+                                    <div th:each="datapr :${dataProvince}">
+                                        <option th:value="${datapr.id}" th:text="${datapr.name}"></option>
+                                    </div>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <select name="ddistrict" id="ddistrict" class="form-control">
+                                    <option value="y" class="x">Select District</option>
+                                    <div th:each="datase :${dataDistrict}">
+                                        <option th:value="${datase.id}" th:text="${datase.name}" th:class="${datase.province.id}"></option>
+                                    </div>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <select name="dsubdistrict" id="dsubdistrict" class="form-control">
+                                    <option value="z" class="y">Select Subdistrict</option>
+                                    <div th:each="datasd :${dataSubDistrict}">
+                                        <option th:value="${datasd.id}" th:text="${datasd.name}" th:class="${datasd.district.id}"></option>
+                                    </div>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
                                 <select name="village" id="village" class="form-control">
-                                    <div th:each="data :${dataVillage}">
-                                        <option th:value="${data.id}" th:text="${data.name}"></option>
+                                    <option value="u" class="z">Select Village</option>
+                                    <div th:each="datavl :${dataVillage}">
+                                        <option th:value="${datavl.id}" th:text="${datavl.name}" th:class="${datavl.subdistrict.id}"></option>
                                     </div>
                                 </select>
                             </div>
@@ -234,12 +269,49 @@
                             </div>
                             <div class="form-group">
                                 <label>Hiring Location</label>
-                                <select name="hiringlocation" id="hiringlocation" class="form-control">
-                                    <div th:each="data :${dataDistrict}">
-                                        <option th:value="${data.id}" th:text="${data.name}"></option>
-                                    </div>
-                                </select>
+                                <!--                                <select name="hiringlocation" id="hiringlocation" class="form-control">
+                                                                    <div th:each="data :${dataDistrict}">
+                                                                        <option th:value="${data.id}" th:text="${data.name}"></option>
+                                                                    </div>
+                                                                </select>-->
+
+
+                                <div class="form-group">
+                                    <select name="hprovince" id="hprovince" class="form-control">
+                                        <option value="x">Select Province</option>
+                                        <div th:each="datapr :${dataProvince}">
+                                            <option th:value="${datapr.id}" th:text="${datapr.name}"></option>
+                                        </div>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <select name="hiringlocation" id="hiringlocation" class="form-control">
+                                        <option value="y" class="x">Select District</option>
+                                        <div th:each="datase :${dataDistrict}">
+                                            <option th:value="${datase.id}" th:text="${datase.name}" th:class="${datase.province.id}"></option>
+                                        </div>
+                                    </select>
+                                </div>
                             </div>
+                            <!--                            <div class="form-group">
+                                                            <select name="dsubdistrict" id="dsubdistrict" class="form-control">
+                                                                <option>Select Subdistrict</option>
+                                                                <div th:each="datasd :${dataSubDistrict}">
+                                                                    <option th:value="${datasd.id}" th:text="${datasd.name}" th:class="${datasd.district.id}"></option>
+                                                                </div>
+                                                            </select>
+                                                        </div>
+                            
+                                                        <div class="form-group">
+                                                            <select name="dvillage" id="dvillage" class="form-control">
+                                                                <option>Select Village</option>
+                                                                <div th:each="datavl :${dataVillage}">
+                                                                    <option th:value="${datavl.id}" th:text="${datavl.name}" th:class="${datavl.subdistrict.id}"></option>
+                                                                </div>
+                                                            </select>
+                                                        </div>-->
+
                             <button type="submit" class="btn btn-info" value="submit">Save</button>
                         </div>
                     </form>
@@ -254,14 +326,24 @@
         <!-- Bootstrap core JavaScript
         ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
         <!--    <script>window.jQuery || document.write('<script th:src="@{dist/js/jquery-slim.min.js}"><\/script>')</script>-->
         <script th:src="@{dist/js/popper.min.js}"></script>
         <script th:src="@{dist/js/bootstrap.min.js}"></script>
 
         <!-- Icons -->
-        <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+        <script src="http://code.jquery.com/jquery-2.0.3.min.js" data-semver="2.0.3" data-require="jquery"></script>
+        <script type="text/javascript" src="http://www.appelsiini.net/projects/chained/jquery.chained.js?v=0.9.10"></script>
 
+        <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+        <script type="text/javascript">
+            $(function () {
+                $("#ddistrict").chained("#dprovince");
+                $("#dsubdistrict").chained("#ddistrict");
+                $("#village").chained("#dsubdistrict");
+                $("#hiringlocation").chained("#hprovince");
+            });
+        </script>
         <script>
             feather.replace();
         </script>

@@ -12,6 +12,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -31,8 +33,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Village.findAll", query = "SELECT v FROM Village v")
     , @NamedQuery(name = "Village.findById", query = "SELECT v FROM Village v WHERE v.id = :id")
-    , @NamedQuery(name = "Village.findByName", query = "SELECT v FROM Village v WHERE v.name = :name")
-    , @NamedQuery(name = "Village.findBySubdistrict", query = "SELECT v FROM Village v WHERE v.subdistrict = :subdistrict")})
+    , @NamedQuery(name = "Village.findByName", query = "SELECT v FROM Village v WHERE v.name = :name") })
 public class Village implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -47,9 +48,9 @@ public class Village implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "name")
     private String name;
-    @Size(max = 10)
-    @Column(name = "subdistrict")
-    private String subdistrict;
+    @JoinColumn(name = "subdistrict", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Subdistrict subdistrict;
     @OneToMany(mappedBy = "village", fetch = FetchType.LAZY)
     private List<University> universityList;
     @OneToMany(mappedBy = "village", fetch = FetchType.LAZY)
@@ -85,11 +86,11 @@ public class Village implements Serializable {
         this.name = name;
     }
 
-    public String getSubdistrict() {
+    public Subdistrict getSubdistrict() {
         return subdistrict;
     }
 
-    public void setSubdistrict(String subdistrict) {
+    public void setSubdistrict(Subdistrict subdistrict) {
         this.subdistrict = subdistrict;
     }
 
